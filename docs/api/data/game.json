@@ -1,0 +1,406 @@
+{
+  "apiVersion": "1",
+  "swaggerVersion": "1.2",
+  "basePath": "http:\/\/localhost:8081",
+  "resourcePath": "\/game",
+  "apis": [
+    {
+      "path": "\/game\/model",
+      "operations": [
+        {
+          "httpMethod": "GET",
+          "summary": "Fetch the model",
+          "notes": "This (like the other rest api calls in this section) requires a valid game cookie to be set. It returns a json model of the current game set in your coookie.",
+          "responseClass": "ClientModel",
+          "nickname": "login",
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "path": "\/game\/reset",
+      "operations": [
+        {
+          "httpMethod": "POST",
+          "summary": "Resets the current game",
+          "notes": "This method is for resetting the current game (ie the moves played). For the default game, this resets it to after the initial placement. This returns the JSON for the model after it's been reset.",
+          "responseClass": "The 'Client Model' JSON (identical to game/model)",
+          "nickname": "login",
+          "parameters": []
+        }
+      ]
+    },{
+      "path": "\/game\/commands",
+      "operations": [
+        {
+          "httpMethod": "POST",
+		      "summary": "Send a list of moves to the server",
+		      "notes": "This method should be used for testing; you can apply a list of commands to the current game using this call. This is under \/game and not \/moves because this method should never be called from within the client model. You have to send a json list of objects - you can use the output from game\/commands. It returns the JSON for the model after the commands have been applied.",
+          "responseClass": "Return's the 'Client Model' JSON (identical to game/model)",
+          "nickname": "listCommands",
+          "consumes":"application/json",
+          "parameters": [
+          {
+            "description": "The moves to be sent",
+            "paramType": "body",
+            "required": true,
+            "dataType": "List of Commands"
+            }
+          ]
+        },
+         {
+          "httpMethod": "GET",
+          "summary": "Fetch a list of commands for your current game.",
+          "notes": "This gets all the commands that were applied to the initial client model. These will be removed if you call \/game\/reset",
+          "responseClass": "List of Commands",
+          "nickname": "login",
+          "parameters": []
+        }
+      ]
+    },{
+      "path": "\/game\/addAI",
+      "operations": [
+        {
+          "httpMethod": "POST",
+	      "summary": "Add an AI player to your game",
+	      "notes": "You'll need to have your cookie set for this game in order for this game to work.",
+          "responseClass": "",
+          "nickname": "addAI",
+          "consumes":"application/json",
+          "parameters": [
+          {
+            "description": "The name of the AI player to add",
+            "paramType": "form",
+            "required": true,
+            "dataType": "AI Name"
+            }
+          ]
+        }
+      ]
+    },{
+      "path": "\/game\/listAI",
+      "operations": [
+        {
+          "httpMethod": "GET",
+	        "summary": "Get a list of the AI players",
+          "responseClass": "",
+          "nickname": "addAI"
+        }
+      ]
+    }
+  ],
+  "models": {
+    "ResourceList": {
+      "id": "ResourceList",
+      "required":["brick","ore","sheep","wheat","wood"],
+      "properties": {
+        "brick": {
+          "type": "integer"
+        },
+        "ore": {
+          "type": "integer"
+        },
+        "sheep": {
+          "type": "integer"
+        },
+        "wheat": {
+          "type": "integer"
+        },
+        "wood": {
+          "type": "integer"
+        }
+      }
+    },
+    "MessageLine": {
+      "id": "MessageLine",
+      "required":["message","source"],
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        }
+      }
+    },
+    "MessageList": {
+      "id": "MessageList",
+      "properties": {
+        "lines": {
+          "type": "array",
+          "required":true,
+          "items": {
+            "$ref": "MessageLine"
+          }
+        }
+      }
+    },
+    "ClientModel": {
+      "id": "ClientModel",
+      "description": "The top level client model",
+      "required":["bank","biggestArmy","chat","log","longestRoad","map","players","turnTracker","winner"],
+      "properties": {
+        "bank": {
+          "type": "ResourceList"
+        },
+        "biggestArmy": {
+          "description": "The orderID of the player with the largest army. -1 for nobody.",
+          "type": "number"
+        },
+        "chat": {
+          "type": "MessageList"
+        },
+        "log": {
+          "type": "MessageList"
+        },
+        "longestRoad": {
+          "description" : "The orderID of the player with the longest road.",
+          "type": "number"
+        },
+        "map": {
+          "type": "Map"
+        },
+        "players": {
+          "type": "array",
+          "items": {
+            "$ref": "Player"
+          }
+        },
+        "turnTracker": {
+          "description":"This tracks who's turn it is and what action's being done.",
+          "type": "TurnTracker"
+        },
+        "winner": {
+          "description": "This is -1 when nobody's won yet. When they have, it's their order index [0-3]",
+          "type": "number",
+          "required": true
+        }
+      }
+    },
+    "TurnTracker": {
+      "id": "TurnTracker",
+      "required": ["currentTurn","status"],
+      "properties": {
+        "currentTurn": {
+          "description":"Who's turn it is (0-3)",
+          "type": "number",
+          "required": false
+        },
+        "status": {
+          "description":"What's happening now",
+          "type": "string",
+          "required": false
+        }
+      }
+    },
+    "HexGrid": {
+      "id": "HexGrid",
+      "required": ["hexes","offsets","radius","x0","y0"],
+      "properties": {
+        "hexes": {
+          "description" : "A 2D array of hexes.",
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "Hex"
+            }
+          }
+        },
+        "offsets": {
+          "description" : "The number of omitted cells in the hexgrid by row.",
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "radius": {
+          "description" : "The distance between the center any corner of the grid. (if a grid is 5 wide, the radius is 2)",
+          "type": "number"
+        },
+        "x0": {
+          "description" : "The column in the array that (0,y) refers to.",
+          "type": "number"
+        },
+        "y0": {
+          "description" : "The row in the array that (x,0) refers to.",
+          "type": "number"
+        }
+      }
+    },
+    "DevCardList": {
+      "type": "object",
+      "id": "DevCardList",
+      "required": ["monopoly","monument","roadBuilding","soldier","yearOfPlenty"],
+      "properties": {
+        "monopoly": {
+          "type": "number"
+        },
+        "monument": {
+          "type": "number"
+        },
+        "roadBuilding": {
+          "type": "number"
+        },
+        "soldier": {
+          "type": "number"
+        },
+        "yearOfPlenty": {
+          "type": "number"
+        }
+      }
+    },
+    "Player": {
+      "id": "Player",
+      "required": ["MAX_GAME_POINTS","cities","color","discarded","largestArmy","longestRoad","monuments","name","newDevCards","oldDevCards","orderNumber","playedDevCard","playerID","resources"],
+      "properties": {
+        "MAX_GAME_POINTS": {
+          "type": "number"
+        },
+        "cities": {
+          "type": "number"
+        },
+        "color": {
+          "type": "string"
+        },
+        "discarded": {
+          "type": "boolean"
+        },
+        "largestArmy": {
+          "type": "boolean"
+        },
+        "longestRoad": {
+          "type": "boolean"
+        },
+        "monuments": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "newDevCards": {
+          "type": "DevCardList"
+        },
+        "oldDevCards": {
+          "type": "DevCardList"
+        },
+        "orderNumber": {
+          "type": "number"
+        },
+        "playedDevCard": {
+          "type": "boolean"
+        },
+        "playerID": {
+          "type": "number"
+        },
+        "resources": {
+          "type": "ResourceList"
+        }
+      },
+      "roads": {
+        "type": "number"
+      },
+      "settlements": {
+        "type": "number"
+      },
+      "soldiers": {
+        "type": "number"
+      },
+      "victoryPoints": {
+        "type": "number"
+      }
+    },
+    "Map": {
+      "id": "Map",
+      "required":["hexGrid","lastRobber","numbers","ports","radius","robber"],
+      "properties": {
+        "hexGrid": {
+          "type": "HexGrid"
+        },
+        "lastRobber": {
+          "type": "HexLocation"
+        },
+        "numbers": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "HexLocation"
+            }
+          }
+        },
+        "ports": {
+          "type": "array",
+          "items": {
+            "$ref": "Port"
+          }
+        },
+        "radius": {
+          "type": "number"
+        },
+        "robber": {
+          "type": "HexLocation"
+        }
+      }
+    },
+    "Port": {
+      "id": "Port",
+      "required":["inputResource","location","orientation","ratio","validVertex1","validVertex2"],
+      "properties": {
+        "inputResource": {
+          "type": "string"
+        },
+        "location": {
+          "type": "HexLocation"
+        },
+        "orientation": {
+          "type": "string"
+        },
+        "ratio": {
+          "type": "number"
+        },
+        "validVertex1": {
+          "type": "VertexLocation"
+        },
+        "validVertex2": {
+          "type": "VertexLocation"
+        }
+      }
+    },
+    "HexLocation": {
+      "id": "HexLocation",
+      "required":["x","y"],
+      "properties": {
+        "x": {
+          "type": "string"
+        },
+        "y": {
+          "type": "string"
+        }
+      }
+    },
+    "VertexLocation": {
+      "id": "VertexLocation",
+      "required":["x","y","direction"],
+      "properties": {
+        "x": {
+          "type": "integer"
+        },
+        "y": {
+          "type": "integer"
+        },
+        "direction": {
+          "type": "string",
+          "enum": [
+            "SW",
+            "SE",
+            "E",
+            "NE",
+            "NW",
+            "W"
+          ]
+        }
+      }
+    }
+  }
+}

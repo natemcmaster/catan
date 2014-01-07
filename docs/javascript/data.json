@@ -1,0 +1,4504 @@
+{
+    "project": {},
+    "files": {
+        "gameplay\\js\\comms_box\\CommController.js": {
+            "name": "gameplay\\js\\comms_box\\CommController.js",
+            "modules": {
+                "catan.comm": 1
+            },
+            "classes": {
+                "comm.BaseCommController": 1,
+                "comm.LogController": 1,
+                "comm.ChatController": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "comm": 1
+            }
+        },
+        "gameplay\\js\\comms_box\\CommView.js": {
+            "name": "gameplay\\js\\comms_box\\CommView.js",
+            "modules": {},
+            "classes": {
+                "comm.BaseCommView": 1,
+                "comm.LogView": 1,
+                "comm.ChatView": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "comm": 1
+            }
+        },
+        "gameplay\\js\\development_cards\\BuyOverlay.js": {
+            "name": "gameplay\\js\\development_cards\\BuyOverlay.js",
+            "modules": {
+                "catan.devCards": 1
+            },
+            "classes": {
+                "devCards.BuyCardView": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "devCards": 1
+            }
+        },
+        "gameplay\\js\\development_cards\\CardController.js": {
+            "name": "gameplay\\js\\development_cards\\CardController.js",
+            "modules": {},
+            "classes": {
+                "devCards.DevCardController": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "devCards": 1
+            }
+        },
+        "gameplay\\js\\development_cards\\CardOverlay.js": {
+            "name": "gameplay\\js\\development_cards\\CardOverlay.js",
+            "modules": {},
+            "classes": {
+                "devCards.DevCardView": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "devCards": 1
+            }
+        },
+        "gameplay\\js\\discard\\DiscardController.js": {
+            "name": "gameplay\\js\\discard\\DiscardController.js",
+            "modules": {
+                "catan.discard": 1
+            },
+            "classes": {
+                "discard.DiscardController": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "discard": 1
+            }
+        },
+        "gameplay\\js\\discard\\DiscardOverlay.js": {
+            "name": "gameplay\\js\\discard\\DiscardOverlay.js",
+            "modules": {},
+            "classes": {
+                "discard.DiscardView": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "discard": 1
+            }
+        },
+        "gameplay\\js\\map\\MapController.js": {
+            "name": "gameplay\\js\\map\\MapController.js",
+            "modules": {
+                "catan.map": 1
+            },
+            "classes": {
+                "map.MapController": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "map": 1
+            }
+        },
+        "gameplay\\js\\map\\MapOverlay.js": {
+            "name": "gameplay\\js\\map\\MapOverlay.js",
+            "modules": {},
+            "classes": {
+                "map.MapOverlay": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "map": 1
+            }
+        },
+        "gameplay\\js\\map\\MapView.js": {
+            "name": "gameplay\\js\\map\\MapView.js",
+            "modules": {},
+            "classes": {
+                "map.Point": 1,
+                "map.VertexLoc": 1,
+                "map.EdgeLoc": 1,
+                "map.PortLoc": 1,
+                "map.MapView": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "map": 1
+            }
+        },
+        "gameplay\\js\\map\\RobberOverlay.js": {
+            "name": "gameplay\\js\\map\\RobberOverlay.js",
+            "modules": {},
+            "classes": {
+                "map.RobberOverlay": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "map": 1
+            }
+        },
+        "gameplay\\js\\model\\clientmodel.js": {
+            "name": "gameplay\\js\\model\\clientmodel.js",
+            "modules": {
+                "catan.models": 1
+            },
+            "classes": {
+                "models.ClientModel": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "models": 1
+            }
+        },
+        "gameplay\\js\\model\\hexgrid.js": {
+            "name": "gameplay\\js\\model\\hexgrid.js",
+            "modules": {
+                "catan.models.hexgrid": 1
+            },
+            "classes": {
+                "hexgrid.BasicHex": 1,
+                "hexgrid.EdgeDirection": 1,
+                "hexgrid.HexDirection": 1,
+                "hexgrid.VertexDirection": 1,
+                "hexgrid.HexGrid": 1,
+                "hexgrid.HexLocation": 1,
+                "hexgrid.BaseLocation": 1,
+                "hexgrid.EdgeLocation": 1,
+                "hexgrid.VertexLocation": 1,
+                "hexgrid.BaseContainer": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "hexgrid": 1
+            }
+        },
+        "gameplay\\js\\model\\hexgrid_impl.js": {
+            "name": "gameplay\\js\\model\\hexgrid_impl.js",
+            "modules": {},
+            "classes": {
+                "hexgrid.CatanEdge": 1,
+                "hexgrid.CatanVertex": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "gameplay\\js\\points\\GameOverOverlay.js": {
+            "name": "gameplay\\js\\points\\GameOverOverlay.js",
+            "modules": {},
+            "classes": {
+                "misc.GameFinishedView": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "misc": 1
+            }
+        },
+        "gameplay\\js\\points\\PointsController.js": {
+            "name": "gameplay\\js\\points\\PointsController.js",
+            "modules": {
+                "catan.points": 1
+            },
+            "classes": {
+                "points.PointController": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "points": 1
+            }
+        },
+        "gameplay\\js\\points\\PointsView.js": {
+            "name": "gameplay\\js\\points\\PointsView.js",
+            "modules": {},
+            "classes": {
+                "points.PointView": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "points": 1
+            }
+        },
+        "gameplay\\js\\resources\\ResourcesController.js": {
+            "name": "gameplay\\js\\resources\\ResourcesController.js",
+            "modules": {
+                "catan.resources": 1
+            },
+            "classes": {
+                "resources.ResourceBarController": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "resources": 1
+            }
+        },
+        "gameplay\\js\\resources\\ResourcesView.js": {
+            "name": "gameplay\\js\\resources\\ResourcesView.js",
+            "modules": {},
+            "classes": {
+                "resources.ResourceBarView": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "resources": 1
+            }
+        },
+        "gameplay\\js\\roll\\RollController.js": {
+            "name": "gameplay\\js\\roll\\RollController.js",
+            "modules": {
+                "catan.roll": 1
+            },
+            "classes": {
+                "roll.RollController": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "roll": 1
+            }
+        },
+        "gameplay\\js\\roll\\RollOverlay.js": {
+            "name": "gameplay\\js\\roll\\RollOverlay.js",
+            "modules": {},
+            "classes": {
+                "roll.RollView": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "roll": 1
+            }
+        },
+        "gameplay\\js\\roll\\RollResultOverlay.js": {
+            "name": "gameplay\\js\\roll\\RollResultOverlay.js",
+            "modules": {},
+            "classes": {
+                "roll.RollResultView": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "roll": 1
+            }
+        },
+        "gameplay\\js\\setup\\SetupRoundController.js": {
+            "name": "gameplay\\js\\setup\\SetupRoundController.js",
+            "modules": {
+                "catan.setup": 1
+            },
+            "classes": {
+                "setup.SetupRoundController": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "setup": 1
+            }
+        },
+        "gameplay\\js\\trading\\AcceptOverlay.js": {
+            "name": "gameplay\\js\\trading\\AcceptOverlay.js",
+            "modules": {
+                "catan.trade.domestic": 1
+            },
+            "classes": {
+                "domestic.AcceptView": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "domestic": 1
+            }
+        },
+        "gameplay\\js\\trading\\DomesticController.js": {
+            "name": "gameplay\\js\\trading\\DomesticController.js",
+            "modules": {},
+            "classes": {
+                "domestic.DomesticController": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "domestic": 1
+            }
+        },
+        "gameplay\\js\\trading\\DomesticView.js": {
+            "name": "gameplay\\js\\trading\\DomesticView.js",
+            "modules": {},
+            "classes": {
+                "domestic.DomesticView": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "domestic": 1
+            }
+        },
+        "gameplay\\js\\trading\\MaritimeController.js": {
+            "name": "gameplay\\js\\trading\\MaritimeController.js",
+            "modules": {
+                "catan.trade.maritime": 1
+            },
+            "classes": {
+                "maritime.MaritimeController": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "maritime": 1
+            }
+        },
+        "gameplay\\js\\trading\\MaritimeView.js": {
+            "name": "gameplay\\js\\trading\\MaritimeView.js",
+            "modules": {},
+            "classes": {
+                "maritime.MaritimeView": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "maritime": 1
+            }
+        },
+        "gameplay\\js\\turn_tracker\\TrackerController.js": {
+            "name": "gameplay\\js\\turn_tracker\\TrackerController.js",
+            "modules": {
+                "catan.turntracker": 1
+            },
+            "classes": {
+                "turntracker.TurnTrackerController": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "turntracker": 1
+            }
+        },
+        "gameplay\\js\\turn_tracker\\TrackerView.js": {
+            "name": "gameplay\\js\\turn_tracker\\TrackerView.js",
+            "modules": {},
+            "classes": {
+                "turntracker.TurnTrackerView": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "turntracker": 1
+            }
+        },
+        "gameplay\\js\\view_basics\\BasicController.js": {
+            "name": "gameplay\\js\\view_basics\\BasicController.js",
+            "modules": {
+                "catan.misc": 1
+            },
+            "classes": {
+                "misc.BaseController": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "misc": 1
+            }
+        },
+        "gameplay\\js\\view_basics\\BasicOverlay.js": {
+            "name": "gameplay\\js\\view_basics\\BasicOverlay.js",
+            "modules": {},
+            "classes": {
+                "misc.BaseOverlay": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "misc": 1
+            }
+        },
+        "gameplay\\js\\view_basics\\WaitOverlay.js": {
+            "name": "gameplay\\js\\view_basics\\WaitOverlay.js",
+            "modules": {},
+            "classes": {
+                "misc.WaitOverlay": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "misc": 1
+            }
+        },
+        "gameplay\\js\\Core.js": {
+            "name": "gameplay\\js\\Core.js",
+            "modules": {
+                "core": 1
+            },
+            "classes": {
+                "core.Core": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "core": 1
+            }
+        },
+        "gameplay\\js\\StudentDefinitions.js": {
+            "name": "gameplay\\js\\StudentDefinitions.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {
+        "catan.comm": {
+            "name": "catan.comm",
+            "submodules": {},
+            "classes": {
+                "comm.BaseCommController": 1,
+                "comm.LogController": 1,
+                "comm.ChatController": 1,
+                "comm.BaseCommView": 1,
+                "comm.LogView": 1,
+                "comm.ChatView": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "comm": 1
+            },
+            "tag": "module",
+            "file": "gameplay\\js\\comms_box\\CommView.js",
+            "line": 125,
+            "description": "This is the namespace for the communication classes (log and chat)"
+        },
+        "catan.devCards": {
+            "name": "catan.devCards",
+            "submodules": {},
+            "classes": {
+                "devCards.BuyCardView": 1,
+                "devCards.DevCardController": 1,
+                "devCards.DevCardView": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "devCards": 1
+            },
+            "tag": "module",
+            "file": "gameplay\\js\\development_cards\\CardOverlay.js",
+            "line": 25,
+            "description": "This is the namespace for development cards"
+        },
+        "catan.discard": {
+            "name": "catan.discard",
+            "submodules": {},
+            "classes": {
+                "discard.DiscardController": 1,
+                "discard.DiscardView": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "discard": 1
+            },
+            "tag": "module",
+            "file": "gameplay\\js\\discard\\DiscardOverlay.js",
+            "line": 18,
+            "description": "This is the namespace for discarding cards"
+        },
+        "catan.map": {
+            "name": "catan.map",
+            "submodules": {},
+            "classes": {
+                "map.MapController": 1,
+                "map.MapOverlay": 1,
+                "map.Point": 1,
+                "map.VertexLoc": 1,
+                "map.EdgeLoc": 1,
+                "map.PortLoc": 1,
+                "map.MapView": 1,
+                "map.RobberOverlay": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "map": 1
+            },
+            "tag": "module",
+            "file": "gameplay\\js\\map\\RobberOverlay.js",
+            "line": 22,
+            "description": "This this contains interfaces used by the map and robber views"
+        },
+        "catan.models": {
+            "name": "catan.models",
+            "submodules": {
+                "catan.models.hexgrid": 1
+            },
+            "classes": {
+                "models.ClientModel": 1,
+                "hexgrid.BasicHex": 1,
+                "hexgrid.EdgeDirection": 1,
+                "hexgrid.HexDirection": 1,
+                "hexgrid.VertexDirection": 1,
+                "hexgrid.HexGrid": 1,
+                "hexgrid.HexLocation": 1,
+                "hexgrid.BaseLocation": 1,
+                "hexgrid.EdgeLocation": 1,
+                "hexgrid.VertexLocation": 1,
+                "hexgrid.BaseContainer": 1,
+                "hexgrid.CatanEdge": 1,
+                "hexgrid.CatanVertex": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "models": 1,
+                "hexgrid": 1
+            },
+            "tag": "module",
+            "file": "gameplay\\js\\model\\hexgrid_impl.js",
+            "line": 65,
+            "description": "This module contains the top-level client model class"
+        },
+        "catan.models.hexgrid": {
+            "name": "catan.models.hexgrid",
+            "submodules": {},
+            "classes": {
+                "hexgrid.BasicHex": 1,
+                "hexgrid.EdgeDirection": 1,
+                "hexgrid.HexDirection": 1,
+                "hexgrid.VertexDirection": 1,
+                "hexgrid.HexGrid": 1,
+                "hexgrid.HexLocation": 1,
+                "hexgrid.BaseLocation": 1,
+                "hexgrid.EdgeLocation": 1,
+                "hexgrid.VertexLocation": 1,
+                "hexgrid.BaseContainer": 1
+            },
+            "fors": {},
+            "is_submodule": 1,
+            "namespaces": {
+                "hexgrid": 1
+            },
+            "module": "catan.models",
+            "namespace": "",
+            "file": "gameplay\\js\\model\\hexgrid.js",
+            "line": 661,
+            "description": "This is the namespace for what abstracts the hex grid interface:\n\tlocations, the hex grid, directions and a basic hex class"
+        },
+        "catan.misc": {
+            "name": "catan.misc",
+            "submodules": {},
+            "classes": {
+                "misc.GameFinishedView": 1,
+                "misc.BaseController": 1,
+                "misc.BaseOverlay": 1,
+                "misc.WaitOverlay": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "misc": 1
+            },
+            "tag": "module",
+            "file": "gameplay\\js\\view_basics\\WaitOverlay.js",
+            "line": 15,
+            "description": "This is the namespace to hold the base classes"
+        },
+        "catan.points": {
+            "name": "catan.points",
+            "submodules": {},
+            "classes": {
+                "points.PointController": 1,
+                "points.PointView": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "points": 1
+            },
+            "tag": "module",
+            "file": "gameplay\\js\\points\\PointsView.js",
+            "line": 18,
+            "description": "This is the namespace for point display"
+        },
+        "catan.resources": {
+            "name": "catan.resources",
+            "submodules": {},
+            "classes": {
+                "resources.ResourceBarController": 1,
+                "resources.ResourceBarView": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "resources": 1
+            },
+            "tag": "module",
+            "file": "gameplay\\js\\resources\\ResourcesView.js",
+            "line": 24,
+            "description": "This is the namespace for resources"
+        },
+        "catan.roll": {
+            "name": "catan.roll",
+            "submodules": {},
+            "classes": {
+                "roll.RollController": 1,
+                "roll.RollView": 1,
+                "roll.RollResultView": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "roll": 1
+            },
+            "tag": "module",
+            "file": "gameplay\\js\\roll\\RollResultOverlay.js",
+            "line": 22,
+            "description": "This is the namespace the rolling interface"
+        },
+        "catan.setup": {
+            "name": "catan.setup",
+            "submodules": {},
+            "classes": {
+                "setup.SetupRoundController": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "setup": 1
+            },
+            "tag": "module",
+            "file": "gameplay\\js\\setup\\SetupRoundController.js",
+            "line": 14,
+            "description": "This is the namespace for the intitial game round"
+        },
+        "catan.trade": {
+            "name": "catan.trade",
+            "submodules": {
+                "catan.trade.domestic": 1,
+                "catan.trade.maritime": 1
+            },
+            "classes": {
+                "domestic.AcceptView": 1,
+                "domestic.DomesticController": 1,
+                "domestic.DomesticView": 1,
+                "maritime.MaritimeController": 1,
+                "maritime.MaritimeView": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "domestic": 1,
+                "maritime": 1
+            },
+            "file": "gameplay\\js\\trading\\MaritimeView.js",
+            "line": 25
+        },
+        "catan.trade.domestic": {
+            "name": "catan.trade.domestic",
+            "submodules": {},
+            "classes": {
+                "domestic.AcceptView": 1,
+                "domestic.DomesticController": 1,
+                "domestic.DomesticView": 1
+            },
+            "fors": {},
+            "is_submodule": 1,
+            "namespaces": {
+                "domestic": 1
+            },
+            "module": "catan.trade",
+            "namespace": "",
+            "file": "gameplay\\js\\trading\\DomesticView.js",
+            "line": 25,
+            "description": "This is the namespace for domestic trading"
+        },
+        "catan.trade.maritime": {
+            "name": "catan.trade.maritime",
+            "submodules": {},
+            "classes": {
+                "maritime.MaritimeController": 1,
+                "maritime.MaritimeView": 1
+            },
+            "fors": {},
+            "is_submodule": 1,
+            "namespaces": {
+                "maritime": 1
+            },
+            "module": "catan.trade",
+            "namespace": "",
+            "file": "gameplay\\js\\trading\\MaritimeView.js",
+            "line": 25,
+            "description": "This is the namespace for maritime trading"
+        },
+        "catan.turntracker": {
+            "name": "catan.turntracker",
+            "submodules": {},
+            "classes": {
+                "turntracker.TurnTrackerController": 1,
+                "turntracker.TurnTrackerView": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "turntracker": 1
+            },
+            "tag": "module",
+            "file": "gameplay\\js\\turn_tracker\\TrackerView.js",
+            "line": 19,
+            "description": "The namespace for the turn tracker"
+        },
+        "core": {
+            "name": "core",
+            "submodules": {},
+            "classes": {
+                "core.Core": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "core": 1
+            },
+            "tag": "module",
+            "file": "gameplay\\js\\Core.js",
+            "line": 8,
+            "description": "These functions are in the default namespace and provide core functionality such as inheritance."
+        }
+    },
+    "classes": {
+        "comm.BaseCommController": {
+            "name": "comm.BaseCommController",
+            "shortname": "BaseCommController",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.comm",
+            "namespace": "comm",
+            "file": "gameplay\\js\\comms_box\\CommController.js",
+            "line": 14,
+            "description": "The basic controller class to extend from",
+            "extends": "misc.BaseController",
+            "params": [
+                {
+                    "name": "logView",
+                    "description": "The view for this object to control.",
+                    "type": "comm.BaseCommView"
+                },
+                {
+                    "name": "model",
+                    "description": "The view for this object to control.",
+                    "type": "models.ClientModel"
+                }
+            ],
+            "is_constructor": 1
+        },
+        "comm.LogController": {
+            "name": "comm.LogController",
+            "shortname": "LogController",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.comm",
+            "namespace": "comm",
+            "file": "gameplay\\js\\comms_box\\CommController.js",
+            "line": 40,
+            "description": "The controller class for the Log",
+            "is_constructor": 1,
+            "extends": "comm.BaseCommController",
+            "params": [
+                {
+                    "name": "logView",
+                    "description": "The view for this object to control.",
+                    "type": "comm.LogView"
+                },
+                {
+                    "name": "model",
+                    "description": "The view for this object to control.",
+                    "type": "models.ClientModel"
+                }
+            ]
+        },
+        "comm.ChatController": {
+            "name": "comm.ChatController",
+            "shortname": "ChatController",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.comm",
+            "namespace": "comm",
+            "file": "gameplay\\js\\comms_box\\CommController.js",
+            "line": 61,
+            "description": "The controller class for the Chat",
+            "is_constructor": 1,
+            "extends": "comm.BaseCommController",
+            "params": [
+                {
+                    "name": "logView",
+                    "description": "The view for this object to control.",
+                    "type": "comm.ChatView"
+                },
+                {
+                    "name": "model",
+                    "description": "The view for this object to control.",
+                    "type": "comm.ClientModel"
+                }
+            ]
+        },
+        "comm.BaseCommView": {
+            "name": "comm.BaseCommView",
+            "shortname": "BaseCommView",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.comm",
+            "namespace": "comm",
+            "file": "gameplay\\js\\comms_box\\CommView.js",
+            "line": 17,
+            "description": "The superclass for displaying a message history.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "params",
+                    "description": "an object with information for displaying the view",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "parentElem",
+                            "description": "the HTMLDivElement where the view resides",
+                            "type": "HTMLDivElement"
+                        },
+                        {
+                            "name": "message",
+                            "description": "a message to display when no output has been generated",
+                            "type": "String"
+                        },
+                        {
+                            "name": "id",
+                            "description": "the prefix id for the element",
+                            "type": "String"
+                        },
+                        {
+                            "name": "haveInput",
+                            "description": "whether the view is display-only or not",
+                            "type": "Boolean"
+                        }
+                    ]
+                }
+            ]
+        },
+        "comm.LogView": {
+            "name": "comm.LogView",
+            "shortname": "LogView",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.comm",
+            "namespace": "comm",
+            "file": "gameplay\\js\\comms_box\\CommView.js",
+            "line": 101,
+            "description": "The view class for the Log",
+            "is_constructor": 1,
+            "extends": "comm.BaseCommView"
+        },
+        "comm.ChatView": {
+            "name": "comm.ChatView",
+            "shortname": "ChatView",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.comm",
+            "namespace": "comm",
+            "file": "gameplay\\js\\comms_box\\CommView.js",
+            "line": 125,
+            "description": "The view class for the Chat",
+            "is_constructor": 1,
+            "extends": "comm.BaseCommView"
+        },
+        "devCards.BuyCardView": {
+            "name": "devCards.BuyCardView",
+            "shortname": "BuyCardView",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.devCards",
+            "namespace": "devCards",
+            "file": "gameplay\\js\\development_cards\\BuyOverlay.js",
+            "line": 16,
+            "description": "A view for buying a development card.  Inherits from misc.BaseOverlay.",
+            "is_constructor": 1,
+            "extends": "misc.BaseOverlay"
+        },
+        "devCards.DevCardController": {
+            "name": "devCards.DevCardController",
+            "shortname": "DevCardController",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.devCards",
+            "namespace": "devCards",
+            "file": "gameplay\\js\\development_cards\\CardController.js",
+            "line": 21,
+            "is_constructor": 1,
+            "extends": "misc.BaseController",
+            "params": [
+                {
+                    "name": "view",
+                    "description": "",
+                    "type": "devCards.DevCardView"
+                },
+                {
+                    "name": "buyView",
+                    "description": "",
+                    "type": "devCards.BuyCardView"
+                },
+                {
+                    "name": "clientModel",
+                    "description": "",
+                    "type": "models.ClientModel"
+                },
+                {
+                    "name": "soldierAction",
+                    "description": "",
+                    "type": "Function"
+                },
+                {
+                    "name": "roadAction",
+                    "description": "",
+                    "type": "Function"
+                }
+            ]
+        },
+        "devCards.DevCardView": {
+            "name": "devCards.DevCardView",
+            "shortname": "DevCardView",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.devCards",
+            "namespace": "devCards",
+            "file": "gameplay\\js\\development_cards\\CardOverlay.js",
+            "line": 25,
+            "description": "A view for viewing and using development cards.  Inherits from misc.BaseOverlay.",
+            "extends": "misc.BaseOverlay",
+            "is_constructor": 1
+        },
+        "discard.DiscardController": {
+            "name": "discard.DiscardController",
+            "shortname": "DiscardController",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.discard",
+            "namespace": "discard",
+            "file": "gameplay\\js\\discard\\DiscardController.js",
+            "line": 17,
+            "is_constructor": 1,
+            "extends": "misc.BaseController",
+            "params": [
+                {
+                    "name": "view",
+                    "description": "",
+                    "type": "discard.DiscardView"
+                },
+                {
+                    "name": "waitingView",
+                    "description": "",
+                    "type": "misc.WaitOverlay"
+                },
+                {
+                    "name": "clientModel",
+                    "description": "",
+                    "type": "models.ClientModel"
+                }
+            ]
+        },
+        "discard.DiscardView": {
+            "name": "discard.DiscardView",
+            "shortname": "DiscardView",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.discard",
+            "namespace": "discard",
+            "file": "gameplay\\js\\discard\\DiscardOverlay.js",
+            "line": 18,
+            "description": "A view for discarding cards.  Inherits from misc.BaseOverlay.",
+            "is_constructor": 1,
+            "extends": "misc.BaseOverlay"
+        },
+        "map.MapController": {
+            "name": "map.MapController",
+            "shortname": "MapController",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.map",
+            "namespace": "map",
+            "file": "gameplay\\js\\map\\MapController.js",
+            "line": 29,
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "view",
+                    "description": "- The initialized map view",
+                    "type": "MapView"
+                },
+                {
+                    "name": "modalView",
+                    "description": "- The overlay to use for placing items on the board.",
+                    "type": "MapOverlay"
+                },
+                {
+                    "name": "model",
+                    "description": "- The client model",
+                    "type": "ClientModel"
+                },
+                {
+                    "name": "robView",
+                    "description": "- The robber overlay to be used when the robber is being placed.  This is undefined for the setup round.",
+                    "type": "RobberOverlay"
+                }
+            ]
+        },
+        "map.MapOverlay": {
+            "name": "map.MapOverlay",
+            "shortname": "MapOverlay",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.map",
+            "namespace": "map",
+            "file": "gameplay\\js\\map\\MapOverlay.js",
+            "line": 99,
+            "description": "This class implements the map pop-out overlay view that lets the user place a piece on the map.  \n\t\tIt inherits from misc.BaseOverlay.\nIt calls the \"cancelMove\" function on the controller it belongs to.",
+            "is_constructor": 1
+        },
+        "map.Point": {
+            "name": "map.Point",
+            "shortname": "Point",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.map",
+            "namespace": "map",
+            "file": "gameplay\\js\\map\\MapView.js",
+            "line": 167,
+            "description": "An (x,y) point",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "x",
+                    "description": "The x location",
+                    "type": "Integer"
+                },
+                {
+                    "name": "y",
+                    "description": "The y location",
+                    "type": "Integer"
+                }
+            ]
+        },
+        "map.VertexLoc": {
+            "name": "map.VertexLoc",
+            "shortname": "VertexLoc",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.map",
+            "namespace": "map",
+            "file": "gameplay\\js\\map\\MapView.js",
+            "line": 193,
+            "description": "This class defines a vertex location as used by view. It uses a unique representation for each vertex",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "x",
+                    "description": "The x location of the hex the vertex is on",
+                    "type": "Integer"
+                },
+                {
+                    "name": "y",
+                    "description": "The y location of the hex the vertex is on",
+                    "type": "Integer"
+                },
+                {
+                    "name": "dir",
+                    "description": "The location of the vertex on the hex (allowed values:\"E\", \"W\")",
+                    "type": "String"
+                }
+            ]
+        },
+        "map.EdgeLoc": {
+            "name": "map.EdgeLoc",
+            "shortname": "EdgeLoc",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.map",
+            "namespace": "map",
+            "file": "gameplay\\js\\map\\MapView.js",
+            "line": 227,
+            "description": "This class defines an edge location as used by view. It uses a unique representation for each edge",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "x",
+                    "description": "The x location of the hex the edge is on",
+                    "type": "Integer"
+                },
+                {
+                    "name": "y",
+                    "description": "The y location of the hex the edge is on",
+                    "type": "Integer"
+                },
+                {
+                    "name": "dir",
+                    "description": "The location of the edge on the hex (allowed values:\"SW\", \"S\", \"SE\")",
+                    "type": "String"
+                }
+            ]
+        },
+        "map.PortLoc": {
+            "name": "map.PortLoc",
+            "shortname": "PortLoc",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.map",
+            "namespace": "map",
+            "file": "gameplay\\js\\map\\MapView.js",
+            "line": 256,
+            "description": "This class defines a port location as used by view. It uses a unique representation for each port location/orientation.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "x",
+                    "description": "The x location of the hex the port is on",
+                    "type": "Integer"
+                },
+                {
+                    "name": "y",
+                    "description": "The y location of the hex the port is on",
+                    "type": "Integer"
+                },
+                {
+                    "name": "rotation",
+                    "description": "The rotation of the port",
+                    "type": "Integer"
+                }
+            ]
+        },
+        "map.MapView": {
+            "name": "map.MapView",
+            "shortname": "MapView",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.map",
+            "namespace": "map",
+            "file": "gameplay\\js\\map\\MapView.js",
+            "line": 860,
+            "description": "You need to pass in how many pixels tall/wide the map is \nand how many hexes tall/wide the map is \n(the hex dim can be calculated from the client model)",
+            "params": [
+                {
+                    "name": "pixelDim",
+                    "description": "the height of the map measured in pixels",
+                    "type": "Int"
+                },
+                {
+                    "name": "hexDim",
+                    "description": "the height of the map measured in hexes",
+                    "type": "Int"
+                }
+            ],
+            "is_constructor": 1
+        },
+        "map.RobberOverlay": {
+            "name": "map.RobberOverlay",
+            "shortname": "RobberOverlay",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.map",
+            "namespace": "map",
+            "file": "gameplay\\js\\map\\RobberOverlay.js",
+            "line": 22,
+            "description": "This class implements the overlay view that lets the user select a player to rob.  \nIt displays a list of other users who can be robbed, and lets the user select which one they want to rob.\n\t\tIt inherits from misc.BaseOverlay.\nIts controller should be set to a MapController, on which it calls the \"robPlayer\" method.",
+            "is_constructor": 1,
+            "extends": "misc.BaseOverlay"
+        },
+        "models.ClientModel": {
+            "name": "models.ClientModel",
+            "shortname": "ClientModel",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.models",
+            "namespace": "models",
+            "file": "gameplay\\js\\model\\clientmodel.js",
+            "line": 12,
+            "description": "This the top-level client model class that contains the local player, map contents, etc.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "clientID",
+                    "description": "The id of the client player, extracted from the cookie",
+                    "type": "Integer"
+                }
+            ]
+        },
+        "hexgrid.BasicHex": {
+            "name": "hexgrid.BasicHex",
+            "shortname": "BasicHex",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.models",
+            "submodule": "catan.models.hexgrid",
+            "namespace": "hexgrid",
+            "file": "gameplay\\js\\model\\hexgrid.js",
+            "line": 20,
+            "description": "This class serves as the basis for the different hexes (water, desert, resource)\nYou should extend this class - in you're constructor, pass in the proper edge and vertex classes \n(they should extend the hexgrid.BaseContainer class)",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "location",
+                    "description": "- the location of the hex",
+                    "type": "hexgrid.HexLocation"
+                },
+                {
+                    "name": "EdgeClass",
+                    "description": "- the class (NOT AN INSTANCE) you use for an edge - must have an empty constructor",
+                    "type": "hexgrid.BaseContainer"
+                },
+                {
+                    "name": "VertexClass",
+                    "description": "- the class (NOT AN INSTANCE) you use for an vertex - must have an empty constructor",
+                    "type": "hexgrid.BaseContainer"
+                }
+            ]
+        },
+        "hexgrid.EdgeDirection": {
+            "name": "hexgrid.EdgeDirection",
+            "shortname": "EdgeDirection",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.models",
+            "submodule": "catan.models.hexgrid",
+            "namespace": "hexgrid",
+            "file": "gameplay\\js\\model\\hexgrid.js",
+            "line": 108,
+            "description": "These are the edge values in clockwise order starting at NW.\nThey are in order so that modulo math makes this easy\nEdge and Vertex Directions give you the edge and then the vertex in clockwise order\n    It's really just an enumeration"
+        },
+        "hexgrid.HexDirection": {
+            "name": "hexgrid.HexDirection",
+            "shortname": "HexDirection",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.models",
+            "submodule": "catan.models.hexgrid",
+            "namespace": "hexgrid",
+            "file": "gameplay\\js\\model\\hexgrid.js",
+            "line": 119,
+            "description": "These are simply a copy of EdgeDirections. They can be fed to a hexgrid.HexLocation to get \nthe location of the hex next to it in that direction.It's really just an enumeration."
+        },
+        "hexgrid.VertexDirection": {
+            "name": "hexgrid.VertexDirection",
+            "shortname": "VertexDirection",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.models",
+            "submodule": "catan.models.hexgrid",
+            "namespace": "hexgrid",
+            "file": "gameplay\\js\\model\\hexgrid.js",
+            "line": 125,
+            "description": "These are the vertex values in clockwise order starting at NW.\nThey are in order so that modulo math makes this easy\nEdge and Vertex Directions give you the edge and then the vertex in clockwise order.\n    It's really just an enumeration"
+        },
+        "hexgrid.HexGrid": {
+            "name": "hexgrid.HexGrid",
+            "shortname": "HexGrid",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.models",
+            "submodule": "catan.models.hexgrid",
+            "namespace": "hexgrid",
+            "file": "gameplay\\js\\model\\hexgrid.js",
+            "line": 136,
+            "description": "This class will never be directly used by anything other than the map.\nIt's purpose is to present an array-like interface for hex storage, \nas well as reducing wasted space that naturally incurs. It also provides\na clean interface for generating the initial tiles.\n\nThis takes the length of 3 connected sides and returns a hexagonal\ngrid object. Of necessity, two of the three dimensions must be \nthe same - this generates a hexagon that is symmetrical along two axis.\nThis is perhaps overkill, but the implementation provides insight into \nhow hexagonal grids work.\n\nYou'll want to use the static method 'getRegular' which takes radius and the prototype of your hex",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "bWidth",
+                    "description": "The length (width) of the bottom edge in tiles",
+                    "type": "Integer"
+                },
+                {
+                    "name": "lDiagonal",
+                    "description": "The length of the lower right diagonal edge in tiles",
+                    "type": "Integer"
+                },
+                {
+                    "name": "rDiagonal",
+                    "description": "The length of the lower left diagonal edge in tiles",
+                    "type": "Integer"
+                },
+                {
+                    "name": "x0",
+                    "description": "The x offset from the lower left corner for to place (0,0)",
+                    "type": "Integer"
+                },
+                {
+                    "name": "y0",
+                    "description": "The y offset from the lower left corner to place (0,0)",
+                    "type": "Integer"
+                },
+                {
+                    "name": "hex",
+                    "description": "The default hex that will be used to populate the grid.",
+                    "type": "hexgrid.BasicHex"
+                }
+            ]
+        },
+        "hexgrid.HexLocation": {
+            "name": "hexgrid.HexLocation",
+            "shortname": "HexLocation",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.models",
+            "submodule": "catan.models.hexgrid",
+            "namespace": "hexgrid",
+            "file": "gameplay\\js\\model\\hexgrid.js",
+            "line": 348,
+            "description": "This represents a location of a hex on a hex grid.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "x",
+                    "description": "",
+                    "type": "Integer"
+                },
+                {
+                    "name": "y",
+                    "description": "",
+                    "type": "Integer"
+                }
+            ]
+        },
+        "hexgrid.BaseLocation": {
+            "name": "hexgrid.BaseLocation",
+            "shortname": "BaseLocation",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.models",
+            "submodule": "catan.models.hexgrid",
+            "namespace": "hexgrid",
+            "file": "gameplay\\js\\model\\hexgrid.js",
+            "line": 402,
+            "description": "This is the base class for VertexLocation and EdgeLocation\n        * \n        * -- This is NOT instantiable by itself --\n        *",
+            "is_constructor": 1
+        },
+        "hexgrid.EdgeLocation": {
+            "name": "hexgrid.EdgeLocation",
+            "shortname": "EdgeLocation",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.models",
+            "submodule": "catan.models.hexgrid",
+            "namespace": "hexgrid",
+            "file": "gameplay\\js\\model\\hexgrid.js",
+            "line": 502,
+            "description": "This class represent an edge location. It consists of a hex location\nand an edge direction\n    This takes a hex location and a direction. Alternatively you can use\n     (x,y,direction)",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "hexLocation",
+                    "description": "The location of the parent hex",
+                    "type": "HexLocation"
+                },
+                {
+                    "name": "direction",
+                    "description": "The direction of the edge relative to the hex",
+                    "type": "hexgrid.EdgeDirection"
+                }
+            ],
+            "extends": "hexgrid.BaseLocation"
+        },
+        "hexgrid.VertexLocation": {
+            "name": "hexgrid.VertexLocation",
+            "shortname": "VertexLocation",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.models",
+            "submodule": "catan.models.hexgrid",
+            "namespace": "hexgrid",
+            "file": "gameplay\\js\\model\\hexgrid.js",
+            "line": 579,
+            "description": "This class represents a vertex location. It consists of a hex location\nand a vertex direction. Instead of (hexLocation, direction) you can use\n    (x, y, direction).",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "hexLocation",
+                    "description": "The location of the parent hex",
+                    "type": "hexgrid.HexLocation"
+                },
+                {
+                    "name": "direction",
+                    "description": "The direction of the vertex relative to the hex",
+                    "type": "hexgrid.VertexDirection"
+                }
+            ]
+        },
+        "hexgrid.BaseContainer": {
+            "name": "hexgrid.BaseContainer",
+            "shortname": "BaseContainer",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.models",
+            "submodule": "catan.models.hexgrid",
+            "namespace": "hexgrid",
+            "file": "gameplay\\js\\model\\hexgrid.js",
+            "line": 661,
+            "description": "This class represents a base container (to be used for Edge or Vertex). You'll need to pass a child-class (the constructor/\n    class, not an instance) to the BasicHex constructor so that it knows how to store stuff. This is the default implementation\n    which provides the the abstract the minimum functions. Extends this class to make an Edge/Vertex container class.",
+            "is_constructor": 1
+        },
+        "hexgrid.CatanEdge": {
+            "name": "hexgrid.CatanEdge",
+            "shortname": "CatanEdge",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.models",
+            "namespace": "hexgrid",
+            "file": "gameplay\\js\\model\\hexgrid_impl.js",
+            "line": 14,
+            "description": "This class represent an edge. It's a container.\n    The data on this class (that you get from the JSON model) is independent of the hexgrid, except for the location.\n    Therefore, we leave it up to you to decide how to implement it.\n    It must however implement one function that the hexgrid looks for 'isOccupied' - look at its documentation.\n    From the JSON, the object will have 2 pieces of data: location, and ownerID.\n    Besides the 'isOccupied' method, any other methods you add will be for your personal use (probably one or two)",
+            "is_constructor": 1,
+            "extends": "hexgrid.BaseContainer"
+        },
+        "hexgrid.CatanVertex": {
+            "name": "hexgrid.CatanVertex",
+            "shortname": "CatanVertex",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.models",
+            "namespace": "hexgrid",
+            "file": "gameplay\\js\\model\\hexgrid_impl.js",
+            "line": 65,
+            "description": "This class represent a Hex. It's your hex, so put any methods you'll need on (ie. to tell get the resource/hex type, etc)\n    \n    In order to work with the hexgrid, this class needs to extend hexgrid.BasicHex (already done in the code). You'll need to implement\n    a BaseVertex and a BaseEdge class (we give you stubs) and pass them in to the superconstructor (also already done in the code).\n    Look at the the CatanVertex and CatanEdge class docs to see what needs to be done there.\n     \n    The hexgrid will be passed in an instance of this class to use as the model and will pull the constructor from the instance. \n    (The core.forceInherit sets the constructor, in case you were curious how that worked)\n    \n    So, basically... add functions as needed. Any you add will be for your personal use and convenience in writing the map class.\n    \n    To interact with hexes in relation to other hexes, put those functions in your map class",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "location",
+                    "description": "- the location of this hex. It's used to generate locations for the vertexes and edges.",
+                    "type": "hexgrid.HexLocation"
+                }
+            ],
+            "extends": "hexgrid.BasicHex"
+        },
+        "misc.GameFinishedView": {
+            "name": "misc.GameFinishedView",
+            "shortname": "GameFinishedView",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.misc",
+            "namespace": "misc",
+            "file": "gameplay\\js\\points\\GameOverOverlay.js",
+            "line": 22,
+            "description": "A view to display the results of the game; inherits from misc.BaseOverlay",
+            "is_constructor": 1,
+            "extends": "misc.BaseOverlay"
+        },
+        "points.PointController": {
+            "name": "points.PointController",
+            "shortname": "PointController",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.points",
+            "namespace": "points",
+            "file": "gameplay\\js\\points\\PointsController.js",
+            "line": 19,
+            "is_constructor": 1,
+            "extends": "misc.BaseController",
+            "params": [
+                {
+                    "name": "view",
+                    "description": "",
+                    "type": "points.View"
+                },
+                {
+                    "name": "gameFinishedView",
+                    "description": "",
+                    "type": "misc.GameFinishedView"
+                },
+                {
+                    "name": "clientModel",
+                    "description": "",
+                    "type": "models.ClientModel"
+                }
+            ]
+        },
+        "points.PointView": {
+            "name": "points.PointView",
+            "shortname": "PointView",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.points",
+            "namespace": "points",
+            "file": "gameplay\\js\\points\\PointsView.js",
+            "line": 18,
+            "description": "This class provides a victory point tracker view",
+            "is_constructor": 1
+        },
+        "resources.ResourceBarController": {
+            "name": "resources.ResourceBarController",
+            "shortname": "ResourceBarController",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.resources",
+            "namespace": "resources",
+            "file": "gameplay\\js\\resources\\ResourcesController.js",
+            "line": 27,
+            "description": "Controller class for the Resources View.",
+            "is_constructor": 1,
+            "extends": "misc.BaseController",
+            "params": [
+                {
+                    "name": "view",
+                    "description": "The resource view",
+                    "type": "resources.View"
+                },
+                {
+                    "name": "clientModel",
+                    "description": "The client model",
+                    "type": "models.ClientModel"
+                },
+                {
+                    "name": "actions",
+                    "description": "The actions to take for each user input. The value of actions.elem_name is a function that is called when the specific element is selected (accessed by calling actions[\"elem_name\"]).  The valid element names are defined in StudentDefinitions.js",
+                    "type": "Object"
+                }
+            ]
+        },
+        "resources.ResourceBarView": {
+            "name": "resources.ResourceBarView",
+            "shortname": "ResourceBarView",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.resources",
+            "namespace": "resources",
+            "file": "gameplay\\js\\resources\\ResourcesView.js",
+            "line": 24,
+            "description": "View to display client player's current resources: \n\tResources (wood, sheep, ore, brick, wheat) and \n\tBuyable Options (houses, roads, cities). \nIt also includes:\n\tOption to buy a Development card\n Option to play a Development card\n\tThe number of armies the player has used\nIt calls the following controller methods: \"buildRoad\", \"buildSettlement\", \"buildCity\", \"buyCard\", \"playCard\"",
+            "is_constructor": 1
+        },
+        "roll.RollController": {
+            "name": "roll.RollController",
+            "shortname": "RollController",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.roll",
+            "namespace": "roll",
+            "file": "gameplay\\js\\roll\\RollController.js",
+            "line": 14,
+            "is_constructor": 1,
+            "extends": "misc.BaseController",
+            "params": [
+                {
+                    "name": "view",
+                    "description": "",
+                    "type": "roll.View"
+                },
+                {
+                    "name": "resultView",
+                    "description": "",
+                    "type": "roll.ResultView"
+                },
+                {
+                    "name": "clientModel",
+                    "description": "",
+                    "type": "models.ClientModel"
+                }
+            ]
+        },
+        "roll.RollView": {
+            "name": "roll.RollView",
+            "shortname": "RollView",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.roll",
+            "namespace": "roll",
+            "file": "gameplay\\js\\roll\\RollOverlay.js",
+            "line": 24,
+            "description": "A view for rolling the dice.  It inherits from misc.BaseOverlay.\nIt calls the \"rollDice\" method on its controller if the user clicks the \"Roll\" button.",
+            "is_constructor": 1,
+            "extends": "misc.BaseOverlay"
+        },
+        "roll.RollResultView": {
+            "name": "roll.RollResultView",
+            "shortname": "RollResultView",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.roll",
+            "namespace": "roll",
+            "file": "gameplay\\js\\roll\\RollResultOverlay.js",
+            "line": 22,
+            "description": "A view for displaying the result of a roll.  It inherits from misc.BaseOverlay.\nIt calls the \"closeResult\" method on its controller when the user clicks the \"Okay\" button.",
+            "is_constructor": 1,
+            "extends": "misc.BaseOverlay"
+        },
+        "setup.SetupRoundController": {
+            "name": "setup.SetupRoundController",
+            "shortname": "SetupRoundController",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.setup",
+            "namespace": "setup",
+            "file": "gameplay\\js\\setup\\SetupRoundController.js",
+            "line": 14,
+            "is_constructor": 1,
+            "extends": "misc.BaseController",
+            "params": [
+                {
+                    "name": "clientModel",
+                    "description": "",
+                    "type": "models.ClientModel"
+                },
+                {
+                    "name": "mapController",
+                    "description": "",
+                    "type": "map.MapController"
+                }
+            ]
+        },
+        "domestic.AcceptView": {
+            "name": "domestic.AcceptView",
+            "shortname": "AcceptView",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.trade",
+            "submodule": "catan.trade.domestic",
+            "namespace": "domestic",
+            "file": "gameplay\\js\\trading\\AcceptOverlay.js",
+            "line": 20,
+            "description": "A view for accepting a trade from a player.  It inherits from misc.BaseOverlay.",
+            "is_constructor": 1,
+            "extends": "misc.BaseOverlay"
+        },
+        "domestic.DomesticController": {
+            "name": "domestic.DomesticController",
+            "shortname": "DomesticController",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.trade",
+            "submodule": "catan.trade.domestic",
+            "namespace": "domestic",
+            "file": "gameplay\\js\\trading\\DomesticController.js",
+            "line": 20,
+            "is_constructor": 1,
+            "extends": "misc.BaseController",
+            "params": [
+                {
+                    "name": "view",
+                    "description": "",
+                    "type": "domestic.View"
+                },
+                {
+                    "name": "waitingView",
+                    "description": "",
+                    "type": "misc.WaitOverlay"
+                },
+                {
+                    "name": "acceptView",
+                    "description": "",
+                    "type": "domestic.AcceptView"
+                },
+                {
+                    "name": "clientModel",
+                    "description": "",
+                    "type": "models.ClientModel"
+                }
+            ]
+        },
+        "domestic.DomesticView": {
+            "name": "domestic.DomesticView",
+            "shortname": "DomesticView",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.trade",
+            "submodule": "catan.trade.domestic",
+            "namespace": "domestic",
+            "file": "gameplay\\js\\trading\\DomesticView.js",
+            "line": 25,
+            "description": "A view for setting up trades between players.",
+            "is_constructor": 1
+        },
+        "maritime.MaritimeController": {
+            "name": "maritime.MaritimeController",
+            "shortname": "MaritimeController",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.trade",
+            "submodule": "catan.trade.maritime",
+            "namespace": "maritime",
+            "file": "gameplay\\js\\trading\\MaritimeController.js",
+            "line": 21,
+            "is_constructor": 1,
+            "extends": "misc.BaseController",
+            "params": [
+                {
+                    "name": "view",
+                    "description": "",
+                    "type": "maritime.View"
+                },
+                {
+                    "name": "clientModel",
+                    "description": "",
+                    "type": "models.ClientModel"
+                }
+            ]
+        },
+        "maritime.MaritimeView": {
+            "name": "maritime.MaritimeView",
+            "shortname": "MaritimeView",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.trade",
+            "submodule": "catan.trade.maritime",
+            "namespace": "maritime",
+            "file": "gameplay\\js\\trading\\MaritimeView.js",
+            "line": 25,
+            "description": "A view for setting up trades between the client player and the bank.",
+            "is_constructor": 1
+        },
+        "turntracker.TurnTrackerController": {
+            "name": "turntracker.TurnTrackerController",
+            "shortname": "TurnTrackerController",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.turntracker",
+            "namespace": "turntracker",
+            "file": "gameplay\\js\\turn_tracker\\TrackerController.js",
+            "line": 15,
+            "description": "The controller class for the Turn Tracker",
+            "extends": "misc.BaseController",
+            "params": [
+                {
+                    "name": "view",
+                    "description": "The view for this object to control.",
+                    "type": "turntracker.View"
+                },
+                {
+                    "name": "clientModel",
+                    "description": "The clientModel for this object to control.",
+                    "type": "models.ClientModel"
+                }
+            ],
+            "is_constructor": 1
+        },
+        "turntracker.TurnTrackerView": {
+            "name": "turntracker.TurnTrackerView",
+            "shortname": "TurnTrackerView",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.turntracker",
+            "namespace": "turntracker",
+            "file": "gameplay\\js\\turn_tracker\\TrackerView.js",
+            "line": 19,
+            "description": "A view that is used for displaying the current state of the game:\n1) a table that displays each player's basic information and highlights the current turn,\n2) a button to display the game state",
+            "is_constructor": 1
+        },
+        "misc.BaseController": {
+            "name": "misc.BaseController",
+            "shortname": "BaseController",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.misc",
+            "namespace": "misc",
+            "file": "gameplay\\js\\view_basics\\BasicController.js",
+            "line": 12,
+            "description": "This class serves as the basis for all controller classes.\t\t\nThis constructor should be called by all child classes.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "view",
+                    "description": "- The controller's view"
+                },
+                {
+                    "name": "clientModel",
+                    "description": "- The controller's client model",
+                    "type": "models.ClientModel"
+                }
+            ]
+        },
+        "misc.BaseOverlay": {
+            "name": "misc.BaseOverlay",
+            "shortname": "BaseOverlay",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.misc",
+            "namespace": "misc",
+            "file": "gameplay\\js\\view_basics\\BasicOverlay.js",
+            "line": 12,
+            "description": "This class is the base class for all overlay view classes.",
+            "is_constructor": 1
+        },
+        "misc.WaitOverlay": {
+            "name": "misc.WaitOverlay",
+            "shortname": "WaitOverlay",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.misc",
+            "namespace": "misc",
+            "file": "gameplay\\js\\view_basics\\WaitOverlay.js",
+            "line": 15,
+            "description": "This class implements a placeholder overlay to enforce a wait period.\nIt inherits from misc.BaseOverlay.\nIt does not call any controller methods.",
+            "extends": "misc.BaseOverlay",
+            "is_constructor": 1
+        },
+        "core.Core": {
+            "name": "core.Core",
+            "shortname": "Core",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "core",
+            "namespace": "core",
+            "file": "gameplay\\js\\Core.js",
+            "line": 8,
+            "description": "This really isn't a class. These are actually standalone functions.",
+            "static": 1
+        }
+    },
+    "classitems": [
+        {
+            "file": "gameplay\\js\\comms_box\\CommController.js",
+            "line": 73,
+            "description": "Called by the view whenever input is submitted",
+            "itemtype": "method",
+            "name": "addLine",
+            "params": [
+                {
+                    "name": "lineContents",
+                    "description": "The contents of the submitted string",
+                    "type": "String"
+                }
+            ],
+            "class": "comm.ChatController",
+            "module": "catan.comm",
+            "namespace": "comm"
+        },
+        {
+            "file": "gameplay\\js\\comms_box\\CommView.js",
+            "line": 64,
+            "description": "Sets new content for the display",
+            "itemtype": "method",
+            "name": "resetLines",
+            "params": [
+                {
+                    "name": "lines",
+                    "description": "a list of objects with three attributes: source(the player name attached to the event),\nmessage(the contents of the line), and className(the color of the object)",
+                    "type": "Array"
+                }
+            ],
+            "class": "comm.BaseCommView",
+            "module": "catan.comm",
+            "namespace": "comm"
+        },
+        {
+            "file": "gameplay\\js\\comms_box\\CommView.js",
+            "line": 81,
+            "description": "Sets the controller and action for the input element",
+            "itemtype": "method",
+            "name": "setController",
+            "params": [
+                {
+                    "name": "controller",
+                    "description": "The controller",
+                    "type": "Object"
+                }
+            ],
+            "class": "comm.BaseCommView",
+            "module": "catan.comm",
+            "namespace": "comm"
+        },
+        {
+            "file": "gameplay\\js\\development_cards\\CardController.js",
+            "line": 36,
+            "description": "Called when the player buys a development card",
+            "itemtype": "method",
+            "name": "buyCard",
+            "return": {
+                "description": "void"
+            },
+            "class": "devCards.DevCardController",
+            "module": "catan.devCards",
+            "namespace": "devCards"
+        },
+        {
+            "file": "gameplay\\js\\development_cards\\CardController.js",
+            "line": 44,
+            "description": "Called when the player plays a year of plenty card",
+            "itemtype": "method",
+            "name": "useYearOfPlenty",
+            "params": [
+                {
+                    "name": "resource1",
+                    "description": "The first resource to obtain",
+                    "type": "String"
+                },
+                {
+                    "name": "resource2",
+                    "description": "The second resource to obtain",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "devCards.DevCardController",
+            "module": "catan.devCards",
+            "namespace": "devCards"
+        },
+        {
+            "file": "gameplay\\js\\development_cards\\CardController.js",
+            "line": 54,
+            "description": "Called when the player plays a monopoly card",
+            "itemtype": "method",
+            "name": "useMonopoly",
+            "params": [
+                {
+                    "name": "resource",
+                    "description": "the resource to obtain",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "devCards.DevCardController",
+            "module": "catan.devCards",
+            "namespace": "devCards"
+        },
+        {
+            "file": "gameplay\\js\\development_cards\\CardController.js",
+            "line": 63,
+            "description": "Called when the player plays a monument card",
+            "itemtype": "method",
+            "name": "useMonument",
+            "return": {
+                "description": "void"
+            },
+            "class": "devCards.DevCardController",
+            "module": "catan.devCards",
+            "namespace": "devCards"
+        },
+        {
+            "file": "gameplay\\js\\development_cards\\CardController.js",
+            "line": 71,
+            "description": "Called when the player plays a soldier card",
+            "itemtype": "method",
+            "name": "useSoldier",
+            "return": {
+                "description": "void"
+            },
+            "class": "devCards.DevCardController",
+            "module": "catan.devCards",
+            "namespace": "devCards"
+        },
+        {
+            "file": "gameplay\\js\\development_cards\\CardController.js",
+            "line": 79,
+            "description": "Called when the player plays the road building card",
+            "itemtype": "method",
+            "name": "useRoadBuild",
+            "return": {
+                "description": "void"
+            },
+            "class": "devCards.DevCardController",
+            "module": "catan.devCards",
+            "namespace": "devCards"
+        },
+        {
+            "file": "gameplay\\js\\development_cards\\CardOverlay.js",
+            "line": 46,
+            "description": "Attaches the controller to the view and builds the view on the page.",
+            "itemtype": "method",
+            "name": "setController",
+            "params": [
+                {
+                    "name": "controller",
+                    "description": "",
+                    "type": "devCards.Controller"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "devCards.DevCardView",
+            "module": "catan.devCards",
+            "namespace": "devCards"
+        },
+        {
+            "file": "gameplay\\js\\development_cards\\CardOverlay.js",
+            "line": 59,
+            "description": "Enables a single card",
+            "itemtype": "method",
+            "name": "setCardEnabled",
+            "params": [
+                {
+                    "name": "card",
+                    "description": "the card to update (from catan.definitions.CardTypes)",
+                    "type": "String"
+                },
+                {
+                    "name": "enabled",
+                    "description": "whether the player can use the card",
+                    "type": "Boolean"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "devCards.DevCardView",
+            "module": "catan.devCards",
+            "namespace": "devCards"
+        },
+        {
+            "file": "gameplay\\js\\development_cards\\CardOverlay.js",
+            "line": 73,
+            "description": "Sets the amount for a single card",
+            "itemtype": "method",
+            "name": "updateAmount",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "the value to update (from catan.definitions.CardTypes)",
+                    "type": "String"
+                },
+                {
+                    "name": "amount",
+                    "description": "the total number of cards of that type the player has (both old and new cards)",
+                    "type": "Int"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "devCards.DevCardView",
+            "module": "catan.devCards",
+            "namespace": "devCards"
+        },
+        {
+            "file": "gameplay\\js\\development_cards\\CardOverlay.js",
+            "line": 84,
+            "description": "Resets the overlay view",
+            "itemtype": "method",
+            "name": "clearView",
+            "return": {
+                "description": "void"
+            },
+            "class": "devCards.DevCardView",
+            "module": "catan.devCards",
+            "namespace": "devCards"
+        },
+        {
+            "file": "gameplay\\js\\discard\\DiscardController.js",
+            "line": 41,
+            "description": "Called by the view when the player clicks the discard button.\n         It should send the discard command and allow the game to continue.",
+            "itemtype": "method",
+            "name": "discard",
+            "return": {
+                "description": "void"
+            },
+            "class": "discard.DiscardController",
+            "module": "catan.discard",
+            "namespace": "discard"
+        },
+        {
+            "file": "gameplay\\js\\discard\\DiscardController.js",
+            "line": 50,
+            "description": "Called by the view when the player increases the amount to discard for a single resource.",
+            "itemtype": "method",
+            "name": "increaseAmount",
+            "params": [
+                {
+                    "name": "resource",
+                    "description": "the resource to discard",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "discard.DiscardController",
+            "module": "catan.discard",
+            "namespace": "discard"
+        },
+        {
+            "file": "gameplay\\js\\discard\\DiscardController.js",
+            "line": 59,
+            "description": "Called by the view when the player decreases the amount to discard for a single resource.",
+            "itemtype": "method",
+            "name": "decreaseAmount",
+            "params": [
+                {
+                    "name": "resource",
+                    "description": "the resource to discard",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "discard.DiscardController",
+            "module": "catan.discard",
+            "namespace": "discard"
+        },
+        {
+            "file": "gameplay\\js\\discard\\DiscardOverlay.js",
+            "line": 38,
+            "description": "Attaches the controller to the view and builds the view on the page.",
+            "itemtype": "method",
+            "name": "setController",
+            "params": [
+                {
+                    "name": "controller",
+                    "description": "",
+                    "type": "discard.Controller"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "discard.DiscardView",
+            "module": "catan.discard",
+            "namespace": "discard"
+        },
+        {
+            "file": "gameplay\\js\\discard\\DiscardOverlay.js",
+            "line": 51,
+            "description": "Sets the maximum amount of a resource that the player can discard",
+            "itemtype": "method",
+            "name": "setResourceMaxAmount",
+            "params": [
+                {
+                    "name": "resource",
+                    "description": "the resource to discard (see catan.definitions.ResourceTypes)",
+                    "type": "String"
+                },
+                {
+                    "name": "amt",
+                    "description": "the max amount you can discard of the resource",
+                    "type": "Int"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "discard.DiscardView",
+            "module": "catan.discard",
+            "namespace": "discard"
+        },
+        {
+            "file": "gameplay\\js\\discard\\DiscardOverlay.js",
+            "line": 62,
+            "description": "Enables/disables increasing or decreasing for a single resource.",
+            "itemtype": "method",
+            "name": "setResourceAmountChangeEnabled",
+            "params": [
+                {
+                    "name": "resource",
+                    "description": "the resource to discard (see catan.definitions.ResourceTypes)",
+                    "type": "String"
+                },
+                {
+                    "name": "increase",
+                    "description": "whether you can increase the amount displayed",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "decrease",
+                    "description": "whether you can decrease the amount displayed",
+                    "type": "Boolean"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "discard.DiscardView",
+            "module": "catan.discard",
+            "namespace": "discard"
+        },
+        {
+            "file": "gameplay\\js\\discard\\DiscardOverlay.js",
+            "line": 79,
+            "description": "Sets the amount displayed for a single resource.",
+            "itemtype": "method",
+            "name": "setResourceAmount",
+            "params": [
+                {
+                    "name": "resource",
+                    "description": "the resource to discard (see catan.definitions.ResourceTypes)",
+                    "type": "String"
+                },
+                {
+                    "name": "amount",
+                    "description": "the current amount to display",
+                    "type": "Int"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "discard.DiscardView",
+            "module": "catan.discard",
+            "namespace": "discard"
+        },
+        {
+            "file": "gameplay\\js\\discard\\DiscardOverlay.js",
+            "line": 92,
+            "description": "Enables or disabled the discard button.",
+            "itemtype": "method",
+            "name": "setDiscardButtonEnabled",
+            "params": [
+                {
+                    "name": "shouldEnable",
+                    "description": "whether or not a player can discard yet",
+                    "type": "Boolean"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "discard.DiscardView",
+            "module": "catan.discard",
+            "namespace": "discard"
+        },
+        {
+            "file": "gameplay\\js\\discard\\DiscardOverlay.js",
+            "line": 105,
+            "description": "Sets the state message, which indicates how many cards a player has set to discard, and how many remain to set.",
+            "itemtype": "method",
+            "name": "setStateMessage",
+            "params": [
+                {
+                    "name": "message",
+                    "description": "the message to display",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "discard.DiscardView",
+            "module": "catan.discard",
+            "namespace": "discard"
+        },
+        {
+            "file": "gameplay\\js\\map\\MapController.js",
+            "line": 43,
+            "description": "This method is called by the Rob View when a player to rob is selected via a button click.",
+            "params": [
+                {
+                    "name": "orderID",
+                    "description": "The index (0-3) of the player who is to be robbed",
+                    "type": "Integer"
+                }
+            ],
+            "itemtype": "method",
+            "name": "robPlayer",
+            "class": "map.MapController",
+            "module": "catan.map",
+            "namespace": "map"
+        },
+        {
+            "file": "gameplay\\js\\map\\MapController.js",
+            "line": 51,
+            "description": "Starts the robber movement on the map. The map should pop out and the player should be able\nmove the robber.  This is called when the user plays a \"solider\" development card.",
+            "itemtype": "method",
+            "name": "doSoldierAction",
+            "return": {
+                "description": "void"
+            },
+            "class": "map.MapController",
+            "module": "catan.map",
+            "namespace": "map"
+        },
+        {
+            "file": "gameplay\\js\\map\\MapController.js",
+            "line": 60,
+            "description": "Pops the map out and prompts the player to place two roads.\nThis is called when the user plays a \"road building\" progress development card.",
+            "itemtype": "method",
+            "name": "startDoubleRoadBuilding",
+            "return": {
+                "description": "void"
+            },
+            "class": "map.MapController",
+            "module": "catan.map",
+            "namespace": "map"
+        },
+        {
+            "file": "gameplay\\js\\map\\MapController.js",
+            "line": 70,
+            "description": "Pops the map out and prompts the player to place the appropriate piece",
+            "params": [
+                {
+                    "name": "pieceType",
+                    "description": "- \"road\", \"settlement\", or \"city",
+                    "type": "String"
+                },
+                {
+                    "name": "free",
+                    "description": "- Set to true in road building and the initial setup",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "disconnected",
+                    "description": "- Whether or not the piece can be disconnected. Set to true only in initial setup",
+                    "type": "Boolean"
+                }
+            ],
+            "itemtype": "method",
+            "name": "startMove",
+            "return": {
+                "description": "void"
+            },
+            "class": "map.MapController",
+            "module": "catan.map",
+            "namespace": "map"
+        },
+        {
+            "file": "gameplay\\js\\map\\MapController.js",
+            "line": 81,
+            "description": "This method is called from the modal view when the cancel button is pressed. \nIt should allow the user to continue gameplay without having to place a piece.",
+            "itemtype": "method",
+            "name": "cancelMove",
+            "return": {
+                "description": "void"
+            },
+            "class": "map.MapController",
+            "module": "catan.map",
+            "namespace": "map"
+        },
+        {
+            "file": "gameplay\\js\\map\\MapController.js",
+            "line": 90,
+            "description": "This method is called whenever the user is trying to place a piece on the map. \n         It is called by the view for each \"mouse move\" event.  \n         The returned value tells the view whether or not to allow the piece to be \"dropped\" at the current location.",
+            "params": [
+                {
+                    "name": "loc",
+                    "description": "The location being considered for piece placement",
+                    "type": "MapLocation"
+                },
+                {
+                    "name": "type",
+                    "description": "The type of piece the player is trying to place (\"robber\",\"road\",\"settlement\",\"city\")",
+                    "type": "String"
+                }
+            ],
+            "itemtype": "method",
+            "name": "onDrag",
+            "return": {
+                "description": "Whether or not the given piece can be placed at the current location.",
+                "type": "Boolean"
+            },
+            "class": "map.MapController",
+            "module": "catan.map",
+            "namespace": "map"
+        },
+        {
+            "file": "gameplay\\js\\map\\MapController.js",
+            "line": 103,
+            "description": "This method is called when the user clicks the mouse to place a piece.\n         This method should close the modal and possibly trigger the Rob View.",
+            "params": [
+                {
+                    "name": "loc",
+                    "description": "The location where the piece is being placed",
+                    "type": "MapLocation"
+                },
+                {
+                    "name": "type",
+                    "description": "The type of piece being placed (\"robber\",\"road\",\"settlement\",\"city\")",
+                    "type": "String"
+                }
+            ],
+            "itemtype": "method",
+            "name": "onDrop",
+            "class": "map.MapController",
+            "module": "catan.map",
+            "namespace": "map"
+        },
+        {
+            "file": "gameplay\\js\\map\\MapOverlay.js",
+            "line": 114,
+            "description": "Shows a modal overlay of the map.",
+            "itemtype": "method",
+            "name": "showModal",
+            "params": [
+                {
+                    "name": "type",
+                    "description": "the type of the item to place: \"Robber\", \"Soldier\", \"City\", \"Settlement\", \"Road\".",
+                    "type": "String"
+                }
+            ],
+            "class": "map.MapOverlay",
+            "module": "catan.map",
+            "namespace": "map"
+        },
+        {
+            "file": "gameplay\\js\\map\\MapOverlay.js",
+            "line": 153,
+            "description": "Closes the overlay.",
+            "itemtype": "method",
+            "name": "closeModal",
+            "class": "map.MapOverlay",
+            "module": "catan.map",
+            "namespace": "map"
+        },
+        {
+            "file": "gameplay\\js\\map\\MapView.js",
+            "line": 178,
+            "itemtype": "property",
+            "name": "x",
+            "type": "integer",
+            "class": "map.Point",
+            "module": "catan.map",
+            "namespace": "map"
+        },
+        {
+            "file": "gameplay\\js\\map\\MapView.js",
+            "line": 183,
+            "itemtype": "property",
+            "name": "y",
+            "type": "integer",
+            "class": "map.Point",
+            "module": "catan.map",
+            "namespace": "map"
+        },
+        {
+            "file": "gameplay\\js\\map\\MapView.js",
+            "line": 209,
+            "description": "The location of the vertex on the hex (allowed values:\"E\" , \"W\")",
+            "itemtype": "property",
+            "name": "dir",
+            "type": "string",
+            "class": "map.VertexLoc",
+            "module": "catan.map",
+            "namespace": "map"
+        },
+        {
+            "file": "gameplay\\js\\map\\MapView.js",
+            "line": 243,
+            "description": "The location of the edge on the hex (allowed values:\"SW\", \"S\", \"SE\")",
+            "itemtype": "property",
+            "name": "dir",
+            "type": "string",
+            "class": "map.EdgeLoc",
+            "module": "catan.map",
+            "namespace": "map"
+        },
+        {
+            "file": "gameplay\\js\\map\\MapView.js",
+            "line": 272,
+            "description": "The amount of rotation on the port - specifically, which side it faces:\n 0 - NW\n 1 - N\n 2 - NE\n 3 - SE\n 4 - S\n 5 - SW",
+            "itemtype": "property",
+            "name": "rotation",
+            "type": "integer",
+            "class": "map.PortLoc",
+            "module": "catan.map",
+            "namespace": "map"
+        },
+        {
+            "file": "gameplay\\js\\map\\MapView.js",
+            "line": 900,
+            "itemtype": "property",
+            "name": "controller",
+            "type": "MapController",
+            "class": "map.MapView",
+            "module": "catan.map",
+            "namespace": "map"
+        },
+        {
+            "file": "gameplay\\js\\map\\MapView.js",
+            "line": 1006,
+            "description": "This starts the piece placement process - it has no knowledge of the model, so you must tell it the piece type and color.\nColor can be omitted and has no effect if it's the robber\nAfter calling this, the view will use the controller's \"onDrag\" and \"onDrop\" methods to check whether a piece can be placed.",
+            "params": [
+                {
+                    "name": "objectType",
+                    "description": "The type of piece to be placed (\"city\",\"settlement\",\"road\",\"robber\")",
+                    "type": "String"
+                },
+                {
+                    "name": "color",
+                    "description": "The color of the piece you want to place. (Omit for \"robber\".)",
+                    "type": "String"
+                }
+            ],
+            "itemtype": "method",
+            "name": "startDrop",
+            "class": "map.MapView",
+            "module": "catan.map",
+            "namespace": "map"
+        },
+        {
+            "file": "gameplay\\js\\map\\MapView.js",
+            "line": 1069,
+            "description": "This cancels the piece placement process.",
+            "itemtype": "method",
+            "name": "cancelDrop",
+            "class": "map.MapView",
+            "module": "catan.map",
+            "namespace": "map"
+        },
+        {
+            "file": "gameplay\\js\\map\\MapView.js",
+            "line": 1078,
+            "description": "This causes the pieces on the board to be drawn.",
+            "itemtype": "method",
+            "name": "drawPieces",
+            "class": "map.MapView",
+            "module": "catan.map",
+            "namespace": "map"
+        },
+        {
+            "file": "gameplay\\js\\map\\MapView.js",
+            "line": 1087,
+            "description": "This adds a hex to the board.",
+            "params": [
+                {
+                    "name": "loc",
+                    "description": "The location to put the hex. This should only be called at most once per hex location",
+                    "type": "HexLocation"
+                },
+                {
+                    "name": "type",
+                    "description": "The type of the hex: a resource(\"wood\",\"brick\",\"sheep\",\"wheat\",\"ore\"), \"desert\", or \"water\"",
+                    "type": "String"
+                },
+                {
+                    "name": "noDraw",
+                    "description": "Optional - if omitted or false, the view is not redrawn.",
+                    "type": "Boolean",
+                    "optional": true
+                }
+            ],
+            "itemtype": "method",
+            "name": "addHex",
+            "class": "map.MapView",
+            "module": "catan.map",
+            "namespace": "map"
+        },
+        {
+            "file": "gameplay\\js\\map\\MapView.js",
+            "line": 1099,
+            "description": "This adds a number to the board.",
+            "params": [
+                {
+                    "name": "loc",
+                    "description": "The location to put the number. This should only be called at most once per hex location",
+                    "type": "HexLocation"
+                },
+                {
+                    "name": "number",
+                    "description": "The number to put on the map",
+                    "type": "Integer"
+                },
+                {
+                    "name": "noDraw",
+                    "description": "Optional - if omitted or false, the view is not redrawn.",
+                    "type": "Boolean",
+                    "optional": true
+                }
+            ],
+            "itemtype": "method",
+            "name": "addNumber",
+            "class": "map.MapView",
+            "module": "catan.map",
+            "namespace": "map"
+        },
+        {
+            "file": "gameplay\\js\\map\\MapView.js",
+            "line": 1111,
+            "description": "This adds a port to the board.",
+            "params": [
+                {
+                    "name": "loc",
+                    "description": "The location to put the port. This should only be called only once per port",
+                    "type": "PortLoc"
+                },
+                {
+                    "name": "type",
+                    "description": "The port type: a resource(\"wood\",\"brick\",\"sheep\",\"wheat\",\"ore\"), or \"three\"",
+                    "type": "String"
+                },
+                {
+                    "name": "noDraw",
+                    "description": "Optional - if omitted or false, the view is not redrawn.",
+                    "type": "Boolean",
+                    "optional": true
+                }
+            ],
+            "itemtype": "method",
+            "name": "addPort",
+            "class": "map.MapView",
+            "module": "catan.map",
+            "namespace": "map"
+        },
+        {
+            "file": "gameplay\\js\\map\\MapView.js",
+            "line": 1123,
+            "description": "This places the robber on the board. Subsequent calls move the robber.",
+            "params": [
+                {
+                    "name": "loc",
+                    "description": "The location to put the robber.",
+                    "type": "HexLocation"
+                },
+                {
+                    "name": "noDraw",
+                    "description": "Optional - if omitted or false, the view is not redrawn.",
+                    "type": "Boolean",
+                    "optional": true
+                }
+            ],
+            "itemtype": "method",
+            "name": "placeRobber",
+            "class": "map.MapView",
+            "module": "catan.map",
+            "namespace": "map"
+        },
+        {
+            "file": "gameplay\\js\\map\\MapView.js",
+            "line": 1136,
+            "description": "This adds a settlement to the board.",
+            "params": [
+                {
+                    "name": "loc",
+                    "description": "The location to put the settlement.",
+                    "type": "VertexLoc"
+                },
+                {
+                    "name": "playerColor",
+                    "description": "The player color",
+                    "type": "String"
+                },
+                {
+                    "name": "noDraw",
+                    "description": "Optional - if omitted or false, the view is not redrawn.",
+                    "type": "Boolean",
+                    "optional": true
+                }
+            ],
+            "itemtype": "method",
+            "name": "placeSettlement",
+            "class": "map.MapView",
+            "module": "catan.map",
+            "namespace": "map"
+        },
+        {
+            "file": "gameplay\\js\\map\\MapView.js",
+            "line": 1152,
+            "description": "This adds a city to the board.",
+            "params": [
+                {
+                    "name": "loc",
+                    "description": "The location to put the city.",
+                    "type": "VertexLoc"
+                },
+                {
+                    "name": "playerColor",
+                    "description": "The player color",
+                    "type": "String"
+                },
+                {
+                    "name": "noDraw",
+                    "description": "Optional - if omitted or false, the view is not redrawn.",
+                    "type": "Boolean",
+                    "optional": true
+                }
+            ],
+            "itemtype": "method",
+            "name": "placeCity",
+            "class": "map.MapView",
+            "module": "catan.map",
+            "namespace": "map"
+        },
+        {
+            "file": "gameplay\\js\\map\\MapView.js",
+            "line": 1167,
+            "description": "This adds a road to the board.",
+            "params": [
+                {
+                    "name": "loc",
+                    "description": "The location to put the road.",
+                    "type": "EdgeLoc"
+                },
+                {
+                    "name": "playerColor",
+                    "description": "The player color",
+                    "type": "String"
+                },
+                {
+                    "name": "noDraw",
+                    "description": "Optional - if omitted or false, the view is not redrawn.",
+                    "type": "Boolean",
+                    "optional": true
+                }
+            ],
+            "itemtype": "method",
+            "name": "placeRoad",
+            "class": "map.MapView",
+            "module": "catan.map",
+            "namespace": "map"
+        },
+        {
+            "file": "gameplay\\js\\map\\RobberOverlay.js",
+            "line": 57,
+            "description": "This sets the available players to rob: an array of objects of the form \n* { color:String,\n* \tname:String,\n* \tplayerNum:int,\n* \tcards:int}",
+            "itemtype": "method",
+            "name": "setPlayerInfo",
+            "params": [
+                {
+                    "name": "info",
+                    "description": "",
+                    "type": "Object[]"
+                }
+            ],
+            "class": "map.RobberOverlay",
+            "module": "catan.map",
+            "namespace": "map"
+        },
+        {
+            "file": "gameplay\\js\\model\\clientmodel.js",
+            "line": 24,
+            "description": "This is called to fetch the game state from the server the very first time.\nIt should: 1) fetch the game state JSON from the server, 2) update the client model with the\nreturned data, 3) notify all client model listeners that the model has changed, and 4) invoke\nthe success callback function with the object received from the server.",
+            "itemtype": "method",
+            "name": "initFromServer",
+            "params": [
+                {
+                    "name": "success",
+                    "description": "- A callback function that is called after the game state has been fetched from the server and the client model updated. This function is passed a single parameter which is the game state object received from the server.",
+                    "type": "Function"
+                }
+            ],
+            "class": "models.ClientModel",
+            "module": "catan.models",
+            "namespace": "models"
+        },
+        {
+            "file": "gameplay\\js\\model\\hexgrid.js",
+            "line": 44,
+            "description": "Using this method sets the location on the hex and the right functions on all the edges and vertexes it has\nI don't think you'll have to use this...",
+            "itemtype": "method",
+            "name": "setLocation",
+            "params": [
+                {
+                    "name": "location",
+                    "description": "- the new location of the hex",
+                    "type": "hexgrid.HexLocation"
+                }
+            ],
+            "class": "hexgrid.BasicHex",
+            "module": "catan.models",
+            "submodule": "catan.models.hexgrid",
+            "namespace": "hexgrid"
+        },
+        {
+            "file": "gameplay\\js\\model\\hexgrid.js",
+            "line": 63,
+            "description": "Use this to access the edge. You should never have to set new edge objects post initialization. So not setter.",
+            "itemtype": "method",
+            "name": "getEdge",
+            "params": [
+                {
+                    "name": "edgeDirection",
+                    "description": "- which of the hex to fetch",
+                    "type": "hexgrid.EdgeDirection"
+                }
+            ],
+            "return": {
+                "description": "The edge instance",
+                "type": "hexgrid.BaseContainer"
+            },
+            "class": "hexgrid.BasicHex",
+            "module": "catan.models",
+            "submodule": "catan.models.hexgrid",
+            "namespace": "hexgrid"
+        },
+        {
+            "file": "gameplay\\js\\model\\hexgrid.js",
+            "line": 74,
+            "description": "Use this to access the edge. You should never have to set new edge objects post initialization. So not setter.",
+            "itemtype": "method",
+            "name": "getVertex",
+            "params": [
+                {
+                    "name": "vertexDirection",
+                    "description": "- which of the hex to fetch",
+                    "type": "hexgrid.VertexDirection"
+                }
+            ],
+            "return": {
+                "description": "The edge instance",
+                "type": "hexgrid.BaseContainer"
+            },
+            "class": "hexgrid.BasicHex",
+            "module": "catan.models",
+            "submodule": "catan.models.hexgrid",
+            "namespace": "hexgrid"
+        },
+        {
+            "file": "gameplay\\js\\model\\hexgrid.js",
+            "line": 194,
+            "description": "This calls the HexGrid conructor with the right arguements given a radius to \n create a regular hexgrid, with the reference 0,0 pointing to the middle",
+            "itemtype": "method",
+            "name": "getRegular",
+            "static": 1,
+            "params": [
+                {
+                    "name": "radius",
+                    "description": "The radius of the map, including the center. \n                       It's given in the json of the map. T\n                       The width of the map in hexes is equal to (2 * radius - 1)",
+                    "type": "Integer"
+                },
+                {
+                    "name": "hex",
+                    "description": "An instance of the base hex to be used as a template for all the hexes in the grid.\n                More copies are instantiated using the hex(.prototype).constructor property. So make sure you have it!\n                This should be your own custom hex class, which in it's constructor call the base hex constructor",
+                    "type": "hexgrid.BasicHex"
+                }
+            ],
+            "return": {
+                "description": "A newly initialized HexGrid",
+                "type": "hexgrid.HexGrid"
+            },
+            "class": "hexgrid.HexGrid",
+            "module": "catan.models",
+            "submodule": "catan.models.hexgrid",
+            "namespace": "hexgrid"
+        },
+        {
+            "file": "gameplay\\js\\model\\hexgrid.js",
+            "line": 212,
+            "description": "Returns an array of all the hexes. It's useful in order to iterate over them (using [].map)",
+            "itemtype": "method",
+            "name": "getHexes",
+            "return": {
+                "description": "hexgrid.BasicHex [Array]"
+            },
+            "class": "hexgrid.HexGrid",
+            "module": "catan.models",
+            "submodule": "catan.models.hexgrid",
+            "namespace": "hexgrid"
+        },
+        {
+            "file": "gameplay\\js\\model\\hexgrid.js",
+            "line": 239,
+            "description": "Returns the hex at the give spot. If you used the 'getRegular' function to make this hexgrid,\n the hexLocation (0,0) will return the hex in the middle of the hex",
+            "itemtype": "method",
+            "name": "getHex",
+            "return": {
+                "description": "",
+                "type": "hexgrid.BasicHex"
+            },
+            "class": "hexgrid.HexGrid",
+            "module": "catan.models",
+            "submodule": "catan.models.hexgrid",
+            "namespace": "hexgrid"
+        },
+        {
+            "file": "gameplay\\js\\model\\hexgrid.js",
+            "line": 270,
+            "description": "This method should link equivalent spots in hexes - \nie if three hexes share the same vertex, this should make it so \nthe corresponding vertex in each hex is a reference to the same object\nPossibly buggy.",
+            "itemtype": "method",
+            "name": "getHex",
+            "return": {
+                "description": "",
+                "type": "hexgrid.BasicHex"
+            },
+            "class": "hexgrid.HexGrid",
+            "module": "catan.models",
+            "submodule": "catan.models.hexgrid",
+            "namespace": "hexgrid"
+        },
+        {
+            "file": "gameplay\\js\\model\\hexgrid.js",
+            "line": 283,
+            "description": "Returns true if there is a hex at the given location",
+            "itemtype": "method",
+            "name": "getHex",
+            "params": [
+                {
+                    "name": "hexLocation",
+                    "description": "",
+                    "type": "hexgrid.HexLocation"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "class": "hexgrid.HexGrid",
+            "module": "catan.models",
+            "submodule": "catan.models.hexgrid",
+            "namespace": "hexgrid"
+        },
+        {
+            "file": "gameplay\\js\\model\\hexgrid.js",
+            "line": 293,
+            "description": "Returns a list of hex locations that point to all the hexs \ncurrently stored in the grid",
+            "itemtype": "method",
+            "name": "getHex",
+            "return": {
+                "description": "[Array]",
+                "type": "hexgrid.HexLocation"
+            },
+            "class": "hexgrid.HexGrid",
+            "module": "catan.models",
+            "submodule": "catan.models.hexgrid",
+            "namespace": "hexgrid"
+        },
+        {
+            "file": "gameplay\\js\\model\\hexgrid.js",
+            "line": 323,
+            "description": "This method depends on the class derived from BaseContainer for a Edge implementing the method 'isOccupied'\nreturning true iff the container has a road",
+            "itemtype": "method",
+            "name": "getEdges",
+            "return": {
+                "description": "[Array] all the edges that have roads in the hexgrid",
+                "type": "hexgrid.BaseContainer"
+            },
+            "class": "hexgrid.HexGrid",
+            "module": "catan.models",
+            "submodule": "catan.models.hexgrid",
+            "namespace": "hexgrid"
+        },
+        {
+            "file": "gameplay\\js\\model\\hexgrid.js",
+            "line": 334,
+            "description": "This method depends on the class derived from BaseContainer for a Vertex implementing the method 'isOccupied'\nreturning true iff the container has a city/settlement",
+            "itemtype": "method",
+            "name": "getVertexes",
+            "return": {
+                "description": "[Array] All the vertexes that have cities/settlements in the hexgrid",
+                "type": "hexgrid.BaseContainer"
+            },
+            "class": "hexgrid.HexGrid",
+            "module": "catan.models",
+            "submodule": "catan.models.hexgrid",
+            "namespace": "hexgrid"
+        },
+        {
+            "file": "gameplay\\js\\model\\hexgrid.js",
+            "line": 436,
+            "description": "Get the next logical location by traveling about the center ofthe hex in a clockwise direction",
+            "itemtype": "method",
+            "name": "rotateAboutHexCW",
+            "return": {
+                "description": "The next location CW",
+                "type": "hexgrid.BaseLocation"
+            },
+            "class": "hexgrid.BaseLocation",
+            "module": "catan.models",
+            "submodule": "catan.models.hexgrid",
+            "namespace": "hexgrid"
+        },
+        {
+            "file": "gameplay\\js\\model\\hexgrid.js",
+            "line": 447,
+            "description": "Get the next logical location by traveling about the center of the hex in a counter-clockwise direction",
+            "itemtype": "method",
+            "name": "rotateAboutHexCCW",
+            "return": {
+                "description": "[Array] The next location CCW",
+                "type": "hexgrid.BaseLocation"
+            },
+            "class": "hexgrid.BaseLocation",
+            "module": "catan.models",
+            "submodule": "catan.models.hexgrid",
+            "namespace": "hexgrid"
+        },
+        {
+            "file": "gameplay\\js\\model\\hexgrid.js",
+            "line": 459,
+            "description": "Edge and VertexLocation's have class-specific implementations\n\nThis function should return all Locations that refer to this spot on the map",
+            "itemtype": "method",
+            "name": "getEquivalenceGroup",
+            "return": {
+                "description": "[Array] A list of equivalent locations including this one",
+                "type": "hexgrid.BaseLocation"
+            },
+            "class": "hexgrid.BaseLocation",
+            "module": "catan.models",
+            "submodule": "catan.models.hexgrid",
+            "namespace": "hexgrid"
+        },
+        {
+            "file": "gameplay\\js\\model\\hexgrid.js",
+            "line": 469,
+            "description": "Abstract function to be overridden in child-class",
+            "itemtype": "method",
+            "name": "getNeighborVertexes",
+            "return": {
+                "description": "[Array] vertexes touching this location",
+                "type": "hexgrid.VertexLocation"
+            },
+            "class": "hexgrid.BaseLocation",
+            "module": "catan.models",
+            "submodule": "catan.models.hexgrid",
+            "namespace": "hexgrid"
+        },
+        {
+            "file": "gameplay\\js\\model\\hexgrid.js",
+            "line": 477,
+            "description": "Abstract function to be overridden in child-class",
+            "itemtype": "method",
+            "name": "getConnectedEdges",
+            "return": {
+                "description": "[Array] edges touching this locaiton",
+                "type": "hexgrid.VertexLocation"
+            },
+            "class": "hexgrid.BaseLocation",
+            "module": "catan.models",
+            "submodule": "catan.models.hexgrid",
+            "namespace": "hexgrid"
+        },
+        {
+            "file": "gameplay\\js\\model\\hexgrid.js",
+            "line": 490,
+            "description": "Returns a unique string id for this location\n        All locations in any equivalence group will have the same",
+            "itemtype": "method",
+            "name": "getIDString",
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "class": "hexgrid.BaseLocation",
+            "module": "catan.models",
+            "submodule": "catan.models.hexgrid",
+            "namespace": "hexgrid"
+        },
+        {
+            "file": "gameplay\\js\\model\\hexgrid.js",
+            "line": 526,
+            "description": "This function returns this Edge location as well as the edge location for\nthe other hex that this edge touches.",
+            "itemtype": "method",
+            "name": "getEquivalenceGroup",
+            "return": {
+                "description": "[Array] The list of all edge locations that this \nobject is equivalent to (reflexive). Size = 2.",
+                "type": "hexgrid.EdgeLocation"
+            },
+            "class": "hexgrid.EdgeLocation",
+            "module": "catan.models",
+            "submodule": "catan.models.hexgrid",
+            "namespace": "hexgrid"
+        },
+        {
+            "file": "gameplay\\js\\model\\hexgrid.js",
+            "line": 604,
+            "description": "This function returns this VertexLocation as well as the VertexLocation for\nthe other 2 hexes that this VertexLocation touches.",
+            "itemtype": "method",
+            "name": "getEquivalenceGroup",
+            "return": {
+                "description": "[Array] The list of all VertexLocation that this \nobject is equivalent to (reflexive). Size = 3.",
+                "type": "hexgrid.VertexLocation"
+            },
+            "class": "hexgrid.VertexLocation",
+            "module": "catan.models",
+            "submodule": "catan.models.hexgrid",
+            "namespace": "hexgrid"
+        },
+        {
+            "file": "gameplay\\js\\model\\hexgrid.js",
+            "line": 641,
+            "description": "Returns the three edge locations connected to this vertex location",
+            "itemtype": "method",
+            "name": "getConnectedEdges",
+            "return": {
+                "description": "[Array]",
+                "type": "hexgrid.EdgeLocation"
+            },
+            "class": "hexgrid.VertexLocation",
+            "module": "catan.models",
+            "submodule": "catan.models.hexgrid",
+            "namespace": "hexgrid"
+        },
+        {
+            "file": "gameplay\\js\\model\\hexgrid.js",
+            "line": 649,
+            "description": "An alias for '.getConnectedEdges' - you could use it in tree traversal?",
+            "itemtype": "method",
+            "name": "getConnectedEdges",
+            "return": {
+                "description": "[Array]",
+                "type": "hexgrid.EdgeLocation"
+            },
+            "class": "hexgrid.VertexLocation",
+            "module": "catan.models",
+            "submodule": "catan.models.hexgrid",
+            "namespace": "hexgrid"
+        },
+        {
+            "file": "gameplay\\js\\model\\hexgrid.js",
+            "line": 671,
+            "description": "This function should return true if this edge or vertex is occupied. (ie it contains a city, settlement or edge)",
+            "itemtype": "method",
+            "name": "isOccupied",
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "class": "hexgrid.BaseContainer",
+            "module": "catan.models",
+            "submodule": "catan.models.hexgrid",
+            "namespace": "hexgrid"
+        },
+        {
+            "file": "gameplay\\js\\points\\GameOverOverlay.js",
+            "line": 32,
+            "itemtype": "method",
+            "name": "setWinner",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "the name of the winner",
+                    "type": "String"
+                },
+                {
+                    "name": "isYou",
+                    "description": "whether the client player is the winner",
+                    "type": "Boolean"
+                }
+            ],
+            "class": "misc.GameFinishedView",
+            "module": "catan.misc",
+            "namespace": "misc"
+        },
+        {
+            "file": "gameplay\\js\\points\\PointsView.js",
+            "line": 47,
+            "description": "Sets the number of points the player has",
+            "itemtype": "method",
+            "name": "setPoints",
+            "params": [
+                {
+                    "name": "points",
+                    "description": "The number of points the player has",
+                    "type": "Integer"
+                }
+            ],
+            "class": "points.PointView",
+            "module": "catan.points",
+            "namespace": "points"
+        },
+        {
+            "file": "gameplay\\js\\resources\\ResourcesController.js",
+            "line": 47,
+            "description": "The action to take on clicking the resource bar road button. Brings up the map \noverlay and allows you to place a road.",
+            "itemtype": "method",
+            "name": "buildRoad",
+            "return": {
+                "description": "void"
+            },
+            "class": "resources.ResourceBarController",
+            "module": "catan.resources",
+            "namespace": "resources"
+        },
+        {
+            "file": "gameplay\\js\\resources\\ResourcesController.js",
+            "line": 62,
+            "description": "The action to take on clicking the resource bar settlement button. Brings up the map \noverlay and allows you to place a settlement.",
+            "itemtype": "method",
+            "name": "buildSettlement",
+            "return": {
+                "description": "void"
+            },
+            "class": "resources.ResourceBarController",
+            "module": "catan.resources",
+            "namespace": "resources"
+        },
+        {
+            "file": "gameplay\\js\\resources\\ResourcesController.js",
+            "line": 77,
+            "description": "The action to take on clicking the resource bar city button. Brings up the map \noverlay and allows you to place a city.",
+            "itemtype": "method",
+            "name": "buildCity",
+            "return": {
+                "description": "void"
+            },
+            "class": "resources.ResourceBarController",
+            "module": "catan.resources",
+            "namespace": "resources"
+        },
+        {
+            "file": "gameplay\\js\\resources\\ResourcesController.js",
+            "line": 92,
+            "description": "The action to take on clicking the resource bar \"buy a card\" button. \nShould bring up the \"buy a card\" overlay.",
+            "itemtype": "method",
+            "name": "buyCard",
+            "return": {
+                "description": "void"
+            },
+            "class": "resources.ResourceBarController",
+            "module": "catan.resources",
+            "namespace": "resources"
+        },
+        {
+            "file": "gameplay\\js\\resources\\ResourcesController.js",
+            "line": 107,
+            "description": "The action to take on clicking the resource bar \"play a card\" button. \nShould bring up the \"play a card\" overlay.",
+            "itemtype": "method",
+            "name": "playCard",
+            "return": {
+                "description": "void"
+            },
+            "class": "resources.ResourceBarController",
+            "module": "catan.resources",
+            "namespace": "resources"
+        },
+        {
+            "file": "gameplay\\js\\resources\\ResourcesView.js",
+            "line": 45,
+            "description": "Attaches the controller to the view and builds the view on the page.",
+            "itemtype": "method",
+            "name": "setController",
+            "params": [
+                {
+                    "name": "controller",
+                    "description": "the controller",
+                    "type": "ResourceController"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "resources.ResourceBarView",
+            "module": "catan.resources",
+            "namespace": "resources"
+        },
+        {
+            "file": "gameplay\\js\\resources\\ResourcesView.js",
+            "line": 56,
+            "description": "Updates the display for an element of the resource bar",
+            "itemtype": "method",
+            "name": "updateAmount",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "the element to change (\"wood\",\"brick\",\"sheep\",\"wheat\",\"ore\",\"Roads\",\"Settlements\",\"Cities\",\"BuyCard\",\"DevCards\",\"Soldiers\"). These constants are defined in StudentDefinitions.js",
+                    "type": "String"
+                },
+                {
+                    "name": "amount",
+                    "description": "the display amount (can be undefined)",
+                    "type": "Int"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "resources.ResourceBarView",
+            "module": "catan.resources",
+            "namespace": "resources"
+        },
+        {
+            "file": "gameplay\\js\\resources\\ResourcesView.js",
+            "line": 69,
+            "description": "Enables or disables an element of the resource bar",
+            "itemtype": "method",
+            "name": "setActionEnabled",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "the element to change (\"wood\",\"brick\",\"sheep\",\"wheat\",\"ore\",\"Roads\",\"Settlements\",\"Cities\",\"BuyCard\",\"DevCards\",\"Soldiers\"). These constants are defined in StudentDefinitions.js",
+                    "type": "String"
+                },
+                {
+                    "name": "enabled",
+                    "description": "whether to enable the button",
+                    "type": "Boolean"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "resources.ResourceBarView",
+            "module": "catan.resources",
+            "namespace": "resources"
+        },
+        {
+            "file": "gameplay\\js\\roll\\RollController.js",
+            "line": 36,
+            "description": "This is called from the roll result view.  It should close the roll result view and allow the game to continue.",
+            "itemtype": "method",
+            "name": "closeResult",
+            "return": {
+                "description": "void"
+            },
+            "class": "roll.RollController",
+            "module": "catan.roll",
+            "namespace": "roll"
+        },
+        {
+            "file": "gameplay\\js\\roll\\RollController.js",
+            "line": 44,
+            "description": "This method generates a dice roll",
+            "itemtype": "method",
+            "name": "rollDice",
+            "return": {
+                "description": "void"
+            },
+            "class": "roll.RollController",
+            "module": "catan.roll",
+            "namespace": "roll"
+        },
+        {
+            "file": "gameplay\\js\\roll\\RollOverlay.js",
+            "line": 72,
+            "description": "Updates the countdown message",
+            "itemtype": "method",
+            "name": "changeMessage",
+            "params": [
+                {
+                    "name": "message",
+                    "description": "the new countdown message",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "roll.RollView",
+            "module": "catan.roll",
+            "namespace": "roll"
+        },
+        {
+            "file": "gameplay\\js\\roll\\RollResultOverlay.js",
+            "line": 37,
+            "description": "sets the amount to display after a roll.",
+            "itemtype": "method",
+            "name": "setAmount",
+            "params": [
+                {
+                    "name": "amount",
+                    "description": "the amount to display",
+                    "type": "Int"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "roll.RollResultView",
+            "module": "catan.roll",
+            "namespace": "roll"
+        },
+        {
+            "file": "gameplay\\js\\trading\\AcceptOverlay.js",
+            "line": 83,
+            "description": "Displays the name of the player that offered the trade.",
+            "itemtype": "method",
+            "name": "setPlayerName",
+            "params": [
+                {
+                    "name": "playerName",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "class": "domestic.AcceptView",
+            "module": "catan.trade",
+            "submodule": "catan.trade.domestic",
+            "namespace": "domestic"
+        },
+        {
+            "file": "gameplay\\js\\trading\\AcceptOverlay.js",
+            "line": 92,
+            "description": "Enables or disables accepting a trade",
+            "itemtype": "method",
+            "name": "setAcceptEnabled",
+            "params": [
+                {
+                    "name": "enabled",
+                    "description": "",
+                    "type": "Boolean"
+                }
+            ],
+            "class": "domestic.AcceptView",
+            "module": "catan.trade",
+            "submodule": "catan.trade.domestic",
+            "namespace": "domestic"
+        },
+        {
+            "file": "gameplay\\js\\trading\\AcceptOverlay.js",
+            "line": 107,
+            "description": "Adds a resource to the display (what the player will have to give up)",
+            "itemtype": "method",
+            "name": "addGiveResource",
+            "params": [
+                {
+                    "name": "resource",
+                    "description": "the element to display (a resource: \"wood\",\"brick\",\"sheep\",\"wheat\",\"ore\")",
+                    "type": "String"
+                },
+                {
+                    "name": "amount",
+                    "description": "",
+                    "type": "Int"
+                }
+            ],
+            "class": "domestic.AcceptView",
+            "module": "catan.trade",
+            "submodule": "catan.trade.domestic",
+            "namespace": "domestic"
+        },
+        {
+            "file": "gameplay\\js\\trading\\AcceptOverlay.js",
+            "line": 118,
+            "description": "Adds a resource to the display (what the player will receive from the offer)",
+            "itemtype": "method",
+            "name": "addGetResource",
+            "params": [
+                {
+                    "name": "resource",
+                    "description": "the element to display (a resource: \"wood\",\"brick\",\"sheep\",\"wheat\",\"ore\")",
+                    "type": "String"
+                },
+                {
+                    "name": "amount",
+                    "description": "",
+                    "type": "Int"
+                }
+            ],
+            "class": "domestic.AcceptView",
+            "module": "catan.trade",
+            "submodule": "catan.trade.domestic",
+            "namespace": "domestic"
+        },
+        {
+            "file": "gameplay\\js\\trading\\DomesticController.js",
+            "line": 38,
+            "class": "domestic.DomesticController",
+            "module": "catan.trade",
+            "submodule": "catan.trade.domestic",
+            "namespace": "domestic"
+        },
+        {
+            "file": "gameplay\\js\\trading\\DomesticController.js",
+            "line": 40,
+            "itemtype": "method",
+            "name": "setResourceToSend",
+            "params": [
+                {
+                    "name": "resource",
+                    "description": "the resource to send (\"wood\",\"brick\",\"sheep\",\"wheat\",\"ore\")",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "domestic.DomesticController",
+            "module": "catan.trade",
+            "submodule": "catan.trade.domestic",
+            "namespace": "domestic"
+        },
+        {
+            "file": "gameplay\\js\\trading\\DomesticController.js",
+            "line": 48,
+            "itemtype": "method",
+            "name": "setResourceToReceive",
+            "params": [
+                {
+                    "name": "resource",
+                    "description": "the resource to receive (\"wood\",\"brick\",\"sheep\",\"wheat\",\"ore\")",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "domestic.DomesticController",
+            "module": "catan.trade",
+            "submodule": "catan.trade.domestic",
+            "namespace": "domestic"
+        },
+        {
+            "file": "gameplay\\js\\trading\\DomesticController.js",
+            "line": 56,
+            "itemtype": "method",
+            "name": "unsetResource",
+            "params": [
+                {
+                    "name": "resource",
+                    "description": "the resource to clear (\"wood\",\"brick\",\"sheep\",\"wheat\",\"ore\")",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "domestic.DomesticController",
+            "module": "catan.trade",
+            "submodule": "catan.trade.domestic",
+            "namespace": "domestic"
+        },
+        {
+            "file": "gameplay\\js\\trading\\DomesticController.js",
+            "line": 64,
+            "itemtype": "method",
+            "name": "setPlayerToTradeWith",
+            "params": [
+                {
+                    "name": "playerNumber",
+                    "description": "the player to trade with",
+                    "type": "Int"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "domestic.DomesticController",
+            "module": "catan.trade",
+            "submodule": "catan.trade.domestic",
+            "namespace": "domestic"
+        },
+        {
+            "file": "gameplay\\js\\trading\\DomesticController.js",
+            "line": 72,
+            "description": "Increases the amount to send or receive of a resource",
+            "itemtype": "method",
+            "name": "increaseResourceAmount",
+            "params": [
+                {
+                    "name": "resource",
+                    "description": "(\"wood\",\"brick\",\"sheep\",\"wheat\",\"ore\")",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "domestic.DomesticController",
+            "module": "catan.trade",
+            "submodule": "catan.trade.domestic",
+            "namespace": "domestic"
+        },
+        {
+            "file": "gameplay\\js\\trading\\DomesticController.js",
+            "line": 81,
+            "description": "Decreases the amount to send or receive of a resource",
+            "itemtype": "method",
+            "name": "decreaseResourceAmount",
+            "params": [
+                {
+                    "name": "resource",
+                    "description": "(\"wood\",\"brick\",\"sheep\",\"wheat\",\"ore\")",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "domestic.DomesticController",
+            "module": "catan.trade",
+            "submodule": "catan.trade.domestic",
+            "namespace": "domestic"
+        },
+        {
+            "file": "gameplay\\js\\trading\\DomesticController.js",
+            "line": 90,
+            "description": "Sends the trade offer to the accepting player",
+            "itemtype": "method",
+            "name": "sendTradeOffer",
+            "return": {
+                "description": "void"
+            },
+            "class": "domestic.DomesticController",
+            "module": "catan.trade",
+            "submodule": "catan.trade.domestic",
+            "namespace": "domestic"
+        },
+        {
+            "file": "gameplay\\js\\trading\\DomesticController.js",
+            "line": 99,
+            "class": "domestic.DomesticController",
+            "module": "catan.trade",
+            "submodule": "catan.trade.domestic",
+            "namespace": "domestic"
+        },
+        {
+            "file": "gameplay\\js\\trading\\DomesticController.js",
+            "line": 101,
+            "description": "Finalizes the trade between players",
+            "itemtype": "method",
+            "name": "acceptTrade",
+            "params": [
+                {
+                    "name": "willAccept",
+                    "description": "",
+                    "type": "Boolean"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "domestic.DomesticController",
+            "module": "catan.trade",
+            "submodule": "catan.trade.domestic",
+            "namespace": "domestic"
+        },
+        {
+            "file": "gameplay\\js\\trading\\DomesticView.js",
+            "line": 42,
+            "description": "Attaches the controller to the view and builds the view on the page.",
+            "itemtype": "method",
+            "name": "setController",
+            "params": [
+                {
+                    "name": "controller",
+                    "description": "",
+                    "type": "domestic.Controller"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "domestic.DomesticView",
+            "module": "catan.trade",
+            "submodule": "catan.trade.domestic",
+            "namespace": "domestic"
+        },
+        {
+            "file": "gameplay\\js\\trading\\DomesticView.js",
+            "line": 53,
+            "description": "Sets the opponents to trade with for the player in the view. \nThis should be called on initializing the controller, and only called once.",
+            "itemtype": "method",
+            "name": "setPlayers",
+            "params": [
+                {
+                    "name": "players",
+                    "description": "The player's three opponents. Each must be of the form\n\t\t \t{\n\t\t\t\tname: the name of the player,\n\t\t\t\tcolor: the player's game color,\n\t\t\t\tindex: the gameplay index of the player\n\t\t\t}",
+                    "type": "Array"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "domestic.DomesticView",
+            "module": "catan.trade",
+            "submodule": "catan.trade.domestic",
+            "namespace": "domestic"
+        },
+        {
+            "file": "gameplay\\js\\trading\\DomesticView.js",
+            "line": 70,
+            "description": "Turns on or off the ability to trade resources",
+            "itemtype": "method",
+            "name": "setResourceSelectionEnabled",
+            "params": [
+                {
+                    "name": "shouldEnable",
+                    "description": "whether the player can trade resources or not",
+                    "type": "Boolean"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "domestic.DomesticView",
+            "module": "catan.trade",
+            "submodule": "catan.trade.domestic",
+            "namespace": "domestic"
+        },
+        {
+            "file": "gameplay\\js\\trading\\DomesticView.js",
+            "line": 89,
+            "description": "Turns on or off the ability to select a player to trade with",
+            "itemtype": "method",
+            "name": "setPlayerSelectionEnabled",
+            "params": [
+                {
+                    "name": "shouldEnable",
+                    "description": "whether the player can trade or not",
+                    "type": "Boolean"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "domestic.DomesticView",
+            "module": "catan.trade",
+            "submodule": "catan.trade.domestic",
+            "namespace": "domestic"
+        },
+        {
+            "file": "gameplay\\js\\trading\\DomesticView.js",
+            "line": 102,
+            "description": "Turns on or off the ability to set amounts to trade for a reosurce",
+            "itemtype": "method",
+            "name": "setResourceAmountChangeEnabled",
+            "params": [
+                {
+                    "name": "resource",
+                    "description": "the element to change (a resource: \"wood\",\"brick\",\"sheep\",\"wheat\",\"ore\")",
+                    "type": "String"
+                },
+                {
+                    "name": "shouldIncrease",
+                    "description": "whether the player can set more of the resource",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "shouldDecrease",
+                    "description": "whether the player can set less of the resource",
+                    "type": "Boolean"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "domestic.DomesticView",
+            "module": "catan.trade",
+            "submodule": "catan.trade.domestic",
+            "namespace": "domestic"
+        },
+        {
+            "file": "gameplay\\js\\trading\\DomesticView.js",
+            "line": 119,
+            "description": "Displays the amount for a resource",
+            "itemtype": "method",
+            "name": "setResourceAmount",
+            "params": [
+                {
+                    "name": "resource",
+                    "description": "the element to change (a resource: \"wood\",\"brick\",\"sheep\",\"wheat\",\"ore\")",
+                    "type": "String"
+                },
+                {
+                    "name": "amount",
+                    "description": "the current amount the player wants to trade",
+                    "type": "Int"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "domestic.DomesticView",
+            "module": "catan.trade",
+            "submodule": "catan.trade.domestic",
+            "namespace": "domestic"
+        },
+        {
+            "file": "gameplay\\js\\trading\\DomesticView.js",
+            "line": 132,
+            "description": "Turns on or off the ability to trade",
+            "itemtype": "method",
+            "name": "setTradeButtonEnabled",
+            "params": [
+                {
+                    "name": "shouldEnable",
+                    "description": "whether the player can trade or not",
+                    "type": "Boolean"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "domestic.DomesticView",
+            "module": "catan.trade",
+            "submodule": "catan.trade.domestic",
+            "namespace": "domestic"
+        },
+        {
+            "file": "gameplay\\js\\trading\\DomesticView.js",
+            "line": 145,
+            "description": "Displays the message indicating the state of the trade",
+            "itemtype": "method",
+            "name": "setStateMessage",
+            "params": [
+                {
+                    "name": "message",
+                    "description": "the message to display",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "domestic.DomesticView",
+            "module": "catan.trade",
+            "submodule": "catan.trade.domestic",
+            "namespace": "domestic"
+        },
+        {
+            "file": "gameplay\\js\\trading\\DomesticView.js",
+            "line": 155,
+            "description": "Resets the view",
+            "itemtype": "method",
+            "name": "clearTradeView",
+            "return": {
+                "description": "void"
+            },
+            "class": "domestic.DomesticView",
+            "module": "catan.trade",
+            "submodule": "catan.trade.domestic",
+            "namespace": "domestic"
+        },
+        {
+            "file": "gameplay\\js\\trading\\MaritimeController.js",
+            "line": 34,
+            "description": "Called by the view when the player \"undoes\" their give selection",
+            "itemtype": "method",
+            "name": "unsetGiveValue",
+            "return": {
+                "description": "void"
+            },
+            "class": "maritime.MaritimeController",
+            "module": "catan.trade",
+            "submodule": "catan.trade.maritime",
+            "namespace": "maritime"
+        },
+        {
+            "file": "gameplay\\js\\trading\\MaritimeController.js",
+            "line": 42,
+            "description": "Called by the view when the player \"undoes\" their get selection",
+            "itemtype": "method",
+            "name": "unsetGetValue",
+            "return": {
+                "description": "void"
+            },
+            "class": "maritime.MaritimeController",
+            "module": "catan.trade",
+            "submodule": "catan.trade.maritime",
+            "namespace": "maritime"
+        },
+        {
+            "file": "gameplay\\js\\trading\\MaritimeController.js",
+            "line": 50,
+            "description": "Called by the view when the player selects which resource to give",
+            "itemtype": "method",
+            "name": "setGiveValue",
+            "params": [
+                {
+                    "name": "resource",
+                    "description": "The resource to trade (\"wood\",\"brick\",\"sheep\",\"wheat\",\"ore\")",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "maritime.MaritimeController",
+            "module": "catan.trade",
+            "submodule": "catan.trade.maritime",
+            "namespace": "maritime"
+        },
+        {
+            "file": "gameplay\\js\\trading\\MaritimeController.js",
+            "line": 59,
+            "description": "Called by the view when the player selects which resource to get",
+            "itemtype": "method",
+            "name": "setGetValue",
+            "params": [
+                {
+                    "name": "resource",
+                    "description": "The resource to trade (\"wood\",\"brick\",\"sheep\",\"wheat\",\"ore\")",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "maritime.MaritimeController",
+            "module": "catan.trade",
+            "submodule": "catan.trade.maritime",
+            "namespace": "maritime"
+        },
+        {
+            "file": "gameplay\\js\\trading\\MaritimeController.js",
+            "line": 68,
+            "itemtype": "method",
+            "name": "makeTrade",
+            "return": {
+                "description": "void"
+            },
+            "class": "maritime.MaritimeController",
+            "module": "catan.trade",
+            "submodule": "catan.trade.maritime",
+            "namespace": "maritime"
+        },
+        {
+            "file": "gameplay\\js\\trading\\MaritimeView.js",
+            "line": 42,
+            "description": "Attaches the controller to the view and builds the view on the page.",
+            "itemtype": "method",
+            "name": "setController",
+            "params": [
+                {
+                    "name": "controller",
+                    "description": "",
+                    "type": "maritime.Controller"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "maritime.MaritimeView",
+            "module": "catan.trade",
+            "submodule": "catan.trade.maritime",
+            "namespace": "maritime"
+        },
+        {
+            "file": "gameplay\\js\\trading\\MaritimeView.js",
+            "line": 53,
+            "description": "Shows all the resources, enabling the ones the player can give, and disabling the ones he can't.",
+            "itemtype": "method",
+            "name": "showGiveOptions",
+            "params": [
+                {
+                    "name": "resources",
+                    "description": "the resources the player can give, based on current ports",
+                    "type": "String[]"
+                }
+            ],
+            "class": "maritime.MaritimeView",
+            "module": "catan.trade",
+            "submodule": "catan.trade.maritime",
+            "namespace": "maritime"
+        },
+        {
+            "file": "gameplay\\js\\trading\\MaritimeView.js",
+            "line": 62,
+            "description": "Hides all the resources except the one the player has selected.",
+            "itemtype": "method",
+            "name": "selectGiveOption",
+            "params": [
+                {
+                    "name": "resource",
+                    "description": "the resource the player has selected to give (a resource: \"wood\",\"brick\",\"sheep\",\"wheat\",\"ore\")",
+                    "type": "String"
+                },
+                {
+                    "name": "the",
+                    "description": "amount the player has to give of the selected resource",
+                    "type": "Int"
+                }
+            ],
+            "class": "maritime.MaritimeView",
+            "module": "catan.trade",
+            "submodule": "catan.trade.maritime",
+            "namespace": "maritime"
+        },
+        {
+            "file": "gameplay\\js\\trading\\MaritimeView.js",
+            "line": 72,
+            "description": "Disables all the resources that the player could give",
+            "itemtype": "method",
+            "name": "hideGiveOptions",
+            "class": "maritime.MaritimeView",
+            "module": "catan.trade",
+            "submodule": "catan.trade.maritime",
+            "namespace": "maritime"
+        },
+        {
+            "file": "gameplay\\js\\trading\\MaritimeView.js",
+            "line": 80,
+            "description": "Shows all the resources, enabling the ones the player can receive, and disabling the ones he can't.",
+            "itemtype": "method",
+            "name": "showGetOptions",
+            "params": [
+                {
+                    "name": "resources",
+                    "description": "the resources a player can receive",
+                    "type": "Array"
+                }
+            ],
+            "class": "maritime.MaritimeView",
+            "module": "catan.trade",
+            "submodule": "catan.trade.maritime",
+            "namespace": "maritime"
+        },
+        {
+            "file": "gameplay\\js\\trading\\MaritimeView.js",
+            "line": 89,
+            "description": "Hides all the resources except the one the player has selected.",
+            "itemtype": "method",
+            "name": "selectGetOption",
+            "params": [
+                {
+                    "name": "resource",
+                    "description": "the resource the player has selected to receive (a resource: \"wood\",\"brick\",\"sheep\",\"wheat\",\"ore\")",
+                    "type": "String"
+                },
+                {
+                    "name": "the",
+                    "description": "amount the player has to receive of the selected resource",
+                    "type": "Int"
+                }
+            ],
+            "class": "maritime.MaritimeView",
+            "module": "catan.trade",
+            "submodule": "catan.trade.maritime",
+            "namespace": "maritime"
+        },
+        {
+            "file": "gameplay\\js\\trading\\MaritimeView.js",
+            "line": 99,
+            "description": "Disables all the resources that the player could receive",
+            "itemtype": "method",
+            "name": "hideGetOptions",
+            "class": "maritime.MaritimeView",
+            "module": "catan.trade",
+            "submodule": "catan.trade.maritime",
+            "namespace": "maritime"
+        },
+        {
+            "file": "gameplay\\js\\trading\\MaritimeView.js",
+            "line": 107,
+            "description": "Enables or disables the button",
+            "itemtype": "method",
+            "name": "enableTradeButton",
+            "params": [
+                {
+                    "name": "enable",
+                    "description": "whether to enable the button or not",
+                    "type": "Boolean"
+                }
+            ],
+            "class": "maritime.MaritimeView",
+            "module": "catan.trade",
+            "submodule": "catan.trade.maritime",
+            "namespace": "maritime"
+        },
+        {
+            "file": "gameplay\\js\\trading\\MaritimeView.js",
+            "line": 119,
+            "description": "Sets the message on the button",
+            "itemtype": "method",
+            "name": "setMessage",
+            "params": [
+                {
+                    "name": "message",
+                    "description": "the message to display",
+                    "type": "String"
+                }
+            ],
+            "class": "maritime.MaritimeView",
+            "module": "catan.trade",
+            "submodule": "catan.trade.maritime",
+            "namespace": "maritime"
+        },
+        {
+            "file": "gameplay\\js\\turn_tracker\\TrackerController.js",
+            "line": 35,
+            "description": "Called by the view when the local player ends their turn.",
+            "itemtype": "method",
+            "name": "endTurn",
+            "return": {
+                "description": "void"
+            },
+            "class": "turntracker.TurnTrackerController",
+            "module": "catan.turntracker",
+            "namespace": "turntracker"
+        },
+        {
+            "file": "gameplay\\js\\turn_tracker\\TrackerView.js",
+            "line": 36,
+            "description": "attaches the controller to the view and builds the view on the page.",
+            "itemtype": "method",
+            "name": "setController",
+            "params": [
+                {
+                    "name": "controller",
+                    "description": "",
+                    "type": "turntracker.Controller"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "turntracker.TurnTrackerView",
+            "module": "catan.turntracker",
+            "namespace": "turntracker"
+        },
+        {
+            "file": "gameplay\\js\\turn_tracker\\TrackerView.js",
+            "line": 47,
+            "description": "sets the color to display for the local player.",
+            "itemtype": "method",
+            "name": "setClientColor",
+            "params": [
+                {
+                    "name": "color",
+                    "description": "the players specified color",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "turntracker.TurnTrackerView",
+            "module": "catan.turntracker",
+            "namespace": "turntracker"
+        },
+        {
+            "file": "gameplay\\js\\turn_tracker\\TrackerView.js",
+            "line": 63,
+            "description": "sets the name and color of a player in the player table.",
+            "itemtype": "method",
+            "name": "initializePlayer",
+            "params": [
+                {
+                    "name": "playerNumber",
+                    "description": "The player to update",
+                    "type": "Int"
+                },
+                {
+                    "name": "playerName",
+                    "description": "the player's name",
+                    "type": "String"
+                },
+                {
+                    "name": "playerColor",
+                    "description": "the player's color",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "turntracker.TurnTrackerView",
+            "module": "catan.turntracker",
+            "namespace": "turntracker"
+        },
+        {
+            "file": "gameplay\\js\\turn_tracker\\TrackerView.js",
+            "line": 77,
+            "description": "updates the information for a player in the player table.",
+            "itemtype": "method",
+            "name": "updatePlayer",
+            "params": [
+                {
+                    "name": "updates",
+                    "description": "an object with the updates for a single player",
+                    "type": "Object",
+                    "props": [
+                        {
+                            "name": "playerIndex",
+                            "description": "the player to update",
+                            "type": "Int"
+                        },
+                        {
+                            "name": "score",
+                            "description": "the score",
+                            "type": "Int"
+                        },
+                        {
+                            "name": "highlight",
+                            "description": "whether the player's display box should be highlighted",
+                            "type": "Boolean"
+                        },
+                        {
+                            "name": "army",
+                            "description": "whether the player has the largest army award",
+                            "type": "Boolean"
+                        },
+                        {
+                            "name": "road",
+                            "description": "whether the player has the longest road award",
+                            "type": "Boolean"
+                        }
+                    ]
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "turntracker.TurnTrackerView",
+            "module": "catan.turntracker",
+            "namespace": "turntracker"
+        },
+        {
+            "file": "gameplay\\js\\turn_tracker\\TrackerView.js",
+            "line": 96,
+            "description": "updates the game state button's message and enabled state",
+            "itemtype": "method",
+            "name": "updateStateView",
+            "params": [
+                {
+                    "name": "enable",
+                    "description": "whether to enable the game state button",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "message",
+                    "description": "the message to display on the game state button",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "turntracker.TurnTrackerView",
+            "module": "catan.turntracker",
+            "namespace": "turntracker"
+        },
+        {
+            "file": "gameplay\\js\\view_basics\\BasicOverlay.js",
+            "line": 41,
+            "description": "sets the Controller for the view",
+            "itemtype": "method",
+            "name": "setController",
+            "params": [
+                {
+                    "name": "controller",
+                    "description": "",
+                    "type": "misc.BaseController"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "misc.BaseOverlay",
+            "module": "catan.misc",
+            "namespace": "misc"
+        },
+        {
+            "file": "gameplay\\js\\view_basics\\BasicOverlay.js",
+            "line": 55,
+            "description": "makes the overlay visible",
+            "itemtype": "method",
+            "name": "showModal",
+            "return": {
+                "description": "void"
+            },
+            "class": "misc.BaseOverlay",
+            "module": "catan.misc",
+            "namespace": "misc"
+        },
+        {
+            "file": "gameplay\\js\\view_basics\\BasicOverlay.js",
+            "line": 139,
+            "description": "makes the overlay invisible",
+            "itemtype": "method",
+            "name": "closeModal",
+            "return": {
+                "description": "void"
+            },
+            "class": "misc.BaseOverlay",
+            "module": "catan.misc",
+            "namespace": "misc"
+        },
+        {
+            "file": "gameplay\\js\\Core.js",
+            "line": 15,
+            "description": "Returns a newly created object that inherits properties from the\nprototype object p.  It uses the ECMAScript 5 function Object.create() if\nit is defined, and otherwise falls back to an older technique.",
+            "itemtype": "method",
+            "name": "inherit",
+            "params": [
+                {
+                    "name": "p",
+                    "description": "Non-null object. P stands for parent. It's the object to extend",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "An object that extends p.",
+                "type": "Object"
+            },
+            "class": "core.Core",
+            "module": "core",
+            "namespace": "core"
+        },
+        {
+            "file": "gameplay\\js\\Core.js",
+            "line": 34,
+            "description": "This function creates a new enumerated type.  The argument object specifies\nthe names and values of each instance of the class. The return value\nis a constructor function that identifies the new class.  Note, however\nthat the constructor throws an exception: you can't use it to create new\ninstances of the type.  The returned constructor has properties that \nmap the name of a value to the value itself, and also a values array,\na foreach() iterator function",
+            "itemtype": "method",
+            "name": "enumeration",
+            "params": [
+                {
+                    "name": "namesToValues",
+                    "description": "an object with named values"
+                }
+            ],
+            "return": {
+                "description": "an enumeration"
+            },
+            "class": "core.Core",
+            "module": "core",
+            "namespace": "core"
+        },
+        {
+            "file": "gameplay\\js\\Core.js",
+            "line": 110,
+            "description": "This makes a function that can be set as an onclick, etc.\nIf the inputFunction is a string, the return function when run will\nattempt to find that function on the inputObject. That means that it's \npossible to change the function on the inputObject without having to call\nthis again.\n\nIf the inputFunction is a function and not a string, then the function is stored.\n\nIn both cases, the returned function will take the inputFunction and run it\nwith any references to \"this\" in the inputFunction refering to the inputObject.\nThe args are passed and the \"this\" reference change is done using the \nnative JS function \"apply\".",
+            "itemtype": "method",
+            "name": "makeAnonymousAction",
+            "params": [
+                {
+                    "name": "inputObject",
+                    "description": "The object to be refered to as \"this\" in the inputFunction",
+                    "type": "Object"
+                },
+                {
+                    "name": "inputFunction",
+                    "description": "The function that needs to be run. If it's a string, when\n\t\t\t\t\t\t\t\t\t\t\t\tit's requested to run it's looked up dynamically on the inputObject",
+                    "type": "String || Function"
+                },
+                {
+                    "name": "args",
+                    "description": "An array of arguements to be passed to the inputFunction",
+                    "type": "Array<Object>"
+                }
+            ],
+            "return": {
+                "description": "A function that when run, will run inputFunction.apply(inputObject, args);"
+            },
+            "class": "core.Core",
+            "module": "core",
+            "namespace": "core"
+        },
+        {
+            "file": "gameplay\\js\\StudentDefinitions.js",
+            "line": 1,
+            "description": "Definitions for object names to pass between controllers and views.\nyou reference these by calling catan.definitions.ResourceTypes and the like.",
+            "class": "",
+            "module": "core",
+            "namespace": "core"
+        }
+    ],
+    "warnings": [
+        {
+            "message": "replacing incorrect tag: params with param",
+            "line": " gameplay\\js\\comms_box\\CommView.js:17"
+        },
+        {
+            "message": "replacing incorrect tag: params with param",
+            "line": " gameplay\\js\\comms_box\\CommView.js:17"
+        },
+        {
+            "message": "replacing incorrect tag: params with param",
+            "line": " gameplay\\js\\comms_box\\CommView.js:17"
+        },
+        {
+            "message": "replacing incorrect tag: params with param",
+            "line": " gameplay\\js\\comms_box\\CommView.js:17"
+        },
+        {
+            "message": "replacing incorrect tag: params with param",
+            "line": " gameplay\\js\\comms_box\\CommView.js:17"
+        },
+        {
+            "message": "Missing item type",
+            "line": " gameplay\\js\\trading\\DomesticController.js:38"
+        },
+        {
+            "message": "Missing item type",
+            "line": " gameplay\\js\\trading\\DomesticController.js:99"
+        },
+        {
+            "message": "Missing item type\nDefinitions for object names to pass between controllers and views.\nyou reference these by calling catan.definitions.ResourceTypes and the like.",
+            "line": " gameplay\\js\\StudentDefinitions.js:1"
+        }
+    ]
+}

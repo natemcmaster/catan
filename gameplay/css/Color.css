@@ -1,0 +1,91 @@
+/* color rules for game play: buttons and background*/
+
+
+/*blue*/
+.blue{	background-color:#6fb7f6;	}
+button.blue, label.blue{
+	color:#333333;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #b7dbfb), color-stop(1, #6fb7f6) );
+}button.blue:hover, label.blue:hover{
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #6fb7f6), color-stop(1, #b7dbfb) );
+}
+
+/*brown*/
+.brown{	background-color:#a18f70;	}
+button.brown, label.brown{
+	color:#333333;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #bfb39e), color-stop(1, #a18f70) );
+}button.brown:hover, label.brown:hover{
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #a18f70), color-stop(1, #bfb39e) );
+}
+
+/*green*/
+.green{	background-color:#6dc066;	}
+button.green, label.green{
+	color:#333333;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #a1d69c), color-stop(1, #6dc066) );
+}button.green:hover, label.green:hover{
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #6dc066), color-stop(1, #a1d69c) );
+}
+
+/*orange*/
+.orange{	background-color:orange;	}
+button.orange, label.orange{
+	color:#333333;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ffd280), color-stop(1, orange) );
+}button.orange:hover, label.orange:hover{
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, orange), color-stop(1, #ffd280) );
+}
+
+/* puce*/
+.puce{	background-color:#CC8899;	}
+button.puce, label.puce{
+	color:#333333;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #e3bec7), color-stop(1, #CC8899) );
+}button.puce:hover, label.puce:hover{
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #CC8899), color-stop(1, #e3bec7) );
+}
+
+/* purple*/
+.purple{	background-color:#9d8cd4;	}
+button.purple, label.purple{
+	color:#333333;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ccc4e9), color-stop(1, #9d8cd4) );
+}button.purple:hover, label.purple:hover{
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #9d8cd4), color-stop(1, #ccc4e9) );
+}
+
+/* red*/
+.red{	background-color:#e34234;	}
+button.red, label.red{
+	color:#white;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ec8177), color-stop(1, #e34234) );
+}button.red:hover, label.red:hover{
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #e34234), color-stop(1, #ec8177) );
+}
+
+/* white(ish)*/
+.white{	background-color:#dfdfdf;	}
+button.white, label.white{
+	color:#333333;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, white), color-stop(1, #dfdfdf) );
+}button.white:hover, label.white:hover{
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, white) );
+}
+
+/* yellow*/
+.yellow{	background-color:#fde069;	}
+button.yellow, label.yellow{
+	color:#333333;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #fef0b4), color-stop(1, #fde069) );
+}button.yellow:hover, label.yellow:hover{
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #fde069), color-stop(1, #fef0b4) );
+}
+
+
+/*need this here so no overrides.*/
+button:hover[disabled]{
+	background:none;	border:none;	text-shadow:none;
+	background-color:#dfdfdf;	color:#666666;
+	cursor:default;
+}
