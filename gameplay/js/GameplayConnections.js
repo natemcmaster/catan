@@ -246,7 +246,6 @@ catan.client = (function Client_NameSpace(){
 			$(document).ready(function () {
 				returnValue.domLoaded();
 			});
-
 			return returnValue;
 		}
 

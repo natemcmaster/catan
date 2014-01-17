@@ -14,7 +14,7 @@ catan.models.ClientModel  = (function clientModelNameSpace(){
 	
 	@class ClientModel
 	@constructor
-	@param {integer} clientID The id of the client player, extracted from the cookie
+	@param {integer} playerID The id of the local player, extracted from the cookie
     */
 	var ClientModel = (function ClientModelClass(){
         
@@ -31,6 +31,7 @@ catan.models.ClientModel  = (function clientModelNameSpace(){
          * @param {function} success - A callback function that is called after the game state has been fetched from the server and the client model updated. This function is passed a single parameter which is the game state object received from the server.
          * */
 		ClientModel.prototype.initFromServer = function(success){
+            
             // TODO: 1) fetch the game state from the server, 2) update the client model, 3) call the "success" function.
             success();
 		}

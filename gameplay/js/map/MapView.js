@@ -916,7 +916,6 @@ catan.map.View = (function makeMapView(){
 			var _this = this;
             function imagesDoneLoading(images){
 				_this.setImages(images);
-                console.log(images);
 				setupRest.call(_this);
             };
             

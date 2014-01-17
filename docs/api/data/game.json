@@ -64,15 +64,15 @@
           "httpMethod": "POST",
 	      "summary": "Add an AI player to your game",
 	      "notes": "You'll need to have your cookie set for this game in order for this game to work.",
-          "responseClass": "",
+          "responseClass": "void",
           "nickname": "addAI",
-          "consumes":"application/json",
           "parameters": [
           {
+			"name":"AIType",
             "description": "The name of the AI player to add",
             "paramType": "form",
             "required": true,
-            "dataType": "AI Name"
+            "dataType": "string"
             }
           ]
         }
@@ -82,7 +82,7 @@
       "operations": [
         {
           "httpMethod": "GET",
-	        "summary": "Get a list of the AI players",
+	      "summary": "Get a list of the AI players",
           "responseClass": "",
           "nickname": "addAI"
         }

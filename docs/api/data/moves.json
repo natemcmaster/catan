@@ -44,6 +44,24 @@
         }
       ]
     },{
+      "path": "\/moves\/robPlayer",
+      "operations": [
+        {
+          "httpMethod": "POST",
+          "summary": "Moves the robber, selecting the new robber position and player to rob.",
+          "responseClass": "Return's the 'Client Model' JSON (identical to game/model)",
+          "nickname": "Rob player",
+          "consumes":"application/json",
+          "parameters": [
+          {
+            "paramType": "body",
+            "required": true,
+            "dataType": "RobPlayer"
+            }
+          ]
+        }
+      ]
+    },{
       "path": "\/moves\/finishTurn",
       "operations": [
         {
@@ -422,8 +440,8 @@
             "type": {"type":"Monument" },
             "playerIndex":  {"type":"integer","description":"Who's playing this dev card"}
         }
-    },"robPlayer":{
-        "id": "robPlayer",
+    },"RobPlayer":{
+        "id": "RobPlayer",
         "required":["type","playerIndex","victimIndex","robberSpot"],
         "properties":{
             "type":         {"type":"robPlayer"},

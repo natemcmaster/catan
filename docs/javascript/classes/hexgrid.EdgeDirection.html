@@ -77,10 +77,6 @@
             
                 <li><a href="../classes/hexgrid.BasicHex.html">hexgrid.BasicHex</a></li>
             
-                <li><a href="../classes/hexgrid.CatanEdge.html">hexgrid.CatanEdge</a></li>
-            
-                <li><a href="../classes/hexgrid.CatanVertex.html">hexgrid.CatanVertex</a></li>
-            
                 <li><a href="../classes/hexgrid.EdgeDirection.html">hexgrid.EdgeDirection</a></li>
             
                 <li><a href="../classes/hexgrid.EdgeLocation.html">hexgrid.EdgeLocation</a></li>
@@ -122,6 +118,10 @@
                 <li><a href="../classes/misc.GameFinishedView.html">misc.GameFinishedView</a></li>
             
                 <li><a href="../classes/misc.WaitOverlay.html">misc.WaitOverlay</a></li>
+            
+                <li><a href="../classes/models.CatanEdge.html">models.CatanEdge</a></li>
+            
+                <li><a href="../classes/models.CatanVertex.html">models.CatanVertex</a></li>
             
                 <li><a href="../classes/models.ClientModel.html">models.ClientModel</a></li>
             
@@ -224,7 +224,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/gameplay_js_model_hexgrid.js.html#l108"><code>gameplay\js\model\hexgrid.js:108</code></a>
+            Defined in: <a href="../files/student_gameplay_js_model_hexgrid.js.html#l108"><code>student&#x2F;gameplay&#x2F;js&#x2F;model&#x2F;hexgrid.js:108</code></a>
         </div>
     
 
@@ -241,10 +241,12 @@
 
 
 <div class="box intro">
-    <p>These are the edge values in clockwise order starting at NW.
-They are in order so that modulo math makes this easy
-Edge and Vertex Directions give you the edge and then the vertex in clockwise order
-    It&#39;s really just an enumeration</p>
+    <p>Use this class to look up the numerical value of a EdgeDirection from JSON.
+    These are the edge values in clockwise order starting at NW.
+    They are in order so that modulo math makes this easy
+    Edge and Vertex Directions give you the edge and then the vertex in clockwise order
+It&#39;s really just an enumeration. For example EdgeDirection[&quot;NW&quot;] or EdgeDirection.NW returns 0;
+The possible edge directions are &quot;NW&quot;,&quot;N&quot;,&quot;NE&quot;,&quot;SE&quot;,&quot;S&quot;,&quot;SW&quot;</p>
 
 </div>
 

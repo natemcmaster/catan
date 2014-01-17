@@ -44,7 +44,7 @@
           "summary": "Registers a user.",
           "notes": "It registers you and then logs you in by setting a cookie. Returns just http code 200 on success. On an error, it returns code 400 with an error message in the body.",
           "responseClass": "void",
-          "nickname": "register",
+          "nickname": "login",
           "parameters": [
             {
               "name": "username",

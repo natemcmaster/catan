@@ -77,10 +77,6 @@
             
                 <li><a href="../classes/hexgrid.BasicHex.html">hexgrid.BasicHex</a></li>
             
-                <li><a href="../classes/hexgrid.CatanEdge.html">hexgrid.CatanEdge</a></li>
-            
-                <li><a href="../classes/hexgrid.CatanVertex.html">hexgrid.CatanVertex</a></li>
-            
                 <li><a href="../classes/hexgrid.EdgeDirection.html">hexgrid.EdgeDirection</a></li>
             
                 <li><a href="../classes/hexgrid.EdgeLocation.html">hexgrid.EdgeLocation</a></li>
@@ -122,6 +118,10 @@
                 <li><a href="../classes/misc.GameFinishedView.html">misc.GameFinishedView</a></li>
             
                 <li><a href="../classes/misc.WaitOverlay.html">misc.WaitOverlay</a></li>
+            
+                <li><a href="../classes/models.CatanEdge.html">models.CatanEdge</a></li>
+            
+                <li><a href="../classes/models.CatanVertex.html">models.CatanVertex</a></li>
             
                 <li><a href="../classes/models.ClientModel.html">models.ClientModel</a></li>
             
@@ -224,7 +224,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/gameplay_js_model_hexgrid.js.html#l348"><code>gameplay\js\model\hexgrid.js:348</code></a>
+            Defined in: <a href="../files/student_gameplay_js_model_hexgrid.js.html#l349"><code>student&#x2F;gameplay&#x2F;js&#x2F;model&#x2F;hexgrid.js:349</code></a>
         </div>
     
 
@@ -296,7 +296,7 @@
             
         
         
-        <a href="../files/gameplay_js_model_hexgrid.js.html#l348"><code>gameplay\js\model\hexgrid.js:348</code></a>
+        <a href="../files/student_gameplay_js_model_hexgrid.js.html#l349"><code>student&#x2F;gameplay&#x2F;js&#x2F;model&#x2F;hexgrid.js:349</code></a>
         
         </p>
 
@@ -363,6 +363,8 @@
         <li class="api-class-tab index"><a href="#index">Index</a></li>
 
         
+            <li class="api-class-tab methods"><a href="#methods">Methods</a></li>
+        
         
         
         
@@ -373,6 +375,28 @@
             <h2 class="off-left">Item Index</h2>
 
             
+                <div class="index-section methods">
+                    <h3>Methods</h3>
+
+                    <ul class="index-list methods">
+                        
+                            <li class="index-item method">
+                                <a href="#method_equals">equals</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_getNeighborLocation">getNeighborLocation</a>
+
+                                
+                                
+                            </li>
+                        
+                    </ul>
+                </div>
+            
 
             
 
@@ -381,6 +405,220 @@
             
         </div>
 
+        
+            <div id="methods" class="api-class-tabpanel">
+                <h2 class="off-left">Methods</h2>
+
+                
+                    <div id="method_equals" class="method item">
+    <h3 class="name"><code>equals</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>otherLocation</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/student_gameplay_js_model_hexgrid.js.html#l368"><code>student&#x2F;gameplay&#x2F;js&#x2F;model&#x2F;hexgrid.js:368</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>This represents a location of a hex on a hex grid.</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">otherLocation</code>
+                        <span class="type"><a href="../classes/hexgrid.HexLocation.html" class="crosslink">hexgrid.HexLocation</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                    <p>boolean Returns true if the other location has the same x,y</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_getNeighborLocation" class="method item">
+    <h3 class="name"><code>getNeighborLocation</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>hexDirection</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/student_gameplay_js_model_hexgrid.js.html#l379"><code>student&#x2F;gameplay&#x2F;js&#x2F;model&#x2F;hexgrid.js:379</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>This represents a location of a hex on a hex grid.</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">hexDirection</code>
+                        <span class="type">HexDirection</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                    <p>hexgrid.HexLocation Returns a location next to this one, in the direction of the &#39;hexDirection&#39; given</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+            </div>
         
 
         
