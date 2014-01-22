@@ -141,20 +141,23 @@
       "required":["bank","biggestArmy","chat","log","longestRoad","map","players","turnTracker","winner"],
       "properties": {
         "bank": {
+          "description": "The cards available to be distributed to the players.",
           "type": "ResourceList"
         },
         "biggestArmy": {
-          "description": "The orderID of the player with the largest army. -1 for nobody.",
+          "description": "The orderID (0-3) of the player with the largest army. -1 for nobody.",
           "type": "number"
         },
         "chat": {
+          "description": "All the chat messages.",
           "type": "MessageList"
         },
         "log": {
+          "description": "All the log messages.",
           "type": "MessageList"
         },
         "longestRoad": {
-          "description" : "The orderID of the player with the longest road.",
+          "description" : "The orderID (0-3) of the player with the longest road. -1 for nobody",
           "type": "number"
         },
         "map": {
@@ -165,6 +168,10 @@
           "items": {
             "$ref": "Player"
           }
+        },
+        "tradeOffer":{
+          "description":"The current trade offer, if there is one.",
+          "type": "TradeOffer"
         },
         "turnTracker": {
           "description":"This tracks who's turn it is and what action's being done.",
@@ -201,10 +208,7 @@
           "description" : "A 2D array of hexes.",
           "type": "array",
           "items": {
-            "type": "array",
-            "items": {
-              "$ref": "Hex"
-            }
+            "$ref": "Hex"
           }
         },
         "offsets": {
@@ -258,42 +262,54 @@
           "type": "number"
         },
         "cities": {
+          "description":"How many cities this player has left to play",
           "type": "number"
         },
         "color": {
+          "description":"The color of this player.",
           "type": "string"
         },
         "discarded": {
+          "description":"Whether this player has discarded or not already this discard phase.",
           "type": "boolean"
         },
         "largestArmy": {
+          "description":"True if this player has the largest army award",
           "type": "boolean"
         },
         "longestRoad": {
+          "description":"True if this player has the longest road award",
           "type": "boolean"
         },
         "monuments": {
+          "description":"How many monuments this player has played.",
           "type": "number"
         },
         "name": {
           "type": "string"
         },
         "newDevCards": {
+          "description":"The dev cards the player bought this turn.",
           "type": "DevCardList"
         },
         "oldDevCards": {
+          "description":"The dev cards the player had when the turn started.",
           "type": "DevCardList"
         },
         "orderNumber": {
+          "description":"What place in the array is this player? 0-3. It determines their turn order.",
           "type": "number"
         },
         "playedDevCard": {
+          "description":"Whether the player has played a dev card this turn.",
           "type": "boolean"
         },
         "playerID": {
-          "type": "number"
+          "description":"The unique playerID. This is used to pick the client player apart from the others.",
+          "type": "integer"
         },
         "resources": {
+          "description":"The resource cards this player has.",
           "type": "ResourceList"
         }
       },
@@ -301,32 +317,27 @@
         "type": "number"
       },
       "settlements": {
-        "type": "number"
+        "type": "integer"
       },
       "soldiers": {
-        "type": "number"
+        "type": "integer"
       },
       "victoryPoints": {
-        "type": "number"
+        "type": "integer"
       }
     },
     "Map": {
       "id": "Map",
-      "required":["hexGrid","lastRobber","numbers","ports","radius","robber"],
+      "required":["hexGrid","numbers","ports","radius","robber"],
       "properties": {
         "hexGrid": {
           "type": "HexGrid"
         },
-        "lastRobber": {
-          "type": "HexLocation"
-        },
         "numbers": {
+          "description":"Actually {[HexLocation]}; it's actually an object where each number (2-12) is a key with a list of HexLocations that have that number on them.",
           "type": "array",
           "items": {
-            "type": "array",
-            "items": {
               "$ref": "HexLocation"
-            }
           }
         },
         "ports": {
@@ -336,7 +347,8 @@
           }
         },
         "radius": {
-          "type": "number"
+          "description":"The radius of the map (it includes the center hex, and the ocean hexes; pass this into the hexgrid constructor)",
+          "type": "integer"
         },
         "robber": {
           "type": "HexLocation"
@@ -345,19 +357,38 @@
     },
     "Port": {
       "id": "Port",
-      "required":["inputResource","location","orientation","ratio","validVertex1","validVertex2"],
+      "required":["location","orientation","ratio","validVertex1","validVertex2"],
       "properties": {
         "inputResource": {
-          "type": "string"
+          "type": "string",
+          "description" : "What type resource this port trades for. If it's omitted, then it's for any resource.",
+          "enum": [
+            "Wood",
+            "Brick",
+            "Sheep",
+            "Wheat",
+            "Ore"
+          ]
         },
         "location": {
+          "description" : "Which (ocean) hex this port is on.",
           "type": "HexLocation"
         },
         "orientation": {
-          "type": "string"
+          "description" : "Which edge this port is on.",
+          "type": "string",
+          "enum": [
+            "NW",
+            "N",
+            "NE",
+            "E",
+            "SE",
+            "SW"
+          ]
         },
         "ratio": {
-          "type": "number"
+          "description" : "The ratio for trade in (ie, if this is 2, then it's a 2:1 port.",
+          "type": "integer"
         },
         "validVertex1": {
           "type": "VertexLocation"
@@ -372,10 +403,28 @@
       "required":["x","y"],
       "properties": {
         "x": {
-          "type": "string"
+          "type": "integer"
         },
         "y": {
-          "type": "string"
+          "type": "integer"
+        }
+      }
+    },
+    "TradeOffer": {
+      "id": "HexLocation",
+      "required":["sender","receiver"],
+      "properties": {
+        "sender": { 
+          "description":"The orderID of the person offering the trade",
+          "type": "integer"
+        },
+        "receiver": {
+          "description":"The orderID of the person the trade was offered to.",
+          "type": "integer"
+        },
+        "offer": {
+          "description":"Positive numbers are resources being offered. Negative are resources being asked for.",
+          "type": "ResourceList"
         }
       }
     },
@@ -392,13 +441,57 @@
         "direction": {
           "type": "string",
           "enum": [
-            "SW",
-            "SE",
-            "E",
-            "NE",
+            "W",
             "NW",
-            "W"
+            "NE",
+            "E",
+            "SE",
+            "SW"
           ]
+        }
+      }
+    },
+    "EdgeLocation": {
+      "id": "EdgeLocation",
+      "required":["x","y","direction"],
+      "properties": {
+        "x": {
+          "type": "integer"
+        },
+        "y": {
+          "type": "integer"
+        },
+        "direction": {
+          "type": "string",
+          "enum": [
+            "NW",
+            "N",
+            "NE",
+            "SW",
+            "S",
+            "SE"
+          ]
+        }
+      }
+    },
+    "Hex": {
+      "id": "Hex",
+      "required":["location","edges","vertexes"],
+      "properties": {
+        "location": {
+          "type": "HexLocation"
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "$ref": "EdgeLocation"
+          }
+        },
+        "vertexes": {
+          "type": "array",
+          "items": {
+            "$ref": "VertexLocation"
+          }
         }
       }
     }
