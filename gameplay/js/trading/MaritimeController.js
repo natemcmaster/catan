@@ -65,6 +65,10 @@ catan.trade.maritime.Controller = (function trade_namespace(){
 		MaritimeController.prototype.setGetValue = function(resource){
 		};
         
+        function capFirst(str){
+            return str[0].toUpperCase() + str.slice(1);
+        }
+        
 		/** Called by the view when the player makes the trade
 		 * @method makeTrade
 		 * @return void
