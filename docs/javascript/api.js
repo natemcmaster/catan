@@ -40,6 +40,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "misc.BaseOverlay",
         "misc.GameFinishedView",
         "misc.WaitOverlay",
+        "model.Chat",
         "models.CatanEdge",
         "models.CatanVertex",
         "models.ClientModel",
@@ -60,6 +61,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "catan.discard",
         "catan.map",
         "catan.misc",
+        "catan.model",
         "catan.models",
         "catan.models.hexgrid",
         "catan.points",
@@ -97,6 +99,10 @@ YUI.add("yuidoc-meta", function(Y) {
             "displayName": "catan.misc",
             "name": "catan.misc",
             "description": "This is the namespace to hold the base classes"
+        },
+        {
+            "displayName": "catan.model",
+            "name": "catan.model"
         },
         {
             "displayName": "catan.models",
