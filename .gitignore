@@ -14,7 +14,7 @@ logs
 results
 
 npm-debug.log
-node_modules
+node_modules/
 
 ###MacOSX###
 .DS_Store
@@ -32,3 +32,4 @@ Desktop.ini
 $RECYCLE.BIN/
 
 spec/
+*.sublime-workspace
