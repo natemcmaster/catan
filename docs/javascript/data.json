@@ -4051,7 +4051,7 @@
         },
         {
             "file": "student/gameplay/js/trading/MaritimeController.js",
-            "line": 68,
+            "line": 72,
             "itemtype": "method",
             "name": "makeTrade",
             "return": {

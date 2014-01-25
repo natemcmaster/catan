@@ -279,6 +279,24 @@
         }
       ]
     },{
+      "path": "\/moves\/maritimeTrade",
+      "operations": [
+        {
+          "httpMethod": "POST",
+          "summary": "Accept or reject a trade offered to you.",
+          "responseClass": "Return's the 'Client Model' JSON (identical to game/model)",
+          "nickname": "accept trade",
+          "consumes":"application/json",
+          "parameters": [
+          {
+            "paramType": "body",
+            "required": true,
+            "dataType": "MaritimeTrade"
+            }
+          ]
+        }
+      ]
+    },{
       "path": "\/moves\/discardCards",
       "operations": [
         {
@@ -511,7 +529,9 @@
         "properties":{
             "type": {"type":"maritimeTrade"},
             "playerIndex": {"type":"integer","description":"Who's doing the trading"},
-            "offer": {"type":"ResourceList","description":"What you get (+) and what you give (-)"}
+            "ratio": {"type":"ResourceList","description":"The ratio of the trade your doing as an integer (ie. put 3 for a 3:1 trade)"},
+            "inputResource": {"type":"String","description":"What type of resource you're giving."},
+            "outputResource": {"type":"String","description":"What type of resource you're getting."}
         }
     },"DiscardCards":{
         "id": "DiscardCards",

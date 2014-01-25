@@ -258,9 +258,6 @@
       "id": "Player",
       "required": ["MAX_GAME_POINTS","cities","color","discarded","largestArmy","longestRoad","monuments","name","newDevCards","oldDevCards","orderNumber","playedDevCard","playerID","resources"],
       "properties": {
-        "MAX_GAME_POINTS": {
-          "type": "number"
-        },
         "cities": {
           "description":"How many cities this player has left to play",
           "type": "number"
@@ -484,14 +481,62 @@
         "edges": {
           "type": "array",
           "items": {
-            "$ref": "EdgeLocation"
+            "$ref": "Edge"
           }
         },
         "vertexes": {
           "type": "array",
           "items": {
-            "$ref": "VertexLocation"
+            "$ref": "Vertex"
           }
+        }
+      }
+    },
+    "Edge": {
+      "id": "Edge",
+      "properties": {
+        "value":{
+          "type":"EdgeValue",
+          "required":"true"
+        }
+      }
+    },
+    "EdgeValue": {
+      "id": "EdgeValue",
+      "properties": {
+        "ownerID":{
+          "description":"This is -1 if there is nothing here; otherwise it is the orderID (0-3) of the person who put a piece here",
+          "type":"orderID",
+          "required":"true"
+        }
+      }
+    },
+    "Vertex": {
+      "id": "Vertex",
+      "properties": {
+        "value":{
+          "type":"VertexValue",
+          "required":"true"
+        }
+      }
+    },
+    "VertexValue": {
+      "id": "VertexValue",
+      "properties": {
+        "ownerID":{
+          "description":"This is -1 if there is nothing here; otherwise it is the orderID (0-3) of the person who put a piece here",
+          "type":"orderID",
+          "required":"true"
+        },
+        "worth":{
+          "description":"How many points the piece here is worth (if there's a piece here)",
+          "type":"integer",
+          "enum": [
+            0,
+            1,
+            2
+          ],
+          "required":"true"
         }
       }
     }

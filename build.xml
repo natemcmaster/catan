@@ -12,11 +12,8 @@
     <property name="dest.dir" value="docs"/>
     <!-- YUIDoc output Folder -->
     <property name="yuidoc.dir" value="${dest.dir}/javascript"/>
-
     <!-- Jar file path/name from here -->
     <property name="jar.file" value="server.jar"/>
-
-    <property name="javascript.dir" value="gameplay/js"/>
 
 	<!-- TARGETS -->
 	<!-- ******* -->
