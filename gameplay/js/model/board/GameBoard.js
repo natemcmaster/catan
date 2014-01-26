@@ -45,6 +45,9 @@ var turnTracker = require("./TurnTraker");
 
 
 /**
+ * <pre>
+ * Invariant: The game has a full number of players. 
+ * </pre>
  * GameBoard is the master model that manages all models needed to play the game
  * @constructor
  * @class GameBoard
@@ -124,7 +127,7 @@ GameBoard.prototype.longRoadOwner = function () {
 
 /**
  * <pre>
- * Pre-condition: The thief is allowed to move the robber. ThiefId and VictimId are valid. Hex is a valid hex
+ * Pre-condition: The game is not over. The thief is allowed to move the robber. ThiefId and VictimId are valid. Hex is a valid hex
  * Postcondition: Will change the card thief's and victim's card count, and move the robber location
  * </pre>
  * 
