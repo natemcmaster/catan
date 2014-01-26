@@ -8,17 +8,47 @@ This module containts functionaly for the board
 module.exports = GameBoard;
 
 /**
+ * The bank of unused cards
+ * @type {model.Bank}
+ * @property bank
+ */
+var bank = require('./Bank');
+
+/**
  * The deck of development cards
- * @type {Deck}
+ * @type {model.Deck}
  * @property deck
  */
 var deck = require('./Deck');
 
 /**
+ * The map
+ * @type {model.Map}
+ * @property map
+ */
+var map = require('./Map');
+
+/**
+ * The collection of all players
+ * @type {Array}
+ * @property players
+ */
+require('./Player');
+var players = [];
+
+/**
+ * The turn tracker
+ * @type {model.TurnTracker}
+ * @property turnTracker
+ */
+var turnTracker = require("./TurnTraker");
+
+
+/**
  * GameBoard is the master model that manages all models needed to play the game
  * @constructor
  * @class GameBoard
- * @param {proxy} proxy Proxy responsiple for communication with the server
+ * @param {model.proxy} proxy Proxy responsiple for communication with the server
  */
 function GameBoard(proxy){
 	this.proxy = proxy;

@@ -2,7 +2,7 @@
 /**
 This module containts functionaly for the board
 
-@module catan.model.board
+@module catan.model
 @namespace model
 **/
 
