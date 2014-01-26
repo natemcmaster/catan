@@ -529,7 +529,7 @@
         "properties":{
             "type": {"type":"maritimeTrade"},
             "playerIndex": {"type":"integer","description":"Who's doing the trading"},
-            "ratio": {"type":"ResourceList","description":"The ratio of the trade your doing as an integer (ie. put 3 for a 3:1 trade)"},
+            "ratio": {"type":"Integer","description":"The ratio of the trade your doing as an integer (ie. put 3 for a 3:1 trade)"},
             "inputResource": {"type":"String","description":"What type of resource you're giving."},
             "outputResource": {"type":"String","description":"What type of resource you're getting."}
         }

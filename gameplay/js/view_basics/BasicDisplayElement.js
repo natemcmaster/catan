@@ -35,7 +35,7 @@ catan.definitions.DisplayElement.BasicElements = {
                 return image;
         }),
         StaticImage:(function(value, style){
-                var image = document.createElement("image");
+                var image = document.createElement("img");//not "image": not supported.
                         image.setAttribute('src',catan.definitions.DisplayElement.getImageSource(value));
                         image.setAttribute('class',style);
                 
