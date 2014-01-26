@@ -174,9 +174,7 @@
         },
         "gameplay/js/model/board/Bank.js": {
             "name": "gameplay/js/model/board/Bank.js",
-            "modules": {
-                "catan.model.board": 1
-            },
+            "modules": {},
             "classes": {
                 "model.Bank": 1
             },
@@ -190,6 +188,17 @@
             "modules": {},
             "classes": {
                 "model.Deck": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "model": 1
+            }
+        },
+        "gameplay/js/model/board/GameBoard.js": {
+            "name": "gameplay/js/model/board/GameBoard.js",
+            "modules": {},
+            "classes": {
+                "model.GameBoard": 1
             },
             "fors": {},
             "namespaces": {
@@ -229,6 +238,19 @@
             "fors": {},
             "namespaces": {
                 "map": 1
+            }
+        },
+        "gameplay/js/model/Log.js": {
+            "name": "gameplay/js/model/Log.js",
+            "modules": {
+                "catan.model.board": 1
+            },
+            "classes": {
+                "model.Log": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "model": 1
             }
         },
         "gameplay/js/model/clientmodel.js": {
@@ -628,14 +650,16 @@
             "classes": {
                 "model.Bank": 1,
                 "model.Deck": 1,
-                "model.TurnTracker": 1
+                "model.GameBoard": 1,
+                "model.TurnTracker": 1,
+                "model.Log": 1
             },
             "fors": {},
             "namespaces": {
                 "model": 1
             },
             "tag": "module",
-            "file": "gameplay/js/model/board/TurnTaker.js",
+            "file": "gameplay/js/model/Log.js",
             "line": 11,
             "description": "This module containts functionaly for the board"
         },
@@ -1649,6 +1673,21 @@
             "description": "<pre>\nInvariant: \n</pre>",
             "is_constructor": 1
         },
+        "model.GameBoard": {
+            "name": "model.GameBoard",
+            "shortname": "GameBoard",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.model.board",
+            "namespace": "model",
+            "file": "gameplay/js/model/board/GameBoard.js",
+            "line": 11,
+            "description": "This class containts funtionality for the board \n<pre>\nInvariant: \n</pre>",
+            "is_constructor": 1
+        },
         "model.TurnTracker": {
             "name": "model.TurnTracker",
             "shortname": "TurnTracker",
@@ -1661,7 +1700,7 @@
             "namespace": "model",
             "file": "gameplay/js/model/board/TurnTaker.js",
             "line": 11,
-            "description": "<pre>\nInvariant: \n</pre>",
+            "description": "Functionality that interfaces with the system to track player turn status.\n\n<pre>\nInvariant: \n</pre>",
             "is_constructor": 1
         },
         "model.Chat": {
@@ -1677,6 +1716,21 @@
             "file": "gameplay/js/model/Chat.js",
             "line": 12,
             "description": "<pre>\nInvariant: nothing explodes.\n</pre>",
+            "is_constructor": 1
+        },
+        "model.Log": {
+            "name": "model.Log",
+            "shortname": "Log",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "catan.model.board",
+            "namespace": "model",
+            "file": "gameplay/js/model/Log.js",
+            "line": 11,
+            "description": "This class containts funtionality for the board \n<pre>\nInvariant: \n</pre>",
             "is_constructor": 1
         },
         "models.ClientModel": {
@@ -3469,8 +3523,112 @@
             "namespace": "model"
         },
         {
+            "file": "gameplay/js/model/board/GameBoard.js",
+            "line": 24,
+            "description": "<pre>\nPre-condition: NONE\nPost-condition: NONE\n</pre>",
+            "itemtype": "method",
+            "name": "getPlayer",
+            "params": [
+                {
+                    "name": "Player",
+                    "description": "at given index",
+                    "type": "Int"
+                }
+            ],
+            "return": {
+                "description": "Player data",
+                "type": "Object"
+            },
+            "class": "model.GameBoard",
+            "module": "catan.model.board",
+            "namespace": "model"
+        },
+        {
+            "file": "gameplay/js/model/board/GameBoard.js",
+            "line": 39,
+            "description": "<pre>\nPre-condition: NONE\nPost-condition: NONE\n</pre>",
+            "itemtype": "method",
+            "name": "isNewGame",
+            "return": {
+                "description": "True if new game, false if not.",
+                "type": "Boolean"
+            },
+            "class": "model.GameBoard",
+            "module": "catan.model.board",
+            "namespace": "model"
+        },
+        {
+            "file": "gameplay/js/model/board/GameBoard.js",
+            "line": 52,
+            "description": "<pre>\nPre-condition: NONE\nPost-condition: NONE\n</pre>",
+            "itemtype": "method",
+            "name": "bigArmyOwner",
+            "return": {
+                "description": "ID of player who owns the biggest army. Returns 0 if no player has largest army.",
+                "type": "Int"
+            },
+            "class": "model.GameBoard",
+            "module": "catan.model.board",
+            "namespace": "model"
+        },
+        {
+            "file": "gameplay/js/model/board/GameBoard.js",
+            "line": 65,
+            "description": "<pre>\nPre-condition: NONE\nPost-condition: NONE\n</pre>",
+            "itemtype": "method",
+            "name": "getWinner",
+            "return": {
+                "description": "ID of player who won the game. El Conquistador!",
+                "type": "Int"
+            },
+            "class": "model.GameBoard",
+            "module": "catan.model.board",
+            "namespace": "model"
+        },
+        {
+            "file": "gameplay/js/model/board/GameBoard.js",
+            "line": 78,
+            "description": "<pre>\nPre-condition: NONE\nPost-condition: NONE\n</pre>",
+            "itemtype": "method",
+            "name": "longRoadOwner",
+            "return": {
+                "description": "ID of player with the longest road.",
+                "type": "Int"
+            },
+            "class": "model.GameBoard",
+            "module": "catan.model.board",
+            "namespace": "model"
+        },
+        {
+            "file": "gameplay/js/model/board/GameBoard.js",
+            "line": 91,
+            "description": "Player A may rob player B by placing the robber on a certain hex.\n\n<pre>\nPre-condition: NONE\nPost-condition: NONE\n</pre>",
+            "itemtype": "method",
+            "name": "robPlayer",
+            "params": [
+                {
+                    "name": "ID",
+                    "description": "of player who is initiating the robbery.",
+                    "type": "Int"
+                },
+                {
+                    "name": "ID",
+                    "description": "of player who is being robbed. #hardtimes",
+                    "type": "Int"
+                },
+                {
+                    "name": "Object",
+                    "description": "containing x,y coordinates of hex to place robber",
+                    "type": "Object"
+                }
+            ],
+            "class": "model.GameBoard",
+            "module": "catan.model.board",
+            "namespace": "model"
+        },
+        {
             "file": "gameplay/js/model/board/TurnTaker.js",
-            "line": 23,
+            "line": 25,
             "description": "<pre>\nPre-condition: NONE\nPost-condition: NONE\n</pre>",
             "itemtype": "method",
             "name": "currentPlayerId",
@@ -3484,7 +3642,7 @@
         },
         {
             "file": "gameplay/js/model/board/TurnTaker.js",
-            "line": 36,
+            "line": 38,
             "description": "<pre>\nPre-condition: NONE\nPost-condition: NONE\n</pre>",
             "itemtype": "method",
             "name": "getStatus",
@@ -3498,7 +3656,7 @@
         },
         {
             "file": "gameplay/js/model/board/TurnTaker.js",
-            "line": 48,
+            "line": 50,
             "description": "<pre>\nPre-condition: NONE\nPost-condition: NONE\n</pre>",
             "itemtype": "method",
             "name": "isGameOver",
@@ -3512,7 +3670,7 @@
         },
         {
             "file": "gameplay/js/model/board/TurnTaker.js",
-            "line": 61,
+            "line": 63,
             "description": "<pre>\nPre-condition: NONE\nPost-condition: NONE\n</pre>",
             "itemtype": "method",
             "name": "canTradeCards",
@@ -3533,10 +3691,24 @@
         },
         {
             "file": "gameplay/js/model/board/TurnTaker.js",
-            "line": 74,
+            "line": 76,
             "description": "<pre>\nPre-condition: NONE\nPost-condition: NONE\n</pre>\nNotifies system that a player's turn is finished",
             "itemtype": "method",
             "name": "finishTurn",
+            "class": "model.TurnTracker",
+            "module": "catan.model.board",
+            "namespace": "model"
+        },
+        {
+            "file": "gameplay/js/model/board/TurnTaker.js",
+            "line": 89,
+            "description": "<pre>\nPre-condition: NONE\nPost-condition: NONE\n</pre>\nRolls two \"dice\" using a random number generator.",
+            "itemtype": "method",
+            "name": "rollDice",
+            "return": {
+                "description": "Object containing die 1 and die 2's values.",
+                "type": "Object"
+            },
             "class": "model.TurnTracker",
             "module": "catan.model.board",
             "namespace": "model"
@@ -3561,6 +3733,37 @@
             ],
             "class": "model.Chat",
             "module": "catan.model",
+            "namespace": "model"
+        },
+        {
+            "file": "gameplay/js/model/Log.js",
+            "line": 24,
+            "description": "<pre>\nPre-condition: NONE\nPost-condition: NONE\n</pre>",
+            "itemtype": "method",
+            "name": "mostRecentEntry",
+            "return": {
+                "description": "Log entry containing detailed log info.",
+                "type": "Object"
+            },
+            "class": "model.Log",
+            "module": "catan.model.board",
+            "namespace": "model"
+        },
+        {
+            "file": "gameplay/js/model/Log.js",
+            "line": 38,
+            "description": "<pre>\nPre-condition: NONE\nPost-condition: NONE\n</pre>",
+            "itemtype": "method",
+            "name": "addEntry",
+            "params": [
+                {
+                    "name": "Log",
+                    "description": "message",
+                    "type": "String"
+                }
+            ],
+            "class": "model.Log",
+            "module": "catan.model.board",
             "namespace": "model"
         },
         {

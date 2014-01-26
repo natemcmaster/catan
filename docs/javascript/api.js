@@ -43,6 +43,8 @@ YUI.add("yuidoc-meta", function(Y) {
         "model.Bank",
         "model.Chat",
         "model.Deck",
+        "model.GameBoard",
+        "model.Log",
         "model.TurnTracker",
         "models.CatanEdge",
         "models.CatanVertex",
