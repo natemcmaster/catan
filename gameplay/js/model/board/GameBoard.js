@@ -1,4 +1,3 @@
-
 /**
 This module containts functionaly for the board
 
@@ -9,44 +8,49 @@ This module containts functionaly for the board
 module.exports = GameBoard;
 
 /**
-This class containts funtionality for the board 
-<pre>
-Invariant: 
-</pre>
-@class GameBoard
-@constructor
-**/
+ * The deck of development cards
+ * @type {Deck}
+ * @property deck
+ */
+var deck = require('./Deck');
+
+/**
+ * GameBoard is the master model that manages all models needed to play the game
+ * @constructor
+ * @class GameBoard
+ * @param {proxy} proxy Proxy responsiple for communication with the server
+ */
 function GameBoard(proxy){
-	// constructor
 	this.proxy = proxy;
+
 }
 
 /**
-<pre>
-Pre-condition: NONE
-Post-condition: NONE
-</pre>
-@method getPlayer
-@param {int} Player at given index
-@return {Object} Player data
+ * <pre>
+ * Pre-condition: Id must be valid
+ * Post-condition: Returns complete player information
+ * </pre>
+ * Get information about a player in the game.
+ * @method getPlayer
+ * @param  {int} id The id of the player
+ * @return {Player}       Returns the player object
+ */
+GameBoard.prototype.getPlayerById = function(id){
 
-**/
-GameBoard.prototype.getPlayer = function (index) {
-	// send it
 };
 
 
 /**
-<pre>
-Pre-condition: NONE
-Post-condition: NONE
-</pre>
-@method isNewGame
-@return {boolean} True if new game, false if not.
+ * <pre>
+ * Pre-condition: none
+ * Post-condition: none
+ * </pre>
+ * Determines if the game is over, either due to a winner or exceptional conditions
+ * @method isGameOver
+ * @return {Boolean} True when the game is over
+ */
+GameBoard.prototype.isGameOver = function(){
 
-**/
-GameBoard.prototype.isNewGame = function (index) {
-	// send it
 };
 
 /**
@@ -55,7 +59,7 @@ Pre-condition: NONE
 Post-condition: NONE
 </pre>
 @method bigArmyOwner
-@return {int} ID of player who owns the biggest army. Returns 0 if no player has largest army.
+@return {int} ID of player who owns the biggest army. Returns -1 if no player has largest army award. 
 
 **/
 GameBoard.prototype.bigArmyOwner = function () {
@@ -64,11 +68,11 @@ GameBoard.prototype.bigArmyOwner = function () {
 
 /**
 <pre>
-Pre-condition: NONE
-Post-condition: NONE
+Pre-condition: Game is over
+Post-condition: Return id of player with most points
 </pre>
 @method getWinner
-@return {int} ID of player who won the game. El Conquistador!
+@return {int} ID of player with most points. El Conquistador!
 
 **/
 GameBoard.prototype.getWinner = function () {
@@ -81,7 +85,7 @@ Pre-condition: NONE
 Post-condition: NONE
 </pre>
 @method longRoadOwner
-@return {int} ID of player with the longest road.
+@return {int} ID of player with the longest road. Return -1 if no player owns this award.
 
 **/
 GameBoard.prototype.longRoadOwner = function () {
@@ -89,22 +93,18 @@ GameBoard.prototype.longRoadOwner = function () {
 };
 
 /**
-Player A may rob player B by placing the robber on a certain hex.
-
-<pre>
-Pre-condition: NONE
-Post-condition: NONE
-</pre>
-@method robPlayer
-@param {int} ID of player who is initiating the robbery.
-@param {int} ID of player who is being robbed. #hardtimes
-@param {Object} Object containing x,y coordinates of hex to place robber 
-
-**/
-GameBoard.prototype.robPlayer = function (thief, victim, hex) {
-	// send it
-};
-
-
-
-
+ * <pre>
+ * Pre-condition: The thief is allowed to move the robber. ThiefId and VictimId are valid. Hex is a valid hex
+ * Postcondition: Will change the card thief's and victim's card count, and move the robber location
+ * </pre>
+ * 
+ * Moves the robber and allows the thief to steal cards
+ * @method robPlayer
+ * @param  {int} thiefId  The player stealing the cards
+ * @param  {int} victimId The player getting stolen from
+ * @param  {Hex} hex Where the robber is being moved to   
+ * @return {null}        nothing
+ */
+GameBoard.prototype.robPlayer = function(thiefId,victimId,hex) {
+	
+}

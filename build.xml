@@ -9,13 +9,32 @@
     <property name="requests.arg" value="ug"/>
     
     <!-- Base output folder -->
-    <property name="dest.dir" value="docs"/>
+    <property name="docs.dir" value="docs"/>
+    <property name="www.dir" value="gameplay"/>
     <!-- YUIDoc output Folder -->
-    <property name="yuidoc.dir" value="${dest.dir}/javascript"/>
+    <property name="yuidoc.dir" value="${docs.dir}/javascript"/>
+    <property name="javascript.dir" value="${www.dir}/js"/>
+    <!-- Build-js options -->
+    <property name="browserify.bundle" value="${javascript.dir}/bundle.js"/>
+    <property name="browserify.output" value="${javascript.dir}/app.js"/>
     <!-- Jar file path/name from here -->
     <property name="jar.file" value="server.jar"/>
 
 	<!-- TARGETS -->
+	<target name="build" depends="build-js" description="Run all build commands">
+
+	</target>
+	<target name="clean">
+		<delete dir="${yuidoc.dir}" />
+		<delete file="${browserify.output}" />
+	</target>
+	<target name="build-js" description="Build the javascript app">
+		<exec executable="browserify">
+			<arg value="-o" />
+			<arg value="${browserify.output}" />
+			<arg value="${browserify.bundle}" />
+		</exec>	
+	</target>    
 	<!-- ******* -->
      
 	<target name="server" description="Runs the demo server">
@@ -29,13 +48,17 @@
 		</java>
 	</target>
     
-    <target name="make-js-doc" description="Parse and produce the javascript docs">
+    <target name="doc" description="Parse and produce the javascript docs">
         <echo> Making javascript documentation</echo>
         <exec executable="yuidoc">
             <arg value="-o"/>
             <arg value="${yuidoc.dir}"/>
+            <!-- -x = excludes -->
+            <arg value="-x" />
+            <arg value="${browserify.output}" />
             <arg value="${javascript.dir}"/>
         </exec>
-	</target>    
+	</target>
+	
 </project>
 

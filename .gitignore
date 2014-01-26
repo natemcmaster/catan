@@ -8,7 +8,6 @@ lib-cov
 *.out
 *.pid
 *.gz
-/docs
 
 pids
 logs
@@ -34,3 +33,7 @@ $RECYCLE.BIN/
 
 spec/
 *.sublime-workspace
+
+# Ignore build output. 
+docs/javascript/
+gameplay/js/app.js
