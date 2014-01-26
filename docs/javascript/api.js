@@ -40,7 +40,10 @@ YUI.add("yuidoc-meta", function(Y) {
         "misc.BaseOverlay",
         "misc.GameFinishedView",
         "misc.WaitOverlay",
+        "model.Bank",
         "model.Chat",
+        "model.Deck",
+        "model.TurnTracker",
         "models.CatanEdge",
         "models.CatanVertex",
         "models.ClientModel",
@@ -62,6 +65,8 @@ YUI.add("yuidoc-meta", function(Y) {
         "catan.map",
         "catan.misc",
         "catan.model",
+        "catan.model.board",
+        "catan.model.board.map",
         "catan.models",
         "catan.models.hexgrid",
         "catan.points",
@@ -103,6 +108,15 @@ YUI.add("yuidoc-meta", function(Y) {
         {
             "displayName": "catan.model",
             "name": "catan.model"
+        },
+        {
+            "displayName": "catan.model.board",
+            "name": "catan.model.board",
+            "description": "This module containts functionaly for the board"
+        },
+        {
+            "displayName": "catan.model.board.map",
+            "name": "catan.model.board.map"
         },
         {
             "displayName": "catan.models",
