@@ -26,7 +26,7 @@ var deck = require('./Deck');
  * @type {model.Map}
  * @property map
  */
-var map = require('./Map');
+var map = require('./map/Map');
 
 /**
  * The collection of all players

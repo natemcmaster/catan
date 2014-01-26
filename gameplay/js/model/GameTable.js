@@ -36,7 +36,7 @@ var chat=require('./Chat');
  * @property gameBoard
  * @type {model.Chat}
  */
-var gameBoard=require('./GameBoard');
+var gameBoard=require('./board/GameBoard');
 
 
 /**
