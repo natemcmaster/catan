@@ -96,7 +96,6 @@ Post-condition: NONE
 
 **/
 GameBoard.prototype.bigArmyOwner = function () {
-	// send it
 };
 
 /**
@@ -109,7 +108,6 @@ Post-condition: Return id of player with most points
 
 **/
 GameBoard.prototype.getWinner = function () {
-	// send it
 };
 
 /**
@@ -122,20 +120,19 @@ Post-condition: NONE
 
 **/
 GameBoard.prototype.longRoadOwner = function () {
-	// send it
 };
 
 /**
  * <pre>
- * Pre-condition: The game is not over. The thief is allowed to move the robber. ThiefId and VictimId are valid. Hex is a valid hex
- * Postcondition: Will change the card thief's and victim's card count, and move the robber location
+ * Pre-condition: The game is not over. The thief is allowed to move the robber and it is their turn. ThiefId and VictimId are valid. Hex is a valid hex
+ * Postcondition: Will change the card thief's and victim's card count, and move the robber location (async!)
  * </pre>
  * 
  * Moves the robber and allows the thief to steal cards
  * @method robPlayer
  * @param  {int} thiefId  The player stealing the cards
  * @param  {int} victimId The player getting stolen from
- * @param  {Hex} hex Where the robber is being moved to   
+ * @param  {HexLocation} hex Where the robber is being moved to   
  * @return {null}        nothing
  */
 GameBoard.prototype.robPlayer = function(thiefId,victimId,hex) {

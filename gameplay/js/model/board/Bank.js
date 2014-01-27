@@ -10,7 +10,7 @@ module.exports = Bank;
 
 /**
 <pre>
-Invariant: 
+Invariant: The bank has 0 or more of each resource. There are never more than 19 of a given resource in the game alrogether.
 </pre>
 @class Bank
 @constructor
@@ -26,9 +26,9 @@ Pre-condition: NONE
 Post-condition: NONE
 </pre>
 @method canWithdraw
-@param {int} cardType
-@return {boolean} true if user can draw card, false otherwise
+@param {int} resourceType
+@return {boolean} true if user can draw the resource, false otherwise
 **/
-Bank.prototype.canWithdraw = function (cardType) {
-	// send it
+Bank.prototype.canWithdraw = function (resourceType) {
 };
+

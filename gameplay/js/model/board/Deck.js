@@ -10,7 +10,7 @@ module.exports = Deck;
 
 /**
 <pre>
-Invariant: 
+Invariant: NONE
 </pre>
 @class Deck
 @constructor
@@ -23,11 +23,11 @@ function Deck(proxy){
 /**
 <pre>
 Pre-condition: NONE
-Post-condition: NONE
+Post-condition: A card will be given to the current player (async!)
 </pre>
 @method drawRandomCard
-@return {int} type of card
+@return {void}
 **/
 Deck.prototype.drawRandomCard = function () {
-	// send it
 };
+
