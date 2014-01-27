@@ -1,45 +1,43 @@
 
 /**
-This module containts functionaly for the map
-
-@module catan.model.board.map
-@namespace model
-**/
+ * Hex edge class
+ * 
+ * @module catan.model.board.map
+ * @namespace model
+ */
 
 module.exports = Edge;
 
 /**
-<pre>
-Invariant: 
-</pre>
-@class Edge
-@constructor
-**/
-function Edge(proxy){
-	// constructor
-	this.proxy = proxy;
+ * <pre>
+ * Invariant: 
+ * </pre>
+ * @class Edge
+ * @constructor
+ */
+function Edge(){
 }
 
 /**
-<pre>
-Pre-condition: NONE
-Post-condition: NONE
-</pre>
-@method getHexDirection
-@return {Object} Description of hex directionality 
-**/
+ * <pre>
+ * Pre-condition: NONE
+ * Post-condition: NONE
+ * </pre>
+ * @method getHexDirection
+ * @return {integer} The direction
+ */
 Edge.prototype.getHexDirection = function () {
-	// send it
 };
 
 /**
-<pre>
-Pre-condition: NONE
-Post-condition: NONE
-</pre>
-@method getDirection
-@return {Object} Description of hex direction
-**/
-Edge.prototype.getDirection = function () {
-	// send it
+ * <pre>
+ * Pre-condition: NONE
+ * Post-condition: NONE
+ * </pre>
+ * @method isOccupied
+ * @return {boolean} whether the edge is occupied
+ */
+Edge.prototype.isOccupied = function () {
 };
+
+

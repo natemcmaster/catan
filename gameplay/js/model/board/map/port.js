@@ -10,7 +10,7 @@ module.exports = Port;
 
 /**
 <pre>
-Invariant: 
+Invariant: NONE
 </pre>
 @class Port
 @constructor
