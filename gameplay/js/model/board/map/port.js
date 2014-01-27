@@ -29,7 +29,6 @@ Post-condition: NONE
 @return {int} Number of a given resource that must be traded to exchange for a desired resource.
 **/
 Port.prototype.getRatio = function () {
-	// send it
 };
 
 /**
@@ -41,7 +40,6 @@ Post-condition: NONE
 @return {int} Type of resource that this port represents
 **/
 Port.prototype.getResource = function () {
-	// send it
 };
 
 /**
@@ -53,7 +51,6 @@ Post-condition: NONE
 @return {Object} x,y coordinate pair representing position of port
 **/
 Port.prototype.getPosition = function () {
-	// send it
 };
 
 /**
@@ -65,7 +62,6 @@ Post-condition: NONE
 @return {Object} Array of objects representing vertices of given port
 **/
 Port.prototype.getVertices = function () {
-	// send it
 };
 
 
