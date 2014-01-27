@@ -26,8 +26,8 @@ Pre-condition: NONE
 Post-condition: NONE
 </pre>
 @method getHexAt
-@param {int} x coordinate of desired hex
-@param {int} y coordinate of desired hex
+@param {integer} x coordinate of desired hex
+@param {integer} y coordinate of desired hex
 @return {Object} Hex object
 **/
 Map.prototype.getHexAt = function (x, y) {
@@ -40,7 +40,7 @@ Pre-condition: NONE
 Post-condition: NONE
 </pre>
 @method getRobberPos
-@return {Object} HexLocation of robber
+@return {HexLocation} HexLocation of robber
 **/
 Map.prototype.getRobberPos = function () {
 	// send it
@@ -52,7 +52,7 @@ Pre-condition: NONE
 Post-condition: NONE
 </pre>
 @method lastRobberPos
-@return {Object} HexLocation of last robber location
+@return {HexLocation} HexLocation of last robber location
 **/
 Map.prototype.lastRobberPos = function () {
 	// send it
@@ -77,7 +77,7 @@ Pre-condition: NONE
 Post-condition: NONE
 </pre>
 @method getOwnedEdges
-@return {EdgeLocation[]} Array of EdgeLocations that user owns.
+@return {EdgeLocation[]} Array of EdgeLocations that are owned by users.
 **/
 Map.prototype.getOwnedEdges = function () {
 	// send it
@@ -102,9 +102,10 @@ Pre-condition: NONE
 Post-condition: NONE
 </pre>
 @method portsForPlayer
+@param {integer} playerId Player ID
 @return {HexLocation[]} Array of HexLocations of ports that the player owns
 **/
-Map.prototype.portsForPlayer = function () {
+Map.prototype.portsForPlayer = function (playerId) {
 	// send it
 };
 
@@ -115,9 +116,11 @@ Pre-condition: NONE
 Post-condition: NONE
 </pre>
 @method canPlaceRoad
+@param {integer} playerId Player ID
+@param {EdgeLocation} location The location to place the road
 @return {boolean} True if user can now place road, false if not.
 **/
-Map.prototype.canPlaceRoad = function () {
+Map.prototype.canPlaceRoad = function (playerId, location) {
 	// send it
 };
 
@@ -127,9 +130,11 @@ Pre-condition: NONE
 Post-condition: NONE
 </pre>
 @method canPlaceRobber
+@param {integer} playerId Player ID
+@param {HexLocation} hex The location to place the robber
 @return {boolean} True if user can now place robber, false if not.
 **/
-Map.prototype.canPlaceRobber = function () {
+Map.prototype.canPlaceRobber = function (playerId, hex) {
 	// send it
 };
 
@@ -139,9 +144,11 @@ Pre-condition: NONE
 Post-condition: NONE
 </pre>
 @method canPlaceSettlement
+@param {integer} playerId Player ID
+@param {VertexLocation} vertex The location to place the settlement
 @return {boolean} True if user can now place a settlement, false if not.
 **/
-Map.prototype.canPlaceSettlement = function () {
+Map.prototype.canPlaceSettlement = function (playerId, vertex) {
 	// send it
 };
 
@@ -151,47 +158,67 @@ Pre-condition: NONE
 Post-condition: NONE
 </pre>
 @method canPlaceCity
+@param {integer} playerId Player ID
+@param {VertexLocation} vertex The location to place the city
 @return {boolean} True if user can now place a city, false if not.
 **/
-Map.prototype.canPlaceCity = function () {
+Map.prototype.canPlaceCity = function (playerId, vertex) {
 	// send it
 };
 
 /**
 <pre>
-Pre-condition: NONE
-Post-condition: NONE
+Pre-condition: the location is a legal move for the player, and it is their turn, and they have the resources & buildings.
+Post-condition: a road will be placed there (async!)
 </pre>
 @method placeRoad
-@param {HexLocation} Location of hex to place road on
+@param {integer} playerId Player ID
 @param {EdgeLocation} Location of edge on hex to place road on
+@return {void}
 **/
-Map.prototype.placeRoad = function (hexLocation, edgeLocation) {
+Map.prototype.placeRoad = function (playerId, edgeLocation) {
 	// send it
 };
 
 /**
 <pre>
-Pre-condition: NONE
-Post-condition: NONE
+Pre-condition: the location is a legal move for the player, and it is their turn, and they have the resources & buildings.
+Post-condition: a settlement will be placed there (async!)
 </pre>
 @method placeSettlement
-@param {HexLocation} Location of hex to place settlement on
+@param {integer} playerId Player ID
 @param {VertexLocation} Location of vertex on hex to place settlement on
+@return {void}
 **/
-Map.prototype.placeSettlement = function (hexLocation, vertexLocation) {
+Map.prototype.placeSettlement = function (playerId, vertexLocation) {
 	// send it
 };
 
 /**
 <pre>
-Pre-condition: NONE
-Post-condition: NONE
+Pre-condition: the location is a legal move for the player, and it is their turn, and they have the resources & buildings.
+Post-condition: a city will replace the settlement at that location (async!)
 </pre>
 @method placeCity
-@param {HexLocation} Location of hex to place city on
+@param {integer} playerId Player ID
 @param {VertexLocation} Location of vertex on hex to place city on
+@return {void}
 **/
-Map.prototype.placeCity = function (hexLocation, vertexLocation) {
+Map.prototype.placeCity = function (playerId, vertexLocation) {
 	// send it
 };
+
+/**
+ * <pre>
+ * Pre-condition: the player has a road-building card, and enough roads left,
+ * and it is their turn.
+ * Post-condition: roads will be placed at the given locations (async!)
+ * </pre>
+ * @method placeRoads
+ * @param {integer} playerId
+ * @param {List<EdgeLocation>} locations
+ * @return {void}
+ */
+Map.prototype.placeRoads = function (playerId, locations) {
+};
+
