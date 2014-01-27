@@ -80,6 +80,20 @@ GameRoom.prototype.joinGame=function(username,gameId){
 
 /**
  * <pre>
+ * Pre-condition: gameName is non-empty and unique
+ * Post-condition: New, empty game is created
+ * </pre>
+ * Creates a new game
+ * @method createGame
+ * @param  {string} gameName Name of the game
+ * @returns {boolean} True when successful, false if error
+ */	
+GameRoom.prototype.createGame=function(gameName){
+
+};
+
+/**
+ * <pre>
  * Pre-condition: aiType is a valid AI name. Game has open spots.
  * Post-condition: An AI player is added to the game roster
  * </pre>
