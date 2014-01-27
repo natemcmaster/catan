@@ -38,3 +38,5 @@ spec/
 docs/javascript/
 gameplay/js/app.js
 build/
+*.swp
+*.swo
