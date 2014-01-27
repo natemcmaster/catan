@@ -1,10 +1,10 @@
 Settlers of Catan &reg;
 ===
-Implementation of Settlers of Catan for BYU CS 340, Winter 2014 Semester.
+Implementation of Settlers of Catan for BYU CS 340, Winter 2014 Semester by Team Lumberjack (Team 3).
+
+[View tasks on Trello](https://trello.com/b/OA8II2rR/catan).
 
 There are example json files under the 'examples' folder
-Run the server using `ant server`; then navigate to http://localhost:8081/ in order to read the documenation.
-
 
 ### Group Members
 * Alan Dayton
@@ -23,3 +23,6 @@ Build the Javascript files by running `grunt`.
 
 ### YUI
 Documentation can be build by running `grunt docs`. This creates a YUI doc in /docs/javascript/.
+
+### Run the server
+Run the server using `ant server`; then navigate to http://localhost:8081/ in order to read the documentation.
