@@ -1,14 +1,13 @@
 
 /**
-This module containts functionaly for the board
-
 @module catan.model.board
-@namespace model
+@namespace board
 **/
 
 module.exports = Bank;
 
 /**
+The game's bank, containing the resource cards.
 <pre>
 Invariant: The bank has 0 or more of each resource. There are never more than 19 of a given resource in the game alrogether.
 </pre>
