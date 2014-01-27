@@ -24,19 +24,12 @@ function Chat(proxy){
 /**
 <pre>
 Pre-condition: NONE
-Post-condition: NONE
+Post-condition: The message is sent to all players (async!)
 </pre>
-@method sendMessage
+@method sendChat
 @param {string} message
 @param {integer} user
 **/
-Chat.prototype.sendMessage = function (message, user) {
-	// send it
+Chat.prototype.sendChat = function (message, user) {
 };
 
-
-var chat = new Chat(myProxy);
-
-// Chat.sendMessage();
-chat.sendMessage();
-chat.proxy === myProxy;

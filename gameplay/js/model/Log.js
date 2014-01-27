@@ -9,9 +9,9 @@ This module containts functionaly for the board
 module.exports = Log;
 
 /**
-This class containts funtionality for the board 
+Keeps track of the log
 <pre>
-Invariant: 
+Invariant: the log always has room for more.
 </pre>
 @class Log
 @constructor
@@ -31,24 +31,19 @@ Post-condition: NONE
 
 **/
 Log.prototype.mostRecentEntry = function (index) {
-	// send it
 };
 
 
 /**
 <pre>
 Pre-condition: NONE
-Post-condition: NONE
+Post-condition: The log message is added at the end of the list
 </pre>
+(I don't think this will actually ever get called in practice. The server handles this).
 @method addEntry
 @param {String} Log message
-
+@return {void}
 **/
 Log.prototype.addEntry = function (message) {
-	// send it
 };
-
-
-
-
 

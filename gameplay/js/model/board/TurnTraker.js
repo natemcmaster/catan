@@ -31,7 +31,6 @@ Post-condition: NONE
 @return {int} ID of the player whose turn it is
 **/
 TurnTracker.prototype.currentPlayerId = function () {
-	// send it
 };
 
 
@@ -44,7 +43,6 @@ Post-condition: NONE
 @return {StatusEnum} State of the game (pre game, in-progress, post game)
 **/
 TurnTracker.prototype.getStatus = function () {
-	// send it
 };
 
 /**
@@ -56,7 +54,6 @@ Post-condition: NONE
 @return {boolean} True if game is over, false if not.
 **/
 TurnTracker.prototype.isGameOver = function () {
-	// send it
 };
 
 
@@ -70,35 +67,32 @@ Post-condition: NONE
 @return {boolean} True if player can trade cards, false if not
 **/
 TurnTracker.prototype.canTradeCards = function (playerId) {
-	// send it
 };
 
 /**
 <pre>
 Pre-condition: NONE
-Post-condition: NONE
+Post-condition: The next person in order starts their turn. (async!)
 </pre>
 Notifies system that a player's turn is finished
 
 @method finishTurn
+@return {void}
 **/
 TurnTracker.prototype.finishTurn = function () {
-	// send it
 };
 
 /**
 <pre>
 Pre-condition: NONE
-Post-condition: NONE
+Post-condition: Players will be given the resources deserved from that roll. ClientModel's state is either "robbing", "discarding", or "playing" (async!)
 </pre>
 Rolls two "dice" using a random number generator.
 
 @method rollDice
-@return {Object} Object containing die 1 and die 2's values.
-
+@return {void}
 **/
 TurnTracker.prototype.rollDice = function () {
-	// send it
 };
 
 
