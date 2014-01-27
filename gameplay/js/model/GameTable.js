@@ -12,6 +12,7 @@ module.exports=GameTable;
  * GameTable manages all data used by the web-interface.
  * @class GameTable
  * @param {model.Proxy} proxy A reference to the HTTP proxy used
+ * @constructor
  */
 function GameTable(proxy){
 
