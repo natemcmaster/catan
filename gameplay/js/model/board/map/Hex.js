@@ -82,3 +82,22 @@ Hex.prototype.getOwnedEdges = function () {
 Hex.prototype.getOwnedVertices = function () {
 };
 
+/**
+ * Land type, described as a string
+ * @property landType
+ * @type {string} what type of land is this
+ */
+Hex.prototype.landType = 'uninitialized';
+
+/**
+ * <pre>
+ * Pre-condition: NONE
+ * Post-condition: NONE
+ * </pre>
+ * @method isLand
+ * @return {Boolean} True when this hex is land
+ */
+Hex.prototype.isLand=function(){
+
+};
+
