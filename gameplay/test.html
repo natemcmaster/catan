@@ -2,14 +2,18 @@
 <html>
 <head>
 	<title>Catan Test</title>
-	<link rel="stylesheet" href="libs/qunit/qunit.css">
-	<script type="text/javascript" src="libs/qunit/qunit.js"></script>
-	<script type="text/javascript" src="js/test.js"></script>
+	<link rel="stylesheet" href="libs/mocha/mocha.css">
 </head>
 <body>
-	<div id="qunit">
+	<div id="mocha">
 	</div>
-	<div id="qunit-fixture">
-	</div>
+	<script type="text/javascript" src="libs/mocha/mocha.js"></script>
+	<script type="text/javascript">
+       mocha.setup('tdd');
+	</script>
+	<script type="text/javascript" src="js/test.js"></script>
+	<script type="text/javascript">
+       mocha.run();
+	</script>
 </body>
 </html>

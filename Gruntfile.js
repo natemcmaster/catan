@@ -68,6 +68,16 @@ module.exports=function(grunt){
 				noParse:frameworkFiles,
 				src:[jsDir+'/model/*.js'],
 				dest:browserifyOutput
+			},
+			test:{
+				options:{
+					process: function(src,filepath){
+						return '//#### Src: ' + filepath + '\n' + src;
+					}
+				},
+				src:testDir+'/js/**/*',
+				dest:testJsOutput,
+				filter:'isFile'
 			}
 		},
 		concat:{
@@ -89,16 +99,6 @@ module.exports=function(grunt){
 				},
 				src:jsDir+'/**/*',
 				dest:jsOutput,
-				filter:'isFile'
-			},
-			test:{
-				options:{
-					process: function(src,filepath){
-						return '//#### Src: ' + filepath + '\n' + src;
-					}
-				},
-				src:testDir+'/js/**/*',
-				dest:testJsOutput,
 				filter:'isFile'
 			}
 		},
@@ -140,7 +140,7 @@ grunt.registerTask('release',['browserify:models','concat:release','uglify:relea
 grunt.registerTask('test','Test models',function(){
 	var reporter = grunt.option('reporter') || 'spec';
 	grunt.config('mochaTest.model.options.reporter',reporter);
-	grunt.task.run('mochaTest:model');
+	grunt.task.run(['browserify:test','mochaTest:model']);
 });
 grunt.registerTask('docs',['yuidoc:compile']);
 grunt.registerTask('jenkins',['default','test']);
