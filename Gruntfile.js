@@ -6,6 +6,8 @@ module.exports=function(grunt){
 
 	var jsDir='gameplay/js';
 	var jsOutput=jsDir+'/app.js';
+	var testDir ='test';
+	var testJsOutput=jsDir+'/test.js';
 	var buildDir='build';
 	var yuiOutput='docs/javascript/';
 
@@ -87,6 +89,16 @@ module.exports=function(grunt){
 				src:jsDir+'/**/*',
 				dest:jsOutput,
 				filter:'isFile'
+			},
+			test:{
+				options:{
+					process: function(src,filepath){
+						return '//#### Src: ' + filepath + '\n' + src;
+					}
+				},
+				src:testDir+'/js/**/*',
+				dest:testJsOutput,
+				filter:'isFile'
 			}
 		},
 		uglify:{
@@ -115,5 +127,6 @@ module.exports=function(grunt){
 
 grunt.registerTask('default',['browserify:models','concat:debug']);
 grunt.registerTask('release',['browserify:models','concat:release','uglify:release']);
+grunt.registerTask('test',['concat:test']);
 grunt.registerTask('docs',['yuidoc:compile']);
 };

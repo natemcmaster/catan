@@ -37,6 +37,7 @@ spec/
 # Ignore build output. 
 docs/javascript/
 gameplay/js/app.js
+gameplay/js/test.js
 build/
 *.swp
 *.swo
