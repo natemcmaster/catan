@@ -1,3 +1,8 @@
+var GameBoard = require("./board/GameBoard");
+var Chat = require("./Chat");
+var Log = require("./Log");
+var Proxy = require("./Proxy");
+
 /**
 	This module contains the top-level client model class
 	
@@ -7,7 +12,7 @@
 
 var catan = catan || {};
 catan.models = catan.models || {};
-
+	
 catan.models.ClientModel  = (function clientModelNameSpace(){
 	/** 
 	 * This the top-level client model class that contains the local player, map contents, etc.
@@ -31,9 +36,23 @@ catan.models.ClientModel  = (function clientModelNameSpace(){
 		 * @param {function} success - A callback function that is called after the game state has been fetched from the server and the client model updated. This function is passed a single parameter which is the game state object received from the server.
 		 */
 		ClientModel.prototype.initFromServer = function(success){
+			console.log("GETTING INFO");
+			this.proxy = new Proxy(this.loadJson.bind(this));
+			this.proxy.getModel(function(err, data){
+				success();
+				this.loadJSON(data);
+			}.bind(this));
 
+			this.proxy.startPolling();
 			// TODO: 1) fetch the game state from the server, 2) update the client model, 3) call the "success" function.
-			success();
+		}
+
+		ClientModel.prototype.loadJson = function (data) {
+			// Parcel out...
+
+			this.log = new Log(this.proxy);
+			this.chat = new Chat(this.proxy, data.chats);
+			this.gameboard = new GameBoard(this.proxy);
 		}
 
 		return ClientModel;
