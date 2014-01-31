@@ -18,7 +18,7 @@ module.exports = Map;
 function Map(proxy, data){
 	this.proxy = proxy;
 
-	this.hexgrid = new HexGrid(data.hexGrid);
+	this.hexGrid = new HexGrid(data.hexGrid);
 	this.ports = [];
 	for (var i=0; i<data.ports.length; i++) {
 		this.ports.push(new Port(data.ports[i]));
@@ -39,7 +39,7 @@ function Map(proxy, data){
  * @return {Object} Hex object
  */
 Map.prototype.getHexAt = function (x, y) {
-	return this.hexgrid.getHex(new HexLocation(x, y));
+	return this.hexGrid.getHex(new HexLocation(x, y));
 };
 
 /**
@@ -139,7 +139,11 @@ Map.prototype.portsForPlayer = function (playerId) {
  * @return {boolean} True if user can now place road, false if not.
  */
 Map.prototype.canPlaceRoad = function (playerId, location) {
-	
+	var edge = this.hexGrid.getEdge(location);
+	if (edge.isOccupied()) return false;
+	return this.hexGrid.getAdjascentEdgesForEdge(location).some(function (edge) {
+		return edge.isOccupied() && edge.getOwner() === playerId;
+	});
 };
 
 /**
@@ -149,11 +153,12 @@ Map.prototype.canPlaceRoad = function (playerId, location) {
  * </pre>
  * @method canPlaceRobber
  * @param {integer} playerId Player ID
- * @param {HexLocation} hex The location to place the robber
+ * @param {HexLocation} location The location to place the robber
  * @return {boolean} True if user can now place robber, false if not.
  */
-Map.prototype.canPlaceRobber = function (playerId, hex) {
-	// send it
+Map.prototype.canPlaceRobber = function (playerId, location) {
+	var hex = this.hexGrid.getHex(location);
+	return !(location.equals(this.robber) || location.equals(this.lastRobber) || !hex.isLand() || hex.isDesert())
 };
 
 /**
@@ -167,6 +172,8 @@ Map.prototype.canPlaceRobber = function (playerId, hex) {
  * @return {boolean} True if user can now place a settlement, false if not.
  */
 Map.prototype.canPlaceSettlement = function (playerId, vertex) {
+	var caPlace = false;
+	this.hexGrid.getAdjascentEdgesForVertex(vertex).
 	// send it
 };
 

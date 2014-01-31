@@ -101,3 +101,17 @@ Hex.prototype.isLand=function(){
 
 };
 
+/**
+ * <pre>
+ * Pre-condition: NONE
+ * Post-condition: NONE
+ * </pre>
+ * @method isDesert
+ * @return {Boolean} True when this hex is desert
+ */
+Hex.prototype.isDesert = function(){
+	return this.landType == 'desert';
+};
+
+
+
