@@ -3,6 +3,7 @@ module.exports=function(grunt){
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-browserify');
 	grunt.loadNpmTasks('grunt-contrib-yuidoc');
+	grunt.loadNpmTasks('grunt-mocha-test');
 
 	var jsDir='gameplay/js';
 	var jsOutput=jsDir+'/app.js';
@@ -101,6 +102,15 @@ module.exports=function(grunt){
 				filter:'isFile'
 			}
 		},
+		mochaTest:{
+			model:{
+				options:{
+					ui:'tdd',
+					reporter:'spec'
+				},
+				src:[testDir+'/js/model/**/*Test.js']
+			}
+		},
 		uglify:{
 			release:{
 				options:{
@@ -127,6 +137,11 @@ module.exports=function(grunt){
 
 grunt.registerTask('default',['browserify:models','concat:debug']);
 grunt.registerTask('release',['browserify:models','concat:release','uglify:release']);
-grunt.registerTask('test',['concat:test']);
+grunt.registerTask('test','Test models',function(){
+	var reporter = grunt.option('reporter') || 'spec';
+	grunt.config('mochaTest.model.options.reporter',reporter);
+	grunt.task.run('mochaTest:model');
+});
 grunt.registerTask('docs',['yuidoc:compile']);
+grunt.registerTask('jenkins',['default','test']);
 };

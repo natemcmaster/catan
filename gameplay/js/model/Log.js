@@ -14,12 +14,15 @@ Keeps track of the log
 Invariant: the log always has room for more.
 </pre>
 @class Log
+@property entries Array Contains the entire message list
 @constructor
 **/
 function Log(proxy, log){
 	// constructor
 	this.proxy = proxy;
-	this.log = log;
+	if(!log.lines)
+		throw new Error("Invalid log format");
+	this.entries = log.lines;
 }
 
 /**
@@ -31,20 +34,6 @@ Post-condition: NONE
 @return {Object} Log entry containing detailed log info.
 
 **/
-Log.prototype.mostRecentEntry = function (index) {
+Log.prototype.mostRecentEntry = function () {
+	return this.entries[this.entries.length-1];
 };
-
-
-/**
-<pre>
-Pre-condition: NONE
-Post-condition: The log message is added at the end of the list
-</pre>
-(I don't think this will actually ever get called in practice. The server handles this).
-@method addEntry
-@param {String} Log message
-@return {void}
-**/
-Log.prototype.addEntry = function (message) {
-};
-

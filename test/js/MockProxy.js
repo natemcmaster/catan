@@ -4,11 +4,13 @@ var testModel={"deck":{"yearOfPlenty":2,"monopoly":2,"soldier":14,"roadBuilding"
 
 function MockProxy(loadModelFunc){
 	this.loadModel=loadModelFunc;
+	this.commands=[];
 }
 
 MockProxy.prototype.executeCommand=function(command){
-	this.loadModel(testModel);
+	this.commands.push(command);
+	if(this.loadModel && typeof this.loadModel ==='function'){
+		this.loadModel(testModel);
+	}
 };
-
-return MockProxy;
 
