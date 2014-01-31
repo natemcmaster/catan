@@ -15,9 +15,10 @@ module.exports = Map;
  * @class Map
  * @constructor
  */
-function Map(proxy){
+function Map(proxy, map){
 	// constructor
 	this.proxy = proxy;
+	this.map = map;
 }
 
 /**

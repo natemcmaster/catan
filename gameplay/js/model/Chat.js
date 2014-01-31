@@ -6,9 +6,6 @@
 
 module.exports = Chat;
 
-// anything in this "global" scope is actually namespaced. But make sure to use var.
-//var x = 5;
-
 /**
  * <pre>
  * Invariant: NONE
@@ -16,9 +13,11 @@ module.exports = Chat;
  * @class Chat
  * @constructor
  */
-function Chat(proxy){
+function Chat(proxy, chat){
 	// constructor
 	this.proxy = proxy;
+
+	this.chat = chat;
 }
 
 /**
