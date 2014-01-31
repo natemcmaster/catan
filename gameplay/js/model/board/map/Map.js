@@ -15,9 +15,17 @@ module.exports = Map;
  * @class Map
  * @constructor
  */
-function Map(proxy){
-	// constructor
+function Map(proxy, data){
 	this.proxy = proxy;
+
+	this.hexgrid = new HexGrid(data.hexGrid);
+	this.ports = [];
+	for (var i=0; i<data.ports.length; i++) {
+		this.ports.push(new Port(data.ports[i]));
+	}
+	this.lastRobber = new HexLocation(data.lastRobber);
+	this.robber = new HexLocation(data.robber);
+	this.numberTiles = new NumberTiles(data.numbers);
 }
 
 /**
@@ -31,7 +39,7 @@ function Map(proxy){
  * @return {Object} Hex object
  */
 Map.prototype.getHexAt = function (x, y) {
-	// send it
+	return this.hexgrid.getHex(new HexLocation(x, y));
 };
 
 /**
@@ -43,7 +51,7 @@ Map.prototype.getHexAt = function (x, y) {
  * @return {HexLocation} HexLocation of robber
  */
 Map.prototype.getRobberPos = function () {
-	// send it
+	return this.robber;
 };
 
 /**
@@ -55,7 +63,7 @@ Map.prototype.getRobberPos = function () {
  * @return {HexLocation} HexLocation of last robber location
  */
 Map.prototype.lastRobberPos = function () {
-	// send it
+	return this.lastRobber;
 };
 
 
@@ -65,10 +73,10 @@ Map.prototype.lastRobberPos = function () {
  * Post-condition: NONE
  * </pre>
  * @method getAllHexes
- * @return {HexLocation[]} HexLocation of last robber location
+ * @return {HexLocation[]} All of the hexes
  */
 Map.prototype.getAllHexes = function () {
-	// send it
+	return this.hexGrid.getHexes();
 };
 
 /**
@@ -80,7 +88,9 @@ Map.prototype.getAllHexes = function () {
  * @return {EdgeLocation[]} Array of EdgeLocations that are owned by users.
  */
 Map.prototype.getOwnedEdges = function () {
-	// send it
+	return this.hexGrid.getEdges().filter(function (edge) {
+		return edge.isOccupied();
+	});
 };
 
 
@@ -93,7 +103,9 @@ Map.prototype.getOwnedEdges = function () {
  * @return {VertexLocation[]} Array of VertexLocations that user owns.
  */
 Map.prototype.getOwnedVertices = function () {
-	// send it
+	return this.hexGrid.getEdges().filter(function (vertex) {
+		return vertex.isOccupied();
+	});
 };
 
 /**
@@ -106,7 +118,13 @@ Map.prototype.getOwnedVertices = function () {
  * @return {HexLocation[]} Array of HexLocations of ports that the player owns
  */
 Map.prototype.portsForPlayer = function (playerId) {
-	// send it
+	var vertecies = [];
+	var getVertex = this.hexGrid.getVertex.bind(this.hexGrid);
+	return this.ports.filter(function (port) {
+		return port.getVertices().some(function (vertex) {
+			getVertex(vertex)
+		});
+	});
 };
 
 
@@ -121,7 +139,7 @@ Map.prototype.portsForPlayer = function (playerId) {
  * @return {boolean} True if user can now place road, false if not.
  */
 Map.prototype.canPlaceRoad = function (playerId, location) {
-	// send it
+	
 };
 
 /**

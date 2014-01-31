@@ -13,9 +13,13 @@ module.exports = Edge;
  * Invariant: 
  * </pre>
  * @class Edge
+ * @param {int} direction
+ * @param {JSON} data json data
  * @constructor
  */
-function Edge(){
+function Edge(direction, data){
+	this.direction = direction;
+	this.owner = data.ownerID;
 }
 
 /**
@@ -27,6 +31,7 @@ function Edge(){
  * @return {integer} The direction
  */
 Edge.prototype.getHexDirection = function () {
+	return this.direction;
 };
 
 /**
@@ -38,6 +43,19 @@ Edge.prototype.getHexDirection = function () {
  * @return {boolean} whether the edge is occupied
  */
 Edge.prototype.isOccupied = function () {
+	return this.owner !== -1;
+};
+
+/**
+ * <pre>
+ * Pre-condition: NONE
+ * Post-condition: NONE
+ * </pre>
+ * @method getOwner
+ * @return {int} playerID of the owner
+ */
+Edge.prototype.getOwner = function () {
+	return this.owner;
 };
 
 
