@@ -1,47 +1,10 @@
-/**
-This module containts functionaly for the board
-
-@module catan.model.board
-@namespace model
-**/
+var Bank = require('./Bank');
+var Deck = require('./Deck');
+var Map = require('./map/Map');
+var Player = require('./Player');
+var TurnTracker = require("./TurnTraker");
 
 module.exports = GameBoard;
-
-/**
- * The bank of unused cards
- * @type {model.Bank}
- * @property bank
- */
-var bank = require('./Bank');
-
-/**
- * The deck of development cards
- * @type {model.Deck}
- * @property deck
- */
-var deck = require('./Deck');
-
-/**
- * The map
- * @type {model.Map}
- * @property map
- */
-var map = require('./map/Map');
-
-/**
- * The collection of all players
- * @type {Array}
- * @property players
- */
-require('./Player');
-var players = [];
-
-/**
- * The turn tracker
- * @type {model.TurnTracker}
- * @property turnTracker
- */
-var turnTracker = require("./TurnTraker");
 
 
 /**
@@ -53,8 +16,22 @@ var turnTracker = require("./TurnTraker");
  * @class GameBoard
  * @param {model.proxy} proxy Proxy responsiple for communication with the server
  */
-function GameBoard(proxy){
+function GameBoard(proxy, bank, biggestArmy, deck, longestRoad, map, players, turnTracker, winner){
+
 	this.proxy = proxy;
+	this.bank = new Bank(proxy, bank);
+	this.biggestArmy = biggestArmy;
+	this.deck = new Deck(proxy, deck);
+	this.longestRoad = longestRoad;
+	this.map = new Map(proxy, map);
+	
+	this.players = [];
+	$.each(players, function(player){
+		players.push(new Player(proxy, player));
+	});
+
+	this.turnTracker = new TurnTracker(proxy, turnTracker);
+	this.winner = winner;
 
 }
 

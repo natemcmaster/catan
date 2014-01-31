@@ -15,9 +15,15 @@ Invariant: NONE
 @class Deck
 @constructor
 **/
-function Deck(proxy){
+function Deck(proxy, deck){
 	// constructor
 	this.proxy = proxy;
+
+	this.monopoly = deck.monopoly;
+	this.monument = deck.monument;
+	this.roadBuilding = deck.roadBuilding;
+	this.soldier = deck.soldier;
+	this.yearOfPlenty = deck.yearOfPlenty;
 }
 
 /**

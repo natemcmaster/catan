@@ -17,9 +17,12 @@ Invariant:
 @class TurnTracker
 @constructor
 **/
-function TurnTracker(proxy){
+function TurnTracker(proxy, turnTracker){
 	// constructor
 	this.proxy = proxy;
+	
+	this.currentTurn = turnTracker.currentTurn;
+	this.status = turnTracker.status;
 }
 
 /**

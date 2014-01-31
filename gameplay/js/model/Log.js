@@ -16,9 +16,10 @@ Invariant: the log always has room for more.
 @class Log
 @constructor
 **/
-function Log(proxy){
+function Log(proxy, log){
 	// constructor
 	this.proxy = proxy;
+	this.log = log;
 }
 
 /**

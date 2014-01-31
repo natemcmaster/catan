@@ -14,9 +14,13 @@ Invariant: The bank has 0 or more of each resource. There are never more than 19
 @class Bank
 @constructor
 **/
-function Bank(proxy){
-	// constructor
+function Bank(proxy, bank){
 	this.proxy = proxy;
+	this.numBrick = bank.brick;
+	this.numOre = bank.ore;
+	this.numSheep = bank.sheep;
+	this.numWheat = bank.wheat;
+	this.numWood = bank.wood;
 }
 
 /**

@@ -36,23 +36,22 @@ catan.models.ClientModel  = (function clientModelNameSpace(){
 		 * @param {function} success - A callback function that is called after the game state has been fetched from the server and the client model updated. This function is passed a single parameter which is the game state object received from the server.
 		 */
 		ClientModel.prototype.initFromServer = function(success){
-			console.log("GETTING INFO");
-			this.proxy = new Proxy(this.loadJson.bind(this));
+			this.proxy = new Proxy(this.populateModels.bind(this));
 			this.proxy.getModel(function(err, data){
 				success();
-				this.loadJSON(data);
+				this.populateModels(data);
 			}.bind(this));
 
 			this.proxy.startPolling();
 			// TODO: 1) fetch the game state from the server, 2) update the client model, 3) call the "success" function.
 		}
 
-		ClientModel.prototype.loadJson = function (data) {
-			// Parcel out...
+		// 
+		ClientModel.prototype.populateModels = function (data) {
 
-			this.log = new Log(this.proxy);
-			this.chat = new Chat(this.proxy, data.chats);
-			this.gameboard = new GameBoard(this.proxy);
+			this.log = new Log(this.proxy, data.log);
+			this.chat = new Chat(this.proxy, data.chat);
+			this.gameboard = new GameBoard(this.proxy, data.bank, data.biggestArmy, data.deck, data.longestRoad, data.map, data.players, data.turnTracker, data.winner);
 		}
 
 		return ClientModel;
