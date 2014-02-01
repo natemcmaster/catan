@@ -29,12 +29,12 @@ module.exports = function(grunt) {
 		pkg: grunt.file.readJSON('package.json'),
     jshint: {
       options: {
-        '-W033': true,
-        '-W032': true,
+        laxcomma: true,
         '-W058': true,
+        '-W014': true,
         '-W099': true,
         undef: true,
-        // unused: true, TODO enable this later
+        // unused: true, // TODO enable this later
         globals: {
           module: true,
           catan: true,

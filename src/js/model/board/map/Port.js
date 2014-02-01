@@ -6,6 +6,10 @@
  * @namespace model
  */
 
+var hexgrid = catan.models.hexgrid
+  , HexLocation = hexgrid.HexLocation
+  , VertexLocation = hexgrid.VertexLocation;
+
 module.exports = Port;
 
 function vertexLocationFromJson(data) {

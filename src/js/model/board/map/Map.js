@@ -6,6 +6,19 @@
  * @namespace model
  */
 
+var hexgrid = catan.models.hexgrid
+  , HexGrid = hexgrid.HexGrid
+  , HexLocation = hexgrid.HexLocation
+  , VertexLocation = hexgrid.VertexLocation
+  , BaseLocation = hexgrid.BaseLocation
+
+  , NumberTiles = require('./NumberTiles')
+  , Port = require('./Port')
+  , BuildRoadCommand = require('../../proxy/BuildRoad')
+  , BuildSettlementCommand = require('../../proxy/BuildSettlement')
+  , BuildCityCommand = require('../../proxy/BuildCity')
+  , PlayRoadBuilding = require('../../proxy/PlayRoadBuilding');
+
 module.exports = Map;
 
 /**
@@ -156,7 +169,7 @@ Map.prototype.getAdjascentEdges = function (location) {
 Map.prototype.getAdjascentVertices = function (location) {
   var getVertex = this.hexGrid.getVertex.bind(this.hexGrid);
   return location.getNeighborVertexes().map(function (vloc) {
-    return getVertex(eloc);
+    return getVertex(vloc);
   });
 };
 
@@ -191,7 +204,7 @@ Map.prototype.canPlaceRoad = function (playerId, location) {
  */
 Map.prototype.canPlaceRobber = function (playerId, location) {
 	var hex = this.hexGrid.getHex(location);
-	return !(location.equals(this.robber) || location.equals(this.lastRobber) || !hex.isLand() || hex.isDesert())
+	return !(location.equals(this.robber) || location.equals(this.lastRobber) || !hex.isLand() || hex.isDesert());
 };
 
 /**
