@@ -1,20 +1,16 @@
-﻿<project name="Demo Server" default="server" basedir=".">
-
-    <property name="port.arg" value="8081"/>
-    <property name="web.arg" value="gameplay"/>
-    <property name="requests.arg" value="ug"/>
-    <property name="jar.file" value="server.jar"/>
-     
-	<target name="server" description="Runs the demo server">
-		<java jar="${jar.file}" fork="true">
-			<arg value="${port.arg}"/>
-			<arg value="${web.arg}"/>
-			<arg value="${requests.arg}"/>
-			<assertions>
-				<enable/>
-			</assertions>
-		</java>
+﻿<project name="Catan Java" default="run" basedir=".">
+	<property name="out.dir" value="build" />
+	<target name="server" depends="copy,run" />
+	<target name="copy">
+		<copy todir="${out.dir}">
+			<fileset dir="node_modules/byu-catan/" />
+		</copy>
 	</target>
-
+	<target name="run" depends="copy">
+	 	<ant inheritAll="false" antfile="${out.dir}/build.xml" target="server"/>
+	 </target>
+	<target name="clean">
+		<delete dir="${out.dir}" includeemptydirs="true"/>
+	</target>
 </project>
 

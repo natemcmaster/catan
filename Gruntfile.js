@@ -1,147 +1,103 @@
-module.exports=function(grunt){
+module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-concat');
-	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-browserify');
 	grunt.loadNpmTasks('grunt-contrib-yuidoc');
 	grunt.loadNpmTasks('grunt-mocha-test');
+	grunt.loadNpmTasks('grunt-contrib-copy');
 
-	var jsDir='gameplay/js';
-	var jsOutput=jsDir+'/app.js';
-	var testDir ='test';
-	var testJsOutput=jsDir+'/test.js';
-	var buildDir='build';
-	var yuiOutput='docs/javascript/';
+	var buildDir = 'build',
+		testDir = 'test',
+		srcDir = 'src',
+		gameplay = buildDir + '/gameplay',
+		pkgSrc = 'node_modules/byu-catan';
 
-	var frameworkFiles=[
-	jsDir+'/Core.js',
-	jsDir+'/view_basics/BasicController.js',
-	jsDir+'/view_basics/BasicDefs.js',
-	jsDir+'/view_basics/BasicDisplayElement.js',
-	jsDir+'/display_elements/AmountChangeDisplayElement.js',
-	jsDir+'/display_elements/ButtonDisplayElement.js',
-	jsDir+'/display_elements/ChooserDisplayElement.js',
-	jsDir+'/display_elements/ComboDisplayElement.js',
-	jsDir+'/display_elements/PointDisplayElement.js',
-	jsDir+'/display_elements/RobDisplayElement.js',
-	jsDir+'/display_elements/TrackerDisplayElement.js',
-	jsDir+'/display_elements/CommDisplayElement.js',
-	jsDir+'/model/board/map/hexgrid.js',
-	jsDir+'/model/board/map/hexgrid_impl.js',
-	jsDir+'/model/clientmodel.js',
-	jsDir+'/view_basics/BasicOverlay.js',
-	jsDir+'/trading/AcceptOverlay.js',
-	jsDir+'/view_basics/WaitOverlay.js',
-	jsDir+'/development_cards/CardOverlay.js',
-	jsDir+'/development_cards/BuyOverlay.js',
-	jsDir+'/development_cards/CardController.js',
-	jsDir+'/map/MapOverlay.js',
-	jsDir+'/discard/DiscardOverlay.js',
-	jsDir+'/roll/RollOverlay.js',
-	jsDir+'/roll/RollResultOverlay.js',
-	jsDir+'/discard/DiscardController.js',
-	jsDir+'/points/GameOverOverlay.js',
-	jsDir+'/roll/RollController.js',
-	jsDir+'/turn_tracker/TrackerView.js',
-	jsDir+'/turn_tracker/TrackerController.js',
-	jsDir+'/resources/ResourcesView.js',
-	jsDir+'/resources/ResourcesController.js',
-	jsDir+'/points/PointsView.js',
-	jsDir+'/points/PointsController.js',
-	jsDir+'/comms_box/CommView.js',
-	jsDir+'/comms_box/CommController.js',
-	jsDir+'/trading/MaritimeView.js',
-	jsDir+'/trading/MaritimeController.js',
-	jsDir+'/trading/DomesticView.js',
-	jsDir+'/trading/DomesticController.js',
-	jsDir+'/map/RobberOverlay.js',
-	jsDir+'/map/MapView.js',
-	jsDir+'/map/MapController.js',
-	jsDir+'/GameplayConnections.js'
-	];
+	var frameworkJsOutput = gameplay + '/js/framework.js',
+		testJsOutput = gameplay + '/js/test.js',
+		browserifyOutput = gameplay + '/js/app.js',
+		yuiOutput = buildDir + '/docs/javascript';
 
-	var browserifyOutput=buildDir+'/models.js';
+	var frameworkFiles = [
+		'Core.js', 'view_basics/BasicController.js', 'view_basics/BasicDefs.js', 'view_basics/BasicDisplayElement.js', 'display_elements/AmountChangeDisplayElement.js', 'display_elements/ButtonDisplayElement.js', 'display_elements/ChooserDisplayElement.js', 'display_elements/ComboDisplayElement.js', 'display_elements/PointDisplayElement.js', 'display_elements/RobDisplayElement.js', 'display_elements/TrackerDisplayElement.js', 'display_elements/CommDisplayElement.js', 'model/hexgrid.js', 'view_basics/BasicOverlay.js', 'trading/AcceptOverlay.js', 'view_basics/WaitOverlay.js', 'development_cards/CardOverlay.js', 'development_cards/BuyOverlay.js', 'development_cards/CardController.js', 'map/MapOverlay.js', 'discard/DiscardOverlay.js', 'roll/RollOverlay.js', 'roll/RollResultOverlay.js', 'discard/DiscardController.js', 'points/GameOverOverlay.js', 'roll/RollController.js', 'turn_tracker/TrackerView.js', 'turn_tracker/TrackerController.js', 'resources/ResourcesView.js', 'resources/ResourcesController.js', 'points/PointsView.js		', 'points/PointsController.js', 'comms_box/CommView.js', 'comms_box/CommController.js', 'trading/MaritimeView.js', 'trading/MaritimeController.js', 'trading/DomesticView.js', 'trading/DomesticController.js', 'map/RobberOverlay.js', 'map/MapView.js', 'map/MapController.js', 'GameplayConnections.js'
+	].map(function(p) {
+		return gameplay + '/js/' + p;
+	});
+
+	var srcJsFiles = srcDir + '/js/**/*.js';
 
 	grunt.initConfig({
-		pkg:grunt.file.readJSON('package.json'),
-		browserify:{
-			models:{
-				noParse:frameworkFiles,
-				src:[jsDir+'/model/*.js'],
-				dest:browserifyOutput
+		pkg: grunt.file.readJSON('package.json'),
+		browserify: {
+			src: {
+				src: srcJsFiles,
+				dest: browserifyOutput
 			},
-			test:{
-				options:{
-					process: function(src,filepath){
+			test: {
+				src: testDir + '/js/**/*.js',
+				dest: testJsOutput
+			}
+		},
+		concat: {
+			framework: {
+				options: {
+					process: function(src, filepath) {
 						return '//#### Src: ' + filepath + '\n' + src;
 					}
 				},
-				src:testDir+'/js/**/*',
-				dest:testJsOutput,
-				filter:'isFile'
-			}
-		},
-		concat:{
-			debug:{
-				options:{
-					process: function(src,filepath){
-						return '//#### Src: ' + filepath + '\n' + src;
-					}
-				},
-				src:[frameworkFiles,browserifyOutput],
-				dest:jsOutput,
-				filter:'isFile'
+				src: frameworkFiles,
+				dest: frameworkJsOutput,
+				filter: function(filename) {
+					var ignore = [browserifyOutput, testJsOutput, frameworkJsOutput];
+					return (ignore.indexOf(filename) < 0);
+				}
 			},
-			release:{
-				options:{
-					stripBanners:true,
-					banner:'/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
-					'<%= grunt.template.today("yyyy-mm-dd") %> */'
-				},
-				src:jsDir+'/**/*',
-				dest:jsOutput,
-				filter:'isFile'
+		},
+		copy: {
+			main: {
+				files: [{
+					expand: true,
+					cwd: pkgSrc + '/',
+					src: ['**'],
+					dest: buildDir + '/'
+				}, {
+					expand: true,
+					cwd: srcDir + '/gameplay/',
+					src: ['**'],
+					dest: gameplay + '/'
+				}]
 			}
 		},
-		mochaTest:{
-			model:{
-				options:{
-					ui:'tdd',
-					reporter:'spec'
+		mochaTest: {
+			model: {
+				options: {
+					ui: 'tdd',
+					reporter: 'spec'
 				},
-				src:[testDir+'/js/model/**/*Test.js']
+				src: [testDir + '/js/model/**/*Test.js']
 			}
 		},
-		uglify:{
-			release:{
-				options:{
-					mangle: {
-						except: ['catan']
-					}
-				},
-				src:jsOutput,
-				dest:jsOutput
-			}
-		},
-		yuidoc:{
+		yuidoc: {
 			compile: {
 				name: '<%= pkg.name %>',
 				description: '<%= pkg.description %>',
 				version: '<%= pkg.version %>',
 				options: {
-					paths: jsDir,
+					paths: [srcDir + '/js/', pkgSrc + '/gameplay/js/'],
 					outdir: yuiOutput
 				}
 			}
 		}
 	});
 
-grunt.registerTask('default',['browserify:models','concat:debug']);
-grunt.registerTask('release',['browserify:models','concat:release','uglify:release']);
-grunt.registerTask('test','Test models',function(){
-	var reporter = grunt.option('reporter') || 'spec';
-	grunt.config('mochaTest.model.options.reporter',reporter);
-	grunt.task.run(['browserify:test','mochaTest:model']);
-});
-grunt.registerTask('docs',['yuidoc:compile']);
-grunt.registerTask('jenkins',['default','test']);
+	grunt.registerTask('default', ['copy', 'browserify', 'concat']);
+	grunt.registerTask('all', ['copy', 'browserify', 'concat','docs','test']);
+
+	grunt.registerTask('clean', 'Delete build folder', function() {
+		grunt.file.delete(buildDir + '/');
+	});
+	grunt.registerTask('test', 'Test models', function() {
+		var reporter = grunt.option('reporter') || 'spec';
+		grunt.config('mochaTest.model.options.reporter', reporter);
+		grunt.task.run(['browserify:test', 'mochaTest:model']);
+	});
+	grunt.registerTask('docs', ['copy', 'yuidoc:compile']);
 };

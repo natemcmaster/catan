@@ -1,5 +1,5 @@
 var MockProxy=require('../MockProxy.js');
-var Log=require('../../../gameplay/js/model/Log.js');
+var Log=require('../../../src/js/model/Log.js');
 var assert=require('chai').assert;
 
 suite('LogTests',function(){
