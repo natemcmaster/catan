@@ -104,7 +104,7 @@ Map.prototype.getOwnedEdges = function () {
  * @return {VertexLocation[]} Array of VertexLocations that user owns.
  */
 Map.prototype.getOwnedVertices = function () {
-	return this.hexGrid.getEdges().filter(function (vertex) {
+	return this.hexGrid.getVertexes().filter(function (vertex) {
 		return vertex.isOccupied();
 	});
 };
@@ -123,11 +123,42 @@ Map.prototype.portsForPlayer = function (playerId) {
 	var getVertex = this.hexGrid.getVertex.bind(this.hexGrid);
 	return this.ports.filter(function (port) {
 		return port.getVertices().some(function (vertex) {
-			getVertex(vertex)
+			return getVertex(vertex).getOwner() === playerId;
 		});
 	});
 };
 
+/**
+ * <pre>
+ * Pre-condition: NONE
+ * Post-condition: NONE
+ * </pre>
+ * @method getAdjascentEdges
+ * @param {BaseLocation} location
+ * @return {Edge[]} Array of connected edges
+ */
+Map.prototype.getAdjascentEdges = function (location) {
+  var getEdge = this.hexGrid.getEdge.bind(this.hexGrid);
+  return location.getConnectedEdges().map(function (eloc) {
+    return getEdge(eloc);
+  });
+};
+
+/**
+ * <pre>
+ * Pre-condition: NONE
+ * Post-condition: NONE
+ * </pre>
+ * @method getAdjascentVertices
+ * @param {BaseLocation} location
+ * @return {Edge[]} Array of adjoining vertices
+ */
+Map.prototype.getAdjascentVertices = function (location) {
+  var getVertex = this.hexGrid.getVertex.bind(this.hexGrid);
+  return location.getNeighborVertexes().map(function (vloc) {
+    return getVertex(eloc);
+  });
+};
 
 /**
  * <pre>
@@ -142,9 +173,10 @@ Map.prototype.portsForPlayer = function (playerId) {
 Map.prototype.canPlaceRoad = function (playerId, location) {
 	var edge = this.hexGrid.getEdge(location);
 	if (edge.isOccupied()) return false;
-	return this.hexGrid.getAdjascentEdgesForEdge(location).some(function (edge) {
+	var ownAdjacent = this.getAdjascentEdges(location).some(function (edge) {
 		return edge.isOccupied() && edge.getOwner() === playerId;
 	});
+  return ownAdjacent;
 };
 
 /**
@@ -172,10 +204,16 @@ Map.prototype.canPlaceRobber = function (playerId, location) {
  * @param {VertexLocation} vertex The location to place the settlement
  * @return {boolean} True if user can now place a settlement, false if not.
  */
-Map.prototype.canPlaceSettlement = function (playerId, vertex) {
+Map.prototype.canPlaceSettlement = function (playerId, location) {
 	var caPlace = false;
-	this.hexGrid.getAdjascentEdgesForVertex(vertex);
-	// send it
+	var tooClose = this.hexGrid.getAdjascentVertices(location).some(function (vertex) {
+    return vertex.isOccupied();
+  });
+  if (tooClose) return false;
+  var hasAccess = this.hexGrid.getAdjascentEdges(location).some(function (edge) {
+    return edge.getOwner() === playerId;
+  });
+  return hasAccess;
 };
 
 /**
@@ -185,12 +223,18 @@ Map.prototype.canPlaceSettlement = function (playerId, vertex) {
  * </pre>
  * @method canPlaceCity
  * @param {integer} playerId Player ID
- * @param {VertexLocation} vertex The location to place the city
- * @return {boolean} True if user can now place a city, false if not.
+ * @param {VertexLocation} location The location to place the city
+ * @return {boolean} True if user can now place a city there (i.e. they have a
+ * settlement there), false if not.
  */
-Map.prototype.canPlaceCity = function (playerId, vertex) {
-	// send it
+Map.prototype.canPlaceCity = function (playerId, location) {
+  var vertex = this.hexGrid.getVertex(location);
+  return vertex.getOwner() === playerId && !vertex.hasCity();
 };
+
+
+/*********** MUTATION FUNCTIONS **************/
+
 
 /**
  * <pre>
@@ -203,7 +247,7 @@ Map.prototype.canPlaceCity = function (playerId, vertex) {
  * @return {void}
  */
 Map.prototype.placeRoad = function (playerId, edgeLocation) {
-	// send it
+  this.proxy.executeCommand(new BuildRoadCommand(playerId, edgeLocation));
 };
 
 /**
@@ -217,7 +261,7 @@ Map.prototype.placeRoad = function (playerId, edgeLocation) {
  * @return {void}
  */
 Map.prototype.placeSettlement = function (playerId, vertexLocation) {
-	// send it
+  this.proxy.executeCommand(new BuildSettlementCommand(playerId, VertexLocation));
 };
 
 /**
@@ -231,7 +275,7 @@ Map.prototype.placeSettlement = function (playerId, vertexLocation) {
  * @return {void}
  */
 Map.prototype.placeCity = function (playerId, vertexLocation) {
-	// send it
+  this.proxy.executeCommand(new BuildCityCommand(playerId, VertexLocation));
 };
 
 /**
@@ -246,6 +290,7 @@ Map.prototype.placeCity = function (playerId, vertexLocation) {
  * @return {void}
  */
 Map.prototype.placeRoads = function (playerId, locations) {
+  this.proxy.executeCommand(new PlayRoadBuilding(playerId, locations));
 };
 
 /**
@@ -257,5 +302,6 @@ Map.prototype.placeRoads = function (playerId, locations) {
  * @return {NumberTiles} the number tiles
  */
 Map.prototype.getNumbers = function () {
+  return this.numberTiles;
 };
 
