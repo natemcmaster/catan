@@ -4,6 +4,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-yuidoc');
 	grunt.loadNpmTasks('grunt-mocha-test');
 	grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
 
 	var buildDir = 'build',
 		testDir = 'test',
@@ -26,6 +27,34 @@ module.exports = function(grunt) {
 
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
+    jshint: {
+      options: {
+        '-W033': true,
+        '-W032': true,
+        '-W058': true,
+        '-W099': true,
+        undef: true,
+        // unused: true, TODO enable this later
+        globals: {
+          module: true,
+          catan: true,
+          require: true,
+          $: true
+        }
+      },
+      models: [
+        srcDir + '/js/model/**/*.js'
+      ],
+      tests: {
+        options: {
+          globals: {
+            test: true,
+            suite: true
+          }
+        },
+        files: [testDir + '/js/**/*.js']
+      }
+    },
 		browserify: {
 			src: {
 				src: srcJsFiles,
