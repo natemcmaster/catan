@@ -32,7 +32,8 @@ module.exports = Map;
 function Map(proxy, data){
 	this.proxy = proxy;
 
-	this.hexGrid = new HexGrid(data.hexGrid);
+	this.hexGrid = HexGrid.getRegular(data.hexGrid.radius, Hex);
+
 	this.ports = [];
 	for (var i=0; i<data.ports.length; i++) {
 		this.ports.push(new Port(data.ports[i]));
@@ -41,6 +42,9 @@ function Map(proxy, data){
 	this.robber = new HexLocation(data.robber);
 	this.numberTiles = new NumberTiles(data.numbers);
 }
+
+// TODO: we will need a populateFromJson method unless they fix the
+// constructor weirdness
 
 /**
  * <pre>
