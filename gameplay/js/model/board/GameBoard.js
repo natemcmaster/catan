@@ -16,13 +16,13 @@ module.exports = GameBoard;
  * @class GameBoard
  * @param {model.proxy} proxy Proxy responsiple for communication with the server
  */
-function GameBoard(proxy, bank, biggestArmy, deck, longestRoad, map, players, turnTracker, winner){
+function GameBoard(proxy, bank, biggestArmyOwner, deck, longestRoadOwner, map, players, turnTracker, winner){
 
 	this.proxy = proxy;
 	this.bank = new Bank(proxy, bank);
-	this.biggestArmy = biggestArmy;
+	this.biggestArmyOwner = biggestArmyOwner;
 	this.deck = new Deck(proxy, deck);
-	this.longestRoad = longestRoad;
+	this.longestRoadOwner = longestRoadOwner;
 	this.map = new Map(proxy, map);
 	
 	this.players = [];
@@ -46,7 +46,7 @@ function GameBoard(proxy, bank, biggestArmy, deck, longestRoad, map, players, tu
  * @return {Player}       Returns the player object
  */
 GameBoard.prototype.getPlayerById = function(id){
-
+	return this.players[id];
 };
 
 
@@ -60,7 +60,11 @@ GameBoard.prototype.getPlayerById = function(id){
  * @return {Boolean} True when the game is over
  */
 GameBoard.prototype.isGameOver = function(){
-
+	if(winner >= 0 && winner <= 3){
+		return true;
+	} else {
+		return false;
+	}
 };
 
 /**
@@ -73,6 +77,7 @@ Post-condition: NONE
 
 **/
 GameBoard.prototype.bigArmyOwner = function () {
+	return this.biggestArmyOwner;
 };
 
 /**
@@ -85,6 +90,7 @@ Post-condition: Return id of player with most points
 
 **/
 GameBoard.prototype.getWinner = function () {
+	return this.winner;
 };
 
 /**
@@ -97,6 +103,7 @@ Post-condition: NONE
 
 **/
 GameBoard.prototype.longRoadOwner = function () {
+	return this.longestRoadOwner;
 };
 
 /**
@@ -112,6 +119,6 @@ GameBoard.prototype.longRoadOwner = function () {
  * @param  {HexLocation} hex Where the robber is being moved to   
  * @return {null}        nothing
  */
-GameBoard.prototype.robPlayer = function(thiefId,victimId,hex) {
-	
+GameBoard.prototype.robPlayer = function(thiefId, victimId, hex) {
+	this.proxy.executeCommand(new RobPlayerCommand(thiefId, victimId, hex));
 }

@@ -19,7 +19,7 @@ Invariant: the log always has room for more.
 function Log(proxy, log){
 	// constructor
 	this.proxy = proxy;
-	this.log = log;
+	this.log = log.lines;
 }
 
 /**
@@ -31,7 +31,8 @@ Post-condition: NONE
 @return {Object} Log entry containing detailed log info.
 
 **/
-Log.prototype.mostRecentEntry = function (index) {
+Log.prototype.mostRecentEntry = function () {
+	return log[log.length - 1];
 };
 
 
@@ -46,5 +47,6 @@ Post-condition: The log message is added at the end of the list
 @return {void}
 **/
 Log.prototype.addEntry = function (message) {
+
 };
 
