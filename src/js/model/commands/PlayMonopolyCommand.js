@@ -1,24 +1,24 @@
+/**
+ * 
+ * @module catan.model.commands
+ * @namespace model
+ */
+
 var AbstractCommand = require('./AbstractCommand');
 
-var playerID;
-var resource;
+function PlayMonopolyCommand(playerID, resource){
 
-function PlayMonopolyCommand(_playerID, _resource){
-
-	playerID = _playerID;
-	resource = _resource;	
+	this.playerID = playerID;
+	this.resource = resource;	
 
 	PlayMonopolyCommand.AbstractCommand.url = '/moves/Monopoly';
-}
+};
+
 PlayMonopolyCommand.prototype = new AbstractCommand();
 
 PlayMonopolyCommand.prototype.getData = function(){
 
-	var returnObject = {'type' : 'Monopoly',
-						'resource' : resource,
-						'playerIndex' : playerID};
-
-	return returnObject;
-
-	
-}
+	return {'type' : 'Monopoly',
+						'resource' : this.resource,
+						'playerIndex' : this.playerID};
+};

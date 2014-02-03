@@ -1,16 +1,20 @@
+/**
+ * 
+ * @module catan.model.commands
+ * @namespace model
+ */
+
 var AbstractCommand = require('./AbstractCommand');
 
-var playerID;
-var message;
 
-function SendChatCommand(_playerID, _message){
-	playerID = _playerID;
-	message = _message;
 
-	
+function SendChatCommand(playerID, message){
+	this.playerID = playerID;
+	this.message = message;
 
 	SendChatCommand.AbstractCommand.url = '/moves/sendChat';
-}
+};
+
 SendChatCommand.prototype = new AbstractCommand();
 
 SendChatCommand.prototype.getData = function(){

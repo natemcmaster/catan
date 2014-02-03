@@ -1,22 +1,24 @@
+/**
+ * 
+ * @module catan.model.commands
+ * @namespace model
+ */
+
 var AbstractCommand = require('./AbstractCommand');
 
-var playerID;
-var number;
+function RollDiceCommand(playerID, number){
 
-function RollDiceCommand(_playerID, _number){
-
-	playerID =_playerID;
-	number =_number;
+	this.playerID = playerID;
+	this.number = number;
 
 	RollDiceCommand.AbstractCommand.url = '/moves/rollNumber';
-}
+};
+
 RollDiceCommand.prototype = new AbstractCommand();
 
 RollDiceCommand.prototype.getData = function(){
 
-	var returnObject = {'type' : 'rollNumber',
-						'playerIndex' : playerID,
-						'number' : number};
-
-	return returnObject;
-}
+	return {'type' : 'rollNumber',
+						'playerIndex' : this.playerID,
+						'number' : this.number};
+};

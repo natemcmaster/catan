@@ -8,7 +8,7 @@
     "grunt-contrib-copy": "~0.5.0",
     "grunt-browserify": "~1.3.0",
     "grunt-contrib-yuidoc": "~0.5.0",
-    "grunt-mocha-test": "~0.8.2",
+    "grunt-mocha": "~0.4.10",
     "chai": "~1.9.0",
     "grunt-verbosity": "~0.2.2",
     "byu-catan": ">=1.0.0"

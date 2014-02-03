@@ -1,20 +1,24 @@
+/**
+ * 
+ * @module catan.model.commands
+ * @namespace model
+ */
+
 var AbstractCommand = require('./AbstractCommand');
 
-var playerID;
+function FinishTurnCommand(playerID){
 
-function FinishTurnCommand(_playerID){
-
-	playerID = _playerID;
+	this.playerID = playerID;
 	
 
 	FinishTurnCommand.AbstractCommand.url = '/moves/finishTurn';
-}
+};
+
 FinishTurnCommand.prototype = new AbstractCommand();
 
 FinishTurnCommand.prototype.getData = function(){
 
-	var returnObject = {'type' : 'finishTurn',
-						'playerIndex' : playerID};
+	return {'type' : 'finishTurn',
+			'playerIndex' : this.playerID};
 
-	return returnObject;
-}
+};

@@ -2,7 +2,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-browserify');
 	grunt.loadNpmTasks('grunt-contrib-yuidoc');
-	grunt.loadNpmTasks('grunt-mocha-test');
+	grunt.loadNpmTasks('grunt-mocha');
 	grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-jshint');
 
@@ -33,13 +33,17 @@ module.exports = function(grunt) {
         '-W058': true,
         '-W014': true,
         '-W099': true,
+        '-W033':true,
         undef: true,
         // unused: true, // TODO enable this later
+      	browser:true,
         globals: {
           module: true,
           catan: true,
           require: true,
-          $: true
+          $: true,
+          jQuery:true,
+          console:true,
         }
       },
       models: [
@@ -49,7 +53,8 @@ module.exports = function(grunt) {
         options: {
           globals: {
             test: true,
-            suite: true
+            suite: true,
+            console:true
           }
         },
         files: [testDir + '/js/**/*.js']
@@ -95,13 +100,13 @@ module.exports = function(grunt) {
 				}]
 			}
 		},
-		mochaTest: {
-			model: {
-				options: {
-					ui: 'tdd',
-					reporter: 'spec'
+		mocha:{
+			model:{
+				options:{
+					run:true,
+					reporter:'Spec'
 				},
-				src: [testDir + '/js/model/**/*Test.js']
+				src:['build/gameplay/test.html']
 			}
 		},
 		yuidoc: {
@@ -117,7 +122,7 @@ module.exports = function(grunt) {
 		}
 	});
 
-	grunt.registerTask('default', ['copy', 'browserify', 'concat']);
+	grunt.registerTask('default', ['copy', 'browserify', 'concat','jshint','test']);
 	grunt.registerTask('all', ['copy', 'browserify', 'concat','docs','test']);
 
 	grunt.registerTask('clean', 'Delete build folder', function() {
@@ -126,7 +131,7 @@ module.exports = function(grunt) {
 	grunt.registerTask('test', 'Test models', function() {
 		var reporter = grunt.option('reporter') || 'spec';
 		grunt.config('mochaTest.model.options.reporter', reporter);
-		grunt.task.run(['browserify:test', 'mochaTest:model']);
+		grunt.task.run(['concat:framework','browserify:test', 'mocha:model']);
 	});
 	grunt.registerTask('docs', ['copy', 'yuidoc:compile']);
 };
