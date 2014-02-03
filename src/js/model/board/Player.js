@@ -1,4 +1,3 @@
-
 /**
  * The Player Object
  *
@@ -51,7 +50,7 @@ Player.prototype.whatCanYouBuild = function () {
  */
 Player.prototype.playableDevelopmentCards = function () {
 
-	return plaery.newDevCards;
+	return this.player.newDevCards;
 	
 };
 
@@ -72,7 +71,7 @@ Player.prototype.playableDevelopmentCards = function () {
  * @return {void}
  */
 Player.prototype.buyDevCard = function () {
-	proxy.executeCommand(BuyDevCardCommand(player.playerID));
+	this.proxy.executeCommand(BuyDevCardCommand(this.player.playerID));
 };
 
 /**
@@ -91,7 +90,7 @@ Player.prototype.buyDevCard = function () {
  * @return {void}
  */
 Player.prototype.yearOfPlenty = function (resource1, resource2) {
-	proxy.executeCommand(PlayYearOfPlentyCommand(player.playerID, resource1, resource2));
+	this.proxy.executeCommand(PlayYearOfPlentyCommand(this.player.playerID, resource1, resource2));
 };
 
 /**
@@ -109,7 +108,7 @@ Player.prototype.yearOfPlenty = function (resource1, resource2) {
  * @return {void}
  */
 Player.prototype.roadBuilding = function (edge1, edge2) {
-	proxy.executeCommand(PlayRoadBuildingCommand(player.playerID, edge1, edge2));
+	this.proxy.executeCommand(PlayRoadBuildingCommand(this.player.playerID, edge1, edge2));
 };
 
 /**
@@ -130,7 +129,7 @@ Player.prototype.roadBuilding = function (edge1, edge2) {
  * @return {void}
  */
 Player.properties.playSoldier = function (hex, playerToRob) {
-	proxy.executeCommand(PlaySoldierCommand(player.playerID, playerToRob, hex));
+	this.proxy.executeCommand(PlaySoldierCommand(this.player.playerID, playerToRob, hex));
 };
 
 /**
@@ -147,7 +146,7 @@ Player.properties.playSoldier = function (hex, playerToRob) {
 * @return {void}
 */
 Player.properties.monopoly = function (resourceType) {
-	proxy.executeCommand(PlayMonopolyCommand(player.playerID,resourceType));
+	this.proxy.executeCommand(PlayMonopolyCommand(this.player.playerID,resourceType));
 };
 
 /**
@@ -162,8 +161,8 @@ Player.properties.monopoly = function (resourceType) {
 * @return {void}
 */
 Player.properties.monument = function () {
-	player.monuments++;
-	player.victoryPoints++;
+	this.player.monuments++;
+	this.player.victoryPoints++;
 };
 
 /**
@@ -184,8 +183,8 @@ Player.properties.monument = function () {
 * @return {void}
 */
 Player.properties.offerTrade = function (playerToTradeWith, brick, ore, sheep, wheat, wood) {
-	proxy.executeCommand(OfferTradeCommand(player.playerID, playerToTradeWith,
-												 brick, ore, sheep, wheat wood));
+	this.proxy.executeCommand(OfferTradeCommand(this.player.playerID, playerToTradeWith,
+											 brick, ore, sheep, wheat, wood));
 };
 
 /**
@@ -203,7 +202,7 @@ Player.properties.offerTrade = function (playerToTradeWith, brick, ore, sheep, w
 */
 Player.properties.acceptTrade = function (willAccept) {
 
-	proxy.executeCommand(AcceptTradeCommand(player.playerID,willAccept));
+	this.proxy.executeCommand(AcceptTradeCommand(this.player.playerID,willAccept));
 
 };
 
@@ -224,6 +223,6 @@ Player.properties.acceptTrade = function (willAccept) {
 * @return {void}
 */
 Player.properties.discardCards = function (brick, ore, sheep, wheat, wood) {
-	proxy.executeCommand(DiscardCardsCommand(player.playerID, 
+	this.proxy.executeCommand(DiscardCardsCommand(this.player.playerID, 
 												brick, ore, sheep, wheat, wood));
 };
