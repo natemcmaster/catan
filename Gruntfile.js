@@ -4,7 +4,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-yuidoc');
 	grunt.loadNpmTasks('grunt-mocha');
 	grunt.loadNpmTasks('grunt-contrib-copy');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-contrib-jshint');
 
 	var buildDir = 'build',
 		testDir = 'test',
@@ -27,39 +27,39 @@ module.exports = function(grunt) {
 
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
-    jshint: {
-      options: {
-        laxcomma: true,
-        '-W058': true,
-        '-W014': true,
-        '-W099': true,
-        '-W033':true,
-        undef: true,
-        // unused: true, // TODO enable this later
-      	browser:true,
-        globals: {
-          module: true,
-          catan: true,
-          require: true,
-          $: true,
-          jQuery:true,
-          console:true,
-        }
-      },
-      models: [
-        srcDir + '/js/model/**/*.js'
-      ],
-      tests: {
-        options: {
-          globals: {
-            test: true,
-            suite: true,
-            console:true
-          }
-        },
-        files: [testDir + '/js/**/*.js']
-      }
-    },
+		jshint: {
+			options: {
+				laxcomma: true,
+				'-W058': true,
+				'-W014': true,
+				'-W099': true,
+				'-W033': true,
+				undef: true,
+				// unused: true, // TODO enable this later
+				browser: true,
+				globals: {
+					module: true,
+					catan: true,
+					require: true,
+					$: true,
+					jQuery: true,
+					console: true,
+				}
+			},
+			models: [
+				srcDir + '/js/model/**/*.js'
+			],
+			tests: {
+				options: {
+					globals: {
+						test: true,
+						suite: true,
+						console: true
+					}
+				},
+				files: [testDir + '/js/**/*.js']
+			}
+		},
 		browserify: {
 			src: {
 				src: srcJsFiles,
@@ -98,15 +98,25 @@ module.exports = function(grunt) {
 					src: ['**'],
 					dest: gameplay + '/'
 				}]
+			},
+			test: {
+				files: [{
+					expand:true,
+					cwd: srcDir+'/',
+					src: ['gameplay/test.html'],
+					dest: buildDir + '/'
+				}]
 			}
 		},
-		mocha:{
-			model:{
-				options:{
-					run:true,
-					reporter:'Spec'
+		mocha: {
+			model: {
+				options: {
+					run: true,
+					bail: false,
+					logErrors:true,
+					reporter: 'Spec'
 				},
-				src:['build/gameplay/test.html']
+				src: ['build/gameplay/test.html']
 			}
 		},
 		yuidoc: {
@@ -122,8 +132,8 @@ module.exports = function(grunt) {
 		}
 	});
 
-	grunt.registerTask('default', ['copy', 'browserify', 'concat','jshint','test']);
-	grunt.registerTask('all', ['copy', 'browserify', 'concat','docs','test']);
+	grunt.registerTask('default', ['copy', 'browserify', 'concat', 'jshint', 'test']);
+	grunt.registerTask('all', ['copy', 'browserify', 'concat', 'docs', 'test']);
 
 	grunt.registerTask('clean', 'Delete build folder', function() {
 		grunt.file.delete(buildDir + '/');
@@ -131,7 +141,7 @@ module.exports = function(grunt) {
 	grunt.registerTask('test', 'Test models', function() {
 		var reporter = grunt.option('reporter') || 'spec';
 		grunt.config('mochaTest.model.options.reporter', reporter);
-		grunt.task.run(['concat:framework','browserify:test', 'mocha:model']);
+		grunt.task.run(['copy:test', 'concat:framework', 'browserify:test', 'mocha:model']);
 	});
 	grunt.registerTask('docs', ['copy', 'yuidoc:compile']);
 };

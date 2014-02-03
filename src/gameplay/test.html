@@ -3,17 +3,26 @@
 <head>
 	<title>Catan Test</title>
 	<link rel="stylesheet" href="libs/mocha/mocha.css">
+	<script>
+		window.onerror=function(msg,file,line,char,err){
+			mocha.throwError(err);
+		}
+	</script>
 </head>
 <body>
 	<div id="mocha">
 	</div>
 	<script type="text/javascript" src="libs/mocha/mocha.js"></script>
 	<script type="text/javascript">
-       mocha.setup('tdd');
+		mocha.checkLeaks();
+		mocha.globals(['jQuery','$','catan']);
+		mocha.bail(false);
+       	mocha.setup('tdd');
 	</script>
+	<script type="text/javascript" src="js/framework.js"></script>
 	<script type="text/javascript" src="js/test.js"></script>
 	<script type="text/javascript">
-       mocha.run();
+    	mocha.run();
 	</script>
 </body>
 </html>

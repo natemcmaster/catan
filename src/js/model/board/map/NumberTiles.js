@@ -27,7 +27,7 @@ function NumberTiles(data) {
  * @method getNumberPositions
  * @return {Map<integer, List<HexLocation>>} A map of the locations
  */
-NumberTiles.properties.getNumberPositions = function () {
+NumberTiles.prototype.getNumberPositions = function () {
 };
 
 

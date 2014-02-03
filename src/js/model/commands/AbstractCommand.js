@@ -3,9 +3,12 @@
  * @module catan.model.commands
  * @namespace model
  */
+module.exports=AbstractCommand;
+
+function AbstractCommand(){
+}
+
 AbstractCommand.prototype.url = 'Forgot to Overide URL in sub-class';
-
-
 
 /**
 <pre>

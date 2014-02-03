@@ -25,18 +25,15 @@ suite('LogTests',function(){
 				new Log({},{})
 			},Error);
 		});
+		test('should contain all entries',function(){
+
+			assert.equal(testData.lines,log.entries);
+		});
 	});
 
 	suite('#mostRecentEntry()',function(){
 		test('should return "Brooke"',function(){
 			assert.equal(testData.lines[1],log.mostRecentEntry());
-		});
-	});
-
-	suite('#entries',function(){
-		test('should contain all entries',function(){
-
-			assert.equal(testData.lines,log.entries);
 		});
 	});
 

@@ -11,7 +11,7 @@ var hexgrid = catan.models.hexgrid
   , HexLocation = hexgrid.HexLocation
   , VertexLocation = hexgrid.VertexLocation
   , BaseLocation = hexgrid.BaseLocation
-
+  , Hex = require('./Hex')
   , NumberTiles = require('./NumberTiles')
   , Port = require('./Port')
   , BuildRoadCommand = require('../../commands/BuildRoadCommand')
