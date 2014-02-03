@@ -5,6 +5,7 @@
 **/
 
 module.exports = Bank;
+var resourceType = require("../ResourceType");
 
 /**
 The game's bank, containing the resource cards.
@@ -16,11 +17,12 @@ Invariant: The bank has 0 or more of each resource. There are never more than 19
 **/
 function Bank(proxy, bank){
 	this.proxy = proxy;
-	this.numBrick = bank.brick;
-	this.numOre = bank.ore;
-	this.numSheep = bank.sheep;
-	this.numWheat = bank.wheat;
-	this.numWood = bank.wood;
+
+	this.brick = bank.brick;
+	this.ore = bank.ore;
+	this.sheep = bank.sheep;
+	this.wheat = bank.wheat;
+	this.wood = bank.wood;
 }
 
 /**
@@ -33,5 +35,5 @@ Post-condition: NONE
 @return {boolean} true if user can draw the resource, false otherwise
 **/
 Bank.prototype.canWithdraw = function (resourceType) {
+	return this[resourceType] >= 0;
 };
-

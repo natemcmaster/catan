@@ -1,4 +1,4 @@
-
+var BuyDevCardCommand = require("../commands/BuyDevCardCommand");
 /**
 This module containts functionaly for the board
 
@@ -9,6 +9,8 @@ This module containts functionaly for the board
 module.exports = Deck;
 
 /**
+The deck manages development cards.
+
 <pre>
 Invariant: NONE
 </pre>
@@ -29,11 +31,29 @@ function Deck(proxy, deck){
 /**
 <pre>
 Pre-condition: NONE
-Post-condition: A card will be given to the current player (async!)
+Post-condition: A random development card will be given to the current player (async!)
 </pre>
 @method drawRandomCard
 @return {void}
 **/
-Deck.prototype.drawRandomCard = function () {
+Deck.prototype.drawRandomCard = function (playerId) {
+	this.proxy.executeCommand(new BuyDevCardCommand(playerId));
+};
+
+/**
+<pre>
+Pre-condition: NONE
+Post-condition: True if player can draw a card from the deck, false otherwise
+</pre>
+@method canDrawCard
+@return {boolean}
+**/
+Deck.prototype.canDrawCard = function () {
+	if(this.monopoly <= 0 && this.monument <= 0 && this.roadBuilding <= 0 && this.soldier <= 0 && this.yearOfPlenty <= 0){
+		return false;
+	}
+	else {
+		return true;
+	}
 };
 

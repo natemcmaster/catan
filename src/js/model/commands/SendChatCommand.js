@@ -16,7 +16,7 @@ SendChatCommand.prototype = new AbstractCommand();
 SendChatCommand.prototype.getData = function(){
 
 	var returnObject = {'type':'sendChat',
-						'playerIndex': playerID.
+						'playerIndex': playerID,
 						'content': message};
 
 	return returnObject;

@@ -1,3 +1,5 @@
+var RollDiceCommand = require("../commands/RollDiceCommand");
+var FinishTurnCommand = require("../commands/FinishTurnCommand");
 
 /**
 This module containts functionaly for the board
@@ -22,6 +24,8 @@ function TurnTracker(proxy, turnTracker){
 	this.proxy = proxy;
 	
 	this.currentTurn = turnTracker.currentTurn;
+
+	// Status can be discarding, robbing, playing, rolling
 	this.status = turnTracker.status;
 }
 
@@ -34,6 +38,7 @@ Post-condition: NONE
 @return {int} ID of the player whose turn it is
 **/
 TurnTracker.prototype.currentPlayerId = function () {
+	return this.currentTurn;
 };
 
 
@@ -46,17 +51,7 @@ Post-condition: NONE
 @return {StatusEnum} State of the game (pre game, in-progress, post game)
 **/
 TurnTracker.prototype.getStatus = function () {
-};
-
-/**
-<pre>
-Pre-condition: NONE
-Post-condition: NONE
-</pre>
-@method isGameOver
-@return {boolean} True if game is over, false if not.
-**/
-TurnTracker.prototype.isGameOver = function () {
+	return this.status;
 };
 
 
@@ -70,6 +65,7 @@ Post-condition: NONE
 @return {boolean} True if player can trade cards, false if not
 **/
 TurnTracker.prototype.canTradeCards = function (playerId) {
+	return this.status == "Playing" && playerId == this.currentTurn;
 };
 
 /**
@@ -83,6 +79,7 @@ Notifies system that a player's turn is finished
 @return {void}
 **/
 TurnTracker.prototype.finishTurn = function () {
+	this.proxy.executeCommand(new FinishTurnCommand());
 };
 
 /**
@@ -96,6 +93,7 @@ Rolls two "dice" using a random number generator.
 @return {void}
 **/
 TurnTracker.prototype.rollDice = function () {
+	this.proxy.executeCommand(new RollDiceCommand());
 };
 
 

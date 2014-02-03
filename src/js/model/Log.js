@@ -39,17 +39,3 @@ Log.prototype.mostRecentEntry = function () {
 };
 
 
-/**
-<pre>
-Pre-condition: NONE
-Post-condition: The log message is added at the end of the list
-</pre>
-(I don't think this will actually ever get called in practice. The server handles this).
-@method addEntry
-@param {String} Log message
-@return {void}
-**/
-Log.prototype.addEntry = function (message) {
-
-};
-

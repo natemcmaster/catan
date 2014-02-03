@@ -119,6 +119,7 @@ GameBoard.prototype.longRoadOwner = function () {
  * @param  {HexLocation} hex Where the robber is being moved to   
  * @return {null}        nothing
  */
-GameBoard.prototype.robPlayer = function(thiefId, victimId, hex) {
+GameBoardv.prototype.robPlayer = function(thiefId, victimId, hex) {
 	this.proxy.executeCommand(new RobPlayerCommand(thiefId, victimId, hex));
+	
 }

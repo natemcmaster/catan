@@ -39,6 +39,5 @@ Proxy.prototype.getModel = function(callback){
 			console.error('failed to get model', xhr, status);
 		});
 
-	});
 
 }

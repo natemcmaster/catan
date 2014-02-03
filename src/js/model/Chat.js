@@ -30,6 +30,6 @@ function Chat(proxy, chat){
  * @param {integer} user
  */
 Chat.prototype.sendChat = function (message, user) {
-	this.proxy.executeCommand(SendChatCommand(message, user))
+	this.proxy.executeCommand(new SendChatCommand(thiefId, victimId, hex));
 };
 
