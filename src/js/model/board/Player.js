@@ -18,6 +18,8 @@ module.exports = Player;
  */
 function Player(proxy, data) {
 	// set things up
+	this.proxy = proxy;
+	this.data = data;
 }
 
 // read-only functions
@@ -33,6 +35,8 @@ function Player(proxy, data) {
  * to build/buy.
 **/
 Player.prototype.whatCanYouBuild = function () {
+
+
 };
 
 /**
@@ -46,6 +50,9 @@ Player.prototype.whatCanYouBuild = function () {
  * can play on this turn.
  */
 Player.prototype.playableDevelopmentCards = function () {
+
+
+	
 };
 
 // mutable!

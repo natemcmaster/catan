@@ -5,7 +5,17 @@
  */
 
 var AbstractCommand = require('./AbstractCommand');
-
+/**
+<pre>
+Pre-condition: NONE
+Post-condition: NONE
+</pre>
+@class BuildCityCommand
+@constructor 
+@param {int} the ID of the player wanting to build a City
+@param {HexLocation} location where the player wants to build the city
+@param {isFree} wheter or not can be build at that location
+**/
 function BuildCityCommand(playerID, cityLocation, isFree){
 
 	this.playerID = playerID;
@@ -13,10 +23,17 @@ function BuildCityCommand(playerID, cityLocation, isFree){
 	this.isFree = isFree;
 
 	BuildCityCommand.AbstractCommand.url = '/moves/buildCity';
-};
+}
 
 BuildCityCommand.prototype = new AbstractCommand();
-
+/**
+<pre>
+Pre-condition: NONE
+Post-condition: NONE
+</pre>
+@method getData
+@return {JSON} returns the JSON object formatted as the server will want it
+**/
 BuildCityCommand.prototype.getData = function(){
 
 	return {'type':'buildCity',

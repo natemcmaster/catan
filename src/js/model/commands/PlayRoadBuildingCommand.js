@@ -5,7 +5,17 @@
  */
 
 var AbstractCommand = require('./AbstractCommand');
-
+/**
+<pre>
+Pre-condition: NONE
+Post-condition: NONE
+</pre>
+@class PlayRoadBuildingCommand
+@constructor 
+@param {int} the ID of the player playing the road building card
+@param {HexLocation} location to build the first road
+@param {HexLocation} location to build the second road
+**/
 function PlayRoadBuildingCommand(playerID, location_1, location_2){
 
 	this.playerID = playerID;
@@ -13,10 +23,17 @@ function PlayRoadBuildingCommand(playerID, location_1, location_2){
 	this.location_2 = location_2;	
 
 	PlayRoadBuildingCommand.AbstractCommand.url = '/moves/Road_Building';
-};
+}
 
 PlayRoadBuildingCommand.prototype = new AbstractCommand();
-
+/**
+<pre>
+Pre-condition: NONE
+Post-condition: NONE
+</pre>
+@method getData
+@return {JSON} returns the JSON object formatted as the server will want it
+**/
 PlayRoadBuildingCommand.prototype.getData = function(){
 
 	return {'type':'Road_Building',

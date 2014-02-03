@@ -5,7 +5,17 @@
  */
 
 var AbstractCommand = require('./AbstractCommand');
-
+/**
+<pre>
+Pre-condition: NONE
+Post-condition: NONE
+</pre>
+@class BuildSettlementCommand
+@constructor 
+@param {int} the ID of the player wanting to build a settlement
+@param {HexLocation} location where the player wants to build the settlement
+@param {isFree} wheter or not can be build at that location
+**/
 function BuildSettlementCommand(playerID, settlementLocation, isFree){
 
 	this.playerID = playerID;
@@ -13,10 +23,17 @@ function BuildSettlementCommand(playerID, settlementLocation, isFree){
 	this.isFree = isFree;
 
 	BuildSettlementCommand.AbstractCommand.url = '/moves/buildSettlement';
-};
+}
 
 BuildSettlementCommand.prototype = new AbstractCommand();
-
+/**
+<pre>
+Pre-condition: NONE
+Post-condition: NONE
+</pre>
+@method getData
+@return {JSON} returns the JSON object formatted as the server will want it
+**/
 BuildSettlementCommand.prototype.getData = function(){
 
 	return {'type':'buildSettlement',

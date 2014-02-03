@@ -5,7 +5,17 @@
  */
 
 var AbstractCommand = require('./AbstractCommand');
-
+/**
+<pre>
+Pre-condition: NONE
+Post-condition: NONE
+</pre>
+@class RobPlayerCommand
+@constructor 
+@param {int} the ID of the player robbing
+@param {int} the ID of the player being robbed
+@param {HexLocation} the Location the robber is being placed
+**/
 function RobPlayerCommand(playerID, victimID, robberSpot){
 
 	this.playerID = playerID;
@@ -13,10 +23,17 @@ function RobPlayerCommand(playerID, victimID, robberSpot){
 	this.robberSpot = robberSpot;
 
 	RobPlayerCommand.AbstractCommand.url = '/moves/RobPlayer';
-};
+}
 
 RobPlayerCommand.prototype = new AbstractCommand();
-
+/**
+<pre>
+Pre-condition: NONE
+Post-condition: NONE
+</pre>
+@method getData
+@return {JSON} returns the JSON object formatted as the server will want it
+**/
 RobPlayerCommand.prototype.getData = function(){
 
 	return {'type' : 'robPlayer',

@@ -6,7 +6,20 @@
 
 var AbstractCommand = require('./AbstractCommand');
 
-
+/**
+<pre>
+Pre-condition: NONE
+Post-condition: NONE
+</pre>
+@class DiscardCardsCommand
+@constructor 
+@param {int} the ID of the player discarding cards
+@param {int} number of brick to be discarded
+@param {int} number of ore to be discarded
+@param {int} number of sheep to be discarded
+@param {int} number of wheat to be discarded
+@param {int} number of wood to be discarded
+**/
 function DiscardCardsCommand(playerID, brick, ore, sheep, wheat, wood){
 
 	this.playerID = playerID;
@@ -19,10 +32,17 @@ function DiscardCardsCommand(playerID, brick, ore, sheep, wheat, wood){
 	
 
 	DiscardCardsCommand.AbstractCommand.url = '/moves/discardCards';
-};
+}
 
 DiscardCardsCommand.prototype = new AbstractCommand();
-
+/**
+<pre>
+Pre-condition: NONE
+Post-condition: NONE
+</pre>
+@method getData
+@return {JSON} returns the JSON object formatted as the server will want it
+**/
 DiscardCardsCommand.prototype.getData = function(){
 
 	return {'type': 'discardCards',

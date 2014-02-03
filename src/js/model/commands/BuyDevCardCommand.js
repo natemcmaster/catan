@@ -6,16 +6,31 @@
 
 var AbstractCommand = require('./AbstractCommand');
 
-
+/**
+<pre>
+Pre-condition: NONE
+Post-condition: NONE
+</pre>
+@class BuyDevCardCommand
+@constructor 
+@param {int} the ID of the player wanting to buy a Development Card
+**/
 function BuyDevCardCommand(playerID){
 
 	this.playerID = playerID;
 
 	BuyDevCardCommand.AbstractCommand.url = '/moves/buyDevCard';
-};
+}
 
 BuyDevCardCommand.prototype = new AbstractCommand();
-
+/**
+<pre>
+Pre-condition: NONE
+Post-condition: NONE
+</pre>
+@method getData
+@return {JSON} returns the JSON object formatted as the server will want it
+**/
 BuyDevCardCommand.prototype.getData = function(){
 
 	return {'type':'buyDevCard',
