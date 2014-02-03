@@ -14,10 +14,10 @@ var hexgrid = catan.models.hexgrid
 
   , NumberTiles = require('./NumberTiles')
   , Port = require('./Port')
-  , BuildRoadCommand = require('../../proxy/BuildRoad')
-  , BuildSettlementCommand = require('../../proxy/BuildSettlement')
-  , BuildCityCommand = require('../../proxy/BuildCity')
-  , PlayRoadBuilding = require('../../proxy/PlayRoadBuilding');
+  , BuildRoadCommand = require('../../commands/BuildRoadCommands')
+  , BuildSettlementCommand = require('../../commands/BuildSettlementCommands')
+  , BuildCityCommand = require('../../commands/BuildCityCommands')
+  , PlayRoadBuilding = require('../../commands/PlayRoadBuildingCommands');
 
 module.exports = Map;
 
