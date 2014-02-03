@@ -12,8 +12,8 @@ Post-condition: NONE
 </pre>
 @class PlayMonopoplyCommand
 @constructor 
-@param {int} the ID of the player playing the card
-@param {int} the enumeration of the resource to be monopolized
+@param {int} playerID the ID of the player playing the card
+@param {int} resource the enumeration of the resource to be monopolized
 **/
 function PlayMonopolyCommand(playerID, resource){
 

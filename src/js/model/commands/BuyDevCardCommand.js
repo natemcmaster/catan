@@ -13,7 +13,7 @@ Post-condition: NONE
 </pre>
 @class BuyDevCardCommand
 @constructor 
-@param {int} the ID of the player wanting to buy a Development Card
+@param {int} playerID the ID of the player wanting to buy a Development Card
 **/
 function BuyDevCardCommand(playerID){
 

@@ -12,7 +12,7 @@ Post-condition: NONE
 </pre>
 @class FinishTurnCommand
 @constructor 
-@param {int} the ID of the player finishing their turn
+@param {int} playerID the ID of the player finishing their turn
 **/
 function FinishTurnCommand(playerID){
 

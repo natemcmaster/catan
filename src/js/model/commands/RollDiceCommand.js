@@ -12,8 +12,8 @@ Post-condition: NONE
 </pre>
 @class RollDiceCommand
 @constructor 
-@param {int} the ID of the player rolling the dice
-@param {int} number rolled
+@param {int} playerID the ID of the player rolling the dice
+@param {int} number number rolled
 **/
 function RollDiceCommand(playerID, number){
 

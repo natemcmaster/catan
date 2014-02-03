@@ -12,9 +12,9 @@ Post-condition: NONE
 </pre>
 @class BuildSettlementCommand
 @constructor 
-@param {int} the ID of the player wanting to build a settlement
-@param {HexLocation} location where the player wants to build the settlement
-@param {isFree} wheter or not can be build at that location
+@param {int} playerID the ID of the player wanting to build a settlement
+@param {HexLocation} settlementLocation location where the player wants to build the settlement
+@param {isFree} isFree wheter or not can be build at that location
 **/
 function BuildSettlementCommand(playerID, settlementLocation, isFree){
 

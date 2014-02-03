@@ -12,8 +12,8 @@ Post-condition: NONE
 </pre>
 @class SendChatCommand
 @constructor 
-@param {int} the ID of the player sending the message
-@param {String} the message to be sent
+@param {int} playerID the ID of the player sending the message
+@param {String} message the message to be sent
 **/
 function SendChatCommand(playerID, message){
 	this.playerID = playerID;

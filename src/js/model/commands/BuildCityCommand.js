@@ -12,9 +12,9 @@ Post-condition: NONE
 </pre>
 @class BuildCityCommand
 @constructor 
-@param {int} the ID of the player wanting to build a City
-@param {HexLocation} location where the player wants to build the city
-@param {isFree} wheter or not can be build at that location
+@param {int} playerID the ID of the player wanting to build a City
+@param {HexLocation} cityLocation location where the player wants to build the city
+@param {isFree} isFree wheter or not can be build at that location
 **/
 function BuildCityCommand(playerID, cityLocation, isFree){
 

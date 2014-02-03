@@ -16,10 +16,10 @@ module.exports = Player;
  * @class Player
  * @constructor
  */
-function Player(proxy, data) {
+function Player(proxy, player) {
 	// set things up
 	this.proxy = proxy;
-	this.data = data;
+	this.player = player;
 }
 
 // read-only functions
@@ -51,7 +51,7 @@ Player.prototype.whatCanYouBuild = function () {
  */
 Player.prototype.playableDevelopmentCards = function () {
 
-
+	return plaery.newDevCards;
 	
 };
 
@@ -72,6 +72,7 @@ Player.prototype.playableDevelopmentCards = function () {
  * @return {void}
  */
 Player.prototype.buyDevCard = function () {
+	proxy.executeCommand(BuyDevCardCommand(player.playerID));
 };
 
 /**
@@ -90,6 +91,7 @@ Player.prototype.buyDevCard = function () {
  * @return {void}
  */
 Player.prototype.yearOfPlenty = function (resource1, resource2) {
+	proxy.executeCommand(PlayYearOfPlentyCommand(player.playerID, resource1, resource2));
 };
 
 /**
@@ -107,6 +109,7 @@ Player.prototype.yearOfPlenty = function (resource1, resource2) {
  * @return {void}
  */
 Player.prototype.roadBuilding = function (edge1, edge2) {
+	proxy.executeCommand(PlayRoadBuildingCommand(player.playerID, edge1, edge2));
 };
 
 /**
@@ -127,6 +130,7 @@ Player.prototype.roadBuilding = function (edge1, edge2) {
  * @return {void}
  */
 Player.properties.playSoldier = function (hex, playerToRob) {
+	proxy.executeCommand(PlaySoldierCommand(player.playerID, playerToRob, hex));
 };
 
 /**
@@ -143,6 +147,7 @@ Player.properties.playSoldier = function (hex, playerToRob) {
 * @return {void}
 */
 Player.properties.monopoly = function (resourceType) {
+	proxy.executeCommand(PlayMonopolyCommand(player.playerID,resourceType));
 };
 
 /**
@@ -157,6 +162,8 @@ Player.properties.monopoly = function (resourceType) {
 * @return {void}
 */
 Player.properties.monument = function () {
+	player.monuments++;
+	player.victoryPoints++;
 };
 
 /**
@@ -168,11 +175,17 @@ Player.properties.monument = function () {
 * (async!)
 * </pre>
 * @method offerTrade
-* @param {CardParams} cardsOffered
 * @param {int} playerToTradeWith
+* @param {int} brick number of brick offered
+* @param {int} ore number of ore offered
+* @param {int} sheep number of sheep offered
+* @param {int} wheat number of wheat offered
+* @param {int} wood number of wood offered
 * @return {void}
 */
-Player.properties.offerTrade = function (cardsOffered, playerToTradeWith) {
+Player.properties.offerTrade = function (playerToTradeWith, brick, ore, sheep, wheat, wood) {
+	proxy.executeCommand(OfferTradeCommand(player.playerID, playerToTradeWith,
+												 brick, ore, sheep, wheat wood));
 };
 
 /**
@@ -189,6 +202,9 @@ Player.properties.offerTrade = function (cardsOffered, playerToTradeWith) {
 * @return {void}
 */
 Player.properties.acceptTrade = function (willAccept) {
+
+	proxy.executeCommand(AcceptTradeCommand(player.playerID,willAccept));
+
 };
 
 /**
@@ -200,8 +216,14 @@ Player.properties.acceptTrade = function (willAccept) {
 * (async!)
 * </pre>
 * @method discardCards
-* @param {CardParams} cardsToDiscard
+* @param {int} brick number of brick discarded
+* @param {int} ore number of ore discarded
+* @param {int} sheep number of sheep discarded
+* @param {int} wheat number of wheat discarded
+* @param {int} wood number of wood discarded
 * @return {void}
 */
-Player.properties.discardCards = function (cardsToDiscard) {
+Player.properties.discardCards = function (brick, ore, sheep, wheat, wood) {
+	proxy.executeCommand(DiscardCardsCommand(player.playerID, 
+												brick, ore, sheep, wheat, wood));
 };

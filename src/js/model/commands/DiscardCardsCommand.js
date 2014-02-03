@@ -13,12 +13,12 @@ Post-condition: NONE
 </pre>
 @class DiscardCardsCommand
 @constructor 
-@param {int} the ID of the player discarding cards
-@param {int} number of brick to be discarded
-@param {int} number of ore to be discarded
-@param {int} number of sheep to be discarded
-@param {int} number of wheat to be discarded
-@param {int} number of wood to be discarded
+@param {int} playerID the ID of the player discarding cards
+@param {int} brick number of brick to be discarded
+@param {int} ore number of ore to be discarded
+@param {int} sheep number of sheep to be discarded
+@param {int} wheat number of wheat to be discarded
+@param {int} wood number of wood to be discarded
 **/
 function DiscardCardsCommand(playerID, brick, ore, sheep, wheat, wood){
 

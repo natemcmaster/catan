@@ -12,9 +12,9 @@ Post-condition: NONE
 </pre>
 @class PlayYearyOfPlentyCommand
 @constructor 
-@param {int} the ID of the player playing the Year of Plenty Card
-@param {int} enumeration of the type of resource for resource 1
-@param {int} enumeration of the type of resource for resource 2
+@param {int} playerID the ID of the player playing the Year of Plenty Card
+@param {int} resource1 enumeration of the type of resource for resource 1
+@param {int} resource2 enumeration of the type of resource for resource 2
 **/
 function PlayYearOfPlentyCommand(playerId, resource1, resource2){
 

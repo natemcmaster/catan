@@ -13,8 +13,8 @@ Post-condition: NONE
 </pre>
 @class AcceptTradeCommand
 @constructor 
-@param {int} the ID of the player accepting the trade
-@param {bool} will the player accept the trade
+@param {int} PlayerID ID of the player accepting the trade
+@param {bool} willAccept will the player accept the trade
 **/
 function AcceptTradeCommand(playerID, willAccept){
 

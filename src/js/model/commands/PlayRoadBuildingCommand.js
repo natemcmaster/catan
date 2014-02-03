@@ -12,9 +12,9 @@ Post-condition: NONE
 </pre>
 @class PlayRoadBuildingCommand
 @constructor 
-@param {int} the ID of the player playing the road building card
-@param {HexLocation} location to build the first road
-@param {HexLocation} location to build the second road
+@param {int} playerID the ID of the player playing the road building card
+@param {HexLocation} location1 location to build the first road
+@param {HexLocation} location2 location to build the second road
 **/
 function PlayRoadBuildingCommand(playerID, location_1, location_2){
 
