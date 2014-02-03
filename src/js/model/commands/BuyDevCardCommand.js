@@ -1,21 +1,23 @@
+/**
+ * 
+ * @module catan.model.commands
+ * @namespace model
+ */
+
 var AbstractCommand = require('./AbstractCommand');
 
-var playerID;
 
-function BuyDevCardCommand(_playerID){
+function BuyDevCardCommand(playerID){
 
-	playerID = _playerID;
+	this.playerID = playerID;
 
 	BuyDevCardCommand.AbstractCommand.url = '/moves/buyDevCard';
-}
+};
+
 BuyDevCardCommand.prototype = new AbstractCommand();
 
 BuyDevCardCommand.prototype.getData = function(){
 
-	var returnObject = {'type':'buyDevCard',
-						'playerIndex':playerID};
-
-	return returnObject;
-
-	
-}
+	return {'type':'buyDevCard',
+			'playerIndex': this.playerID};
+};

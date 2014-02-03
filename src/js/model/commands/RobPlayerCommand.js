@@ -1,29 +1,28 @@
+/**
+ * 
+ * @module catan.model.commands
+ * @namespace model
+ */
+
 var AbstractCommand = require('./AbstractCommand');
 
-var playerID;
-var victimID;
-var robberSpot;
+function RobPlayerCommand(playerID, victimID, robberSpot){
 
-function RobPlayerCommand(_playerID, _victimID, _robberSpot){
-
-	playerID = _playerID;
-	victimID = _victimID;
-	robberSpot = _robberSpot;
+	this.playerID = playerID;
+	this.victimID = victimID;
+	this.robberSpot = robberSpot;
 
 	RobPlayerCommand.AbstractCommand.url = '/moves/RobPlayer';
-}
+};
+
 RobPlayerCommand.prototype = new AbstractCommand();
 
 RobPlayerCommand.prototype.getData = function(){
 
-	var returnObject = {'type' : 'robPlayer',
-						'playerIndex' : playerID,
-						'victimIndex' : victimID,
-						'robberSpot' : {'x' : robberSpot.getX(),
-										'y' : robberSpot.getY()}
-						};
-
-	return returnObject;
-
-	
-}
+	return {'type' : 'robPlayer',
+			'playerIndex' : this.playerID,
+			'victimIndex' : this.victimID,
+			'robberSpot' : {'x' : this.robberSpot.getX(),
+							'y' : this.robberSpot.getY()}
+			};
+};

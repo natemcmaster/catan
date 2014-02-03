@@ -1,34 +1,33 @@
+/**
+ * 
+ * @module catan.model.commands
+ * @namespace model
+ */
+
 var AbstractCommand = require('./AbstractCommand');
 
-var playerID;
-var location_1;
-var location_2;
+function PlayRoadBuildingCommand(playerID, location_1, location_2){
 
-function PlayRoadBuildingCommand(_playerID, _location_1, _location_2){
-
-	playerID = _playerID;
-	location_1 = _location_1;
-	location_2 = _location_2;	
+	this.playerID = playerID;
+	this.location_1 = location_1;
+	this.location_2 = location_2;	
 
 	PlayRoadBuildingCommand.AbstractCommand.url = '/moves/Road_Building';
-}
+};
+
 PlayRoadBuildingCommand.prototype = new AbstractCommand();
 
 PlayRoadBuildingCommand.prototype.getData = function(){
 
-	var returnObject = {'type':'Road_Building',
-						'playerIndex': playerID,
-						'spot1': {'x': location_1.getX(),
-								  'y': location_1.getY(),
-								  'direction': location_1.getDirection()
-								 },
-						'spot2': {'x': location_2.getX(),
-								  'y': location_2.getY(),
-								  'direction': location_2.getDirection()
-								 }
-						};
-
-	return returnObject;
-
-	
-}
+	return {'type':'Road_Building',
+			'playerIndex': this.playerID,
+			'spot1': {'x': this.location_1.getX(),
+					  'y': this.location_1.getY(),
+					  'direction': this.location_1.getDirection()
+					 },
+			'spot2': {'x': this.location_2.getX(),
+					  'y': this.location_2.getY(),
+					  'direction': this.location_2.getDirection()
+					 }
+			};
+};

@@ -1,28 +1,28 @@
+/**
+ * 
+ * @module catan.model.commands
+ * @namespace model
+ */
+
 var AbstractCommand = require('./AbstractCommand');
 
+function BuildCityCommand(playerID, cityLocation, isFree){
 
-var playerID;
-var cityLoaction;
-var isFree;
-
-function BuildCityCommand(_playerID, _cityLocation, _isFree){
-
-	playerID = _playerID;
-	cityLoaction = _cityLocation;
-	isFree = _isFree;
+	this.playerID = playerID;
+	this.cityLoaction = cityLocation;
+	this.isFree = isFree;
 
 	BuildCityCommand.AbstractCommand.url = '/moves/buildCity';
-}
+};
+
 BuildCityCommand.prototype = new AbstractCommand();
 
 BuildCityCommand.prototype.getData = function(){
 
-	var returnObject = {'type':'buildCity',
-						'playerIndex': playerID,
-						'vertexLocation': {'x': cityLoaction.getX(),
-										   'y': cityLoaction.getY(),
-										   'direction': cityLoaction.getDirection()},
-						'free':isFree};
-
-	return returnObject; 
-}
+	return {'type':'buildCity',
+			'playerIndex': this.playerID,
+			'vertexLocation': {'x': this.cityLoaction.getX(),
+							   'y': this.cityLoaction.getY(),
+							   'direction': this.cityLoaction.getDirection()},
+			'free': this.isFree};
+};

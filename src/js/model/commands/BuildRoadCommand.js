@@ -1,28 +1,28 @@
+/**
+ * 
+ * @module catan.model.commands
+ * @namespace model
+ */
+
 var AbstractCommand = require('./AbstractCommand');
 
+function BuildRoadCommand(playerID, roadLocation, isFree){
 
-var playerID;
-var roadLoaction;
-var isFree;
-
-function BuildRoadCommand(_playerID, _roadLocation, _isFree){
-
-	playerID = _playerID;
-	roadLoaction = _roadLocation;
-	isFree = _isFree;
+	this.playerID = playerID;
+	this.roadLoaction = roadLocation;
+	this.isFree = isFree;
 
 	BuildRoadCommand.AbstractCommand.url = '/moves/buildRoad';
-}
+};
+
 BuildRoadCommand.prototype = new AbstractCommand();
 
 BuildRoadCommand.prototype.getData = function(){
 
-	var returnObject = {'type':'buildRoad',
-						'playerIndex': playerID,
-						'vertexLocation': {'x': roadLoaction.getX(),
-										   'y': roadLoaction.getY(),
-										   'direction': roadLoaction.getDirection()},
-						'free':isFree};
-
-	return returnObject; 
-}
+	return {'type':'buildRoad',
+			'playerIndex': this.playerID,
+			'vertexLocation': {'x': this.roadLoaction.getX(),
+							   'y': this.roadLoaction.getY(),
+							   'direction': this.roadLoaction.getDirection()},
+			'free':this.isFree};
+};

@@ -1,41 +1,40 @@
+/**
+ * 
+ * @module catan.model.commands
+ * @namespace model
+ */
+
 var AbstractCommand = require('./AbstractCommand');
 
-var playerID;
-var brick;
-var ore;
-var sheep;
-var wheat;
-var wood;
 
-function DiscardCardsCommand(_playerID, _brick, _ore, _sheep, _wheat, _wood){
+function DiscardCardsCommand(playerID, brick, ore, sheep, wheat, wood){
 
-	playerID = _playerID;
-	brick = _brick;
-	ore = _ore;
-	sheep = _sheep;
-	wheat = _wheat;
-	wood = _wood;
+	this.playerID = playerID;
+	this.brick = brick;
+	this.ore = ore;
+	this.sheep = sheep;
+	this.wheat = wheat;
+	this.wood = wood;
 	
 	
 
 	DiscardCardsCommand.AbstractCommand.url = '/moves/discardCards';
-}
+};
+
 DiscardCardsCommand.prototype = new AbstractCommand();
 
 DiscardCardsCommand.prototype.getData = function(){
 
-	var returnObject = {'type': 'discardCards',
-						'playerIndex': playerID,
-						'discardedCards':{ 
-							'brick': brick,
-							'ore': ore,
-							'sheep': sheep,
-							'wheat': wheat,
-							'wood': wood,
-							}
+	return {'type': 'discardCards',
+			'playerIndex': this.playerID,
+			'discardedCards':{ 
+				'brick': this.brick,
+				'ore': this.ore,
+				'sheep': this.sheep,
+				'wheat': this.wheat,
+				'wood': this.wood,
+				}
 
-						};
-
-	return returnObject;
+			};
 	
-}
+};

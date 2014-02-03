@@ -1,23 +1,24 @@
+/**
+ * 
+ * @module catan.model.commands
+ * @namespace model
+ */
+
 var AbstractCommand = require('./AbstractCommand');
 
-var playerID;
-var willAccept;
+function AcceptTradeCommand(playerID, willAccept){
 
-function AcceptTradeCommand(_playerID, _willAccept){
-
-	playerID = _playerID;
-	willAccept = _willAccept;
+	this.playerID = playerID;
+	this.willAccept = willAccept;
 
 	AcceptTradeCommand.AbstractCommand.url = '/moves/acceptTrade';
-}
+};
+
 AcceptTradeCommand.prototype = new AbstractCommand();
 
 AcceptTradeCommand.prototype.getData = function(){
 
-	var returnObject = {'type':'acceptTrade',
-						'playerIndex':playerID,
-						'willAccept':willAccept};
-
-	return returnObject;
-	
-}
+	return {'type':'acceptTrade',
+			'playerIndex' : this.playerID,
+			'willAccept' : this.willAccept};	
+};

@@ -13,12 +13,23 @@ module.exports = Proxy;
  * </pre>
  * @class Proxy
  * @constructor
+ * 
  */
 function Proxy(onNewModel){
 	// constructor
 	this.onNewModel = onNewModel;
 }
 
+/**
+<pre>
+Pre-condition: NONE
+Post-condition: NONE
+</pre>
+Executes command to server runs onNewModel function defined for Proxy
+@method executeCommand
+@param {AbstractCommand} what command to run
+@return {} 
+**/
 Proxy.prototype.executeCommand = function(command){
 	var onNewModel = this.onNewModel;
 	jQuery.post(command.getURL(), command.getData())
