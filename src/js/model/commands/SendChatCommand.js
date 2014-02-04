@@ -34,8 +34,8 @@ Post-condition: NONE
 SendChatCommand.prototype.getData = function(){
 
 	var returnObject = {'type':'sendChat',
-						'playerIndex': playerID,
-						'content': message};
+						'playerIndex': this.playerID,
+						'content': this.message};
 
 	return returnObject;
 
