@@ -2,6 +2,9 @@
   "name": "Catan",
   "description": "Package for the Catan client (front-end only)",
   "version": "0.0.1",
+  "scripts": {
+    "test": "grunt test"
+  },
   "devDependencies": {
     "grunt": "~0.4.2",
     "grunt-contrib-concat": "~0.3.0",
