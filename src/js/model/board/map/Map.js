@@ -32,11 +32,11 @@ module.exports = Map;
 function Map(proxy, data){
 	this.proxy = proxy;
 
-	this.hexGrid = HexGrid.getRegular(data.hexGrid.radius, Hex, data.hexes);
+	this.hexGrid = HexGrid.getRegular(data.hexGrid.radius, Hex, data.hexGrid.hexes);
 
 	this.ports = [];
 	for (var i=0; i<data.ports.length; i++) {
-		this.ports.push(new Port(data.ports[i]));
+		this.ports.push(new Port(proxy, data.ports[i]));
 	}
 	this.lastRobber = new HexLocation(data.lastRobber);
 	this.robber = new HexLocation(data.robber);

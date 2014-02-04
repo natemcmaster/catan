@@ -46,7 +46,8 @@ suite('HexTest',function(){
   setup(function(){
     testHex = [];
   	for(var x in testData) {
-  		testHex.push(new Hex(new HexLocation(0, 0), testData[x]));
+      var loc=testData[x].location;
+  		testHex.push(new Hex(new HexLocation(loc.x, loc.y), testData[x]));
     }
 	});
 
