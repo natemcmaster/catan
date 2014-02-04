@@ -2,8 +2,8 @@ var Hex=require('../../../../../src/js/model/board/map/Hex');
 
 suite('HexTest',function(){
 	var testData=[{
-          "island": false,
-          landtype:"wheat",
+          "isLand": false,
+          landType:"wheat",
           location: {
             "x": -3,
             "y": -3
@@ -12,69 +12,69 @@ suite('HexTest',function(){
             {
               "value": {
                 "worth": 0,
-                "ownerid": -1
+                "ownerID": -1
               }
             },
             {
               "value": {
                 "worth": 0,
-                "ownerid": -1
+                "ownerID": -1
               }
             },
             {
               "value": {
                 "worth": 0,
-                "ownerid": -1
+                "ownerID": -1
               }
             },
             {
               "value": {
                 "worth": 0,
-                "ownerid": -1
+                "ownerID": -1
               }
             },
             {
               "value": {
                 "worth": 0,
-                "ownerid": -1
+                "ownerID": -1
               }
             },
             {
               "value": {
                 "worth": 0,
-                "ownerid": -1
+                "ownerID": -1
               }
             }
           ],
           "edges": [
             {
               "value": {
-                "ownerid": -1
+                "ownerID": -1
               }
             },
             {
               "value": {
-                "ownerid": -1
+                "ownerID": -1
               }
             },
             {
               "value": {
-                "ownerid": -1
+                "ownerID": -1
               }
             },
             {
               "value": {
-                "ownerid": -1
+                "ownerID": -1
               }
             },
             {
               "value": {
-                "ownerid": -1
+                "ownerID": -1
               }
             },
             {
               "value": {
-                "ownerid": -1
+                "ownerID": -1
               }
             }
         ]
@@ -82,15 +82,19 @@ suite('HexTest',function(){
 	{
 		isLand:true,
 		landType:"Desert",
-		vertexes:[],
+		vertexes:[{value:{worth:0,ownerID:-1}}],
 		edges:[{value:{ownerID:-1}}]
 	}];
   var textHex=[];
 
   setup(function(){
     testHex=[];
-  	for(var x in testData)
-  		textHex.push(new Hex(testData[x]));
+  	for(var x in testData){
+      var loc=testData[x].location;
+      var hex=new Hex(new catan.model.hexgrid.HexLocation(loc.x,loc.y));
+      hex.populateFromJson(testData[x]);
+  		textHex.push();
+    }
 
 	});
 
