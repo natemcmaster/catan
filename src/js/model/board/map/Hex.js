@@ -18,8 +18,11 @@ module.exports = Hex;
  * @param {hexgrid.HexLocation} the location of the hex
  * @constructor
  */
-function Hex(location) {
-  catan.models.hexgrid.BasicHex.call(this, location, Edge, Vertex);
+function Hex(location, data) {
+  console.log(data)
+  catan.models.hexgrid.BasicHex.call(this, location, Edge, Vertex, data.edges, data.vertexes);
+  this.landType = data.landType || -1;
+  this.isLand = data.isLand;
 }
 
 Hex.prototype = new catan.models.hexgrid.BasicHex;

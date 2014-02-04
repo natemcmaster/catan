@@ -23,6 +23,8 @@ function Vertex(direction, data){
 	this.city = data.worth === 2;
 }
 
+Vertex.prototype = new catan.models.hexgrid.BaseContainer();
+
 /**
  * <pre>
  * Pre-condition: NONE

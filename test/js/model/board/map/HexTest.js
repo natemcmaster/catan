@@ -1,4 +1,7 @@
-var Hex=require('../../../../../src/js/model/board/map/Hex');
+var Hex=require('../../../../../src/js/model/board/map/Hex')
+  , catan = require('../../../../../node_modules/byu-catan/gameplay/js/model/hexgrid.js')
+  , HexLocation = catan.models.hexgrid.HexLocation
+  , assert = require('chai').assert;
 
 suite('HexTest',function(){
 	var testData=[{
@@ -78,20 +81,15 @@ suite('HexTest',function(){
               }
             }
         ]
-	},
-	{
-		isLand:true,
-		landType:"Desert",
-		vertexes:[],
-		edges:[{value:{ownerID:-1}}]
 	}];
   var textHex=[];
 
   setup(function(){
     testHex=[];
-  	for(var x in testData)
-  		textHex.push(new Hex(testData[x]));
-
+  	for(var x in testData) {
+      console.log(testData[i])
+  		textHex.push(new Hex(new HexLocation(0, 0), testData[x]));
+    }
 	});
 
 	suite('#isDesert()',function(){

@@ -22,6 +22,8 @@ function Edge(direction, data){
 	this.owner = data.value.ownerID;
 }
 
+Edge.prototype = new catan.models.hexgrid.BaseContainer();
+
 /**
  * <pre>
  * Pre-condition: NONE

@@ -32,7 +32,7 @@ module.exports = Map;
 function Map(proxy, data){
 	this.proxy = proxy;
 
-	this.hexGrid = HexGrid.getRegular(data.hexGrid.radius, Hex);
+	this.hexGrid = HexGrid.getRegular(data.hexGrid.radius, Hex, data.hexes);
 
 	this.ports = [];
 	for (var i=0; i<data.ports.length; i++) {
