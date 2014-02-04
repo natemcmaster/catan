@@ -4,6 +4,8 @@ var Map = require('./map/Map');
 var Player = require('./Player');
 var TurnTracker = require("./TurnTraker");
 
+var RobPlayerCommand = require('../commands/RobPlayerCommand');
+
 module.exports = GameBoard;
 
 
@@ -60,7 +62,7 @@ GameBoard.prototype.getPlayerById = function(id){
  * @return {Boolean} True when the game is over
  */
 GameBoard.prototype.isGameOver = function(){
-	if(winner >= 0 && winner <= 3){
+	if(this.winner >= 0 && this.winner <= 3){
 		return true;
 	} else {
 		return false;
@@ -119,7 +121,7 @@ GameBoard.prototype.longRoadOwner = function () {
  * @param  {HexLocation} hex Where the robber is being moved to   
  * @return {null}        nothing
  */
-GameBoardv.prototype.robPlayer = function(thiefId, victimId, hex) {
+GameBoard.prototype.robPlayer = function(thiefId, victimId, hex) {
 	this.proxy.executeCommand(new RobPlayerCommand(thiefId, victimId, hex));
 	
 }

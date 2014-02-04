@@ -1,4 +1,6 @@
 
+var SendChatCommand = require('./commands/SendChatCommand');
+
 /**
  * @module catan.model
  * @namespace model
@@ -30,6 +32,6 @@ function Chat(proxy, chat){
  * @param {integer} user
  */
 Chat.prototype.sendChat = function (message, user) {
-	this.proxy.executeCommand(new SendChatCommand(thiefId, victimId, hex));
+	this.proxy.executeCommand(new SendChatCommand(message, user));
 };
 

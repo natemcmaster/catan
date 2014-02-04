@@ -33,6 +33,7 @@ module.exports = function(grunt) {
 				'-W058': true,
 				'-W014': true,
 				'-W099': true,
+				'-W079': true,
 				'-W033': true,
 				undef: true,
 				// unused: true, // TODO enable this later
@@ -42,6 +43,7 @@ module.exports = function(grunt) {
 					catan: true,
 					require: true,
 					$: true,
+					core: true,
 					jQuery: true,
 					console: true,
 				}
