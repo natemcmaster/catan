@@ -19,7 +19,7 @@ module.exports = Edge;
  */
 function Edge(direction, data){
 	this.direction = direction;
-	this.owner = data.ownerID;
+	this.owner = data.value.ownerID;
 }
 
 /**
