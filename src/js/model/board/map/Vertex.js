@@ -7,6 +7,7 @@
  */
 
 module.exports = Vertex;
+var hexgrid = require('./hexgrid');
 
 /**
  * <pre>
@@ -19,11 +20,11 @@ module.exports = Vertex;
  */
 function Vertex(direction, data){
 	this.direction = direction;
-	this.owner = data.ownerID;
-	this.city = data.worth === 2;
+	this.owner = data && data.value.ownerID;
+	this.city = data && data.value.worth === 2;
 }
 
-Vertex.prototype = new catan.models.hexgrid.BaseContainer();
+Vertex.prototype = new hexgrid.BaseContainer();
 
 /**
  * <pre>

@@ -2,8 +2,8 @@
  * MapTests.js
  */
 
-var catan = require('../../../../../build/gameplay/js/framework.js')
-, map=require('../../../../../src/js/model/board/map/Map.js')
+var // catan = require('../../../../../build/gameplay/js/framework.js')
+ map=require('../../../../../src/js/model/board/map/Map.js')
 , proxy=require('../../../MockProxy')
 , assert=require('chai').assert;
 

@@ -6,7 +6,7 @@
  * @namespace model
  */
 
-var hexgrid = catan.models.hexgrid
+var hexgrid = require('./hexgrid')
   , HexLocation = hexgrid.HexLocation
   , VertexLocation = hexgrid.VertexLocation;
 

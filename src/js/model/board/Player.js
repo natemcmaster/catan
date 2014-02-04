@@ -1,11 +1,5 @@
-var BuyDevCardCommand = require("../commands/BuyDevCardCommand");
-var PlayYearOfPlentyCommand = require("../commands/PlayYearOfPlentyCommand");
-var PlayRoadBuildingCommand = require("../commands/PlayRoadBuildingCommand");
-var PlaySoldierCommand = require("../commands/PlaySoldierCommand");
-var PlayMonopolyCommand = require("../commands/PlayMonopolyCommand");
-var OfferTradeCommand = require("../commands/OfferTradeCommand");
-var AcceptTradeCommand = require("../commands/AcceptTradeCommand");
-var DiscardCardsCommand = require("../commands/DiscardCardsCommand");
+
+var commands = require('../commands');
 
 /**
  * The Player Object
@@ -132,7 +126,7 @@ Player.prototype.playableDevelopmentCards = function () {
  * @return {void}
  */
 Player.prototype.buyDevCard = function () {
-	this.proxy.executeCommand(BuyDevCardCommand(this.player.playerID));
+	this.proxy.executeCommand(commands.BuyDevCardCommand(this.player.playerID));
 };
 
 /**
@@ -151,7 +145,7 @@ Player.prototype.buyDevCard = function () {
  * @return {void}
  */
 Player.prototype.yearOfPlenty = function (resource1, resource2) {
-	this.proxy.executeCommand(PlayYearOfPlentyCommand(this.player.playerID, resource1, resource2));
+	this.proxy.executeCommand(commands.PlayYearOfPlentyCommand(this.player.playerID, resource1, resource2));
 };
 
 /**
@@ -169,7 +163,7 @@ Player.prototype.yearOfPlenty = function (resource1, resource2) {
  * @return {void}
  */
 Player.prototype.roadBuilding = function (edge1, edge2) {
-	this.proxy.executeCommand(PlayRoadBuildingCommand(this.player.playerID, edge1, edge2));
+	this.proxy.executeCommand(commands.PlayRoadBuildingCommand(this.player.playerID, edge1, edge2));
 };
 
 /**
@@ -189,8 +183,8 @@ Player.prototype.roadBuilding = function (edge1, edge2) {
  * @param {int} playerToRob
  * @return {void}
  */
-Player.properties.playSoldier = function (hex, playerToRob) {
-	this.proxy.executeCommand(PlaySoldierCommand(this.player.playerID, playerToRob, hex));
+Player.prototype.playSoldier = function (hex, playerToRob) {
+	this.proxy.executeCommand(commands.PlaySoldierCommand(this.player.playerID, playerToRob, hex));
 };
 
 /**
@@ -206,8 +200,8 @@ Player.properties.playSoldier = function (hex, playerToRob) {
 * @param {Resource} resourceType
 * @return {void}
 */
-Player.properties.monopoly = function (resourceType) {
-	this.proxy.executeCommand(PlayMonopolyCommand(this.player.playerID,resourceType));
+Player.prototype.monopoly = function (resourceType) {
+	this.proxy.executeCommand(commands.PlayMonopolyCommand(this.player.playerID,resourceType));
 };
 
 /**
@@ -221,7 +215,7 @@ Player.properties.monopoly = function (resourceType) {
 * @method monument
 * @return {void}
 */
-Player.properties.monument = function () {
+Player.prototype.monument = function () {
 	this.player.monuments++;
 	this.player.victoryPoints++;
 };
@@ -243,8 +237,8 @@ Player.properties.monument = function () {
 * @param {int} wood number of wood offered
 * @return {void}
 */
-Player.properties.offerTrade = function (playerToTradeWith, brick, ore, sheep, wheat, wood) {
-	this.proxy.executeCommand(OfferTradeCommand(this.player.playerID, playerToTradeWith,
+Player.prototype.offerTrade = function (playerToTradeWith, brick, ore, sheep, wheat, wood) {
+	this.proxy.executeCommand(commands.OfferTradeCommand(this.player.playerID, playerToTradeWith,
 											 brick, ore, sheep, wheat, wood));
 };
 
@@ -261,9 +255,9 @@ Player.properties.offerTrade = function (playerToTradeWith, brick, ore, sheep, w
 * @param {bool} willAccept
 * @return {void}
 */
-Player.properties.acceptTrade = function (willAccept) {
+Player.prototype.acceptTrade = function (willAccept) {
 
-	this.proxy.executeCommand(AcceptTradeCommand(this.player.playerID,willAccept));
+	this.proxy.executeCommand(commands.AcceptTradeCommand(this.player.playerID,willAccept));
 
 };
 
@@ -283,7 +277,7 @@ Player.properties.acceptTrade = function (willAccept) {
 * @param {int} wood number of wood discarded
 * @return {void}
 */
-Player.properties.discardCards = function (brick, ore, sheep, wheat, wood) {
-	this.proxy.executeCommand(DiscardCardsCommand(this.player.playerID, 
+Player.prototype.discardCards = function (brick, ore, sheep, wheat, wood) {
+	this.proxy.executeCommand(commands.DiscardCardsCommand(this.player.playerID, 
 												brick, ore, sheep, wheat, wood));
 };

@@ -1,3 +1,4 @@
+
 var GameBoard = require("./board/GameBoard");
 var Chat = require("./Chat");
 var Log = require("./Log");
@@ -59,4 +60,6 @@ catan.models.ClientModel  = (function clientModelNameSpace(){
 
 	return ClientModel;
 }());
+
+module.exports = catan.models.ClientModel;
 

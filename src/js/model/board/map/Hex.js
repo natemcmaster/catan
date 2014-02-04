@@ -8,6 +8,7 @@
 
 var Edge = require('./Edge');
 var Vertex = require('./Vertex');
+var hexgrid = require('./hexgrid');
 module.exports = Hex;
 
 /**
@@ -19,13 +20,12 @@ module.exports = Hex;
  * @constructor
  */
 function Hex(location, data) {
-  console.log(data)
-  catan.models.hexgrid.BasicHex.call(this, location, Edge, Vertex, data.edges, data.vertexes);
-  this.landType = data.landType || -1;
-  this.isLand = data.isLand;
+  hexgrid.BasicHex.call(this, location, Edge, Vertex, data.edges, data.vertexes);
+  this.landType = data.landtype || -1;
+  this._isLand = data.isLand;
 }
 
-Hex.prototype = new catan.models.hexgrid.BasicHex;
+Hex.prototype = new hexgrid.BasicHex;
 
 // TODO: I think we'll need a populateFromJson method here, unless they fix
 // the constructor weirdness.
@@ -45,7 +45,7 @@ Hex.prototype.landType = 'uninitialized';
  * @method isLand
  * @return {Boolean} True when this hex is land
  */
-Hex.prototype.isLand=function(){
+Hex.prototype.isLand = function(){
   return this._isLand;
 };
 
@@ -58,7 +58,7 @@ Hex.prototype.isLand=function(){
  * @return {Boolean} True when this hex is desert
  */
 Hex.prototype.isDesert = function(){
-	return this.landType == 'desert';
+	return this.landType == 'Desert';
 };
 
 

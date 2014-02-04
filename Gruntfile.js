@@ -3,6 +3,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-browserify');
 	grunt.loadNpmTasks('grunt-contrib-yuidoc');
 	grunt.loadNpmTasks('grunt-mocha');
+	grunt.loadNpmTasks('grunt-mocha-test');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 
@@ -116,9 +117,23 @@ module.exports = function(grunt) {
 					run: true,
 					bail: false,
 					logErrors:true,
+					log:true,
 					reporter: 'Spec'
 				},
 				src: ['build/gameplay/test.html']
+			}
+		},
+		mochaTest: {
+			test: {
+				options: {
+					reporter: 'spec',
+					run: true,
+					ui: 'tdd',
+					bail: false,
+					logErrors:true,
+					log:true
+				},
+				src: ['test/**/*.js']
 			}
 		},
 		yuidoc: {
@@ -143,7 +158,8 @@ module.exports = function(grunt) {
 	grunt.registerTask('test', 'Test models', function() {
 		var reporter = grunt.option('reporter') || 'spec';
 		grunt.config('mochaTest.model.options.reporter', reporter);
-		grunt.task.run(['copy:test', 'concat:framework', 'browserify:test', 'mocha:model']);
+		// grunt.task.run(['copy:test', 'concat:framework', 'browserify:test', 'mocha:model']);
+		grunt.task.run(['mochaTest:test']);
 	});
 	grunt.registerTask('docs', ['copy', 'yuidoc:compile']);
 };
