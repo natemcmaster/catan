@@ -24,20 +24,72 @@ function Player(proxy, player) {
 // read-only functions
 
 /**
- * What can this player build?
- * <pre>
- * Pre-condition: NONE
- * Post-condition: NONE
- * </pre>
- * @method whatCanYouBuild
- * @return {List<string>} A list of the things that the player has resources
- * to build/buy.
-**/
-Player.prototype.whatCanYouBuild = function () {
+<pre>
+Pre-condition: NONE
+Post-condition: NONE
+</pre>
+@method canBuyRoad
+@return {bool} canBuy wether or not you can buy a road
+*/
+Player.prototype.canBuyRoad = function () {
 
-
+	if(this.player.resources.brick >= 1 && 
+	   this.player.resources.wood >= 1)
+		return true;
+	else
+		return false;
 };
+/**
+<pre>
+Pre-condition: NONE
+Post-condition: NONE
+</pre>
+@method canBuySettlement
+@return {bool} canBuy wether or not you can buy a settlement
+*/
+Player.prototype.canBuySettlement = function () {
 
+	if(this.player.resources.brick >= 1 &&
+	   this.player.resources.wood >= 1 &&
+	   this.player.resources.sheep >= 1 &&
+	   this.player.resources.wheat >= 1)
+		return true;
+	else
+		return false;
+};
+/**
+<pre>
+Pre-condition: NONE
+Post-condition: NONE
+</pre>
+@method canBuyCity
+@return {bool} canBuy wether or not you can buy a city
+*/
+Player.prototype.canBuyRoad = function () {
+
+	if(this.player.resources.ore >= 3 && 
+	   this.player.resources.wheat >= 2)
+		return true;
+	else
+		return false;
+};
+/**
+<pre>
+Pre-condition: NONE
+Post-condition: NONE
+</pre>
+@method canBuyDevCard
+@return {bool} canBuy wether or not you can buy a Dev Card
+*/
+Player.prototype.canBuyDevCard = function () {
+
+	if(this.player.resources.ore >= 1 &&
+	   this.player.resources.sheep >= 1 &&
+	   this.player.resources.wheat >= 1)
+		return true;
+	else
+		return false;
+};
 /**
  * Get a list of the playable development cards.
  * <pre>
