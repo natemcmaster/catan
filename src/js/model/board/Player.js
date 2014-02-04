@@ -1,3 +1,12 @@
+var BuyDevCardCommand = require("../commands/BuyDevCardCommand");
+var PlayYearOfPlentyCommand = require("../commands/PlayYearOfPlentyCommand");
+var PlayRoadBuildingCommand = require("../commands/PlayRoadBuildingCommand");
+var PlaySoldierCommand = require("../commands/PlaySoldierCommand");
+var PlayMonopolyCommand = require("../commands/PlayMonopolyCommand");
+var OfferTradeCommand = require("../commands/OfferTradeCommand");
+var AcceptTradeCommand = require("../commands/AcceptTradeCommand");
+var DiscardCardsCommand = require("../commands/DiscardCardsCommand");
+
 /**
  * The Player Object
  *
