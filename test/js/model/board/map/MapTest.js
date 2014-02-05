@@ -6,12 +6,14 @@ var Map = require('./impl').Map,
 	MockProxy = require('../../../MockProxy'),
 	assert = require('chai').assert,
   catan = require('byu-catan'),
+  hexgrid = catan.models.hexgrid
 	testCases = require('./MapTestCases.json'),
 	mapHelpers = require('./MapHelpers');
 
-var HexLocation = catan.models.hexgrid.HexLocation;
-var VertexLocation = catan.models.hexgrid.VertexLocation;
-var VertexDirection = catan.models.hexgrid.VertexDirection;
+var HexLocation = hexgrid.HexLocation;
+var VertexLocation = hexgrid.VertexLocation;
+var VertexDirection = hexgrid.VertexDirection;
+var EdgeLocation = hexgrid.EdgeLocation;
 
 suite('MapTests', function() {
 	var testMaps, mockProxy;
@@ -30,7 +32,6 @@ suite('MapTests', function() {
 			assert.equal(testCases[0].hexGrid.hexes, testMaps[0].getHexAt(0, -3));
 		});
 		test('it getsRobberPos', function() {
-      console.log(testMaps[0].getRobberPos().getX())
 			assert.equal(testCases[0].robber.x, testMaps[0].getRobberPos().x);
 			assert.equal(testCases[0].robber.y, testMaps[0].getRobberPos().y);
 		});
@@ -42,14 +43,38 @@ suite('MapTests', function() {
 				for (var x = mapHelpers.gridMinX(y); x < mapHelpers.gridMaxX(y); x++) {
 					if (mapHelpers.isGridEdge(x, y)) {
 						assert.isFalse(testMaps[0].canPlaceRobber(1, new HexLocation(x, y)));
-					} else {
-            // this test is wrong.
-						// assert.isTrue(testMaps[0].canPlaceRobber(1, new HexLocation(x, y)));
 					}
 				}
 			}
 		});
 	});
+
+  suite('#canPlaceRoad()', function () {
+    test('should disallow where no connecting roads exist', function () {
+      var loc = new EdgeLocation(new HexLocation(0, 0), 1)
+      assert.isFalse(testMaps[0].canPlaceRoad(0, loc));
+    })
+  })
+
+  suite('#canPlaceSettlement()', function () {
+    test('should disallow where no connecting roads exist', function () {
+      var loc = new EdgeLocation(new HexLocation(0, 0), 1)
+      assert.isFalse(testMaps[0].canPlaceSettlement(0, loc));
+    })
+  })
+
+  suite('#canPlaceCity()', function () {
+    test('should disallow where no connecting settlement exists', function () {
+      var loc = new EdgeLocation(new HexLocation(0, 0), 1)
+      assert.isFalse(testMaps[0].canPlaceCity(0, loc));
+    })
+  })
+
+  suite('#portsForPlayer()', function () {
+    test('should report no ports for player 0', function () {
+      assert.equal(testMaps[0].portsForPlayer(0), 0);
+    })
+  })
 
 	suite('#canPlaceCity()', function() {
     // this test is wrong. It is only allowed on hexes that have a settlement
