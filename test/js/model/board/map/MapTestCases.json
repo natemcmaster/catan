@@ -16,7 +16,8 @@
 	{
 		"explanation":"A map with every edge that has a road",
 		"data":{
-				"hexGrid":[
+				"hexGrid":{
+					"hexes":[
 					[
 						{
 							"isLand":true,
@@ -44,11 +45,13 @@
 						}
 						]
 					],
-				"offsets":[0],
-				"radius":1,
-				"x0":0,
-				"y0":0,
-				"ports":[]
+					"offsets":[0],
+					"radius":1,
+					"x0":0,
+					"y0":0
+				},
+				"ports":[],
+				"numbers":{"2":[{"x":0,"y":0}]}
 			}
 	}
 ]
