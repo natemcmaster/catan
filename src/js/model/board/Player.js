@@ -224,21 +224,6 @@ Player.prototype.monopoly = function (resourceType) {
 	this.proxy.executeCommand(commands.PlayMonopolyCommand(this.player.playerID,resourceType));
 };
 
-/**
-* Play a Monument card.
-* <pre>
-* Pre-condition: It is the player's turn, the player has 10 victory points
-* (counting points from Monument cards), and the player has a Monument card.
-* Post-condition: The player receives a victory point.
-* (async!)
-* </pre>
-* @method monument
-* @return {void}
-*/
-Player.prototype.monument = function () {
-	this.player.monuments++;
-	this.player.victoryPoints++;
-};
 
 /**
 * Offer a trade to another player.
