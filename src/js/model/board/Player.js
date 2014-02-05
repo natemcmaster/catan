@@ -21,7 +21,24 @@ module.exports = Player;
 function Player(proxy, player) {
 	// set things up
 	this.proxy = proxy;
-	this.player = player;
+	this.MAX_GAME_POINTS = player.MAX_GAME_POINTS;
+	this.cities = player.cities;
+	this.color = player.color;
+	this.discarded = player.discarded;
+	this.largestArmy = player.largestArmy;
+	this.longestRoad = player.longestRoad;
+	this.monuments = player.monuments;
+	this.name = player.name;
+	this.newDevCards = player.newDevCards;
+	this.oldDevCards = player.oldDevCards;
+	this.orderNumber = player.orderNumber;
+	this.playedDevCard = player.playedDevCard;
+	this.playerID = player.playerID;
+	this.resources = player.resources;
+	this.roads = player.roads;
+	this.settlements = player.settlements;
+	this.soliders = player.soliders;
+	this.victoryPoints = player.victoryPoints;
 }
 
 // read-only functions
