@@ -66,9 +66,9 @@ Pre-condition: NONE
 Post-condition: NONE
 </pre>
 @method canBuyCity
-@return {bool} canBuy wether or not you can buy a city
+@return {bool} canBuy whether or not you can buy a city
 */
-Player.prototype.canBuyRoad = function () {
+Player.prototype.canBuyCity = function () {
 
 	if(this.player.resources.ore >= 3 && 
 	   this.player.resources.wheat >= 2)
