@@ -6,6 +6,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-mocha-test');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-mocha-cov');
 
 	var buildDir = 'build',
 		testDir = 'test',
@@ -63,6 +64,14 @@ module.exports = function(grunt) {
 				files: [testDir + '/js/**/*.js']
 			}
 		},
+    mochacov: {
+      options: {
+        coveralls: false,
+        ui: 'tdd',
+        reporter: 'html-cov'
+      },
+      all: ['test/**/*.js']
+    },
 		browserify: {
 			src: {
 				src: srcJsFiles,
@@ -161,5 +170,6 @@ module.exports = function(grunt) {
 		// grunt.task.run(['copy:test', 'concat:framework', 'browserify:test', 'mocha:model']);
 		grunt.task.run(['mochaTest:test']);
 	});
+  grunt.registerTask('coverage', ['mochacov']);
 	grunt.registerTask('docs', ['copy', 'yuidoc:compile']);
 };

@@ -41,3 +41,4 @@ gameplay/js/test.js
 build/
 *.swp
 *.swo
+/coverage.html

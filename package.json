@@ -5,6 +5,13 @@
   "scripts": {
     "test": "grunt test"
   },
+  "config": {
+    "blanket": {
+      "pattern": [
+        "src"
+      ]
+    }
+  },
   "devDependencies": {
     "grunt": "~0.4.2",
     "grunt-contrib-concat": "~0.3.0",
@@ -16,6 +23,7 @@
     "grunt-verbosity": "~0.2.2",
     "byu-catan": ">=1.0.2",
     "grunt-contrib-jshint": "~0.8.0",
-    "grunt-mocha-test": "~0.9.0"
+    "grunt-mocha-test": "~0.9.0",
+    "grunt-mocha-cov": "~0.2.0"
   }
 }

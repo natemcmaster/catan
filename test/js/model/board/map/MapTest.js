@@ -13,7 +13,7 @@ var HexLocation = catan.models.hexgrid.HexLocation;
 var VertexLocation = catan.models.hexgrid.VertexLocation;
 var VertexDirection = catan.models.hexgrid.VertexDirection;
 
-suite('MapTests', function() {
+suite.skip('MapTests', function() {
 	var testMaps, mockProxy;
 
 	setup(function() {
