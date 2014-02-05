@@ -1,5 +1,6 @@
 
 module.exports = {
-  models: require('./model')
+  models: require('./model'),
+  GameplayConnections: require('./GameplayConnections.js')
 };
 
