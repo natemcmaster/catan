@@ -76,22 +76,14 @@ suite('MapTests', function() {
     })
   })
 
-	suite('#canPlaceCity()', function() {
-    // this test is wrong. It is only allowed on hexes that have a settlement
-    // that you own.
-		test.skip('should allow all inside hexes', function() {
+	suite('#canPlaceSettlement()', function() {
+		test('should not allow anywhere on ', function() {
 			for (var y = -3; y <= 3; y++) {
 				for (var x = mapHelpers.gridMinX(y); x < mapHelpers.gridMaxX(y); x++) {
 					var hexloc = new HexLocation(x, y);
-
-					// allow all inside
-					if (!mapHelpers.isGridEdge(x, y)) {
-
-						for (var direction in catan.models.hexgrid.VertexDirection) {
-							var verloc = new VertexLocation(hexloc, catan.models.hexgrid.VertexDirection[direction]);
-							assert.isTrue(testMaps[0].canPlaceCity(1, verloc));
-						}
-
+					for (var direction in catan.models.hexgrid.VertexDirection) {
+						var verloc = new VertexLocation(hexloc, catan.models.hexgrid.VertexDirection[direction]);
+						assert.isFalse(testMaps[0].canPlaceSettlement(1, verloc));
 					}
 				}
 			}
