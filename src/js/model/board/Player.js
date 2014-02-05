@@ -53,9 +53,9 @@ Post-condition: NONE
 */
 Player.prototype.canBuyRoad = function () {
 
-	if(this.player.resources.brick >= 1 && 
-	   this.player.resources.wood >= 1 &&
-	   this.player.roads >=1)
+	if(this.resources.brick >= 1 && 
+	   this.resources.wood >= 1 &&
+	   this.roads >=1)
 		return true;
 	else
 		return false;
@@ -70,11 +70,11 @@ Post-condition: NONE
 */
 Player.prototype.canBuySettlement = function () {
 
-	if(this.player.resources.brick >= 1 &&
-	   this.player.resources.wood >= 1 &&
-	   this.player.resources.sheep >= 1 &&
-	   this.player.resources.wheat >= 1 &&
-	   this.player.settlements >= 1)
+	if(this.resources.brick >= 1 &&
+	   this.resources.wood >= 1 &&
+	   this.resources.sheep >= 1 &&
+	   this.resources.wheat >= 1 &&
+	   this.settlements >= 1)
 		return true;
 	else
 		return false;
@@ -89,9 +89,9 @@ Post-condition: NONE
 */
 Player.prototype.canBuyCity = function () {
 
-	if(this.player.resources.ore >= 3 && 
-	   this.player.resources.wheat >= 2 &&
-	   this.player.cities >=1)
+	if(this.resources.ore >= 3 && 
+	   this.resources.wheat >= 2 &&
+	   this.cities >=1)
 		return true;
 	else
 		return false;
@@ -106,9 +106,9 @@ Post-condition: NONE
 */
 Player.prototype.canBuyDevCard = function () {
 
-	if(this.player.resources.ore >= 1 &&
-	   this.player.resources.sheep >= 1 &&
-	   this.player.resources.wheat >= 1)
+	if(this.resources.ore >= 1 &&
+	   this.resources.sheep >= 1 &&
+	   this.resources.wheat >= 1)
 		return true;
 	else
 		return false;
@@ -125,7 +125,7 @@ Player.prototype.canBuyDevCard = function () {
  */
 Player.prototype.playableDevelopmentCards = function () {
 
-	return this.player.newDevCards;
+	return this.newDevCards;
 	
 };
 
@@ -146,7 +146,7 @@ Player.prototype.playableDevelopmentCards = function () {
  * @return {void}
  */
 Player.prototype.buyDevCard = function () {
-	this.proxy.executeCommand(commands.BuyDevCardCommand(this.player.playerID));
+	this.proxy.executeCommand(commands.BuyDevCardCommand(this.playerID));
 };
 
 /**
@@ -165,7 +165,7 @@ Player.prototype.buyDevCard = function () {
  * @return {void}
  */
 Player.prototype.yearOfPlenty = function (resource1, resource2) {
-	this.proxy.executeCommand(commands.PlayYearOfPlentyCommand(this.player.playerID, resource1, resource2));
+	this.proxy.executeCommand(commands.PlayYearOfPlentyCommand(this.playerID, resource1, resource2));
 };
 
 /**
@@ -183,7 +183,7 @@ Player.prototype.yearOfPlenty = function (resource1, resource2) {
  * @return {void}
  */
 Player.prototype.roadBuilding = function (edge1, edge2) {
-	this.proxy.executeCommand(commands.PlayRoadBuildingCommand(this.player.playerID, edge1, edge2));
+	this.proxy.executeCommand(commands.PlayRoadBuildingCommand(this.playerID, edge1, edge2));
 };
 
 /**
@@ -204,7 +204,7 @@ Player.prototype.roadBuilding = function (edge1, edge2) {
  * @return {void}
  */
 Player.prototype.playSoldier = function (hex, playerToRob) {
-	this.proxy.executeCommand(commands.PlaySoldierCommand(this.player.playerID, playerToRob, hex));
+	this.proxy.executeCommand(commands.PlaySoldierCommand(this.playerID, playerToRob, hex));
 };
 
 /**
@@ -221,7 +221,7 @@ Player.prototype.playSoldier = function (hex, playerToRob) {
 * @return {void}
 */
 Player.prototype.monopoly = function (resourceType) {
-	this.proxy.executeCommand(commands.PlayMonopolyCommand(this.player.playerID,resourceType));
+	this.proxy.executeCommand(commands.PlayMonopolyCommand(this.playerID,resourceType));
 };
 
 
@@ -243,7 +243,7 @@ Player.prototype.monopoly = function (resourceType) {
 * @return {void}
 */
 Player.prototype.offerTrade = function (playerToTradeWith, brick, ore, sheep, wheat, wood) {
-	this.proxy.executeCommand(commands.OfferTradeCommand(this.player.playerID, playerToTradeWith,
+	this.proxy.executeCommand(commands.OfferTradeCommand(this.playerID, playerToTradeWith,
 											 brick, ore, sheep, wheat, wood));
 };
 
@@ -262,7 +262,7 @@ Player.prototype.offerTrade = function (playerToTradeWith, brick, ore, sheep, wh
 */
 Player.prototype.acceptTrade = function (willAccept) {
 
-	this.proxy.executeCommand(commands.AcceptTradeCommand(this.player.playerID,willAccept));
+	this.proxy.executeCommand(commands.AcceptTradeCommand(this.playerID,willAccept));
 
 };
 
@@ -283,6 +283,6 @@ Player.prototype.acceptTrade = function (willAccept) {
 * @return {void}
 */
 Player.prototype.discardCards = function (brick, ore, sheep, wheat, wood) {
-	this.proxy.executeCommand(commands.DiscardCardsCommand(this.player.playerID, 
+	this.proxy.executeCommand(commands.DiscardCardsCommand(this.playerID, 
 												brick, ore, sheep, wheat, wood));
 };

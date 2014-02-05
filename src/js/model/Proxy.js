@@ -29,7 +29,7 @@ Proxy.prototype.executeCommand = function(command){
 			console.error('Failed to get stuff from server', status, xhr);
 		});
 
-}
+};
 
 Proxy.prototype.getModel = function(callback){
 
@@ -38,4 +38,4 @@ Proxy.prototype.getModel = function(callback){
 		.fail(function(xhr, status){
 			console.error('failed to get model', xhr, status);
 		});
-}
+};
