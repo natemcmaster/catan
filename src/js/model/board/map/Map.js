@@ -38,8 +38,8 @@ function Map(proxy, data){
 	for (var i=0; i<data.ports.length; i++) {
 		this.ports.push(new Port(proxy, data.ports[i]));
 	}
-	this.lastRobber = new HexLocation(data.lastRobber);
-	this.robber = new HexLocation(data.robber);
+	this.lastRobber = data.lastRobber && new HexLocation(data.lastRobber.x, data.lastRobberPos.y);
+	this.robber = data.robber && new HexLocation(data.robber.x, data.robber.y);
 	this.numberTiles = new NumberTiles(data.numbers);
 }
 
@@ -208,7 +208,8 @@ Map.prototype.canPlaceRoad = function (playerId, location) {
  */
 Map.prototype.canPlaceRobber = function (playerId, location) {
 	var hex = this.hexGrid.getHex(location);
-	return !(location.equals(this.robber) || location.equals(this.lastRobber) || !hex.isLand() || hex.isDesert());
+  if (!hex.isLand() || hex.isDesert()) return false;
+	return !((!this.robber || location.equals(this.robber)) || (!this.lastRobber || location.equals(this.lastRobber)) || !hex.isLand() || hex.isDesert());
 };
 
 /**
@@ -245,9 +246,17 @@ Map.prototype.canPlaceSettlement = function (playerId, location) {
  * settlement there), false if not.
  */
 Map.prototype.canPlaceCity = function (playerId, location) {
-  var vertex = this.hexGrid.getVertex(location);
+  var vertex = this.getVertex(location);
   return vertex.getOwner() === playerId && !vertex.hasCity();
 };
+
+/**
+ */
+Map.prototype.getVertex = function (playerId, location) {
+  var hex = this.hexGrid.getHex(location.location);
+  return hex.getVertex(location.getHexDirection())
+};
+
 
 
 /*********** MUTATION FUNCTIONS **************/

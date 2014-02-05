@@ -50,18 +50,25 @@ module.exports = function(grunt) {
 					console: true,
 				}
 			},
-			models: [
+			models: {src:[
 				srcDir + '/js/model/**/*.js'
-			],
+			]},
 			tests: {
 				options: {
 					globals: {
 						test: true,
 						suite: true,
-						console: true
+						setup: true,
+						console: true,
+            module: true,
+            catan: true,
+            require: true,
+            $: true,
+            core: true,
+            jQuery: true,
 					}
 				},
-				files: [testDir + '/js/**/*.js']
+				files: {src: [testDir + '/js/**/*.js']}
 			}
 		},
     mochacov: {

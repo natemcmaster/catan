@@ -4,18 +4,18 @@ module.exports = {
 	isGridEdge: isGridEdge
 };
 
-var gridMaxX = function(y) {
+function gridMaxX(y) {
 	if (y <= 0) return 3;
 	else if (y <= 3) return 3 - y;
 	throw new Error('out of range');
-};
+}
 
-var gridMinX = function(y) {
+function gridMinX(y) {
 	if (y >= 0) return -3;
 	else if (y >= -3) return -y;
 	throw new Error('out of range');
-};
+}
 
-var isGridEdge = function(x, y) {
+function isGridEdge(x, y) {
 	return (y == -3 || y == 3) && (x == gridMinX(y) || x == gridMaxX(y));
-};
+}
