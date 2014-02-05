@@ -38,8 +38,8 @@ function Map(proxy, data){
 	for (var i=0; i<data.ports.length; i++) {
 		this.ports.push(new Port(proxy, data.ports[i]));
 	}
-	this.lastRobber = new HexLocation(data.lastRobber);
-	this.robber = new HexLocation(data.robber);
+	this.lastRobber = data.lastRobber && new HexLocation(data.lastRobber.x, data.lastRobberPos.y);
+	this.robber = data.robber && new HexLocation(data.robber.x, data.robber.y);
 	this.numberTiles = new NumberTiles(data.numbers);
 }
 
@@ -137,9 +137,9 @@ Map.prototype.getOwnedVertices = function () {
  */
 Map.prototype.portsForPlayer = function (playerId) {
 	var vertecies = [];
-	var getVertex = this.hexGrid.getVertex.bind(this.hexGrid);
+	var getVertex = this.getVertex.bind(this);
 	return this.ports.filter(function (port) {
-		return port.getVertices().some(function (vertex) {
+		return port.getVertexLocations().some(function (vertex) {
 			return getVertex(vertex).getOwner() === playerId;
 		});
 	});
@@ -155,7 +155,7 @@ Map.prototype.portsForPlayer = function (playerId) {
  * @return {Edge[]} Array of connected edges
  */
 Map.prototype.getAdjascentEdges = function (location) {
-  var getEdge = this.hexGrid.getEdge.bind(this.hexGrid);
+  var getEdge = this.getEdge.bind(this);
   return location.getConnectedEdges().map(function (eloc) {
     return getEdge(eloc);
   });
@@ -171,7 +171,7 @@ Map.prototype.getAdjascentEdges = function (location) {
  * @return {Edge[]} Array of adjoining vertices
  */
 Map.prototype.getAdjascentVertices = function (location) {
-  var getVertex = this.hexGrid.getVertex.bind(this.hexGrid);
+  var getVertex = this.getVertex.bind(this);
   return location.getNeighborVertexes().map(function (vloc) {
     return getVertex(vloc);
   });
@@ -188,7 +188,8 @@ Map.prototype.getAdjascentVertices = function (location) {
  * @return {boolean} True if user can now place road, false if not.
  */
 Map.prototype.canPlaceRoad = function (playerId, location) {
-	var edge = this.hexGrid.getEdge(location);
+  if (!location) return false;
+	var edge = this.getEdge(location);
 	if (edge.isOccupied()) return false;
 	var ownAdjacent = this.getAdjascentEdges(location).some(function (edge) {
 		return edge.isOccupied() && edge.getOwner() === playerId;
@@ -208,7 +209,7 @@ Map.prototype.canPlaceRoad = function (playerId, location) {
  */
 Map.prototype.canPlaceRobber = function (playerId, location) {
 	var hex = this.hexGrid.getHex(location);
-	return !(location.equals(this.robber) || location.equals(this.lastRobber) || !hex.isLand() || hex.isDesert());
+	return !((!this.robber || location.equals(this.robber)) || (!this.lastRobber || location.equals(this.lastRobber)) || !hex.isLand() || hex.isDesert());
 };
 
 /**
@@ -223,11 +224,11 @@ Map.prototype.canPlaceRobber = function (playerId, location) {
  */
 Map.prototype.canPlaceSettlement = function (playerId, location) {
 	var caPlace = false;
-	var tooClose = this.hexGrid.getAdjascentVertices(location).some(function (vertex) {
+	var tooClose = this.getAdjascentVertices(location).some(function (vertex) {
     return vertex.isOccupied();
   });
   if (tooClose) return false;
-  var hasAccess = this.hexGrid.getAdjascentEdges(location).some(function (edge) {
+  var hasAccess = this.getAdjascentEdges(location).some(function (edge) {
     return edge.getOwner() === playerId;
   });
   return hasAccess;
@@ -245,9 +246,24 @@ Map.prototype.canPlaceSettlement = function (playerId, location) {
  * settlement there), false if not.
  */
 Map.prototype.canPlaceCity = function (playerId, location) {
-  var vertex = this.hexGrid.getVertex(location);
+  var vertex = this.getVertex(location);
   return vertex.getOwner() === playerId && !vertex.hasCity();
 };
+
+/**
+ */
+Map.prototype.getEdge = function (location) {
+  var hex = this.hexGrid.getHex(location.getHexLocation());
+  return hex.getEdge(location.direction)
+};
+
+/**
+ */
+Map.prototype.getVertex = function (location) {
+  var hex = this.hexGrid.getHex(location.getHexLocation());
+  return hex.getVertex(location.direction)
+};
+
 
 
 /*********** MUTATION FUNCTIONS **************/

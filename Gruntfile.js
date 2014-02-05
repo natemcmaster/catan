@@ -50,28 +50,35 @@ module.exports = function(grunt) {
 					console: true,
 				}
 			},
-			models: [
+			models: {src:[
 				srcDir + '/js/model/**/*.js'
-			],
+			]},
 			tests: {
 				options: {
 					globals: {
 						test: true,
 						suite: true,
-						console: true
+						setup: true,
+						console: true,
+            module: true,
+            catan: true,
+            require: true,
+            $: true,
+            core: true,
+            jQuery: true,
 					}
 				},
-				files: [testDir + '/js/**/*.js']
+				files: {src: [testDir + '/js/**/*.js']}
 			}
 		},
-    mochacov: {
-      options: {
-        coveralls: false,
-        ui: 'tdd',
-        reporter: 'html-cov'
-      },
-      all: ['test/**/*.js']
-    },
+		mochacov: {
+			options: {
+				coveralls: false,
+				ui: 'tdd',
+				reporter: 'html-cov',
+			},
+			all: ['test/**/*.js']
+		},
 		browserify: {
 			src: {
 				src: srcJsFiles,
@@ -164,12 +171,12 @@ module.exports = function(grunt) {
 	grunt.registerTask('clean', 'Delete build folder', function() {
 		grunt.file.delete(buildDir + '/');
 	});
+	grunt.registerTask('test:browser',['copy:test', 'concat:framework', 'browserify:test', 'mocha:model']);
 	grunt.registerTask('test', 'Test models', function() {
 		var reporter = grunt.option('reporter') || 'spec';
 		grunt.config('mochaTest.model.options.reporter', reporter);
-		// grunt.task.run(['copy:test', 'concat:framework', 'browserify:test', 'mocha:model']);
 		grunt.task.run(['mochaTest:test']);
 	});
-  grunt.registerTask('coverage', ['mochacov']);
+  	grunt.registerTask('coverage', ['mochacov']);
 	grunt.registerTask('docs', ['copy', 'yuidoc:compile']);
 };
