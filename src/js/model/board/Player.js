@@ -37,7 +37,8 @@ Post-condition: NONE
 Player.prototype.canBuyRoad = function () {
 
 	if(this.player.resources.brick >= 1 && 
-	   this.player.resources.wood >= 1)
+	   this.player.resources.wood >= 1 &&
+	   this.player.roads >=1)
 		return true;
 	else
 		return false;
@@ -55,7 +56,8 @@ Player.prototype.canBuySettlement = function () {
 	if(this.player.resources.brick >= 1 &&
 	   this.player.resources.wood >= 1 &&
 	   this.player.resources.sheep >= 1 &&
-	   this.player.resources.wheat >= 1)
+	   this.player.resources.wheat >= 1 &&
+	   this.player.settlements >= 1)
 		return true;
 	else
 		return false;
@@ -68,10 +70,11 @@ Post-condition: NONE
 @method canBuyCity
 @return {bool} canBuy wether or not you can buy a city
 */
-Player.prototype.canBuyRoad = function () {
+Player.prototype.canBuyCity = function () {
 
 	if(this.player.resources.ore >= 3 && 
-	   this.player.resources.wheat >= 2)
+	   this.player.resources.wheat >= 2 &&
+	   this.player.cities >=1)
 		return true;
 	else
 		return false;
