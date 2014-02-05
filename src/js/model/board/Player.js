@@ -113,7 +113,45 @@ Player.prototype.playableDevelopmentCards = function () {
 };
 
 // mutable!
-
+/**
+<pre>
+Pre-condition: It is the player's turn, the player has the resources to buy a road, and
+the player has a road left to build
+Post-condition: Player discards the required resources to build a road
+</pre>
+@method buildRoad
+@param {hexEdge} roadLoaction the location of the road to be built
+@param {bool} isFree wether or not the road loaction is available
+*/
+Player.prototype.buildRoad = function (roadLoaction, isFree){
+	this.proxy.executeCommand(commands.BuildRoadCommand(this.player.playerID, roadLoaction, isFree));
+};
+/**
+<pre>
+Pre-condition: It is the player's turn, the player has the resources to buy a settlement, and
+the player has a settlement left to build
+Post-condition: Player discards the required resources to build a settlement
+</pre>
+@method buildSettlement
+@param {hexLocation} settlementLocation the location of the settlement to be built
+@param {bool} isFree wether or not the settlement loaction is available
+*/
+Player.prototype.buildSettlement = function (settlementLocation, isFree){
+	this.proxy.executeCommand(commands.BuildSettlement(this.player.playerID, settlementLocation, isFree));
+};
+/**
+<pre>
+Pre-condition: It is the player's turn, the player has the resources to buy a city, and
+the player has a city left to build
+Post-condition: Player discards the required resources to build a city
+</pre>
+@method buildCity
+@param {hexEdge} cityLocation the location of the city to be built
+@param {bool} isFree wether or not the city loaction is available
+*/
+Player.prototype.buildCity = function (cityLocation, isFree){
+	this.proxy.executeCommand(commands.BuildRoadCommand(this.player.playerID, cityLocation, isFree));
+};
 /**
  * Buy a development card.
  * <pre>
