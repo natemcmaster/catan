@@ -16,13 +16,12 @@ Post-condition: NONE
 **/
 function FinishTurnCommand(playerID){
 
-	this.playerID = playerID;
-	
-
-	FinishTurnCommand.AbstractCommand.url = '/moves/finishTurn';
+	this.playerID = playerID;	
 }
 
 FinishTurnCommand.prototype = new AbstractCommand();
+FinishTurnCommand.AbstractCommand.url = '/moves/finishTurn';
+
 /**
 <pre>
 Pre-condition: NONE

@@ -19,11 +19,11 @@ function PlayMonopolyCommand(playerID, resource){
 
 	this.playerID = playerID;
 	this.resource = resource;	
-
-	PlayMonopolyCommand.AbstractCommand.url = '/moves/Monopoly';
 }
 
 PlayMonopolyCommand.prototype = new AbstractCommand();
+PlayMonopolyCommand.AbstractCommand.url = '/moves/Monopoly';
+
 /**
 <pre>
 Pre-condition: NONE

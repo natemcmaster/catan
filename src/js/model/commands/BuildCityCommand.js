@@ -21,11 +21,11 @@ function BuildCityCommand(playerID, cityLocation, isFree){
 	this.playerID = playerID;
 	this.cityLoaction = cityLocation;
 	this.isFree = isFree;
-
-	BuildCityCommand.AbstractCommand.url = '/moves/buildCity';
 }
 
 BuildCityCommand.prototype = new AbstractCommand();
+BuildCityCommand.AbstractCommand.url = '/moves/buildCity';
+
 /**
 <pre>
 Pre-condition: NONE

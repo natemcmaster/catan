@@ -29,11 +29,11 @@ function OfferTradeCommand(playerID, reciever, brick, ore, sheep, wheat, wood){
 	this.sheep = sheep;
 	this.wheat = wheat;
 	this.wood = wood;
-
-	OfferTradeCommand.AbstractCommand.url = '/moves/offerTrade';
 }
 
 OfferTradeCommand.prototype = new AbstractCommand();
+OfferTradeCommand.AbstractCommand.url = '/moves/offerTrade';
+
 /**
 <pre>
 Pre-condition: NONE

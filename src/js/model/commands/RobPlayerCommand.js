@@ -21,11 +21,11 @@ function RobPlayerCommand(playerID, victimID, robberSpot){
 	this.playerID = playerID;
 	this.victimID = victimID;
 	this.robberSpot = robberSpot;
-
-	RobPlayerCommand.AbstractCommand.url = '/moves/RobPlayer';
 }
 
 RobPlayerCommand.prototype = new AbstractCommand();
+RobPlayerCommand.AbstractCommand.url = '/moves/RobPlayer';
+
 /**
 <pre>
 Pre-condition: NONE
