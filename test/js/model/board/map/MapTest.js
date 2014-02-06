@@ -6,7 +6,7 @@ var Map = require('./impl').Map,
 	MockProxy = require('../../../MockProxy'),
 	assert = require('chai').assert,
 	catan = require('byu-catan'),
-	hexgrid = catan.models.hexgrid
+	hexgrid = catan.models.hexgrid,
 	testCases = require('./MapTestCases.json'),
 	mapHelpers = require('./MapHelpers');
 
