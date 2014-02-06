@@ -55,6 +55,19 @@ Vertex.prototype.isOccupied = function () {
  * Pre-condition: NONE
  * Post-condition: NONE
  * </pre>
+ * @method isOccupied
+ * @return {playerID} the ID of the player or -1
+ */
+Vertex.prototype.getOwner = function () {
+  return this.owner;
+};
+
+
+/**
+ * <pre>
+ * Pre-condition: NONE
+ * Post-condition: NONE
+ * </pre>
  * @method hasCity
  * @return {boolean} whether the vertex has a city
  */

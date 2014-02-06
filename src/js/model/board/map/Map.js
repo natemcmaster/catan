@@ -10,6 +10,7 @@ var hexgrid = require('./hexgrid')
   , HexGrid = hexgrid.HexGrid
   , HexLocation = hexgrid.HexLocation
   , VertexLocation = hexgrid.VertexLocation
+  , VertexDirection = hexgrid.VertexDirection
   , BaseLocation = hexgrid.BaseLocation
   , Hex = require('./Hex')
   , NumberTiles = require('./NumberTiles')
@@ -158,6 +159,8 @@ Map.prototype.getAdjascentEdges = function (location) {
   var getEdge = this.getEdge.bind(this);
   return location.getConnectedEdges().map(function (eloc) {
     return getEdge(eloc);
+  }).filter(function (edge) {
+    return !!edge
   });
 };
 
@@ -167,14 +170,23 @@ Map.prototype.getAdjascentEdges = function (location) {
  * Post-condition: NONE
  * </pre>
  * @method getAdjascentVertices
- * @param {BaseLocation} location
+ * @param {VertexLocation} location
  * @return {Edge[]} Array of adjoining vertices
  */
 Map.prototype.getAdjascentVertices = function (location) {
-  var getVertex = this.getVertex.bind(this);
-  return location.getNeighborVertexes().map(function (vloc) {
-    return getVertex(vloc);
+  var getVertex = this.getVertex.bind(this)
+    , id = location.getIDString()
+    , vxs = [];
+  location.getConnectedEdges().forEach(function (eloc) {
+    vxs = vxs.concat(eloc.getNeighborVertexes().filter(function (vloc) {
+      return vloc.getIDString() !== id
+    }).map(function (vloc) {
+      return getVertex(vloc);
+    }).filter(function (vx) {
+      return !!vx
+    }))
   });
+  return vxs
 };
 
 /**
@@ -229,7 +241,7 @@ Map.prototype.canPlaceSettlement = function (playerId, location) {
   });
   if (tooClose) return false;
   var hasAccess = this.getAdjascentEdges(location).some(function (edge) {
-    return edge.getOwner() === playerId;
+    return edge.getOwner() === playerId
   });
   return hasAccess;
 };
@@ -254,15 +266,29 @@ Map.prototype.canPlaceCity = function (playerId, location) {
  */
 Map.prototype.getEdge = function (location) {
   var hex = this.hexGrid.getHex(location.getHexLocation());
+  if (!hex) return false
   return hex.getEdge(location.direction)
 };
 
 /**
+ * Returns false if no vertex was found
  */
 Map.prototype.getVertex = function (location) {
-  var hex = this.hexGrid.getHex(location.getHexLocation());
-  return hex.getVertex(location.direction)
+  var getHex = this.hexGrid.getHex.bind(this.hexGrid)
+    , vx = false
+  location.getEquivalenceGroup().some(function (vloc) {
+    var hex = getHex(vloc.getHexLocation())
+      , dir = vloc.direction;
+    if (!hex) return
+    if ('string' === typeof dir) {
+      dir = VertexDirection[dir];
+    }
+    vx = hex.getVertex(dir)
+    return true
+  })
+  return vx
 };
+
 
 
 

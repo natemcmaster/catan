@@ -67,8 +67,9 @@ suite('MapTests', function() {
 	});
 
 	suite('#portsForPlayer()', function() {
-		test('should report no ports for player 0', function() {
-			assert.equal(0, testMaps[0].portsForPlayer(0));
+		test('should report one port for player 0', function() {
+      var ports = testMaps[0].portsForPlayer(0);
+			assert.equal(1, ports.length);
 		})
 	});
 
@@ -78,8 +79,10 @@ suite('MapTests', function() {
 				for (var x = mapHelpers.gridMinX(y); x < mapHelpers.gridMaxX(y); x++) {
 					var hexloc = new HexLocation(x, y);
 					for (var direction in catan.models.hexgrid.VertexDirection) {
-						var verloc = new VertexLocation(hexloc, catan.models.hexgrid.VertexDirection[direction]);
-						assert.isFalse(testMaps[0].canPlaceSettlement(1, verloc));
+						var verloc = new VertexLocation(hexloc, catan.models.hexgrid.VertexDirection[direction])
+              , res = testMaps[0].canPlaceSettlement(1, verloc)
+            if (res) console.log(verloc)
+						assert.isFalse(res);
 					}
 				}
 			}
@@ -89,7 +92,7 @@ suite('MapTests', function() {
 			var dirs = ["SE", "SW", "W", "NE", "NW", "E"];
 			var ownerId=1;
 			var hexloc = new HexLocation(0,0);
-			for (var d in dirs) {
+			for (var d in VertexDirection) {
 				//Use test case 1  = one hex, roads on all edges, not settlements
 				assert.isTrue(testMaps[1].canPlaceSettlement(ownerId, new VertexLocation(hexloc, VertexDirection[d])));
 			}

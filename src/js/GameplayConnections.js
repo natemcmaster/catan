@@ -257,5 +257,3 @@ catan.client = (function Client_NameSpace(){
 	return {Client:CatanGame};
 }());
 
-module.exports = catan.client;
-
