@@ -1,7 +1,7 @@
 Settlers of Catan &reg;
 ===
 
-[![Build Status](http://jnkci.cloudapp.net/buildStatus/icon?job=Catan)](http://jnkci.cloudapp.net/job/Catan/)
+[![Build Status](http://jnkci.cloudapp.net/job/Catan/badge/icon)](http://jnkci.cloudapp.net/job/Catan/)
 
 Implementation of Settlers of Catan for BYU CS 340, Winter 2014 Semester by Team Lumberjack (Team 3).
 
