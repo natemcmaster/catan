@@ -23,7 +23,7 @@ function AcceptTradeCommand(playerID, willAccept){
 }
 
 AcceptTradeCommand.prototype = new AbstractCommand();
-AcceptTradeCommand.AbstractCommand.url = '/moves/acceptTrade';
+AcceptTradeCommand.prototype.url = '/moves/acceptTrade';
 
 /**
 <pre>

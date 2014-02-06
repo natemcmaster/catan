@@ -21,7 +21,7 @@ function BuyDevCardCommand(playerID){
 }
 
 BuyDevCardCommand.prototype = new AbstractCommand();
-BuyDevCardCommand.AbstractCommand.url = '/moves/buyDevCard';
+BuyDevCardCommand.prototype.url = '/moves/buyDevCard';
 
 /**
 <pre>

@@ -22,7 +22,7 @@ function RollDiceCommand(playerID, number){
 }
 
 RollDiceCommand.prototype = new AbstractCommand();
-RollDiceCommand.AbstractCommand.url = '/moves/rollNumber';
+RollDiceCommand.prototype.url = '/moves/rollNumber';
 
 /**
 <pre>

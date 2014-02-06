@@ -24,7 +24,7 @@ function PlaySoldierCommand(playerID, victimID, robberSpot){
 }
 
 PlaySoldierCommand.prototype = new AbstractCommand();
-PlaySoldierCommand.AbstractCommand.url = '/moves/Soldier';
+PlaySoldierCommand.prototype.url = '/moves/Soldier';
 
 /**
 <pre>
