@@ -53,5 +53,46 @@
 				"ports":[],
 				"numbers":{"2":[{"x":0,"y":0}]}
 			}
+	},
+	{
+		"explanation":"All edges and vertices owned by different users.",
+		"data":{
+				"hexGrid":{
+					"hexes":[
+					[
+						{
+							"isLand":true,
+							"landType":"Wheat",
+							"location":{
+								"x":0,
+								"y":0
+							},
+							"vertexes":[
+								{"value":{"ownerID":1,"worth":1}},
+								{"value":{"ownerID":2,"worth":0}},
+								{"value":{"ownerID":3,"worth":1}},
+								{"value":{"ownerID":4,"worth":0}},
+								{"value":{"ownerID":1,"worth":2}},
+								{"value":{"ownerID":2,"worth":0}}
+							],
+							"edges":[
+								{"value":{"ownerID":1}},
+								{"value":{"ownerID":2}},
+								{"value":{"ownerID":3}},
+								{"value":{"ownerID":4}},
+								{"value":{"ownerID":-1}},
+								{"value":{"ownerID":-1}}
+							]
+						}
+						]
+					],
+					"offsets":[0],
+					"radius":1,
+					"x0":0,
+					"y0":0
+				},
+				"ports":[],
+				"numbers":{"2":[{"x":0,"y":0}]}
+			}
 	}
 ]

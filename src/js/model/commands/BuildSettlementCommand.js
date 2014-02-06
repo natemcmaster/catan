@@ -1,3 +1,5 @@
+module.exports = BuildSettlementCommand;
+
 /**
  * 
  * @module catan.model.commands

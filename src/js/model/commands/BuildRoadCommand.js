@@ -1,3 +1,5 @@
+module.exports = BuildRoadCommand;
+
 /**
  * 
  * @module catan.model.commands

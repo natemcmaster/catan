@@ -1,3 +1,5 @@
+module.exports=BuildCityCommand;
+
 /**
  * 
  * @module catan.model.commands

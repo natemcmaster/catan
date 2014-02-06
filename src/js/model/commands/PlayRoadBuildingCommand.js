@@ -1,3 +1,5 @@
+module.exports=PlayRoadBuildingCommand;
+
 /**
  * 
  * @module catan.model.commands

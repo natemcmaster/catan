@@ -39,7 +39,6 @@ function Map(proxy, data){
 	for (var i=0; i<data.ports.length; i++) {
 		this.ports.push(new Port(proxy, data.ports[i]));
 	}
-	this.lastRobber = data.lastRobber && new HexLocation(data.lastRobber.x, data.lastRobberPos.y);
 	this.robber = data.robber && new HexLocation(data.robber.x, data.robber.y);
 	this.numberTiles = new NumberTiles(data.numbers);
 }
@@ -72,19 +71,6 @@ Map.prototype.getHexAt = function (x, y) {
 Map.prototype.getRobberPos = function () {
 	return this.robber;
 };
-
-/**
- * <pre>
- * Pre-condition: NONE
- * Post-condition: NONE
- * </pre>
- * @method lastRobberPos
- * @return {HexLocation} HexLocation of last robber location
- */
-Map.prototype.lastRobberPos = function () {
-	return this.lastRobber;
-};
-
 
 /**
  * <pre>
@@ -221,7 +207,7 @@ Map.prototype.canPlaceRoad = function (playerId, location) {
  */
 Map.prototype.canPlaceRobber = function (playerId, location) {
 	var hex = this.hexGrid.getHex(location);
-	return !((!this.robber || location.equals(this.robber)) || (!this.lastRobber || location.equals(this.lastRobber)) || !hex.isLand() || hex.isDesert());
+	return !((!this.robber || location.equals(this.robber)) || !hex.isLand() || hex.isDesert());
 };
 
 /**
