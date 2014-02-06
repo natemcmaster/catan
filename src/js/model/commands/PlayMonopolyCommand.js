@@ -22,7 +22,7 @@ function PlayMonopolyCommand(playerID, resource){
 }
 
 PlayMonopolyCommand.prototype = new AbstractCommand();
-PlayMonopolyCommand.AbstractCommand.url = '/moves/Monopoly';
+PlayMonopolyCommand.prototype.url = '/moves/Monopoly';
 
 /**
 <pre>

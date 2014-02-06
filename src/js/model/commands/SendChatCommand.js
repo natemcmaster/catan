@@ -22,7 +22,7 @@ function SendChatCommand(playerID, message){
 }
 
 SendChatCommand.prototype = new AbstractCommand();
-SendChatCommand.AbstractCommand.url = '/moves/sendChat';
+SendChatCommand.prototype.url = '/moves/sendChat';
 
 /**
 <pre>
