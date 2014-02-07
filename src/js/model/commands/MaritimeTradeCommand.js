@@ -23,7 +23,7 @@ function MaritimeTradeCommand(playerID, ratio, inputResource, outputResource) {
 	this.outputResource = outputResource;
 }
 
-MaritimeTradeCommand.prototype = new AbstractCommand;
+MaritimeTradeCommand.prototype = new AbstractCommand();
 
 MaritimeTradeCommand.prototype.url = '/moves/maritimeTrade';
 
