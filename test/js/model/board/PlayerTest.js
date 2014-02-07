@@ -345,7 +345,7 @@ suite('PlayerTests', function () {
         		};
 
         	player.buyDevCard();
-        	assert.deepEqual(expected, mockProxy.lastCommand.getData());
+        	assert.deepEqual(expected.template, mockProxy.lastCommand.getData());
 		});		
 
 		test('#yearOfPlenty()', function() {
@@ -364,7 +364,7 @@ suite('PlayerTests', function () {
         	};
 
         	player.yearOfPlenty(resource1, resource2);
-        	assert.deepEqual(expected, mockProxy.lastCommand.getData());
+        	assert.deepEqual(expected.template, mockProxy.lastCommand.getData());
 		});
 
 		test('#roadBuilding()', function() {
@@ -398,7 +398,7 @@ suite('PlayerTests', function () {
         	};
 
         	player.roadBuilding(edge1, edge2);
-        	assert.deepEqual(expected, mockProxy.lastCommand.getData());
+        	assert.deepEqual(expected.template, mockProxy.lastCommand.getData());
 		});
 
 		test('#playSoldier()', function() {
@@ -423,7 +423,7 @@ suite('PlayerTests', function () {
         	};
 
         	player.playSoldier(hexLocation, victimIndex);
-        	assert.deepEqual(expected, mockProxy.lastCommand.getData());
+        	assert.deepEqual(expected.template, mockProxy.lastCommand.getData());
 		});
 
 		test('#monopoly()', function() {
@@ -440,10 +440,10 @@ suite('PlayerTests', function () {
 			};
 
 			player.monopoly(resourceType);
-			assert.deepEqual(expected, mockProxy.lastCommand.getData());
+			assert.deepEqual(expected.template, mockProxy.lastCommand.getData());
 		});
 
-		test('#monument()', function() {
+		test('#playMonument()', function() {
 
 			var expected = {
 				"type": "JSON",
@@ -453,8 +453,8 @@ suite('PlayerTests', function () {
 		        }
 			};
 
-			player.monument();
-			assert.deepEqual(expected, mockProxy.lastCommand.getData());
+			player.playMonument();
+			assert.deepEqual(expected.template, mockProxy.lastCommand.getData());
 		});
 
 		test('#offerTrade()', function() {
@@ -484,7 +484,7 @@ suite('PlayerTests', function () {
 			};
 
 			player.offerTrade(receiver, brick, ore, sheep, wheat, wood);
-			assert.deepEqual(expected, mockProxy.lastCommand.getData());
+			assert.deepEqual(expected.template, mockProxy.lastCommand.getData());
 		});
 
 		test('#acceptTrade()', function() {
@@ -501,7 +501,7 @@ suite('PlayerTests', function () {
 			};
 
 			player.acceptTrade(willAccept);
-			assert.deepEqual(expected, mockProxy.lastCommand.getData());
+			assert.deepEqual(expected.template, mockProxy.lastCommand.getData());
 		});
 
 		test('#maritimeTrade()', function() {
@@ -522,7 +522,7 @@ suite('PlayerTests', function () {
 		    };
 
 		    player.maritimeTrade(ratio, inputResource, outputResource);
-		    assert.deepEqual(expected, mockProxy.lastCommand.getData());
+		    assert.deepEqual(expected.template, mockProxy.lastCommand.getData());
 		});
 
 		test('#discardCards()', function() {
@@ -549,7 +549,7 @@ suite('PlayerTests', function () {
 			};
 
 			player.discardCards(brick, ore, sheep, wheat, wood);
-			assert.deepEqual(expected, mockProxy.lastCommand.getData());
+			assert.deepEqual(expected.template, mockProxy.lastCommand.getData());
 		});
 	});
 });

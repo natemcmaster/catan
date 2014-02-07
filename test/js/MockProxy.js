@@ -5,9 +5,16 @@ var testModel={"deck":{"yearOfPlenty":2,"monopoly":2,"soldier":14,"roadBuilding"
 function MockProxy(loadModelFunc){
 	this.loadModel=loadModelFunc;
 	this.commands=[];
+	this.lastCommand = {
+		getData:function(){
+			throw new Error('No commands received');
+		}
+	}
 }
 
 MockProxy.prototype.executeCommand=function(command){
+	if(command === undefined)
+		throw new Error('Cannot execute an undefined command');
 	this.commands.push(command);
 	this.lastCommand = command;
 	if(this.loadModel && typeof this.loadModel ==='function'){

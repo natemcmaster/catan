@@ -1,7 +1,7 @@
-module.exports=SendChatCommand;
+module.exports = SendChatCommand;
 
 /**
- * 
+ *
  * @module catan.model.commands
  * @namespace model
  */
@@ -17,8 +17,8 @@ Post-condition: NONE
 @param {int} playerID the ID of the player sending the message
 @param {String} message the message to be sent
 **/
-function SendChatCommand(playerID, message){
-	
+function SendChatCommand(playerID, message) {
+
 	this.playerID = playerID;
 	this.message = message;
 }
@@ -34,13 +34,11 @@ Post-condition: NONE
 @method getData
 @return {JSON} returns the JSON object formatted as the server will want it
 **/
-SendChatCommand.prototype.getData = function(){
+SendChatCommand.prototype.getData = function() {
 
-	var returnObject = {'type':'sendChat',
-						'playerIndex': this.playerID,
-						'content': this.message};
-
-	return returnObject;
-
-	
+	return {
+		'type': 'sendChat',
+		'playerIndex': this.playerID,
+		'content': this.message
+	};
 }

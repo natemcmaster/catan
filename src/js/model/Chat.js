@@ -16,10 +16,8 @@ module.exports = Chat;
  * @constructor
  */
 function Chat(proxy, chat){
-	// constructor
 	this.proxy = proxy;
-
-	this.chat = chat;
+	this.chat = chat.lines;
 }
 
 /**
@@ -28,10 +26,11 @@ function Chat(proxy, chat){
  * Post-condition: The message is sent to all players (async!)
  * </pre>
  * @method sendChat
- * @param {string} message
- * @param {integer} user
+ * @param {int} playerId id of player sending the message
+ * @param {string} message content of message
+ * @return {void}
  */
-Chat.prototype.sendChat = function (message, user) {
-	this.proxy.executeCommand(new SendChatCommand(message, user));
+Chat.prototype.sendChat = function (playerId,message) {
+	this.proxy.executeCommand(new SendChatCommand(playerId,message));
 };
 

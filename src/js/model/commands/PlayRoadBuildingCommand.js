@@ -17,10 +17,10 @@ Post-condition: NONE
 @param {int} playerID the ID of the player playing the road building card
 @param {list<EdgeLocation>} locations location to build the second road
 **/
-function PlayRoadBuildingCommand(playerID, locations){
+function PlayRoadBuildingCommand(playerID, location1,location2){
 
 	this.playerID = playerID;
-	this.locations = locations;
+	this.locations = [location1,location2];
 }
 
 PlayRoadBuildingCommand.prototype = new AbstractCommand();

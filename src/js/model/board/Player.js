@@ -146,7 +146,7 @@ Player.prototype.playableDevelopmentCards = function () {
  * @return {void}
  */
 Player.prototype.buyDevCard = function () {
-	this.proxy.executeCommand(commands.BuyDevCardCommand(this.playerID));
+	this.proxy.executeCommand(new commands.BuyDevCardCommand(this.playerID));
 };
 
 /**
@@ -165,7 +165,7 @@ Player.prototype.buyDevCard = function () {
  * @return {void}
  */
 Player.prototype.yearOfPlenty = function (resource1, resource2) {
-	this.proxy.executeCommand(commands.PlayYearOfPlentyCommand(this.playerID, resource1, resource2));
+	this.proxy.executeCommand(new commands.PlayYearOfPlentyCommand(this.playerID, resource1, resource2));
 };
 
 /**
@@ -183,7 +183,7 @@ Player.prototype.yearOfPlenty = function (resource1, resource2) {
  * @return {void}
  */
 Player.prototype.roadBuilding = function (edge1, edge2) {
-	this.proxy.executeCommand(commands.PlayRoadBuildingCommand(this.playerID, edge1, edge2));
+	this.proxy.executeCommand(new commands.PlayRoadBuildingCommand(this.playerID, edge1, edge2));
 };
 
 /**
@@ -204,7 +204,7 @@ Player.prototype.roadBuilding = function (edge1, edge2) {
  * @return {void}
  */
 Player.prototype.playSoldier = function (hex, playerToRob) {
-	this.proxy.executeCommand(commands.PlaySoldierCommand(this.playerID, playerToRob, hex));
+	this.proxy.executeCommand(new commands.PlaySoldierCommand(this.playerID, playerToRob, hex));
 };
 
 /**
@@ -221,7 +221,7 @@ Player.prototype.playSoldier = function (hex, playerToRob) {
 * @return {void}
 */
 Player.prototype.monopoly = function (resourceType) {
-	this.proxy.executeCommand(commands.PlayMonopolyCommand(this.playerID,resourceType));
+	this.proxy.executeCommand(new commands.PlayMonopolyCommand(this.playerID,resourceType));
 };
 
 
@@ -243,7 +243,7 @@ Player.prototype.monopoly = function (resourceType) {
 * @return {void}
 */
 Player.prototype.offerTrade = function (playerToTradeWith, brick, ore, sheep, wheat, wood) {
-	this.proxy.executeCommand(commands.OfferTradeCommand(this.playerID, playerToTradeWith,
+	this.proxy.executeCommand(new commands.OfferTradeCommand(this.playerID, playerToTradeWith,
 											 brick, ore, sheep, wheat, wood));
 };
 
@@ -262,7 +262,7 @@ Player.prototype.offerTrade = function (playerToTradeWith, brick, ore, sheep, wh
 */
 Player.prototype.acceptTrade = function (willAccept) {
 
-	this.proxy.executeCommand(commands.AcceptTradeCommand(this.playerID,willAccept));
+	this.proxy.executeCommand(new commands.AcceptTradeCommand(this.playerID,willAccept));
 
 };
 
@@ -283,6 +283,33 @@ Player.prototype.acceptTrade = function (willAccept) {
 * @return {void}
 */
 Player.prototype.discardCards = function (brick, ore, sheep, wheat, wood) {
-	this.proxy.executeCommand(commands.DiscardCardsCommand(this.playerID, 
+	this.proxy.executeCommand(new commands.DiscardCardsCommand(this.playerID, 
 												brick, ore, sheep, wheat, wood));
 };
+
+/**
+ * Plays the "Monument Card" aka the victory point card
+ * <pre>
+ * Pre-condition: the player has a monument card
+ * Post-condition: the player's victory points increase by one
+ * </pre>
+ * @method playMonument
+ * @return {void}
+ */
+Player.prototype.playMonument = function(){
+	this.proxy.executeCommand(new commands.PlayMonumentCommand(this.playerID));
+}
+
+/**
+ * Make a maritime trade.
+ * <pre>
+ * Pre-condition: The player has a settlement next to a port. Also, the bank must have at least one output type.
+ * Post-condition: Player trades the number (ratio) of input type resources for output type resources
+ * @param  {int} ratio              How many to of inputType must be supplied to obtain one output type
+ * @param  {ResourceType} inputResourceType  What type to trade
+ * @param  {ResourceType} outputResourceType What type to obtain
+ * @return {void}                    
+ */
+Player.prototype.maritimeTrade = function(ratio,inputResourceType,outputResourceType){
+	this.proxy.executeCommand(new commands.MaritimeTradeCommand(this.playerID,ratio,inputResourceType,outputResourceType));
+}
