@@ -140,11 +140,20 @@ Map.prototype.portsForPlayer = function (playerId) {
  */
 Map.prototype.getAdjascentEdges = function (location) {
   var getEdge = this.getEdge.bind(this);
+	return location.getConnectedEdges().map(function (eloc) {
+		return eloc.getEquivalenceGroup().map(function (eloc) {
+			return getEdge(eloc)
+		})
+	}).reduce(function (a, b) {
+		return a.concat(b)
+	}, []);
+	/*
   return location.getConnectedEdges().map(function (eloc) {
     return getEdge(eloc);
   }).filter(function (edge) {
     return !!edge
   });
+	*/
 };
 
 /**
