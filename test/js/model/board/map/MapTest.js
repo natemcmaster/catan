@@ -99,7 +99,6 @@ suite('MapTests', function() {
 		});
 
 		test('should allow placing next to roads with not settlement conflicts', function() {
-			var dirs = ["SE", "SW", "W", "NE", "NW", "E"];
 			var ownerId = 1;
 			var hexloc = new HexLocation(0, 0);
 			for (var d in VertexDirection) {

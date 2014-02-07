@@ -36,6 +36,7 @@ module.exports = function(grunt) {
 				'-W014': true,
 				'-W099': true,
 				'-W079': true,
+				'-W030': true,
 				'-W033': true,
 				undef: true,
 				unused: true, // TODO enable this later

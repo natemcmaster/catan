@@ -5,7 +5,7 @@ var assert = require('chai').assert,
 	;
 
 suite('TurnTrakerTests', function(){
-	var TestTurnTraker;
+	var TestTurnTraker, turnTrakerData, mockProxy;
 
 	setup(function() {
 		turnTrakerData = {
