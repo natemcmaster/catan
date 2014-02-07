@@ -18,22 +18,22 @@ module.exports = GameBoard;
  * @class GameBoard
  * @param {model.proxy} proxy Proxy responsiple for communication with the server
  */
-function GameBoard(proxy, bank, biggestArmyOwner, deck, longestRoadOwner, map, players, turnTracker, winner){
+function GameBoard(proxy, data) {
 
 	this.proxy = proxy;
-	this.bank = new Bank(proxy, bank);
-	this.biggestArmyOwner = biggestArmyOwner;
-	this.deck = new Deck(proxy, deck);
-	this.longestRoadOwner = longestRoadOwner;
-	this.map = new Map(proxy, map);
+	this.bank = new Bank(proxy, data.bank);
+	this.biggestArmyOwner = data.biggestArmy;
+	this.deck = new Deck(proxy, data.deck);
+	this.longestRoadOwner = data.longestRoad;
+	this.map = new Map(proxy, data.map);
 	
-	this.players = [];
-	$.each(players, function(player){
+	var players = this.players = [];
+	data.players.forEach(function(player){
 		players.push(new Player(proxy, player));
 	});
 
-	this.turnTracker = new TurnTracker(proxy, turnTracker);
-	this.winner = winner;
+	this.turnTracker = new TurnTracker(proxy, data.turnTracker);
+	this.winner = data.winner;
 
 }
 
