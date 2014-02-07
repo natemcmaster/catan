@@ -125,7 +125,7 @@ Player.prototype.canBuyDevCard = function () {
  */
 Player.prototype.playableDevelopmentCards = function () {
 
-	return this.newDevCards;
+	return this.oldDevCards;
 	
 };
 
