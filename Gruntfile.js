@@ -38,7 +38,7 @@ module.exports = function(grunt) {
 				'-W079': true,
 				'-W033': true,
 				undef: true,
-				// unused: true, // TODO enable this later
+				unused: true, // TODO enable this later
 				browser: true,
 				globals: {
 					module: true,

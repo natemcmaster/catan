@@ -7,8 +7,6 @@ module.exports = {
   ClientModel: require('./clientmodel.js'),
   commands: require('./commands'),
   DevelopmentCardType: require('./DevelopmentCardType.js'),
-  GameRoom: require('./GameRoom.js'),
-  GameTable: require('./GameTable.js'),
   ResourceType: require('./ResourceType.js'),
 };
 

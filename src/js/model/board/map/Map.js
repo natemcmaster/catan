@@ -9,9 +9,7 @@
 var hexgrid = require('./hexgrid')
   , HexGrid = hexgrid.HexGrid
   , HexLocation = hexgrid.HexLocation
-  , VertexLocation = hexgrid.VertexLocation
   , VertexDirection = hexgrid.VertexDirection
-  , BaseLocation = hexgrid.BaseLocation
   , Hex = require('./Hex')
   , NumberTiles = require('./NumberTiles')
   , Port = require('./Port')
@@ -123,7 +121,6 @@ Map.prototype.getOwnedVertices = function () {
  * @return {HexLocation[]} Array of HexLocations of ports that the player owns
  */
 Map.prototype.portsForPlayer = function (playerId) {
-	var vertecies = [];
 	var getVertex = this.getVertex.bind(this);
 	return this.ports.filter(function (port) {
 		return port.getVertexLocations().some(function (vertex) {
@@ -221,15 +218,14 @@ Map.prototype.canPlaceRobber = function (playerId, location) {
  * @return {boolean} True if user can now place a settlement, false if not.
  */
 Map.prototype.canPlaceSettlement = function (playerId, location) {
-	var caPlace = false;
 	var tooClose = this.getAdjascentVertices(location).some(function (vertex) {
-    return vertex.isOccupied();
-  });
-  if (tooClose) return false;
-  var hasAccess = this.getAdjascentEdges(location).some(function (edge) {
-    return edge.getOwner() === playerId
-  });
-  return hasAccess;
+		return vertex.isOccupied();
+	});
+	if (tooClose) return false;
+	var hasAccess = this.getAdjascentEdges(location).some(function (edge) {
+		return edge.getOwner() === playerId
+	});
+	return hasAccess;
 };
 
 /**
@@ -306,7 +302,7 @@ Map.prototype.placeRoad = function (playerId, edgeLocation) {
  * @return {void}
  */
 Map.prototype.placeSettlement = function (playerId, vertexLocation) {
-  this.proxy.executeCommand(new BuildSettlementCommand(playerId, VertexLocation));
+  this.proxy.executeCommand(new BuildSettlementCommand(playerId, vertexLocation));
 };
 
 /**
@@ -320,7 +316,7 @@ Map.prototype.placeSettlement = function (playerId, vertexLocation) {
  * @return {void}
  */
 Map.prototype.placeCity = function (playerId, vertexLocation) {
-  this.proxy.executeCommand(new BuildCityCommand(playerId, VertexLocation));
+  this.proxy.executeCommand(new BuildCityCommand(playerId, vertexLocation));
 };
 
 /**

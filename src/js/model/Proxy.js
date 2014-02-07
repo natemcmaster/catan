@@ -22,7 +22,7 @@ function Proxy(onNewModel){
 Proxy.prototype.executeCommand = function(command){
 	var onNewModel = this.onNewModel;
 	jQuery.post(command.getURL(), command.getData())
-		.done(function(data, status, xhr){
+		.done(function(data){
 			onNewModel(data);
 		})
 		.fail(function (xhr, status) {
