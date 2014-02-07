@@ -15,7 +15,8 @@ Post-condition: NONE
 @class PlayRoadBuildingCommand
 @constructor 
 @param {int} playerID the ID of the player playing the road building card
-@param {list<EdgeLocation>} locations location to build the second road
+@param {EdgeLocation} location1 location to build the first road
+@param {EdgeLocation} location2 location to build second road
 **/
 function PlayRoadBuildingCommand(playerID, location1,location2){
 

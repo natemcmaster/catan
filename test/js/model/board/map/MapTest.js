@@ -161,37 +161,6 @@ suite('MapTests', function() {
 		});
 	});
 
-	//conflicts with Player.roadBuilding();
-	suite.skip('#placeRoads() (plural)', function() {
-		test('it sends RoadBuilding command to proxy', function() {
-			var playerId = 1,
-				x = 0,
-				y = 0,
-				dir1 = EdgeDirection.N,
-				dir2 = EdgeDirection.S;
-
-			testMaps[0].placeRoads(playerId, [
-				new EdgeLocation(new HexLocation(x, y), dir1),
-				new EdgeLocation(new HexLocation(x, y), dir2)
-			]);
-			var expected = {
-				'type': 'Road_Building',
-				'playerIndex': playerId,
-				'spot1': {
-					'x': x,
-					'y': y,
-					'direction': dir1
-				},
-				'spot2': {
-					'x': x,
-					'y': y,
-					'direction': dir2
-				}
-			};
-
-			assert.deepEqual(expected, mockProxy.lastCommand.getData());
-		});
-	});
 
 
 	suite('#placeSettlement()', function() {
