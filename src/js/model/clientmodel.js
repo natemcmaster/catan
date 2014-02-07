@@ -25,6 +25,7 @@ catan.models.ClientModel  = (function clientModelNameSpace(){
 	var ClientModel = (function ClientModelClass(){
 
 		function ClientModel(playerID){
+			this.playerID = playerID;
 		}      
 
 		/**

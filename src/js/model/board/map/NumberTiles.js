@@ -17,6 +17,7 @@ module.exports = NumberTiles;
  * @constructor
  */
 function NumberTiles(data) {
+	this.numbers = data;
 }
 
 /**
@@ -28,6 +29,7 @@ function NumberTiles(data) {
  * @return {Map<integer, List<HexLocation>>} A map of the locations
  */
 NumberTiles.prototype.getNumberPositions = function () {
+	return this.numbers;
 };
 
 

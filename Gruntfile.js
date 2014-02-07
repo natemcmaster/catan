@@ -38,7 +38,7 @@ module.exports = function(grunt) {
 				'-W079': true,
 				'-W033': true,
 				undef: true,
-				// unused: true, // TODO enable this later
+				unused: true, // TODO enable this later
 				browser: true,
 				globals: {
 					module: true,
@@ -174,7 +174,7 @@ module.exports = function(grunt) {
 	grunt.registerTask('test:browser',['copy:test', 'concat:framework', 'browserify:test', 'mocha:model']);
 	grunt.registerTask('test', 'Test models', function() {
 		var reporter = grunt.option('reporter') || 'spec';
-		grunt.config('mochaTest.model.options.reporter', reporter);
+		grunt.config('mochaTest.test.options.reporter', reporter);
 		grunt.task.run(['mochaTest:test']);
 	});
   	grunt.registerTask('coverage', ['mochacov']);
