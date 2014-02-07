@@ -56,29 +56,3 @@ var badPlaces = [
 		dir: 'E'
 	}
 ]
-
-suite.only('#placeSettlement', function() {
-	var map;
-	setup(function () {
-		map = new Map(null, fixture.map)
-	})
-	suite('should allow good places', function () {
-		goodPlaces.forEach(function (place) {
-			test('good place: ' + JSON.stringify(place), function () {
-				var location = new VertexLocation(new HexLocation(place.x, place.y), VertexDirection[place.dir]);
-				assert.isTrue(map.canPlaceSettlement(place.pid, location));
-			});
-		});
-	});
-	suite('should disallow bad places', function () {
-		badPlaces.forEach(function (place) {
-			test('bad place: ' + JSON.stringify(place), function () {
-				var location = new VertexLocation(new HexLocation(place.x, place.y), VertexDirection[place.dir]);
-				assert.isFalse(map.canPlaceSettlement(place.pid, location));
-			});
-		});
-	});
-
-
-
-});

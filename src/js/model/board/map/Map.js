@@ -232,15 +232,14 @@ Map.prototype.canPlaceSettlement = function (playerId, location) {
 	});
 
 	if (tooClose) {
-    console.log('settlement too close');
+    // console.log('settlement too close');
     return false;
   }
-  console.log(this.getAdjascentEdges(location));
 	var hasAccess = this.getAdjascentEdges(location).some(function (edge) {
-		return edge.getOwner() === playerId
+		return edge && edge.getOwner() === playerId
 	});
   if (!hasAccess) {
-    console.log('no roads');
+    // console.log('no roads');
   }
 	return hasAccess;
 };
