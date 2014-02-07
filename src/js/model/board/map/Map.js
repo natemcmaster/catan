@@ -221,10 +221,18 @@ Map.prototype.canPlaceSettlement = function (playerId, location) {
 	var tooClose = this.getAdjascentVertices(location).some(function (vertex) {
 		return vertex.isOccupied();
 	});
-	if (tooClose) return false;
+
+	if (tooClose) {
+    console.log('settlement too close');
+    return false;
+  }
+  console.log(this.getAdjascentEdges(location));
 	var hasAccess = this.getAdjascentEdges(location).some(function (edge) {
 		return edge.getOwner() === playerId
 	});
+  if (!hasAccess) {
+    console.log('no roads');
+  }
 	return hasAccess;
 };
 
