@@ -306,7 +306,7 @@ Map.prototype.placeRoad = function (playerId, edgeLocation) {
  * @return {void}
  */
 Map.prototype.placeSettlement = function (playerId, vertexLocation) {
-  this.proxy.executeCommand(new BuildSettlementCommand(playerId, VertexLocation));
+  this.proxy.executeCommand(new BuildSettlementCommand(playerId, vertexLocation));
 };
 
 /**
@@ -320,7 +320,7 @@ Map.prototype.placeSettlement = function (playerId, vertexLocation) {
  * @return {void}
  */
 Map.prototype.placeCity = function (playerId, vertexLocation) {
-  this.proxy.executeCommand(new BuildCityCommand(playerId, VertexLocation));
+  this.proxy.executeCommand(new BuildCityCommand(playerId, vertexLocation));
 };
 
 /**
