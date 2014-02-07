@@ -22,7 +22,7 @@ function BuildCityCommand(playerID, cityLocation, isFree){
 
 	this.playerID = playerID;
 	this.cityLocation = cityLocation;
-	this.isFree = isFree;
+	this.isFree = !!isFree;
 }
 
 BuildCityCommand.prototype = new AbstractCommand();

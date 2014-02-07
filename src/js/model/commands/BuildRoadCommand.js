@@ -22,7 +22,7 @@ function BuildRoadCommand(playerID, roadLocation, isFree){
 
 	this.playerID = playerID;
 	this.roadLocation = roadLocation;
-	this.isFree = isFree;
+	this.isFree = !!isFree;
 }
 
 BuildRoadCommand.prototype = new AbstractCommand();
@@ -40,7 +40,7 @@ BuildRoadCommand.prototype.getData = function(){
 
 	return {'type':'buildRoad',
 			'playerIndex': this.playerID,
-			'vertexLocation': {'x': this.roadLocation.getHexLocation().getX(),
+			'roadLocation': {'x': this.roadLocation.getHexLocation().getX(),
 							   'y': this.roadLocation.getHexLocation().getY(),
 							   'direction': this.roadLocation.getDirection()},
 			'free':this.isFree};

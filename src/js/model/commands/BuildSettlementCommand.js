@@ -22,7 +22,7 @@ function BuildSettlementCommand(playerID, settlementLocation, isFree){
 
 	this.playerID = playerID;
 	this.settlementLocation = settlementLocation;
-	this.isFree = isFree;
+	this.isFree = !!isFree;
 }
 
 BuildSettlementCommand.prototype = new AbstractCommand();

@@ -150,12 +150,12 @@ suite('MapTests', function() {
 			var expected = {
 				'type': 'buildRoad',
 				'playerIndex': playerId,
-				'edgeLocation': {
+				'roadLocation': {
 					'x': x,
 					'y': y,
 					'direction': EdgeDirection.N
 				},
-				'free': true
+				'free': false
 			};
 
 			assert.deepEqual(expected, mockProxy.lastCommand.getData());
@@ -210,7 +210,7 @@ suite('MapTests', function() {
 					'y': y,
 					'direction': dir
 				},
-				'free': true
+				'free': false
 			};
 
 			assert.deepEqual(expected, mockProxy.lastCommand.getData());
@@ -233,7 +233,7 @@ suite('MapTests', function() {
 					'y': y,
 					'direction': dir
 				},
-				'free': true
+				'free': false
 			};
 
 			assert.deepEqual(expected, mockProxy.lastCommand.getData());
