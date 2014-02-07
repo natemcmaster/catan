@@ -1,3 +1,5 @@
+module.exports = BuildSettlementCommand;
+
 /**
  * 
  * @module catan.model.commands
@@ -21,11 +23,11 @@ function BuildSettlementCommand(playerID, settlementLocation, isFree){
 	this.playerID = playerID;
 	this.settlementLoaction = settlementLocation;
 	this.isFree = isFree;
-
-	BuildSettlementCommand.AbstractCommand.url = '/moves/buildSettlement';
 }
 
 BuildSettlementCommand.prototype = new AbstractCommand();
+BuildSettlementCommand.prototype.url = '/moves/buildSettlement';
+
 /**
 <pre>
 Pre-condition: NONE

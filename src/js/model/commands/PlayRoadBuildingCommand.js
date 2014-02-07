@@ -1,3 +1,5 @@
+module.exports=PlayRoadBuildingCommand;
+
 /**
  * 
  * @module catan.model.commands
@@ -21,11 +23,11 @@ function PlayRoadBuildingCommand(playerID, location_1, location_2){
 	this.playerID = playerID;
 	this.location_1 = location_1;
 	this.location_2 = location_2;	
-
-	PlayRoadBuildingCommand.AbstractCommand.url = '/moves/Road_Building';
 }
 
 PlayRoadBuildingCommand.prototype = new AbstractCommand();
+PlayRoadBuildingCommand.prototype.url = '/moves/Road_Building';
+
 /**
 <pre>
 Pre-condition: NONE

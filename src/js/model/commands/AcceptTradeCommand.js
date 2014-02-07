@@ -20,12 +20,10 @@ function AcceptTradeCommand(playerID, willAccept){
 
 	this.playerID = playerID;
 	this.willAccept = willAccept;
-
-	AcceptTradeCommand.AbstractCommand.url = '/moves/acceptTrade';
 }
 
 AcceptTradeCommand.prototype = new AbstractCommand();
-
+AcceptTradeCommand.prototype.url = '/moves/acceptTrade';
 
 /**
 <pre>

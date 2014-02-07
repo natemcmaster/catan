@@ -8,12 +8,13 @@
 
 var hexgrid = require('./hexgrid')
   , HexLocation = hexgrid.HexLocation
-  , VertexLocation = hexgrid.VertexLocation;
+  , VertexLocation = hexgrid.VertexLocation
+  , VertexDirection = hexgrid.VertexDirection;
 
 module.exports = Port;
 
 function vertexLocationFromJson(data) {
-	return new VertexLocation(new HexLocation(data.x, data.y), data.direction);
+	return new VertexLocation(new HexLocation(data.x, data.y), VertexDirection[data.direction]);
 }
 
 function hexLocationFromJson(data) {

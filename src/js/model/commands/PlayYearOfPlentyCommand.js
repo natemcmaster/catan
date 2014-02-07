@@ -21,11 +21,11 @@ function PlayYearOfPlentyCommand(playerId, resource1, resource2){
 	this.playerID = playerId;
 	this.resource1 = resource1;
 	this.resource2 = resource2;
-
-	PlayYearOfPlentyCommand.AbstractCommand.url = '/moves/Year_of_Plenty';
 }
 
 PlayYearOfPlentyCommand.prototype = new AbstractCommand();
+PlayYearOfPlentyCommand.prototype.url = '/moves/Year_of_Plenty';
+
 /**
 <pre>
 Pre-condition: NONE

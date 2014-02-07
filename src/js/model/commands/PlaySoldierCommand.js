@@ -21,11 +21,11 @@ function PlaySoldierCommand(playerID, victimID, robberSpot){
 	this.playerID = playerID;
 	this.victimID = victimID;
 	this.robberSpot = robberSpot;
-
-	PlaySoldierCommand.AbstractCommand.url = '/moves/Soldier';
 }
 
 PlaySoldierCommand.prototype = new AbstractCommand();
+PlaySoldierCommand.prototype.url = '/moves/Soldier';
+
 /**
 <pre>
 Pre-condition: NONE

@@ -5,5 +5,6 @@ module.exports = {
   Bank: require('./Bank.js'),
   Deck: require('./Deck.js'),
   TurnTracker: require('./TurnTraker.js'),
+  GameBoard: require('./GameBoard.js')
 };
 

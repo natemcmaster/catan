@@ -28,13 +28,11 @@ function DiscardCardsCommand(playerID, brick, ore, sheep, wheat, wood){
 	this.sheep = sheep;
 	this.wheat = wheat;
 	this.wood = wood;
-	
-	
-
-	DiscardCardsCommand.AbstractCommand.url = '/moves/discardCards';
 }
 
 DiscardCardsCommand.prototype = new AbstractCommand();
+DiscardCardsCommand.prototype.url = '/moves/discardCards';
+
 /**
 <pre>
 Pre-condition: NONE

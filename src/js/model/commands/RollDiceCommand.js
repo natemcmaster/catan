@@ -19,11 +19,11 @@ function RollDiceCommand(playerID, number){
 
 	this.playerID = playerID;
 	this.number = number;
-
-	RollDiceCommand.AbstractCommand.url = '/moves/rollNumber';
 }
 
 RollDiceCommand.prototype = new AbstractCommand();
+RollDiceCommand.prototype.url = '/moves/rollNumber';
+
 /**
 <pre>
 Pre-condition: NONE

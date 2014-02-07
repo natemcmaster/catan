@@ -16,13 +16,14 @@ Post-condition: NONE
 @param {String} message the message to be sent
 **/
 function SendChatCommand(playerID, message){
+	
 	this.playerID = playerID;
 	this.message = message;
-
-	SendChatCommand.AbstractCommand.url = '/moves/sendChat';
 }
 
 SendChatCommand.prototype = new AbstractCommand();
+SendChatCommand.prototype.url = '/moves/sendChat';
+
 /**
 <pre>
 Pre-condition: NONE

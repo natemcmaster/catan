@@ -9,6 +9,7 @@ function MockProxy(loadModelFunc){
 
 MockProxy.prototype.executeCommand=function(command){
 	this.commands.push(command);
+	this.lastCommand = command;
 	if(this.loadModel && typeof this.loadModel ==='function'){
 		this.loadModel(testModel);
 	}

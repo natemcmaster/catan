@@ -16,13 +16,13 @@ Post-condition: NONE
 @param {int} playerID the ID of the player wanting to buy a Development Card
 **/
 function BuyDevCardCommand(playerID){
-
+	
 	this.playerID = playerID;
-
-	BuyDevCardCommand.AbstractCommand.url = '/moves/buyDevCard';
 }
 
 BuyDevCardCommand.prototype = new AbstractCommand();
+BuyDevCardCommand.prototype.url = '/moves/buyDevCard';
+
 /**
 <pre>
 Pre-condition: NONE

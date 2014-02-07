@@ -257,4 +257,3 @@ catan.client = (function Client_NameSpace(){
 	return {Client:CatanGame};
 }());
 
-
