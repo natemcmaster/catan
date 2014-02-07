@@ -1,4 +1,6 @@
 
+var core = require('byu-catan').core;
+
 module.exports = core.enumeration({
 	wood: 0,
 	brick: 1,

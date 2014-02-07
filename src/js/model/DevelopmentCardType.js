@@ -1,4 +1,6 @@
 
+var core = require('byu-catan').core;
+
 module.exports = core.enumeration({
 	monopoly: 0,
 	monument: 1,
