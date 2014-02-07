@@ -1,4 +1,4 @@
-module.exports=PlayerMonopolyCommand;
+module.exports=PlayMonopolyCommand;
 
 /**
  * 
