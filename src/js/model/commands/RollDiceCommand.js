@@ -34,7 +34,7 @@ Post-condition: NONE
 @method getData
 @return {JSON} returns the JSON object formatted as the server will want it
 **/
-RollDiceCommand.prototype.getData = function(){
+RollDiceCommand.prototype.getData = function() {
 
 	return {'type' : 'rollNumber',
 						'playerIndex' : this.playerID,

@@ -79,7 +79,7 @@ Notifies system that a player's turn is finished
 @return {void}
 **/
 TurnTracker.prototype.finishTurn = function () {
-	this.proxy.executeCommand(new FinishTurnCommand());
+	this.proxy.executeCommand(new FinishTurnCommand(this.currentTurn));
 };
 
 /**
@@ -92,8 +92,8 @@ Rolls two "dice" using a random number generator.
 @method rollDice
 @return {void}
 **/
-TurnTracker.prototype.rollDice = function () {
-	this.proxy.executeCommand(new RollDiceCommand());
+TurnTracker.prototype.rollDice = function (number) {
+	this.proxy.executeCommand(new RollDiceCommand(this.currentTurn, number));
 };
 
 
