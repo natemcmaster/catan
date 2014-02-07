@@ -4,7 +4,7 @@ module.exports = {
   Player: require('./Player.js'),
   Bank: require('./Bank.js'),
   Deck: require('./Deck.js'),
-  TurnTracker: require('./TurnTraker.js'),
+  TurnTraker: require('./TurnTraker.js'),
   GameBoard: require('./GameBoard.js')
 };
 
