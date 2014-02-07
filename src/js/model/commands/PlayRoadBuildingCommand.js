@@ -15,14 +15,12 @@ Post-condition: NONE
 @class PlayRoadBuildingCommand
 @constructor 
 @param {int} playerID the ID of the player playing the road building card
-@param {EdgeLocation} location1 location to build the first road
-@param {EdgeLocation} location2 location to build the second road
+@param {list<EdgeLocation>} locations location to build the second road
 **/
-function PlayRoadBuildingCommand(playerID, location_1, location_2){
+function PlayRoadBuildingCommand(playerID, locations){
 
 	this.playerID = playerID;
-	this.location_1 = location_1;
-	this.location_2 = location_2;	
+	this.locations = locations;
 }
 
 PlayRoadBuildingCommand.prototype = new AbstractCommand();
@@ -40,13 +38,13 @@ PlayRoadBuildingCommand.prototype.getData = function(){
 
 	return {'type':'Road_Building',
 			'playerIndex': this.playerID,
-			'spot1': {'x': this.location_1.getHexLocation().getX(),
-					  'y': this.location_1.getHexLocation().getY(),
-					  'direction': this.location_1.getDirection()
+			'spot1': {'x': this.locations[0].getHexLocation().getX(),
+					  'y': this.locations[0].getHexLocation().getY(),
+					  'direction': this.locations[0].getDirection()
 					 },
-			'spot2': {'x': this.location_2.getHexLocation().getX(),
-					  'y': this.location_2.getHexLocation().getY(),
-					  'direction': this.location_2.getDirection()
+			'spot2': {'x': this.locations[1].getHexLocation().getX(),
+					  'y': this.locations[1].getHexLocation().getY(),
+					  'direction': this.locations[1].getDirection()
 					 }
 			};
 };
