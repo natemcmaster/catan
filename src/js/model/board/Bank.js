@@ -5,7 +5,6 @@
 **/
 
 module.exports = Bank;
-var resourceType = require("../ResourceType");
 
 /**
 The game's bank, containing the resource cards.
