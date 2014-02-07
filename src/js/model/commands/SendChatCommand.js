@@ -1,3 +1,5 @@
+module.exports=SendChatCommand;
+
 /**
  * 
  * @module catan.model.commands

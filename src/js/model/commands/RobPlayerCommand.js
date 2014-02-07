@@ -1,3 +1,5 @@
+module.exports=RobPlayerCommand;
+
 /**
  * 
  * @module catan.model.commands

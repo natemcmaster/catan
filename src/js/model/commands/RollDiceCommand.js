@@ -1,3 +1,5 @@
+module.exports=RollDiceCommand;
+
 /**
  * 
  * @module catan.model.commands

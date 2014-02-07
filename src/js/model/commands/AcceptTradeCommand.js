@@ -1,3 +1,4 @@
+module.exports=AcceptTradeCommand;
 /**
  * 
  * @module catan.model.commands

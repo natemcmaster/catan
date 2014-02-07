@@ -1,3 +1,4 @@
+module.exports=DiscardCardsCommand;
 /**
  * 
  * @module catan.model.commands

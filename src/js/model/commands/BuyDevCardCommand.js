@@ -1,3 +1,4 @@
+module.exports=BuyDevCardCommand;
 /**
  * 
  * @module catan.model.commands

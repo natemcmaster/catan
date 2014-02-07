@@ -1,3 +1,5 @@
+module.exports=PlaySoldierCommand;
+
 /**
  * 
  * @module catan.model.commands

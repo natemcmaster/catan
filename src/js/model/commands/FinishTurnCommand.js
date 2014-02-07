@@ -1,3 +1,5 @@
+module.exports=FinishTurnCommand;
+
 /**
  * 
  * @module catan.model.commands

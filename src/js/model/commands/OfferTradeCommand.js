@@ -1,3 +1,5 @@
+module.exports=OfferTradeCommand;
+
 /**
  * 
  * @module catan.model.commands

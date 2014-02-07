@@ -1,3 +1,5 @@
+module.exports=PlayerMonopolyCommand;
+
 /**
  * 
  * @module catan.model.commands

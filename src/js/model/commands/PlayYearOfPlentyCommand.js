@@ -1,3 +1,5 @@
+module.exports=PlayYearOfPlentyCommand;
+
 /**
  * 
  * @module catan.model.commands
@@ -10,7 +12,7 @@ var AbstractCommand = require('./AbstractCommand');
 Pre-condition: NONE
 Post-condition: NONE
 </pre>
-@class PlayYearyOfPlentyCommand
+@class PlayYearOfPlentyCommand
 @constructor 
 @param {int} playerID the ID of the player playing the Year of Plenty Card
 @param {int} resource1 enumeration of the type of resource for resource 1
