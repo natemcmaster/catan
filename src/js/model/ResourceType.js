@@ -2,10 +2,10 @@
 var core = require('byu-catan').core;
 
 module.exports = core.enumeration({
-	wood: 0,
-	brick: 1,
-	ore: 2,
-	sheep: 3,
-	wheat: 4
+	WOOD: 0,
+	BRICK: 1,
+	ORE: 2,
+	SHEEP: 3,
+	WHEAT: 4
 })
 
