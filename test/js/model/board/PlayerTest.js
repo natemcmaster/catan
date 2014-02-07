@@ -270,6 +270,60 @@ suite('PlayerTests', function () {
 		});
 	});
 
+	suite('player does not have any development cards', function() {
+		
+		var player;
+		var testData;
+
+		setup (function () {
+			testData = {
+				"MAX_GAME_POINTS":10,
+				"resources":{
+					"brick":1,
+					"wood":1,
+					"sheep":1,
+					"wheat":2,
+					"ore":3
+				},
+				"oldDevCards":{
+					"yearOfPlenty":0,
+					"monopoly":0,
+					"soldier":0,
+					"roadBuilding":0,
+					"monument":0
+				},
+				"newDevCards":{
+					"yearOfPlenty":0,
+					"monopoly":0,
+					"soldier":0,
+					"roadBuilding":0,
+					"monument":0
+				},
+				"roads":1,
+				"cities":1,
+				"settlements":1,
+				"soldiers":0,
+				"victoryPoints":0,
+				"monuments":0,
+				"longestRoad":true,
+				"largestArmy":false,
+				"playedDevCard":false,
+				"discarded":false,
+				"playerID":0,
+				"orderNumber":0,
+				"name":"Sam",
+				"color":"orange"
+			};
+
+			var mockProxy = new MockProxy();
+			player = new Player(mockProxy, testData);
+		});
+
+		test('#playableDevelopmentCards()', function() {
+			assert.equal(testData.oldDevCards, player.playableDevelopmentCards());
+		});
+	});
+
 	suite('functions that talk to the proxy', function() {
 		var mockProxy;
 		var player;
