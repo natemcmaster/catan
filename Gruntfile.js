@@ -76,6 +76,7 @@ module.exports = function(grunt) {
 				coveralls: false,
 				ui: 'tdd',
 				reporter: 'html-cov',
+				output:'coverage.html'
 			},
 			all: ['test/**/*.js']
 		},
@@ -174,6 +175,9 @@ module.exports = function(grunt) {
 	grunt.registerTask('test:browser',['copy:test', 'concat:framework', 'browserify:test', 'mocha:model']);
 	grunt.registerTask('test', 'Test models', function() {
 		var reporter = grunt.option('reporter') || 'spec';
+		var toFile = grunt.option('output') || '';
+		if(toFile)
+			grunt.config('mochaTest.test.options.captureFile',toFile);
 		grunt.config('mochaTest.test.options.reporter', reporter);
 		grunt.task.run(['mochaTest:test']);
 	});
