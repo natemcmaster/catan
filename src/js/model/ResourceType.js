@@ -1,6 +1,3 @@
-
-var core = require('byu-catan').core;
-
 module.exports = {
 	BRICK: "brick",
 	WOOD: "wood",
