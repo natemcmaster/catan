@@ -35,5 +35,5 @@ Post-condition: NONE
 @return {boolean} true if user can draw the resource, false otherwise
 **/
 Bank.prototype.canWithdraw = function (resourceType) {
-	return this[resourceType] >= 0;
+	return this[resourceType] > 0;
 };
