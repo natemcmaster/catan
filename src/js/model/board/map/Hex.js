@@ -61,5 +61,15 @@ Hex.prototype.isDesert = function(){
 	return this.landType == 'Desert';
 };
 
+Hex.prototype.getValidEdges = function () {
+	return this.edges.filter(function (edge) {
+		return edge.owner !== -1;
+	});
+};
 
+Hex.prototype.getValidVertexes = function () {
+	return this.vertexes.filter(function (vertex) {
+		return vertex.owner !== -1;
+	});
+};
 
