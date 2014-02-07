@@ -35,5 +35,6 @@ Run the server using `ant server`; then navigate to http://localhost:8081/ in or
 To debug node, follow these steps:
 
 1. Install [node-inspector](https://github.com/node-inspector/node-inspector). `npm install -g node-inspector`
-2. Start grunt tests in debug mode. In Bash, this is `node --debuk-brk $(which grunt) test`
-3. Open the debugger. **Only works in Chrome** <http://127.0.0.1:8080/debug?port=5858>
+2. Run `node-inspector`.
+3. Start grunt tests in debug mode. In Bash, this is `node --debug-brk $(which grunt) test`
+4. Open the debugger. **Only works in Chrome** <http://127.0.0.1:8080/debug?port=5858>
