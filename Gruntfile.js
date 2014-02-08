@@ -2,7 +2,6 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-browserify');
 	grunt.loadNpmTasks('grunt-contrib-yuidoc');
-	grunt.loadNpmTasks('grunt-mocha');
 	grunt.loadNpmTasks('grunt-mocha-test');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
@@ -51,25 +50,30 @@ module.exports = function(grunt) {
 					console: true,
 				}
 			},
-			models: {src:[
-				srcDir + '/js/model/**/*.js'
-			]},
+			models: {
+				src: [
+					srcDir + '/js/model/**/*.js'
+				]
+			},
 			tests: {
 				options: {
 					globals: {
+						global:true,
 						test: true,
 						suite: true,
 						setup: true,
 						console: true,
-            module: true,
-            catan: true,
-            require: true,
-            $: true,
-            core: true,
-            jQuery: true,
+						module: true,
+						catan: true,
+						require: true,
+						$: true,
+						core: true,
+						jQuery: true,
 					}
 				},
-				files: {src: [testDir + '/js/**/*.js']}
+				files: {
+					src: [testDir + '/js/**/*.js']
+				}
 			}
 		},
 		mochacov: {
@@ -77,7 +81,7 @@ module.exports = function(grunt) {
 				coveralls: false,
 				ui: 'tdd',
 				reporter: 'html-cov',
-				output:'coverage.html'
+				output: 'coverage.html'
 			},
 			all: ['test/**/*.js']
 		},
@@ -122,23 +126,11 @@ module.exports = function(grunt) {
 			},
 			test: {
 				files: [{
-					expand:true,
-					cwd: srcDir+'/',
+					expand: true,
+					cwd: srcDir + '/',
 					src: ['gameplay/test.html'],
 					dest: buildDir + '/'
 				}]
-			}
-		},
-		mocha: {
-			model: {
-				options: {
-					run: true,
-					bail: false,
-					logErrors:true,
-					log:true,
-					reporter: 'Spec'
-				},
-				src: ['build/gameplay/test.html']
 			}
 		},
 		mochaTest: {
@@ -148,8 +140,8 @@ module.exports = function(grunt) {
 					run: true,
 					ui: 'tdd',
 					bail: false,
-					logErrors:true,
-					log:true
+					logErrors: true,
+					log: true
 				},
 				src: ['test/**/*.js']
 			}
@@ -168,26 +160,31 @@ module.exports = function(grunt) {
 	});
 
 	grunt.registerTask('default', ['copy', 'browserify', 'concat', 'jshint', 'test']);
-	grunt.registerTask('all', ['copy', 'browserify', 'concat', 'docs', 'test']);
+	grunt.registerTask('all', ['copy', 'browserify', 'concat', 'yuidoc:compile','jshint', 'test']);
 
 	grunt.registerTask('clean', 'Delete build folder', function() {
 		grunt.file.delete(buildDir + '/');
 	});
-	grunt.registerTask('test:browser',['copy:test', 'concat:framework', 'browserify:test', 'mocha:model']);
+	grunt.registerTask('realclean', 'Delete build folder', function() {
+		grunt.task.run(['clean']);
+		grunt.file.delete('node_modules/');
+	});
 	grunt.registerTask('test', 'Test models', function() {
+		grunt.log.writeln('Copying files to build output: '+buildDir+'/');
+		grunt.task.run(['browserify:test','copy:test']);
 		var toFile = grunt.option('output') || '';
-		if(toFile)
-			grunt.config('mochaTest.test.options.captureFile',toFile);
+		if (toFile)
+			grunt.config('mochaTest.test.options.captureFile', toFile);
 
 		var grep = grunt.option('grep') || '';
-		if(grep)
-			grunt.config('mochaTest.test.options.grep',grep);
-		
+		if (grep)
+			grunt.config('mochaTest.test.options.grep', grep);
+
 		var reporter = grunt.option('reporter') || 'spec';
 		grunt.config('mochaTest.test.options.reporter', reporter);
-		
+
 		grunt.task.run(['mochaTest:test']);
 	});
-  	grunt.registerTask('coverage', ['mochacov']);
+	grunt.registerTask('coverage', ['mochacov']);
 	grunt.registerTask('docs', ['copy', 'yuidoc:compile']);
 };

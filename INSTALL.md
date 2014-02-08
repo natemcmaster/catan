@@ -15,8 +15,8 @@ Once all dependencies are installed, use the grunt targets to build the project.
 3. Run `ant server` to start the server. Navigate to <http://localhost:8081> to view the project.
 
 ## Run the tests
-1. Run `grunt test` to run the command-line version of the tests.
-2. Run `grunt test:browser` and open <http://localhost:8081/test.html>. (The server must be running to view this page, see step 3 from above)
+1. Run `grunt test` to run the command-line version of the tests. This also prepares the browser tests.
+2. Open <http://localhost:8081/test.html> to run the tests in the browser. (The server must be running to view this page, see step 3 from above)
 
 ## Test coverage
 1. Run `grunt coverage` to produce a report about the line coverage of the tests. The report file is **coverage.html**.
