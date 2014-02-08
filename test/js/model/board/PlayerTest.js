@@ -6,267 +6,41 @@ var hexgrid = catan.models.hexgrid;
 var HexLocation = hexgrid.HexLocation;
 var EdgeDirection = hexgrid.EdgeDirection;
 var EdgeLocation = hexgrid.EdgeLocation;
+var playerTestCases = require('./PlayerTestCases.json');
 var assert = require('chai').assert;
 
 suite('PlayerTests', function () {
 
-	suite('player does not have the resources to buy anything or materials to build', function() {
+	var canBuyTestCases = playerTestCases[0];
 
-		var player;
+	suite(canBuyTestCases.suite, function() {
 
-		setup (function () {
-			var testData = {
-				"MAX_GAME_POINTS":10,
-				"resources":{
-					"brick":0,
-					"wood":0,
-					"sheep":0,
-					"wheat":0,
-					"ore":0
-				},
-				"oldDevCards":{
-					"yearOfPlenty":0,
-					"monopoly":0,
-					"soldier":0,
-					"roadBuilding":0,
-					"monument":0
-				},
-				"newDevCards":{
-					"yearOfPlenty":0,
-					"monopoly":0,
-					"soldier":0,
-					"roadBuilding":0,
-					"monument":0
-				},
-				"roads":0,
-				"cities":0,
-				"settlements":0,
-				"soldiers":0,
-				"victoryPoints":0,
-				"monuments":0,
-				"longestRoad":true,
-				"largestArmy":false,
-				"playedDevCard":false,
-				"discarded":false,
-				"playerID":0,
-				"orderNumber":0,
-				"name":"Sam",
-				"color":"orange"
-			};
+		canBuyTestCases.testCases.forEach(function(testCase) {
 
-			var mockProxy = new MockProxy();
-			player = new Player(mockProxy, testData);
-		});
+			suite(testCase.description, function() {
+				var player;
 
-		test('#canBuyRoad()', function() {
-			assert.isFalse(player.canBuyRoad());
-		});
+				setup(function() {
+					var mockProxy = new MockProxy();
+					player = new Player(mockProxy, testCase.input);
+				});
 
-		test('#canBuySettlement()', function() {
-			assert.isFalse(player.canBuySettlement());
-		});
+				test('#canBuyRoad()', function() {
+					assert.equal(testCase.output.canBuyRoad, player.canBuyRoad());
+				});
 
-		test('#canBuyCity()', function() {
-			assert.isFalse(player.canBuyCity());
-		});
+				test('#canBuySettlement()', function() {
+					assert.equal(testCase.output.canBuySettlement, player.canBuySettlement());
+				});
 
-		test('#canBuyDevCard()', function() {
-			assert.isFalse(player.canBuyDevCard());
-		});
-	});
+				test('#canBuyCity()', function() {
+					assert.equal(testCase.output.canBuyCity, player.canBuyCity());
+				});
 
-	suite('player does not have the resources to buy anything but does have the materials to build', function() {
-
-		var player;
-
-		setup (function () {
-			var testData = {
-				"MAX_GAME_POINTS":10,
-				"resources":{
-					"brick":0,
-					"wood":0,
-					"sheep":0,
-					"wheat":0,
-					"ore":0
-				},
-				"oldDevCards":{
-					"yearOfPlenty":0,
-					"monopoly":0,
-					"soldier":0,
-					"roadBuilding":0,
-					"monument":0
-				},
-				"newDevCards":{
-					"yearOfPlenty":0,
-					"monopoly":0,
-					"soldier":0,
-					"roadBuilding":0,
-					"monument":0
-				},
-				"roads":1,
-				"cities":1,
-				"settlements":1,
-				"soldiers":0,
-				"victoryPoints":0,
-				"monuments":0,
-				"longestRoad":true,
-				"largestArmy":false,
-				"playedDevCard":false,
-				"discarded":false,
-				"playerID":0,
-				"orderNumber":0,
-				"name":"Sam",
-				"color":"orange"
-			};
-
-			var mockProxy = new MockProxy();
-			player = new Player(mockProxy, testData);
-		});
-
-		test('#canBuyRoad()', function() {
-			assert.isFalse(player.canBuyRoad());
-		});
-
-		test('#canBuySettlement()', function() {
-			assert.isFalse(player.canBuySettlement());
-		});
-
-		test('#canBuyCity()', function() {
-			assert.isFalse(player.canBuyCity());
-		});
-
-		test('#canBuyDevCard()', function() {
-			assert.isFalse(player.canBuyDevCard());
-		});
-	});
-
-	suite('player has the resources to buy everything but does not have the materials to build', function() {
-
-		var player;
-
-		setup (function () {
-			var testData = {
-				"MAX_GAME_POINTS":10,
-				"resources":{
-					"brick":1,
-					"wood":1,
-					"sheep":1,
-					"wheat":2,
-					"ore":3
-				},
-				"oldDevCards":{
-					"yearOfPlenty":0,
-					"monopoly":0,
-					"soldier":0,
-					"roadBuilding":0,
-					"monument":0
-				},
-				"newDevCards":{
-					"yearOfPlenty":0,
-					"monopoly":0,
-					"soldier":0,
-					"roadBuilding":0,
-					"monument":0
-				},
-				"roads":0,
-				"cities":0,
-				"settlements":0,
-				"soldiers":0,
-				"victoryPoints":0,
-				"monuments":0,
-				"longestRoad":true,
-				"largestArmy":false,
-				"playedDevCard":false,
-				"discarded":false,
-				"playerID":0,
-				"orderNumber":0,
-				"name":"Sam",
-				"color":"orange"
-			};
-
-			var mockProxy = new MockProxy();
-			player = new Player(mockProxy, testData);
-		});
-
-		test('#canBuyRoad()', function() {
-			assert.isFalse(player.canBuyRoad());
-		});
-
-		test('#canBuySettlement()', function() {
-			assert.isFalse(player.canBuySettlement());
-		});
-
-		test('#canBuyCity()', function() {
-			assert.isFalse(player.canBuyCity());
-		});
-
-		test('#canBuyDevCard()', function() {
-			assert.isTrue(player.canBuyDevCard());
-		});
-	});
-
-	suite('player has the resources to build everything and the materials to build', function() {
-
-		var player;
-
-		setup (function () {
-			var testData = {
-				"MAX_GAME_POINTS":10,
-				"resources":{
-					"brick":1,
-					"wood":1,
-					"sheep":1,
-					"wheat":2,
-					"ore":3
-				},
-				"oldDevCards":{
-					"yearOfPlenty":0,
-					"monopoly":0,
-					"soldier":0,
-					"roadBuilding":0,
-					"monument":0
-				},
-				"newDevCards":{
-					"yearOfPlenty":0,
-					"monopoly":0,
-					"soldier":0,
-					"roadBuilding":0,
-					"monument":0
-				},
-				"roads":1,
-				"cities":1,
-				"settlements":1,
-				"soldiers":0,
-				"victoryPoints":0,
-				"monuments":0,
-				"longestRoad":true,
-				"largestArmy":false,
-				"playedDevCard":false,
-				"discarded":false,
-				"playerID":0,
-				"orderNumber":0,
-				"name":"Sam",
-				"color":"orange"
-			};
-
-			var mockProxy = new MockProxy();
-			player = new Player(mockProxy, testData);
-		});
-
-		test('#canBuyRoad()', function() {
-			assert.isTrue(player.canBuyRoad());
-		});
-
-		test('#canBuySettlement()', function() {
-			assert.isTrue(player.canBuySettlement());
-		});
-
-		test('#canBuyCity()', function() {
-			assert.isTrue(player.canBuyCity());
-		});
-
-		test('#canBuyDevCard()', function() {
-			assert.isTrue(player.canBuyDevCard());
+				test('#canBuyDevCard()', function() {
+					assert.equal(testCase.output.canBuyDevCard, player.canBuyDevCard());
+				});
+			});
 		});
 	});
 
@@ -330,8 +104,8 @@ suite('PlayerTests', function () {
 
 		setup(function() {
 			mockProxy = new MockProxy();
-			player = new Player(mockProxy, {});
-			player.playerID = 153;
+			var testData = {"MAX_GAME_POINTS":10,"resources":{"brick":14,"wood":13,"sheep":15,"wheat":10,"ore":8},"oldDevCards":{"yearOfPlenty":0,"monopoly":0,"soldier":2,"roadBuilding":0,"monument":1},"newDevCards":{"yearOfPlenty":0,"monopoly":0,"soldier":1,"roadBuilding":1,"monument":0},"roads":8,"cities":2,"settlements":4,"soldiers":1,"victoryPoints":7,"monuments":0,"longestRoad":true,"largestArmy":false,"playedDevCard":true,"discarded":false,"playerID":71,"orderNumber":0,"name":"Sam","color":"orange"};
+			player = new Player(mockProxy, testData);
 		});
 
 		test('#buyDevCard()', function() {
