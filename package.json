@@ -1,7 +1,7 @@
 {
   "name": "Catan",
   "description": "Package for the Catan client (front-end only)",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "scripts": {
     "test": "grunt test"
   },
