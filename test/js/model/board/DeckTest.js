@@ -49,7 +49,8 @@ suite('DeckTests', function() {
 
 		setup(function() {
 			mockProxy = new MockProxy();
-			deck = new Deck(mockProxy, {});
+			var testData = {'yearOfPlenty':2,'monopoly':0,'soldier':0,'roadBuilding':2,'monument':1};
+			deck = new Deck(mockProxy, testData);
 		});
 
 		test('#drawRandomCard()', function() {
