@@ -1,32 +1,26 @@
 // STUDENT-EDITABLE-BEGIN
 /**
-    This is the namespace to hold the base classes
-    @module catan.misc
-    @namespace misc
-*/
+  This is the namespace to hold the base classes
+  @module catan.misc
+  @namespace misc
+  */
 
-var catan = catan || {};
-catan.core = catan.core || {};
+module.exports = BaseController;
 
-catan.core.BaseController = (function baseControllerClass(){
+/** 
+	This class serves as the basis for all controller classes.		
+	This constructor should be called by all child classes.
 
-	/** 
-		This class serves as the basis for all controller classes.		
-		This constructor should be called by all child classes.
-		
-		@class BaseController
-		@constructor 
-		@param view - The controller's view
-		@param {models.ClientModel} clientModel - The controller's client model
+	@class BaseController
+	@constructor 
+	@param view - The controller's view
+	@param {models.ClientModel} clientModel - The controller's client model
 	*/
-	function BaseController(view,clientModel){
-		this.setView(view);
-		this.setClientModel(clientModel);
-	};
-	
-	core.defineProperty(BaseController.prototype,"View");
-	core.defineProperty(BaseController.prototype,"ClientModel");
+function BaseController(view,clientModel){
+	this.setView(view);
+	this.setClientModel(clientModel);
+};
 
-	return BaseController;	
-}());
+core.defineProperty(BaseController.prototype,"View");
+core.defineProperty(BaseController.prototype,"ClientModel");
 
