@@ -49,7 +49,7 @@ Pre-condition: NONE
 Post-condition: NONE
 </pre>
 @method canBuyRoad
-@return {bool} canBuy wether or not you can buy a road
+@return {bool} canBuy whether or not you can buy a road
 */
 Player.prototype.canBuyRoad = function () {
 
@@ -66,7 +66,7 @@ Pre-condition: NONE
 Post-condition: NONE
 </pre>
 @method canBuySettlement
-@return {bool} canBuy wether or not you can buy a settlement
+@return {bool} canBuy whether or not you can buy a settlement
 */
 Player.prototype.canBuySettlement = function () {
 
@@ -102,7 +102,7 @@ Pre-condition: NONE
 Post-condition: NONE
 </pre>
 @method canBuyDevCard
-@return {bool} canBuy wether or not you can buy a Dev Card
+@return {bool} canBuy whether or not you can buy a Dev Card
 */
 Player.prototype.canBuyDevCard = function () {
 
@@ -125,8 +125,103 @@ Player.prototype.canBuyDevCard = function () {
  */
 Player.prototype.playableDevelopmentCards = function () {
 
-	return this.oldDevCards;
+	return this.oldDevCards; //TODO: add monument cards from the new hand
 	
+};
+
+/**
+ * Can the player play a Year of Plenty card?
+ * <pre>
+ * Pre-condition: NONE
+ * Post-condition: NONE
+ * </pre>
+ * @method canPlayYearOfPlenty
+ * @return {bool} true if the player has not already played
+ * a development card on their turn and they have a Year of
+ * Plenty card bought on a previous turn, false otherwise
+ */
+Player.prototype.canPlayYearOfPlenty = function () {
+	if (!this.playedDevCard() && this.oldDevCards.yearOfPlenty > 0)
+		return true;
+	else
+		return false;
+};
+
+/**
+ * Can the player play a Road Building card?
+ * <pre>
+ * Pre-condition: NONE
+ * Post-condition: NONE
+ * </pre>
+ * @method canPlayRoadBuilding
+ * @return {bool} true if the player has not already played
+ * a development card on their turn and they have a Road
+ * Building card bought on a previous turn, false otherwise
+ */
+Player.prototype.canPlayRoadBuilding = function () {
+	if (!this.playedDevCard() && this.oldDevCards.roadBuilding > 0)
+		return true;
+	else
+		return false;
+};
+
+/**
+ * Can the player play a Soldier card?
+ * <pre>
+ * Pre-condition: NONE
+ * Post-condition: NONE
+ * </pre>
+ * @method canPlaySoldier
+ * @return {bool} true if the player has not already played
+ * a development card on their turn and they have a Soldier
+ * card bought on a previous turn, false otherwise
+ */
+Player.prototype.canPlaySoldier = function () {
+	if (!this.playedDevCard() && this.oldDevCards.soldier > 0)
+		return true;
+	else
+		return false;
+};
+
+/**
+ * Can the player play a Monopoly card?
+ * <pre>
+ * Pre-condition: NONE
+ * Post-condition: NONE
+ * </pre>
+ * @method canPlayMonopoly
+ * @return {bool} true if the player has not already played
+ * a development card on their turn and they have a Monopoly
+ * card bought on a previous turn, false otherwise
+ */
+Player.prototype.canPlayMonopoly = function () {
+	if (!this.playedDevCard() && this.oldDevCards.monopoly > 0)
+		return true;
+	else
+		return false;
+};
+
+/**
+ * Can the player play a Monument card?
+ * <pre>
+ * Pre-condition: NONE
+ * Post-condition: NONE
+ * </pre>
+ * @method canPlayMonument
+ * @return {bool} true if the player at least one monument card
+ * and if he plays all his monument cards he will have at least
+ * 10 victory points (monument cards are not revealed unless you
+ * can win the game)
+ */
+Player.prototype.canPlayMonument = function () {
+	
+	//Monument cards are immediately playable if you have enough to win the game
+	var numMonumentCards = this.oldDevCards.monument + this.newDevCards.monument;
+
+	if (numMonumentCards > 0 && numMonumentCards + this.victoryPoints >= 10)
+		return true;
+	else
+		return false;
 };
 
 // mutable!

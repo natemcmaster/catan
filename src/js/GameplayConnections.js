@@ -210,7 +210,7 @@ catan.client = (function Client_NameSpace(){
 		core.defineProperty(CatanGame.prototype, "ClientModel");
         
         function getClientIDFromCookie(){
-            JSON.parse(decodeURIComponent(Cookies.get("catan.user"))).playerID;
+            return JSON.parse(decodeURIComponent(Cookies.get("catan.user"))).playerID;
         }
         
 		function CatanGame(){

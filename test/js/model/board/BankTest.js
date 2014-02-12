@@ -49,7 +49,7 @@ suite('BankTests', function() {
 				assert.equal(testCase.output[ResourceType.SHEEP], bank.canWithdraw(ResourceType.SHEEP));
 				assert.equal(testCase.output[ResourceType.WHEAT], bank.canWithdraw(ResourceType.WHEAT));
 				assert.equal(testCase.output[ResourceType.ORE], bank.canWithdraw(ResourceType.ORE));
-			})
+			});
 		});
 	});
 });
