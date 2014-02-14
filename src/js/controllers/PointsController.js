@@ -33,5 +33,10 @@ function PointController(view, gameFinishedView, clientModel){
 	Controller.call(this,view,clientModel);
 }
 
+PointController.prototype.onUpdate = function() {
+
+	
+};
+
 // STUDENT-REMOVE-END
 

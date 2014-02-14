@@ -17,10 +17,13 @@ module.exports = BaseController;
 	@param {models.ClientModel} clientModel - The controller's client model
 	*/
 function BaseController(view,clientModel){
-	this.setView(view);
-	this.setClientModel(clientModel);
+	this.view = view;
+	this.clientModel = clientModel;
 };
 
-core.defineProperty(BaseController.prototype,"View");
-core.defineProperty(BaseController.prototype,"ClientModel");
+BaseController.prototype.onUpdate = function(){
+	console.err('NEVER chnaged onUpdate function');
+};
+
+
 
