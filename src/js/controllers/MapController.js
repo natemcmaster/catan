@@ -6,18 +6,22 @@
 	*/
 
 module.exports = MapController;
+var Controller = require('./BaseController');
+var window = window || {};
+var catan = window.catan || {};
 
-var EdgeLoc = catan.map.View.EdgeLoc;
-var VertexLoc = catan.map.View.VertexLoc;
-var PortLoc = catan.map.View.PortLoc;
+var EdgeLoc;
+var VertexLoc;
+var PortLoc;
 
-var HexLocation = catan.models.hexgrid.HexLocation;
-var VertexLocation = catan.models.hexgrid.VertexLocation;
-var EdgeLocation= catan.models.hexgrid.EdgeLocation;
-var VertexDirection = catan.models.hexgrid.VertexDirection;
-var EdgeDirection= catan.models.hexgrid.EdgeDirection;   
+var hexgrid=require('byu-catan').models.hexgrid;
+var HexLocation = hexgrid.HexLocation;
+var VertexLocation = hexgrid.VertexLocation;
+var EdgeLocation= hexgrid.EdgeLocation;
+var VertexDirection = hexgrid.VertexDirection;
+var EdgeDirection= hexgrid.EdgeDirection;   
 
-core.forceClassInherit(MapController,catan.core.BaseController);
+core.forceClassInherit(MapController,Controller);
 
 core.defineProperty(MapController.prototype,"robView");
 core.defineProperty(MapController.prototype,"modalView");
@@ -31,7 +35,10 @@ core.defineProperty(MapController.prototype,"modalView");
  * @param {RobberOverlay} robView - The robber overlay to be used when the robber is being placed.  This is undefined for the setup round.
  */
 function MapController(view, modalView, model, robView){
-	catan.core.BaseController.call(this,view,model);
+	EdgeLoc = catan.map.View.EdgeLoc;
+	VertexLoc = catan.map.View.VertexLoc;
+	PortLoc = catan.map.View.PortLoc;
+	Controller.call(this,view,model);
 	this.setModalView(modalView);
 	this.setRobView(robView);
 }

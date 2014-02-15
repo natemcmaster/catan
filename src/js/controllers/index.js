@@ -1,6 +1,6 @@
 
 module.exports = {
-	BasicController: require('./BasicController'),
+	BaseController: require('./BaseController'),
 	CardController: require('./CardController'),
 	CommController: require('./CommController'),
 	DiscardController: require('./DiscardController'),
@@ -10,7 +10,6 @@ module.exports = {
 	PointsController: require('./PointsController'),
 	ResourcesController: require('./ResourcesController'),
 	RollController: require('./RollController'),
-	SetupRoundConnections: require('./SetupRoundConnections'),
 	SetupRoundController: require('./SetupRoundController'),
 	TrackerController: require('./TrackerController')
 }

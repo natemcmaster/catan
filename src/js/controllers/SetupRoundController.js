@@ -7,10 +7,11 @@
 
 module.exports = SetupRoundController;
 
-var catan = catan || {};
+var window = window || {};
+var catan = window.catan || {};
 catan.setup= catan.setup || {};
 
-var Controller = catan.core.BaseController;
+var Controller = require('./BaseController');
 
 /** 
 	@class SetupRoundController

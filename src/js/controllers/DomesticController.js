@@ -7,9 +7,10 @@
 	*/
 
 module.exports = DomesticController;
-
-var Controller = catan.core.BaseController;
-var Definitions = catan.definitions;
+var Controller = require('./BaseController');
+var window = window || {};
+var catan = window.catan || {};
+var Definitions = require('byu-catan').definitions;
 var ResourceTypes = Definitions.ResourceTypes;
 
 

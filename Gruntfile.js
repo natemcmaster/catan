@@ -24,7 +24,7 @@ module.exports = function(grunt) {
 		return gameplay + '/js/' + p;
 	});
 
-	var srcJsFiles = srcDir + '/js/**/*.js';
+	var srcJsFile = srcDir + '/js/index.js';
 
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
@@ -87,8 +87,11 @@ module.exports = function(grunt) {
 		},
 		browserify: {
 			src: {
-				src: srcJsFiles,
-				dest: browserifyOutput
+				src: srcJsFile,
+				dest: browserifyOutput,
+				options:{
+					standalone:'impl'
+				}
 			},
 			test: {
 				src: testDir + '/js/**/*.js',

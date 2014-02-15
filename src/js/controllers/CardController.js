@@ -7,11 +7,12 @@
 
 module.exports = DevCardController;
 
-var catan = catan || {};
+var window = window || {};
+var catan = window.catan || {};
 catan.devCards = catan.devCards || {};
 
-var Controller = catan.core.BaseController;
-var Definitions = catan.definitions;
+var Controller = require('./BaseController');
+var Definitions = require('byu-catan').definitions;
 
 core.forceClassInherit(DevCardController,Controller);
 

@@ -1,15 +1,23 @@
 <!-- STUDENT-EDITABLE-BEGIN -->
 <html>	
 	<head>
-		<!--------------  LIBRARIES ------------------------------------->
+		<!-- LIBRARIES -->
 		<script type="text/javascript" src="/libs/jquery.js"></script>
 		<script type="text/javascript" src="/libs/bootstrap/js/bootstrap.js"></script>
 		<script type="text/javascript" src="/libs/kinetic.js"></script>
 		<script type="text/javascript" src="/libs/cookies.js"></script>
+		<script type="text/javascript" src="/js/framework.js"></script>
+		<script type="text/javascript" src="/js/app.js"></script>
+
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$.extend(catan,impl);
+				game = catan.game().run('setup');
+			});
+		</script>
+		
+		<!--  LOCAL CSS -->
 		<link href="/libs/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
-		
-		
-		<!--  LOCAL CSS ---------------------------------------------------->
 		<link href="/css/Layout.css" rel="stylesheet" type="text/css" /><!---->
 		<link href="/css/Document.css" rel="stylesheet" type="text/css" /><!---->
 		
@@ -20,58 +28,10 @@
 		
 		<link href="/css/play/Image.css" rel="stylesheet" type="text/css" /><!---->
 		<link href="/css/play/Button.css" rel="stylesheet" type="text/css" />	<!---->
-		
-		<!---------    CORE   ------------------------------------------->
-		<script type="text/javascript" src="/js/Core.js"></script> 
-	    
-        <!---------    DISPLAY ELEMENTS ----------------------------------->
-		<script type="text/javascript" src="/js/view_basics/BasicController.js"></script>
-		<script type="text/javascript" src="/js/view_basics/BasicDefs.js"></script>
-		<script type="text/javascript" src="/js/view_basics/BasicDisplayElement.js"></script>
-	
-		<script type="text/javascript" src="/js/display_elements/AmountChangeDisplayElement.js"></script>
-		<script type="text/javascript" src="/js/display_elements/ButtonDisplayElement.js"></script>
-		<script type="text/javascript" src="/js/display_elements/ChooserDisplayElement.js"></script>
-		<script type="text/javascript" src="/js/display_elements/ComboDisplayElement.js"></script>
-		<script type="text/javascript" src="/js/display_elements/PointDisplayElement.js"></script>
-		<script type="text/javascript" src="/js/display_elements/RobDisplayElement.js"></script>
-		<script type="text/javascript" src="/js/display_elements/TrackerDisplayElement.js"></script>
-		<script type="text/javascript" src="/js/display_elements/CommDisplayElement.js"></script>
-	    
-		<!---------    MODEL    ----------------------------------->
-		<script type="text/javascript" src="/js/model/hexgrid.js"></script>
-        <script type="text/javascript" src="/js/model/hexgrid_impl.js"></script>
-		<script type="text/javascript" src="/js/model/clientmodel.js"></script>
-        
-		<!---------    VIEWS & CONTROLLERS ----------------------------------->
-		<!-- modals-->
-		<script type="text/javascript" src="/js/view_basics/BasicOverlay.js"></script>
-		<script type="text/javascript" src="/js/view_basics/WaitOverlay.js"></script>
-		<script type="text/javascript" src="/js/map/MapOverlay.js"></script>
-		
-		<!-- misc views (needs controllers) -->
-		<script type="text/javascript" src="/js/turn_tracker/TrackerView.js"></script>
-		<script type="text/javascript" src="/js/turn_tracker/TrackerController.js"></script>
-		<script type="text/javascript" src="/js/resources/ResourcesView.js"></script>
-		<script type="text/javascript" src="/js/resources/ResourcesController.js"></script>
-		<script type="text/javascript" src="/js/points/PointsView.js"></script>		
-		<script type="text/javascript" src="/js/points/PointsController.js"></script>
-	
-		<!-- chat, log views-->
-		<script type="text/javascript" src="/js/comms_box/CommView.js"></script>
-		<script type="text/javascript" src="/js/comms_box/CommController.js"></script>
-		
-		<!-- map view-->
-		<script type="text/javascript" src="/js/map/MapView.js"></script>
-		<script type="text/javascript" src="/js/map/MapController.js"></script>
 
-		<!--------- Tying it together ------------------------------>
-		<script type="text/javascript" src="/js/setup/SetupRoundController.js"></script>
-		<script type="text/javascript" src="/js/SetupRoundConnections.js"></script><!--this has to go last-->
-		
 		<title>Settlers Setup</title>
 	</head>
-    <body onload = 'game = catan.client.Client.getPlayable()'>
+    <body>
          <div style="display:none" class="map-view-dom-elements">
             <img src="../images/land/water.png">
             <img src="../images/land/desert.gif">

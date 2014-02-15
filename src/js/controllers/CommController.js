@@ -10,10 +10,11 @@ module.exports = {
 	ChatController:ChatController
 };
 
-var catan = catan || {};
+var window = window || {};
+var catan = window.catan || {};
 catan.controllers = catan.controllers || {};
 
-var Controller = catan.core.BaseController;
+var Controller = require('./BaseController');
 
 /**
 	The basic controller class to extend from
