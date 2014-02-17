@@ -8,14 +8,15 @@
 
 module.exports = MaritimeController;
 
-var catan = catan || {};
+var window = window || {};
+var catan = window.catan || {};
 catan.trade = catan.trade || {};
 catan.trade.maritime = catan.trade.maritime || {};
 
-var Definitions = catan.definitions;
+var Definitions = require('byu-catan').definitions;
 var ResourceTypes = Definitions.ResourceTypes;
 
-var Controller = catan.core.BaseController;
+var Controller = require('./BaseController');
 
 /**
 	@class MaritimeController

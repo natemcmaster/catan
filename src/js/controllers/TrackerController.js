@@ -8,10 +8,11 @@ The namespace for the turn tracker
 
 module.exports = TurnTrackerController;
 
-var catan = catan || {};
+var window = window || {};
+var catan = window.catan || {};
 catan.turntracker = catan.turntracker || {};
 
-var Controller = catan.core.BaseController;
+var Controller = require('./BaseController');
 
 /**
 	The controller class for the Turn Tracker

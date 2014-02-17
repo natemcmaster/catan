@@ -1,5 +1,6 @@
 //STUDENT-EDITABLE-BEGIN
-var catan = catan || {};
+var window = window || {};
+var catan = window.catan || {};
 catan.resources = catan.resources || {};
 
 /**
@@ -8,8 +9,8 @@ catan.resources = catan.resources || {};
 	@namespace resources
 	*/
 
-var Controller = catan.core.BaseController;
-var Definitions = catan.definitions;
+var Controller = require('./BaseController');
+var Definitions = require('byu-catan').definitions;
 
 /*	these are the values to use for updating the view: */
 var ROAD = Definitions.ROAD;

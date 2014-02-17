@@ -3,7 +3,8 @@
 
 module.exports = PointController;
 
-var catan = catan || {};
+var window = window || {};
+var catan = window.catan || {};
 catan.points = catan.points || {};
 catan.points.Controller = catan.points.Controller || {};
 
@@ -14,7 +15,7 @@ catan.points.Controller = catan.points.Controller || {};
 	*/
 
 
-var Controller = catan.core.BaseController;
+var Controller = require('./BaseController');
 
 PointController.prototype = core.inherit(Controller.prototype);
 

@@ -7,11 +7,11 @@
 
 module.exports = DiscardController
 
-
-var Controller = catan.core.BaseController;
-
-var Definitions = catan.definitions;
-var ResourceTypes = catan.definitions.ResourceTypes;
+var Controller = require('./BaseController');
+var window = window || {};
+var catan = window.catan || {};
+var Definitions = require('byu-catan').definitions;
+var ResourceTypes = Definitions.ResourceTypes;
 
 /**
  * @class DiscardController
@@ -23,7 +23,6 @@ var ResourceTypes = catan.definitions.ResourceTypes;
  */
 
 function DiscardController(view, waitingView, clientModel){
-
 	Controller.call(this,view,clientModel);
 
 	view.setController(this);

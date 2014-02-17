@@ -7,10 +7,11 @@
 
 module.exports = RollController;
 
-var catan = catan || {};
+var window = window || {};
+var catan = window.catan || {};
 catan.roll = catan.roll || {};
 
-var Controller = catan.core.BaseController;
+var Controller = require('./BaseController');
 
 /**
  * @class RollController

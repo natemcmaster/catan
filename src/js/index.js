@@ -1,5 +1,6 @@
-
 module.exports = {
-  models: require('./model')
+  models: require('./model/'),
+  controllers: require('./controllers/'),
+  game : require('./game')
 };
 
