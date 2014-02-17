@@ -42,7 +42,7 @@ LogController.prototype.constructor = LogController;
 	@param {comm.LogView} logView The view for this object to control.
 	@param {models.ClientModel} model The view for this object to control.
  **/
-function LogController(logView,model){
+function LogController(logView, model){
 	BaseCommController.call(this,logView,model);
 }
 
