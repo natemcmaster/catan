@@ -6,6 +6,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-mocha-cov');
+	grunt.loadNpmTasks('grunt-shell');
 
 	var buildDir = 'build',
 		testDir = 'test',
@@ -28,6 +29,12 @@ module.exports = function(grunt) {
 
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
+		shell: {
+			serve: {
+				command: 'java -jar build/server.jar 8081 build/gameplay ug',
+				stdout: true
+			}
+		},
 		jshint: {
 			options: {
 				laxcomma: true,
@@ -202,5 +209,6 @@ module.exports = function(grunt) {
 		grunt.task.run(['mochaTest:test']);
 	});
 	grunt.registerTask('coverage', ['mochacov']);
+	grunt.registerTask('serve', ['shell:serve']);
 	grunt.registerTask('docs', ['copy', 'yuidoc:compile']);
 };
