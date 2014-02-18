@@ -1,7 +1,8 @@
 //STUDENT-EDITABLE-BEGIN
-var window = window || {};
-var catan = window.catan || {};
+if (typeof(catan) === 'undefined') catan = {}
 catan.resources = catan.resources || {};
+
+module.exports = ResourceBarController
 
 /**
 	This is the namespace for resources

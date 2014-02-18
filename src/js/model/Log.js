@@ -20,8 +20,6 @@ Invariant: the log always has room for more.
 function Log(proxy, log){
 	// constructor
 	this.proxy = proxy;
-	if(!log.lines)
-		throw new Error("Invalid log format");
 	this.entries = log.lines;
 }
 
