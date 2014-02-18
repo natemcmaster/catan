@@ -66,7 +66,7 @@ MapController.prototype.robPlayer = function(orderID){
  * @return void
  **/		
 MapController.prototype.doSoldierAction = function(){    
-  this.robView.setPlayerInfo(this.cientModel.getRobPlayerInfo())
+  this.robView.setPlayerInfo(this.clientModel.getRobPlayerInfo())
   this.robView.showModal()
 }
 

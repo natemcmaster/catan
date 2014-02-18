@@ -79,5 +79,25 @@ ClientModel.prototype.getRobPlayerInfo = function () {
   })
 }
 
+/**
+Helper Function that returns the current player object
+
+*/
+ClientModel.prototype.getCurrentPlayer = function() {
+
+  var currentPlayerID = this.gameboard.turnTracker.currentPlayerId()
+  for(var i = 0; i < this.gameboard.players.length; i++){
+
+    if(this.gameboard.players[i].playerNum == currentPlayerID){
+
+      return this.gameboard.players[i]
+
+    }
+
+  }
+
+
+}
+
 module.exports = ClientModel;
 
