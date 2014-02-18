@@ -25,8 +25,8 @@ GameSetup.prototype.bootstrap = function() {
 	for (var f in gameTypeModules[this.gameType]) {
 		var name = gameTypeModules[this.gameType][f];
 		var mod = modules[name].apply(this, this.clientModel);
-		this.views[name] = mod[1];
-		this.controllers[name] = mod[2];
+		this.views[name] = mod[0];
+		this.controllers[name] = mod[1];
 	}
 
 	for (var cname in this.controllers) {
@@ -114,7 +114,7 @@ var modules = {
 		marView.setController(marController);
 		return [marView, marController];
 	},
-	devCards: function(model) {
+	devCard: function(model) {
 		var useDevCard = new catan.devCards.View();
 		var buyDevCard = new catan.devCards.BuyView();
 
