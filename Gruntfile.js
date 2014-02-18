@@ -36,9 +36,10 @@ module.exports = function(grunt) {
 				'-W099': true,
 				'-W079': true,
 				'-W030': true,
+				'-W032': true,
 				'-W033': true,
 				undef: true,
-				unused: true, // TODO enable this later
+				// unused: true, // TODO enable this later
 				browser: true,
 				globals: {
 					module: true,
@@ -49,6 +50,16 @@ module.exports = function(grunt) {
 					jQuery: true,
 					console: true,
 				}
+			},
+			base: {
+				src: [
+					srcDir + '/js/*.js'
+				]
+			},
+			controllers: {
+				src: [
+					srcDir + '/js/controllers/**/*.js'
+				]
 			},
 			models: {
 				src: [
@@ -164,6 +175,7 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('default', ['copy', 'browserify', 'concat', 'jshint', 'test']);
 	grunt.registerTask('all', ['copy', 'browserify', 'concat', 'yuidoc:compile','jshint', 'test']);
+  grunt.registerTask('build', ['copy', 'browserify', 'concat']);
 
 	grunt.registerTask('clean', 'Delete build folder', function() {
 		grunt.file.delete(buildDir + '/');

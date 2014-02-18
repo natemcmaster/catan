@@ -19,6 +19,10 @@ function Proxy(onNewModel){
 	this.onNewModel = onNewModel;
 }
 
+Proxy.prototype.startPolling = function () {
+  console.warn('Not really polling atm');
+}
+
 Proxy.prototype.executeCommand = function(command){
 	var onNewModel = this.onNewModel;
 	jQuery.post(command.getURL(), command.getData())
@@ -34,7 +38,9 @@ Proxy.prototype.executeCommand = function(command){
 Proxy.prototype.getModel = function(callback){
 
 	jQuery.get('/game/model')
-		.done(callback)
+		.done(function (data, status) {
+      callback(null, data)
+    })
 		.fail(function(xhr, status){
 			console.error('failed to get model', xhr, status);
 		});

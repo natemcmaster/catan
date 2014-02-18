@@ -7,8 +7,7 @@
 
 module.exports = MapController;
 var Controller = require('./BaseController');
-var window = window || {};
-var catan = window.catan || {};
+if (typeof(catan) === 'undefined') catan = {}
 
 var EdgeLoc;
 var VertexLoc;
@@ -43,12 +42,21 @@ function MapController(view, modalView, model, robView){
 	this.setRobView(robView);
 }
 
+MapController.prototype.setModalView = function (modalView) {
+  this.modalView = modalView;
+};
+
+MapController.prototype.setRobView = function (robView) {
+  this.robView = robView;
+};
+
 /**
 	This method is called by the Rob View when a player to rob is selected via a button click.
 	@param {Integer} orderID The index (0-3) of the player who is to be robbed
 	@method robPlayer
 	*/
 MapController.prototype.robPlayer = function(orderID){
+  this.clientModel.robPlayer(orderID)
 }
 
 /**
@@ -58,6 +66,8 @@ MapController.prototype.robPlayer = function(orderID){
  * @return void
  **/		
 MapController.prototype.doSoldierAction = function(){    
+  this.robView.setPlayerInfo(this.cientModel.getRobPlayerInfo())
+  this.robView.showModal()
 }
 
 /**

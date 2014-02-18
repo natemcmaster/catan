@@ -20,7 +20,7 @@ var Controller = require('./BaseController');
 	@param {models.ClientModel} clientModel
 	@param {map.MapController} mapController
 	*/
-var SetupRoundController = function (clientModel, mapController){
+function SetupRoundController (clientModel, mapController){
 	this.mapController = mapController;
 
 	Controller.call(this,undefined,clientModel);

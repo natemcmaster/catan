@@ -44,6 +44,27 @@ function Player(proxy, player) {
 // read-only functions
 
 /**
+ * Generate the object for robbing
+ * <pre>
+ * Returned object looks like: {color:, name:, playerNum:, cards:}
+ * </pre>
+ *
+ * @returns object
+ */
+Player.prototype.robInfo = function () {
+  var cards = 0
+  for (var type in this.resources) {
+    cards += this.resources[type]
+  }
+  return {
+    color: this.color,
+    name: this.name,
+    playerNum: this.playerID,
+    cards: cards
+  }
+}
+
+/**
 <pre>
 Pre-condition: NONE
 Post-condition: NONE

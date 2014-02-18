@@ -29,7 +29,7 @@ GameSetup.prototype.bootstrap = function() {
 		this.controllers[name] = mod[2];
 	}
 
-	for (var name in controllers) {
+	for (var cname in this.controllers) {
 		// Add your Observer here
 	}
 };
@@ -37,7 +37,7 @@ GameSetup.prototype.bootstrap = function() {
 var modules = {
 	turnTracker: function(model) {
 		var view = new catan.turntracker.View();
-		var controller = Controllers.TrackerController(view, model);
+		var controller = new Controllers.TrackerController(view, model);
 		view.setController(controller);
 		return [view, controller];
 	},
@@ -51,7 +51,7 @@ var modules = {
 		var overlayView = new catan.views.overlays.MapOverlay();
 		overlayView.setCancelAllowed(this.gameType == 'catan');
 
-		var controller = Controllers.MapController(view, overlayView, model, robberView);
+		var controller = new Controllers.MapController(view, overlayView, model, robberView);
 		view.setController(controller);
 		overlayView.setController(controller);
 		if (robberView)
@@ -69,23 +69,23 @@ var modules = {
 			"DevCards": core.makeAnonymousAction(views.useDevCard, views.useDevCard.showModal, [true]),
 			"BuyCard": core.makeAnonymousAction(views.buyDevCard, views.buyDevCard.showModal, [true])
 		};
-		var controller = Controllers.ResourcesController(view, model, buildMoves);
+		var controller = new Controllers.ResourcesController(view, model, buildMoves);
 		view.setController(controller);
 		return [view, controller];
 	},
 	vp: function(model) {
 		var view = new catan.points.View();
 		var endGame = this.gameType == 'catan' ? new catan.misc.GameFinishedView() : null;
-		var controller = Controllers.PointController(view, endGame, model);
+		var controller = new Controllers.PointsController(view, endGame, model);
 		return [view, controller];
 	},
 	log: function(model) {
-		var view = new catan.comm.View.Log();
-		var controller = Controllers.CommController.LogController(view, clientModel);
+		var view = new catan.comm.View.LogView();
+		var controller = new Controllers.CommController.LogController(view, model);
 		return [view, controller];
 	},
 	setup: function(model) {
-		var controller = Controllers.SetupRoundController(clientModel, controllers.map);
+		var controller = new Controllers.SetupRoundController(model, this.controllers.map);
 		return [null, controller];
 	},
 	roll: function(model) {
@@ -142,7 +142,7 @@ var modules = {
 		var discardView = new catan.discard.View();
 		var waitingView = new catan.misc.WaitOverlay("Waiting for other Players to Discard");
 
-		var discardController = new Controllers.DiscardController(discardView, waitingView, clientModel);
+		var discardController = new Controllers.DiscardController(discardView, waitingView, model);
 		discardView.setController(discardController);
 		return [discardView, discardController];
 	}
