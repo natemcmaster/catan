@@ -61,7 +61,7 @@ suite('ProxyTest', function() {
 			})
 			var gotModel = false;
 
-			proxy.getModel(function(d) {
+			proxy.getModel(function(err, d) {
 				gotModel = true;
 				response = d;
 			});

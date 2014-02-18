@@ -66,8 +66,8 @@ var modules = {
 			"Roads": core.makeAnonymousAction(map, map.startMove, ["Road", false]),
 			"Cities": core.makeAnonymousAction(map, map.startMove, ["City", false]),
 			"Settlements": core.makeAnonymousAction(map, map.startMove, ["Settlement", false]),
-			"DevCards": core.makeAnonymousAction(views.useDevCard, views.useDevCard.showModal, [true]),
-			"BuyCard": core.makeAnonymousAction(views.buyDevCard, views.buyDevCard.showModal, [true])
+			"DevCards": core.makeAnonymousAction(this.views.useDevCard, this.views.useDevCard.showModal, [true]),
+			"BuyCard": core.makeAnonymousAction(this.views.buyDevCard, this.views.buyDevCard.showModal, [true])
 		};
 		var controller = new Controllers.ResourcesController(view, model, buildMoves);
 		view.setController(controller);
