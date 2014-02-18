@@ -20,11 +20,6 @@ suite('LogTests',function(){
 	});
 
 	suite('#constructor',function(){
-		test('throws expected error',function(){
-			assert.throws(function(){
-				new Log({},{})
-			},Error);
-		});
 		test('should contain all entries',function(){
 
 			assert.equal(testData.lines,log.entries);

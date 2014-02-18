@@ -42,6 +42,7 @@ module.exports = function(grunt) {
 				// unused: true, // TODO enable this later
 				browser: true,
 				globals: {
+					Cookies: true,
 					module: true,
 					catan: true,
 					require: true,
