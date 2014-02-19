@@ -71,7 +71,7 @@ ClientModel.prototype.robPlayer = function (robbedPlayerID) {
 }
 
 ClientModel.prototype.getRobPlayerInfo = function () {
-  var currentPlayer = getCurrentPlayerId();
+  var currentPlayer = this.gameboard.turnTracker.currentPlayerId();
   return this.gameboard.players.map(function (player) {
     return player.robInfo()
   }).filter(function (player) {

@@ -36,6 +36,7 @@ function PointController(view, gameFinishedView, clientModel){
 
 PointController.prototype.onUpdate = function() {
 
+	this.view.setPoints(this.clientModel.getCurrentPlayer().victoryPoints)
 	
 };
 
