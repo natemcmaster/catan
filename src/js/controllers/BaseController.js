@@ -23,7 +23,7 @@ function BaseController(view,clientModel){
 };
 
 BaseController.prototype.onUpdate = function(){
-	console.err('NEVER chnaged onUpdate function');
+	console.error('onUpdate function missing from '+this.constructor.name);
 };
 
 
