@@ -45,12 +45,11 @@ LogController.prototype.constructor = LogController;
  **/
 function LogController(logView, model){
 	BaseCommController.call(this,logView,model);
-	this.onUpdate();
 }
 
 // update the log lines
 LogController.prototype.onUpdate = function () {
-	this.view.resetLines(this.model.lines);
+	this.view.resetLines(this.clientModel.log.entries);
 }
 
 
@@ -67,12 +66,11 @@ ChatController.prototype.constructor = ChatController;
  **/
 function ChatController(chatView,model){
 	BaseCommController.call(this,chatView,model);
-	this.onUpdate()
 }
 
 // update the chat lines
 ChatController.prototype.onUpdate = function () {
-	this.view.resetLines(this.model.lines)
+	this.view.resetLines(this.clientModel.chat.lines)
 }
 
 

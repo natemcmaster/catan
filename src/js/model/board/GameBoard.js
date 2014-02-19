@@ -43,11 +43,11 @@ function GameBoard(proxy, data) {
  * Post-condition: Returns complete player information
  * </pre>
  * Get information about a player in the game.
- * @method getPlayer
+ * @method getPlayerByID
  * @param  {int} id The id of the player
  * @return {Player}       Returns the player object
  */
-GameBoard.prototype.getPlayerById = function(id){
+GameBoard.prototype.getPlayerByID = function(id){
 	return this.players[id];
 };
 
