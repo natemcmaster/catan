@@ -12,6 +12,7 @@ var catan = window.catan || {};
 catan.roll = catan.roll || {};
 
 var Controller = require('./BaseController');
+var Controller = require('../model/commands/RollDiceCommand');
 
 /**
  * @class RollController
@@ -30,6 +31,7 @@ function RollController(view,resultView, clientModel){
 	Controller.call(this,view,clientModel);
 	this.rollInterval = false;
 	this.showRollResult = false;
+	this.clientModel = clientModel;
 
 };
 
@@ -47,4 +49,6 @@ RollController.prototype.closeResult = function(){
  * @return void
  **/
 RollController.prototype.rollDice = function(){
+	this.clientModel.proxy.executeCommand(new RollDiceCommand());
+	
 };
