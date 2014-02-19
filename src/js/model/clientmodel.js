@@ -85,18 +85,12 @@ Helper Function that returns the current player object
 */
 ClientModel.prototype.getCurrentPlayer = function() {
 
-  var currentPlayerID = this.gameboard.turnTracker.currentPlayerId()
-  for(var i = 0; i < this.gameboard.players.length; i++){
+  return this.gameboard.getPlayerByID(this.gameboard.turnTracker.currentPlayerId())
+}
 
-    if(this.gameboard.players[i].playerNum == currentPlayerID){
-
-      return this.gameboard.players[i]
-
-    }
-
-  }
-
-
+ClientModel.prototype.getClientPlayer = function() {
+  
+  return this.gameboard.getPlayerByID(this.playerID)
 }
 
 module.exports = ClientModel;

@@ -35,9 +35,14 @@ function PointController(view, gameFinishedView, clientModel){
 }
 
 PointController.prototype.onUpdate = function() {
-
-	this.view.setPoints(this.clientModel.getCurrentPlayer().victoryPoints)
+	var clientPlayer = this.clientModel.getClientPlayer()
+	var clientPlayerPoints = clientPlayer.victoryPoints
+	this.view.setPoints(clientPlayerPoints)
 	
+	if(clientPlayerPoints >= clientPlayer.MAX_GAME_POINTS){
+		//How to appropriatly set winner in game finished view
+		this.gameFinishedView.showModal()
+	}
 };
 
 // STUDENT-REMOVE-END
