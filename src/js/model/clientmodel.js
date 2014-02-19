@@ -115,9 +115,27 @@ ClientModel.prototype.getCurrentPlayer = function() {
   return this.gameboard.getPlayerByID(this.gameboard.turnTracker.currentPlayerId())
 }
 
+
 ClientModel.prototype.getClientPlayer = function() {
   
   return this.gameboard.getPlayerByID(this.playerID)
+}
+
+/**
+ * Identifies if is the client player's turn
+ * @return {Boolean} true when
+ */
+ClientModel.prototype.isMyTurn = function(){
+  return this.playerID == this.gameboard.turnTracker.currentPlayerId();
+}
+
+/**
+ * Issues command to end the current player's turn
+ * @return {void} 
+ */
+ClientModel.prototype.endMyTurn = function(){
+  if(this.isMyTurn())
+    this.gameboard.turnTracker.finishTurn();
 }
 
 module.exports = ClientModel;

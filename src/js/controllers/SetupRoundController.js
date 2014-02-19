@@ -9,7 +9,7 @@ module.exports = SetupRoundController;
 
 var window = window || {};
 var catan = window.catan || {};
-catan.setup= catan.setup || {};
+catan.setup = catan.setup || {};
 
 var Controller = require('./BaseController');
 
@@ -20,10 +20,26 @@ var Controller = require('./BaseController');
 	@param {models.ClientModel} clientModel
 	@param {map.MapController} mapController
 	*/
-function SetupRoundController (clientModel, mapController){
+function SetupRoundController(clientModel, mapController) {
 	this.mapController = mapController;
 
-	Controller.call(this,undefined,clientModel);
+	Controller.call(this, undefined, clientModel);
 };
 
-core.forceClassInherit(SetupRoundController,Controller);
+core.forceClassInherit(SetupRoundController, Controller);
+
+SetupRoundController.prototype.onUpdate = function() {
+	if (!this.clientModel.isMyTurn()) {
+		//view.statusBar = "Waiting for other players";
+		return;
+	}
+	var player = this.clientModel.getClientPlayer();
+	if (player.roads == player.settlements && player.roads == 2) {
+		this.clientModel.endMyTurn();
+	} else if (player.roads > player.settlements) {
+		this.mapController.startMove('settlement', true, false);
+	} else {
+		this.mapController.startMove('road', true, true);
+
+	}
+}
