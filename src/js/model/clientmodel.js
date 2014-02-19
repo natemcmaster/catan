@@ -1,19 +1,18 @@
-
 var GameBoard = require("./board/GameBoard");
 var Chat = require("./Chat");
 var Log = require("./Log");
 var Proxy = require("./Proxy");
 
 /**
-	This module contains the top-level client model class
-	
-	@module		catan.models
-	@namespace models
+  This module contains the top-level client model class
+  
+  @module   catan.models
+  @namespace models
 */
 
 if (typeof(catan) === 'undefined') catan = {}
 catan.models = catan.models || {};
-	
+
 catan.models.ClientModel  = ClientModel
 /** 
 * This the top-level client model class that contains the local player, map contents, etc.
@@ -94,4 +93,3 @@ ClientModel.prototype.getClientPlayer = function() {
 }
 
 module.exports = ClientModel;
-

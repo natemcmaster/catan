@@ -12,6 +12,7 @@ var catan = window.catan || {};
 catan.roll = catan.roll || {};
 
 var Controller = require('./BaseController');
+var RollDiceCommand = require('../model/commands/RollDiceCommand');
 
 /**
  * @class RollController
@@ -30,6 +31,7 @@ function RollController(view,resultView, clientModel){
 	Controller.call(this,view,clientModel);
 	this.rollInterval = false;
 	this.showRollResult = false;
+	this.clientModel = clientModel;
 
 };
 
@@ -47,4 +49,18 @@ RollController.prototype.closeResult = function(){
  * @return void
  **/
 RollController.prototype.rollDice = function(){
+	var currentPlayerId = this.clientModel.getCurrentPlayer().playerID;
+	var randomRollNumber = getRandomInt(2, 12);
+	this.clientModel.proxy.executeCommand(new RollDiceCommand(currentPlayerId, randomRollNumber));
+	
 };
+
+/**
+* 
+* @param{int} low end of random number range
+* @param{int} high end of random number range
+* @return{int} a random number between low end and high end
+*/
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
