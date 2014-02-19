@@ -28,10 +28,6 @@ GameSetup.prototype.bootstrap = function() {
 		this.views[name] = mod[0];
 		this.controllers[name] = mod[1];
 	}
-
-	for (var cname in this.controllers) {
-		// Add your Observer here
-	}
 };
 
 var modules = {

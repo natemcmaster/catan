@@ -19,6 +19,7 @@ module.exports = BaseController;
 function BaseController(view,clientModel){
 	this.view = view;
 	this.clientModel = clientModel;
+	clientModel.addObserver(this.onUpdate.bind(this));
 };
 
 BaseController.prototype.onUpdate = function(){
