@@ -47,6 +47,11 @@ function LogController(logView, model){
 	BaseCommController.call(this,logView,model);
 }
 
+// update the log lines
+LogController.prototype.onUpdate = function () {
+	this.view.resetLines(this.clientModel.log.entries);
+}
+
 
 ChatController.prototype = core.inherit(BaseCommController.prototype);
 ChatController.prototype.constructor = ChatController;
@@ -62,6 +67,12 @@ ChatController.prototype.constructor = ChatController;
 function ChatController(chatView,model){
 	BaseCommController.call(this,chatView,model);
 }
+
+// update the chat lines
+ChatController.prototype.onUpdate = function () {
+	this.view.resetLines(this.clientModel.chat.lines)
+}
+
 
 /**
 	Called by the view whenever input is submitted

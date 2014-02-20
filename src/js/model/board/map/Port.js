@@ -36,6 +36,17 @@ function Port(proxy, data){
 	this.vertex2 = vertexLocationFromJson(data.validVertex2);
 	this.location = hexLocationFromJson(data.location);
 	this.orientation = data.orientation;
+  this.inputResource = data.inputResource;
+}
+
+/**
+ * Get the type of port; a resource string or "three"
+ * @method getType
+ * @return {string} the type
+ */
+Port.prototype.getType = function () {
+  if (this.ratio === 3) return 'three'
+  return this.inputResource.toLowerCase()
 }
 
 /**

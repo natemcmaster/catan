@@ -24,13 +24,9 @@ GameSetup.prototype.bootstrap = function() {
 
 	for (var f in gameTypeModules[this.gameType]) {
 		var name = gameTypeModules[this.gameType][f];
-		var mod = modules[name].apply(this, this.clientModel);
+		var mod = modules[name].call(this, this.clientModel);
 		this.views[name] = mod[0];
 		this.controllers[name] = mod[1];
-	}
-
-	for (var cname in this.controllers) {
-		// Add your Observer here
 	}
 };
 

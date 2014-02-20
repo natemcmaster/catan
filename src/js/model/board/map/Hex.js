@@ -50,6 +50,19 @@ Hex.prototype.isLand = function(){
 };
 
 /**
+ * Get the hex type as a lower-case string. wheat, wood, brick, sheep, ore,
+ * desert, water
+ *
+ * @method getType
+ * @return {string} the type
+ */
+Hex.prototype.getType = function () {
+  if (!this._isLand) return 'water'
+  if (!this.landType || this.landType === -1) return 'desert'
+  return this.landType.toLowerCase()
+}
+
+/**
  * <pre>
  * Pre-condition: NONE
  * Post-condition: NONE
@@ -58,7 +71,7 @@ Hex.prototype.isLand = function(){
  * @return {Boolean} True when this hex is desert
  */
 Hex.prototype.isDesert = function(){
-	return this.landType == 'Desert';
+	return this._isLand && (!this.landType || this.landType == 'Desert');
 };
 
 Hex.prototype.getValidEdges = function () {

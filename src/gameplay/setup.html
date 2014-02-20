@@ -12,7 +12,8 @@
 		<script type="text/javascript">
 			$(document).ready(function(){
 				$.extend(catan,impl);
-				game = catan.game().run('setup');
+				window.game = catan.game();
+				game.run('setup');
 			});
 		</script>
 		

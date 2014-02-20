@@ -23,6 +23,7 @@ catan.models.ClientModel  = ClientModel
 */
 function ClientModel(playerID){
   this.playerID = playerID;
+  this.observers=[];
 }      
 
 /**
@@ -51,9 +52,36 @@ ClientModel.prototype.populateModels = function (data) {
   this.log = new Log(this.proxy, data.log);
   this.chat = new Chat(this.proxy, data.chat);
   this.gameboard = new GameBoard(this.proxy, data);
+  this.notifyObservers();
 }
 
 // New things to be implemented
+
+/**
+ * <pre>
+ * Pre-condition: The function is bound to the approprate context
+ * Post-condition: this function will be called everytime the model changes
+ * </pre>
+ * Adds a new observer to the client model. It receives update every time the model changes.
+ * @method addObserver
+ * @param {function} observer The function to call on updates.
+ * @return {void}
+ */
+ClientModel.prototype.addObserver = function(observer){
+  if(typeof observer === 'function')
+    this.observers.push(observer);
+}
+
+/**
+ * Notifies all observers of a change to the client model.
+ * @method notifyObservers
+ * @return {void} 
+ */
+ClientModel.prototype.notifyObservers = function(){
+  this.observers.forEach(function(observer){
+    observer();
+  })
+}
 
 /**
  * The current player robs another player
@@ -79,6 +107,15 @@ ClientModel.prototype.getRobPlayerInfo = function () {
 }
 
 /**
+ * Get a map of playerId to color
+ * @method getPlayerColors
+ * @return {object}
+ */
+ClientModel.prototype.getPlayerColors = function () {
+  return this.gameboard.players.map(function (player) { return player.color })
+}
+
+/**
 Helper Function that returns the current player object
 
 */
@@ -86,12 +123,27 @@ ClientModel.prototype.getCurrentPlayer = function() {
 
   return this.gameboard.getPlayerByID(this.gameboard.turnTracker.currentPlayerId())
 }
-/**
-Helper Function that returns the client player object
-*/
+
 ClientModel.prototype.getClientPlayer = function() {
   
   return this.gameboard.getPlayerByID(this.playerID)
+}
+
+/**
+ * Identifies if is the client player's turn
+ * @return {Boolean} true when
+ */
+ClientModel.prototype.isMyTurn = function(){
+  return this.playerID == this.gameboard.turnTracker.currentPlayerId();
+}
+
+/**
+ * Issues command to end the current player's turn
+ * @return {void} 
+ */
+ClientModel.prototype.endMyTurn = function(){
+  if(this.isMyTurn())
+    this.gameboard.turnTracker.finishTurn();
 }
 
 module.exports = ClientModel;

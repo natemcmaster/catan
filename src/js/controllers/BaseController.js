@@ -19,10 +19,11 @@ module.exports = BaseController;
 function BaseController(view,clientModel){
 	this.view = view;
 	this.clientModel = clientModel;
+	clientModel.addObserver(this.onUpdate.bind(this));
 };
 
 BaseController.prototype.onUpdate = function(){
-	console.err('NEVER chnaged onUpdate function');
+	console.error('onUpdate function missing from '+this.constructor.name);
 };
 
 
