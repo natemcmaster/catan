@@ -5,6 +5,8 @@
 	@namespace map
 	*/
 
+var helpers = require('./mapHelpers');
+
 module.exports = MapController;
 var Controller = require('./BaseController');
 if (typeof(catan) === 'undefined') catan = {}
@@ -41,6 +43,10 @@ function MapController(view, modalView, model, robView){
 	this.setModalView(modalView);
 	this.setRobView(robView);
 }
+
+MapController.prototype.onUpdate = function () {
+  helpers.draw(this.view, this.clientModel.gameboard.map)
+};
 
 MapController.prototype.setModalView = function (modalView) {
   this.modalView = modalView;
