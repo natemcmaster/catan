@@ -107,6 +107,15 @@ ClientModel.prototype.getRobPlayerInfo = function () {
 }
 
 /**
+ * Get a map of playerId to color
+ * @method getPlayerColors
+ * @return {object}
+ */
+ClientModel.prototype.getPlayerColors = function () {
+  return this.gameboard.players.map(function (player) { return player.color })
+}
+
+/**
 Helper Function that returns the current player object
 
 */
