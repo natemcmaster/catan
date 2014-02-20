@@ -38,4 +38,11 @@ core.forceClassInherit(TurnTrackerController,Controller);
  * @return void
  */
 TurnTrackerController.prototype.endTurn = function(){
+	this.clientModel.endMyTurn();
+}
+
+TurnTrackerController.prototype.onUpdate = function(){
+	var player=this.clientModel.getClientPlayer();
+	this.view.setClientColor(player.color);
+	this.view.initializePlayer(player.playerID, player.name, player.color);
 }

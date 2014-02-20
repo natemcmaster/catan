@@ -5,6 +5,8 @@
 	@namespace map
 	*/
 
+var helpers = require('./mapHelpers');
+
 module.exports = MapController;
 var Controller = require('./BaseController');
 if (typeof(catan) === 'undefined') catan = {}
@@ -13,12 +15,12 @@ var EdgeLoc;
 var VertexLoc;
 var PortLoc;
 
-var hexgrid=require('byu-catan').models.hexgrid;
+var hexgrid = require('byu-catan').models.hexgrid;
 var HexLocation = hexgrid.HexLocation;
 var VertexLocation = hexgrid.VertexLocation;
-var EdgeLocation= hexgrid.EdgeLocation;
+var EdgeLocation = hexgrid.EdgeLocation;
 var VertexDirection = hexgrid.VertexDirection;
-var EdgeDirection= hexgrid.EdgeDirection;   
+var EdgeDirection = hexgrid.EdgeDirection;   
 
 core.forceClassInherit(MapController,Controller);
 
@@ -41,6 +43,10 @@ function MapController(view, modalView, model, robView){
 	this.setModalView(modalView);
 	this.setRobView(robView);
 }
+
+MapController.prototype.onUpdate = function () {
+  helpers.draw(this.view, this.clientModel.gameboard.map, this.clientModel.getPlayerColors())
+};
 
 MapController.prototype.setModalView = function (modalView) {
   this.modalView = modalView;

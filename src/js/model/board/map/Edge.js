@@ -21,7 +21,10 @@ module.exports = Edge;
  */
 function Edge(direction, data){
 	this.direction = direction;
-	this.owner = data && data.value.ownerID || -1;
+	this.owner = data && data.value.ownerID;
+  if (false === this.owner) {
+    this.owner = -1;
+  }
 }
 
 Edge.prototype = new hexgrid.BaseContainer();
