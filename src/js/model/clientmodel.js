@@ -86,7 +86,9 @@ ClientModel.prototype.getCurrentPlayer = function() {
 
   return this.gameboard.getPlayerByID(this.gameboard.turnTracker.currentPlayerId())
 }
-
+/**
+Helper Function that returns the client player object
+*/
 ClientModel.prototype.getClientPlayer = function() {
   
   return this.gameboard.getPlayerByID(this.playerID)

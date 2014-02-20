@@ -29,6 +29,9 @@ function DiscardController(view, waitingView, clientModel){
 
 	waitingView.setController(this);
 	this.setWaitingView(waitingView);
+
+	this.initVariables();
+	
 }
 
 core.forceClassInherit(DiscardController,Controller);
@@ -51,6 +54,8 @@ DiscardController.prototype.discard = function(){
 	@return void
 	*/
 DiscardController.prototype.increaseAmount = function(resource){
+	
+
 }
 
 /**
@@ -60,5 +65,46 @@ DiscardController.prototype.increaseAmount = function(resource){
 	@return void
 	*/
 DiscardController.prototype.decreaseAmount = function(resource){
+}
+
+DiscardController.prototype.onUpdate() = function(){
+	var clientPlayer = this.clientModel.getClientPlayer()
+
+	this.clientOre = clientPlayer.resources.ore
+	this.clientSheep = clientPlayer.resources.sheep
+	this.clientBrick = clientPlayer.resources.brick
+	this.clientWheat = clientPlayer.resources.wheat
+	this.clientWood = clientPlayer.resources.wood
+
+	var totalRecources = clientWood + clientWheat + clientBrick + clientSheep + clientOre
+	this.numToDiscard = parseInt(totalRecources/2)
+
+	if(numToDiscard >= 4){
+		
+
+		this.view.setStateMessage( this.numSelected + '/' + this.numToDiscard)
+		this.view.showModal()
+	}
+	
+}
+
+DiscardController.prototype.initVariables() = function(){
+
+	this.numToDiscard = 0
+
+	this.sheepToDiscard = 0
+	this.oreToDiscard = 0
+	this.woodToDiscard = 0
+	this.wheatToDiscard = 0
+	this.brickToDiscard = 0
+
+	this.clientOre = 0
+	this.clientSheep = 0
+	this.clientBrick = 0
+	this.clientWheat = 0
+	this.clientWood = 0
+
+	this.numSelected = 0
+
 }
 
