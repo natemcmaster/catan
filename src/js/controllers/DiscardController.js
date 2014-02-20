@@ -67,7 +67,7 @@ DiscardController.prototype.increaseAmount = function(resource){
 DiscardController.prototype.decreaseAmount = function(resource){
 }
 
-DiscardController.prototype.onUpdate() = function(){
+DiscardController.prototype.onUpdate = function(){
 	var clientPlayer = this.clientModel.getClientPlayer()
 
 	this.clientOre = clientPlayer.resources.ore
@@ -76,10 +76,10 @@ DiscardController.prototype.onUpdate() = function(){
 	this.clientWheat = clientPlayer.resources.wheat
 	this.clientWood = clientPlayer.resources.wood
 
-	var totalRecources = clientWood + clientWheat + clientBrick + clientSheep + clientOre
+	var totalRecources = this.clientWood + this.clientWheat + this.clientBrick + this.clientSheep + this.clientOre
 	this.numToDiscard = parseInt(totalRecources/2)
 
-	if(numToDiscard >= 4){
+	if(this.numToDiscard >= 4){
 		
 
 		this.view.setStateMessage( this.numSelected + '/' + this.numToDiscard)
@@ -88,7 +88,7 @@ DiscardController.prototype.onUpdate() = function(){
 	
 }
 
-DiscardController.prototype.initVariables() = function(){
+DiscardController.prototype.initVariables = function(){
 
 	this.numToDiscard = 0
 
