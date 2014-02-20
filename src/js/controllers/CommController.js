@@ -50,6 +50,7 @@ function LogController(logView, model){
 
 // update the log lines
 LogController.prototype.onUpdate = function () {
+	console.log("Updating Log Lines....");
 	this.view.resetLines(this.model.lines);
 }
 
