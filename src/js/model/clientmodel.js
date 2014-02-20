@@ -146,4 +146,9 @@ ClientModel.prototype.endMyTurn = function(){
     this.gameboard.turnTracker.finishTurn();
 }
 
+ClientModel.prototype.discardCards = function(playerID, brick, ore, sheep, wheat, wood){
+  var player = this.gameboard.getPlayerByID(playerID);
+  player.discardCards(brick, ore, sheep, wheat, wood);
+}
+
 module.exports = ClientModel;
