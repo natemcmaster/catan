@@ -27,9 +27,10 @@ Proxy.prototype.executeCommand = function(command) {
 	var onNewModel = this.onNewModel;
 	jQuery.ajax({
 		url: command.getURL(),
-		data: command.getData(),
+		data: JSON.stringify(command.getData()),
+		contentType:'application/json',
 		dataType: 'JSON',
-		type: 'POST'
+		type: 'POST',
 	})
 		.done(function(data) {
 			onNewModel(data);
