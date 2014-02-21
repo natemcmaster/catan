@@ -150,13 +150,9 @@ Player.prototype.playableDevelopmentCards = function () {
 	
 };
 
-Player.prototype.canPlayDevCard = function() {
-	return (this.canPlayYearOfPlenty() || 
-			this.canPlayRoadBuilding() || 
-			this.canPlaySoldier() || 
-			this.canPlayMonopoly() || 
-			this.canPlayMonument());
-}
+Player.prototype.getNumberOfDevCards = function(devCardType) {
+	return this.oldDevCards[devCardType] + this.newDevCards[devCardType];
+};
 
 /**
  * Can the player play a Year of Plenty card?
