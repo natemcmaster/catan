@@ -32,6 +32,7 @@ core.defineProperty(PointController.prototype, "GameFinishedView");
 function PointController(view, gameFinishedView, clientModel){
 	this.setGameFinishedView(gameFinishedView);
 	Controller.call(this,view,clientModel);
+	this.onUpdate();
 }
 
 PointController.prototype.onUpdate = function() {

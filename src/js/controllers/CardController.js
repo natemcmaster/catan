@@ -81,7 +81,7 @@ DevCardController.prototype.useSoldier= function(){
  * @method useRoadBuild
  * @return void
  */
-DevCardController.prototype.useRoadBuild = function(resource){
+DevCardController.prototype.useRoadBuild = function(){
 }
 
 
