@@ -130,28 +130,29 @@ DiscardController.prototype.decreaseAmount = function(resource){
 
 DiscardController.prototype.onUpdate = function(){
 	
-	if(this.clientModel.getCurrentStatus == 'discarding')
-	{
-
-		var clientPlayer = this.clientModel.getClientPlayer()
-
-		this.clientOre = clientPlayer.resources.ore
-		this.clientSheep = clientPlayer.resources.sheep
-		this.clientBrick = clientPlayer.resources.brick
-		this.clientWheat = clientPlayer.resources.wheat
-		this.clientWood = clientPlayer.resources.wood
-
-		this.totalRecources = this.clientWood + this.clientWheat + this.clientBrick + this.clientSheep + this.clientOre
-		this.numToDiscard = parseInt(this.totalRecources/2)
-
-		if(this.numToDiscard >= 4){
-
-			this.updateStateMessage();
-			this.setMaxDiscardAmounts();
-			this.enableButtons();
-			this.view.showModal();
-		}
+	if(this.clientModel.getCurrentStatus != 'Discarding'){
+		return;
 	}
+
+	var clientPlayer = this.clientModel.getClientPlayer()
+
+	this.clientOre = clientPlayer.resources.ore
+	this.clientSheep = clientPlayer.resources.sheep
+	this.clientBrick = clientPlayer.resources.brick
+	this.clientWheat = clientPlayer.resources.wheat
+	this.clientWood = clientPlayer.resources.wood
+
+	this.totalRecources = this.clientWood + this.clientWheat + this.clientBrick + this.clientSheep + this.clientOre
+	this.numToDiscard = parseInt(this.totalRecources/2)
+
+	if(this.numToDiscard >= 4){
+
+		this.updateStateMessage();
+		this.setMaxDiscardAmounts();
+		this.enableButtons();
+		this.view.showModal();
+	}
+	
 	
 	
 }

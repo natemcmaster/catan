@@ -150,6 +150,14 @@ Player.prototype.playableDevelopmentCards = function () {
 	
 };
 
+Player.prototype.canPlayDevCard = function() {
+	return (this.canPlayYearOfPlenty() || 
+			this.canPlayRoadBuilding() || 
+			this.canPlaySoldier() || 
+			this.canPlayMonopoly() || 
+			this.canPlayMonument());
+}
+
 /**
  * Can the player play a Year of Plenty card?
  * <pre>

@@ -14,7 +14,7 @@ module.exports = Proxy;
  * @class Proxy
  * @constructor
  */
-function Proxy(onNewModel){
+function Proxy(onNewModel) {
 	// constructor
 	this.onNewModel = onNewModel;
 }
@@ -23,19 +23,25 @@ Proxy.prototype.startPolling = function () {
   console.warn('Not really polling atm');
 }
 
-Proxy.prototype.executeCommand = function(command){
+Proxy.prototype.executeCommand = function(command) {
 	var onNewModel = this.onNewModel;
-	jQuery.post(command.getURL(), command.getData())
-		.done(function(data){
+	jQuery.ajax({
+		url: command.getURL(),
+		data: JSON.stringify(command.getData()),
+		contentType:'application/json',
+		dataType: 'JSON',
+		type: 'POST',
+	})
+		.done(function(data) {
 			onNewModel(data);
 		})
-		.fail(function (xhr, status) {
+		.fail(function(xhr, status) {
 			console.error('Failed to get stuff from server', status, xhr);
 		});
 
 };
 
-Proxy.prototype.getModel = function(callback){
+Proxy.prototype.getModel = function(callback) {
 
 	jQuery.get('/game/model')
 		.done(function (data, status) {

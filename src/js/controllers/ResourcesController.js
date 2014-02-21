@@ -2,7 +2,9 @@
 if (typeof(catan) === 'undefined') catan = {}
 catan.resources = catan.resources || {};
 
-module.exports = ResourceBarController
+var ResourceType = require('../model/ResourceType.js');
+
+module.exports = ResourceBarController;
 
 /**
 	This is the namespace for resources
@@ -117,4 +119,45 @@ ResourceBarController.prototype.playCard = function(){
 	// This calls the "showModal" method on the Dev Card View.
 	this.getActions()[PLAY_CARD]();
 }
+
+ResourceBarController.prototype.onUpdate = function() {
+	this.updateAmounts();
+	this.setActionsEnabled();
+};
+
+ResourceBarController.prototype.updateAmounts = function() {
+	var player = this.clientModel.getClientPlayer();
+
+	this.view.updateAmount(ResourceType.BRICK, player.resources[ResourceType.BRICK]);
+	this.view.updateAmount(ResourceType.WOOD, player.resources[ResourceType.WOOD]);
+	this.view.updateAmount(ResourceType.SHEEP, player.resources[ResourceType.SHEEP]);
+	this.view.updateAmount(ResourceType.WHEAT, player.resources[ResourceType.WHEAT]);
+	this.view.updateAmount(ResourceType.ORE, player.resources[ResourceType.ORE]);
+	this.view.updateAmount("Roads", player.roads);
+	this.view.updateAmount("Settlements", player.settlements);
+	this.view.updateAmount("Cities", player.cities);
+	this.view.updateAmount("Soldiers", player.soldiers);
+};
+
+ResourceBarController.prototype.setActionsEnabled = function() {
+	var player = this.clientModel.getClientPlayer();
+
+	if (this.clientModel.getCurrentStatus() == 'Playing' && this.clientModel.isMyTurn())
+	{
+		this.view.setActionEnabled("Roads", player.canBuyRoad());
+		this.view.setActionEnabled("Settlements", player.canBuySettlement());
+		this.view.setActionEnabled("Cities", player.canBuyCity());
+		this.view.setActionEnabled("BuyCard", player.canBuyDevCard());
+		this.view.setActionEnabled("DevCards", true);
+	}
+
+	else
+	{
+		this.view.setActionEnabled("Roads", false);
+		this.view.setActionEnabled("Settlements", false);
+		this.view.setActionEnabled("Cities", false);
+		this.view.setActionEnabled("BuyCard", false);
+		this.view.setActionEnabled("DevCards", false);
+	}
+};
 
