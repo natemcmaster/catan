@@ -38,6 +38,9 @@ function Player(proxy, player) {
 	this.roads = player.roads;
 	this.settlements = player.settlements;
 	this.soldiers = player.soldiers;
+	this.roadsBuilt = 15 - player.roads;
+	this.settlementsBuilt = 5 - player.settlements;
+	this.citiesBuilt = 5 - player.cities;
 	this.victoryPoints = player.victoryPoints;
 }
 

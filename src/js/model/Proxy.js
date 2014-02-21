@@ -1,5 +1,5 @@
 /**
- * 
+ *
  * @module catan.model
  * @namespace model
  */
@@ -9,7 +9,7 @@ module.exports = Proxy;
 /**
  * Keeps track of the Proxy
  * <pre>
- * 
+ *
  * </pre>
  * @class Proxy
  * @constructor
