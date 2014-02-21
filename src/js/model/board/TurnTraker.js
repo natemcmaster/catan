@@ -25,7 +25,7 @@ function TurnTracker(proxy, turnTracker){
 	
 	this.currentTurn = turnTracker.currentTurn;
 
-	// Status can be discarding, robbing, playing, rolling
+	// Status can be Discarding, Robbing, Playing, Rolling, FirstRound, SecondRound
 	this.status = turnTracker.status;
 }
 
