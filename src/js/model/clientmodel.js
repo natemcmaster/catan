@@ -129,6 +129,10 @@ ClientModel.prototype.getClientPlayer = function() {
   return this.gameboard.getPlayerByID(this.playerID)
 }
 
+ClientModel.prototype.getCurrentStatus = function() {
+  return this.gameboard.turnTracker.getStatus();
+}
+
 /**
  * Identifies if is the client player's turn
  * @return {Boolean} true when
