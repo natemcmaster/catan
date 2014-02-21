@@ -70,7 +70,7 @@ function ChatController(chatView,model){
 
 // update the chat lines
 ChatController.prototype.onUpdate = function () {
-	this.view.resetLines(this.clientModel.chat.lines)
+	this.view.resetLines(this.clientModel.chat.chat)
 }
 
 
@@ -80,5 +80,6 @@ ChatController.prototype.onUpdate = function () {
 	@param {String} lineContents The contents of the submitted string
  **/
 ChatController.prototype.addLine = function(lineContents){
+	this.clientModel.chat.sendChat(this.clientModel.playerID, lineContents)
 };
 
