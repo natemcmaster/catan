@@ -124,7 +124,6 @@ ClientModel.prototype.getCurrentPlayer = function() {
   return this.gameboard.getPlayerByID(this.gameboard.turnTracker.currentPlayerId())
 }
 
-
 ClientModel.prototype.getClientPlayer = function() {
   
   return this.gameboard.getPlayerByID(this.playerID)
@@ -147,4 +146,12 @@ ClientModel.prototype.endMyTurn = function(){
     this.gameboard.turnTracker.finishTurn();
 }
 
+ClientModel.prototype.discardCards = function(playerID, brick, ore, sheep, wheat, wood){
+  var player = this.gameboard.getPlayerByID(playerID);
+  player.discardCards(brick, ore, sheep, wheat, wood);
+}
+
+ClientModel.prototype.getCurrentStatus = function(){
+  return this.gameboard.turnTracker.status;
+}
 module.exports = ClientModel;
