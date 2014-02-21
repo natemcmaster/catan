@@ -38,8 +38,8 @@ function ClientModel(playerID){
 ClientModel.prototype.initFromServer = function(success){
   this.proxy = new Proxy(this.populateModels.bind(this));
   this.proxy.getModel(function(err, data){
-    success();
     this.populateModels(data);
+    success();
   }.bind(this));
 
   this.proxy.startPolling();
