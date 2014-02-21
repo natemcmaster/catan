@@ -97,7 +97,7 @@ function vertexLoc(loc) {
 
 function drawEdges(view, edges, colors) {
   edges.forEach(function (edge) {
-    view.placeRoad(edgeLoc(edge.location), colors[edge.getOwner()])
+    view.placeRoad(edgeLoc(edge.location), colors[edge.getOwner()], true)
     console.log(edge, edge.getOwner())
   })
 }
