@@ -15,13 +15,25 @@ module.exports = Proxy;
  * @constructor
  */
 function Proxy(onNewModel) {
-	// constructor
 	this.onNewModel = onNewModel;
+	this.autoPoll = true;
+	if(window){
+		window.resumePolling = function(){this.autoPoll=true;}.bind(this);
+		window.pausePolling = function(){this.autoPoll=false;}.bind(this);
+	}
 }
 
-Proxy.prototype.startPolling = function () {
-  console.warn('Not really polling atm');
+Proxy.prototype.startPolling = function() {
+	var autoUpdate = function() {
+		if(!this.autoPoll)
+			return;
+		this.getModel(function(err,data){this.onNewModel(data);}.bind(this));
+		setTimeout(autoUpdate, 1000);
+	}.bind(this);
+
+	setTimeout(autoUpdate, 1000);
 }
+
 
 Proxy.prototype.executeCommand = function(command) {
 	var onNewModel = this.onNewModel;
@@ -42,10 +54,8 @@ Proxy.prototype.executeCommand = function(command) {
 };
 
 Proxy.prototype.getModel = function(callback) {
-
-	jQuery.get('/game/model')
-		.done(function (data, status) {
-      callback(null, data)
+	jQuery.get('/game/model').done(function (data, status) {
+		callback(null, data);
     })
 		.fail(function(xhr, status){
 			console.error('failed to get model', xhr, status);

@@ -22,24 +22,17 @@ var Controller = require('./BaseController');
 	@param {models.ClientModel} clientModel The clientModel for this object to control.
 	@constructor
  **/
-function TurnTrackerController(view, clientModel){
-	Controller.call(this,view,clientModel);
+function TurnTrackerController(view, clientModel) {
+	Controller.call(this, view, clientModel);
 
-	//uncomment when Nate fixes bug
 	var player=this.clientModel.getClientPlayer();
 	this.view.setClientColor(player.color);
-	//this.view.initializePlayer(player.playerID, player.name, player.color);
 
-	//if supposed to initialize each player in constructor
 	var players = this.clientModel.gameboard.players;
 	for(var j = 0;j <players.length; j++){
 		this.view.initializePlayer(players[j].playerID, players[j].name, players[j].color)
 	}
 	this.updatePlayers();
-
-	// TODO: This constructor should configure its view by calling view.setClientColor and view.initializePlayer
-	// NOTE: The view.updateViewState and view.updatePlayer will not work if called from here.  Instead, these
-	//          methods should be called later each time the client model is updated from the server.
 }
 
 core.forceClassInherit(TurnTrackerController,Controller);
@@ -49,7 +42,7 @@ core.forceClassInherit(TurnTrackerController,Controller);
  * @method endTurn
  * @return void
  */
-TurnTrackerController.prototype.endTurn = function(){
+TurnTrackerController.prototype.endTurn = function() {
 	this.clientModel.endMyTurn();
 }
 

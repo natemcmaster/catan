@@ -108,7 +108,6 @@ module.exports = function(grunt) {
 			src: {
 				src: srcJsFile,
 				dest: browserifyOutput,
-        debug: true,
 				options:{
 					standalone:'impl'
 				}
