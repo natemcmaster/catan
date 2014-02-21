@@ -49,7 +49,15 @@ function LogController(logView, model){
 
 // update the log lines
 LogController.prototype.onUpdate = function () {
-	this.view.resetLines(this.clientModel.log.entries);
+	
+	var clientPlayer = this.clientModel.getClientPlayer();
+	var lines = this.clientModel.log.entries;
+
+	for(var i = 0; i < lines.length; i++){
+		lines[i].className = this.clientModel.getPlayerByName(lines[i].source).color;
+	}
+
+	this.view.resetLines(lines)
 }
 
 
@@ -70,7 +78,14 @@ function ChatController(chatView,model){
 
 // update the chat lines
 ChatController.prototype.onUpdate = function () {
-	this.view.resetLines(this.clientModel.chat.chat)
+	var clientPlayer = this.clientModel.getClientPlayer();
+	var lines = this.clientModel.chat.chat;
+
+	for(var i = 0; i < lines.length; i++){
+		lines[i].className = this.clientModel.getPlayerByName(lines[i].source).color;
+	}
+
+	this.view.resetLines(lines)
 }
 
 
@@ -80,6 +95,8 @@ ChatController.prototype.onUpdate = function () {
 	@param {String} lineContents The contents of the submitted string
  **/
 ChatController.prototype.addLine = function(lineContents){
-	this.clientModel.chat.sendChat(this.clientModel.playerID, lineContents)
+	var clientPlayer = this.clientModel.getClientPlayer();
+
+	this.clientModel.chat.sendChat(clientPlayer.playerID, lineContents)
 };
 

@@ -132,7 +132,15 @@ ClientModel.prototype.getClientPlayer = function() {
 ClientModel.prototype.getCurrentStatus = function() {
   return this.gameboard.turnTracker.getStatus();
 }
-
+ClientModel.prototype.getPlayerByName = function(name) {
+  var players = this.gameboard.players;
+  for(var i = 0; i < players.length; i++){
+    if(players[i].name == name){
+      return players[i];
+    }
+  }
+  console.err('BAD PLAYER NAME');
+}
 /**
  * Identifies if is the client player's turn
  * @return {Boolean} true when
