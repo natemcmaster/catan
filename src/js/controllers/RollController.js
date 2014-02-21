@@ -41,7 +41,7 @@ function RollController(view,resultView, clientModel){
  * @return void
  **/
 RollController.prototype.closeResult = function(){
-	this.closeModal();
+	this.view.closeModal();
 }
 
 /**
@@ -64,3 +64,10 @@ RollController.prototype.rollDice = function(){
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+RollController.prototype.onUpdate = function() {
+	if (this.clientModel.isMyTurn() && this.clientModel.getCurrentStatus() == 'Rolling')
+	{
+		this.view.showModal();
+	}
+};
