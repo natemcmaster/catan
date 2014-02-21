@@ -29,6 +29,15 @@ var MaritimeTradeCommand = require('../model/commands/MaritimeTradeCommand');
 function MaritimeController(view,clientModel){
 	Controller.call(this,view,clientModel);
 	this.clientModel = clientModel;
+	this.resourceToGive = null;
+	this.resourceToGet = null;
+
+	//var localPlayerID = this.clientModel.getClientPlayer().playerID;
+	for(var i=0; i < 4; i++){
+		var ports = this.clientModel.gameboard.map.portsForPlayer(i);
+		console.log("Port for player " + i);
+		console.log(ports);
+	}
 };
 
 MaritimeController.prototype = core.inherit(Controller.prototype);
@@ -39,6 +48,9 @@ MaritimeController.prototype = core.inherit(Controller.prototype);
  * @return void
  */
 MaritimeController.prototype.unsetGiveValue = function(){
+	console.log("unsetting give from: " + this.resourceToGive);
+
+	this.resourceToGive = null;	
 };
 
 /**
@@ -47,6 +59,9 @@ MaritimeController.prototype.unsetGiveValue = function(){
  * @return void
  */
 MaritimeController.prototype.unsetGetValue = function(){
+	console.log("unsettting get from: " + this.resourceToGet);
+
+	this.resourceToGet = null;
 };
 
 /**
@@ -56,6 +71,9 @@ MaritimeController.prototype.unsetGetValue = function(){
  * @return void
  */
 MaritimeController.prototype.setGiveValue = function(resource){
+	this.resourceToGive = resource;
+	this.view.selectGiveOption(resource, 2);
+	console.log("setting give type to: " + resource);
 };
 
 /**
@@ -65,6 +83,9 @@ MaritimeController.prototype.setGiveValue = function(resource){
  * @return void
  */
 MaritimeController.prototype.setGetValue = function(resource){
+	this.resourceToGet = resource;
+	this.view.selectGetOption(resource, 2);
+	console.log("setting get to: " + resource);
 };
 
 function capFirst(str){
@@ -86,8 +107,10 @@ MaritimeController.prototype.makeTrade= function(){
 	}
 	(playerID, ratio, inputResource, outputResource)
 	*/
-	var currentPlayerID = this.clientModel.getCurrentPlayer().
+	var localPlayerID = this.clientModel.getClientPlayer().playerID;
 
-	this.clientModel.proxy.executeCommand(new MaritimeTradeCommand());	
+
+	//TODO: find correct ratio
+	this.clientModel.proxy.executeCommand(new MaritimeTradeCommand(localPlayerID, 2, this.resourceToGive, this.resourceToGet));	
 }
 
