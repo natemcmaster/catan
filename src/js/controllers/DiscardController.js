@@ -129,26 +129,30 @@ DiscardController.prototype.decreaseAmount = function(resource){
 }
 
 DiscardController.prototype.onUpdate = function(){
-	//TODO: do I need to check if a 7 was rolled or is that taken care of elsewhere???
-	//if(this.clientModel.)
-	var clientPlayer = this.clientModel.getClientPlayer()
+	
+	if(this.clientModel.getCurrentStatus == 'discarding')
+	{
 
-	this.clientOre = clientPlayer.resources.ore
-	this.clientSheep = clientPlayer.resources.sheep
-	this.clientBrick = clientPlayer.resources.brick
-	this.clientWheat = clientPlayer.resources.wheat
-	this.clientWood = clientPlayer.resources.wood
+		var clientPlayer = this.clientModel.getClientPlayer()
 
-	this.totalRecources = this.clientWood + this.clientWheat + this.clientBrick + this.clientSheep + this.clientOre
-	this.numToDiscard = parseInt(this.totalRecources/2)
+		this.clientOre = clientPlayer.resources.ore
+		this.clientSheep = clientPlayer.resources.sheep
+		this.clientBrick = clientPlayer.resources.brick
+		this.clientWheat = clientPlayer.resources.wheat
+		this.clientWood = clientPlayer.resources.wood
 
-	if(this.numToDiscard >= 4){
+		this.totalRecources = this.clientWood + this.clientWheat + this.clientBrick + this.clientSheep + this.clientOre
+		this.numToDiscard = parseInt(this.totalRecources/2)
 
-		this.updateStateMessage();
-		this.setMaxDiscardAmounts();
-		this.enableButtons();
-		this.view.showModal();
+		if(this.numToDiscard >= 4){
+
+			this.updateStateMessage();
+			this.setMaxDiscardAmounts();
+			this.enableButtons();
+			this.view.showModal();
+		}
 	}
+	
 	
 }
 DiscardController.prototype.updateStateMessage = function(){

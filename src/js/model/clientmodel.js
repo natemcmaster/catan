@@ -151,4 +151,7 @@ ClientModel.prototype.discardCards = function(playerID, brick, ore, sheep, wheat
   player.discardCards(brick, ore, sheep, wheat, wood);
 }
 
+ClientModel.prototype.getCurrentStatus = function(){
+  return this.gameboard.turnTracker.status;
+}
 module.exports = ClientModel;
