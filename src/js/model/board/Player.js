@@ -38,6 +38,9 @@ function Player(proxy, player) {
 	this.roads = player.roads;
 	this.settlements = player.settlements;
 	this.soldiers = player.soldiers;
+	this.roadsBuilt = 15 - player.roads;
+	this.settlementsBuilt = 5 - player.settlements;
+	this.citiesBuilt = 5 - player.cities;
 	this.victoryPoints = player.victoryPoints;
 }
 
@@ -166,7 +169,7 @@ Player.prototype.getNumberOfDevCards = function(devCardType) {
  * Plenty card bought on a previous turn, false otherwise
  */
 Player.prototype.canPlayYearOfPlenty = function () {
-	if (!this.playedDevCard() && this.oldDevCards.yearOfPlenty > 0)
+	if (!this.playedDevCard && this.oldDevCards.yearOfPlenty > 0)
 		return true;
 	else
 		return false;
@@ -184,7 +187,7 @@ Player.prototype.canPlayYearOfPlenty = function () {
  * Building card bought on a previous turn, false otherwise
  */
 Player.prototype.canPlayRoadBuilding = function () {
-	if (!this.playedDevCard() && this.oldDevCards.roadBuilding > 0)
+	if (!this.playedDevCard && this.oldDevCards.roadBuilding > 0)
 		return true;
 	else
 		return false;
@@ -202,7 +205,7 @@ Player.prototype.canPlayRoadBuilding = function () {
  * card bought on a previous turn, false otherwise
  */
 Player.prototype.canPlaySoldier = function () {
-	if (!this.playedDevCard() && this.oldDevCards.soldier > 0)
+	if (!this.playedDevCard && this.oldDevCards.soldier > 0)
 		return true;
 	else
 		return false;
@@ -220,7 +223,7 @@ Player.prototype.canPlaySoldier = function () {
  * card bought on a previous turn, false otherwise
  */
 Player.prototype.canPlayMonopoly = function () {
-	if (!this.playedDevCard() && this.oldDevCards.monopoly > 0)
+	if (!this.playedDevCard && this.oldDevCards.monopoly > 0)
 		return true;
 	else
 		return false;

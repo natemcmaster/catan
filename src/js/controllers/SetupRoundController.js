@@ -34,7 +34,7 @@ SetupRoundController.prototype.onUpdate = function() {
 		return;
 	}
 	var player = this.clientModel.getClientPlayer();
-	if (player.roads == player.settlements && player.roads == 2) {
+	if (player.roadsBuilt == player.settlementsBuilt && player.roadsBuilt == 2) {
 		this.clientModel.endMyTurn();
 	} else if (player.roads > player.settlements) {
 		this.mapController.startMove('settlement', true, false);
