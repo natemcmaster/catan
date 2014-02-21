@@ -129,8 +129,11 @@ DiscardController.prototype.decreaseAmount = function(resource){
 }
 
 DiscardController.prototype.onUpdate = function(){
-	//TODO: do I need to check if a 7 was rolled or is that taken care of elsewhere???
-	//if(this.clientModel.)
+	
+	if(this.clientModel.getCurrentStatus != 'Discarding'){
+		return;
+	}
+
 	var clientPlayer = this.clientModel.getClientPlayer()
 
 	this.clientOre = clientPlayer.resources.ore
@@ -149,6 +152,8 @@ DiscardController.prototype.onUpdate = function(){
 		this.enableButtons();
 		this.view.showModal();
 	}
+	
+	
 	
 }
 DiscardController.prototype.updateStateMessage = function(){
