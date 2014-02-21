@@ -17,7 +17,7 @@ module.exports = Proxy;
 function Proxy(onNewModel) {
 	this.onNewModel = onNewModel;
 	this.autoPoll = true;
-	if(window){
+	if('undefined' !== typeof window){
 		window.resumePolling = function(){this.autoPoll=true;}.bind(this);
 		window.pausePolling = function(){this.autoPoll=false;}.bind(this);
 	}
