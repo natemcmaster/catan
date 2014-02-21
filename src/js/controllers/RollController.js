@@ -41,6 +41,7 @@ function RollController(view,resultView, clientModel){
  * @return void
  **/
 RollController.prototype.closeResult = function(){
+	this.closeModal();
 }
 
 /**
@@ -51,8 +52,7 @@ RollController.prototype.closeResult = function(){
 RollController.prototype.rollDice = function(){
 	var currentPlayerId = this.clientModel.getCurrentPlayer().playerID;
 	var randomRollNumber = getRandomInt(2, 12);
-	this.clientModel.proxy.executeCommand(new RollDiceCommand(currentPlayerId, randomRollNumber));
-	
+	this.clientModel.proxy.executeCommand(new RollDiceCommand(currentPlayerId, randomRollNumber));	
 };
 
 /**
