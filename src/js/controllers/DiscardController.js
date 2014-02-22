@@ -170,9 +170,6 @@ DiscardController.prototype.onUpdate = function(){
 DiscardController.prototype.enableButtons = function(){
 	var reachedMaxed = (this.numToDiscard == this.numSelected)
 
-	console.log("numToDiscard: " + this.numToDiscard)
-	console.log("numSelected: " + this.numSelected)
-	console.log("reachedMaxed: " + reachedMaxed)
 	var sheepUp =false
 	var sheepDown =false
 	var oreUp =false
@@ -216,12 +213,6 @@ DiscardController.prototype.enableButtons = function(){
 		wheatUp = true;
 	}
 
-
-	console.log('oreUp: ' + oreUp + ' oreDown: ' + oreDown)
-	console.log('woodUp: ' + woodUp + ' woodDown: ' + woodDown)
-	console.log('sheepUp: ' + sheepUp + ' sheepDown: ' + sheepDown)
-	console.log('wheatUp: ' + wheatUp + ' wheatDown: ' + wheatDown)
-	console.log('brickUp: ' + brickUp + ' brickDown: ' + brickDown)
 
 	this.view.setResourceAmountChangeEnabled('ore', oreUp, oreDown);
 	this.view.setResourceAmountChangeEnabled('wheat', wheatUp, wheatDown);
