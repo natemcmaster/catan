@@ -143,7 +143,7 @@ Map.prototype.getAdjascentEdges = function (location) {
 	return location.getConnectedEdges().map(function (eloc) {
 		return eloc.getEquivalenceGroup().map(function (eloc) {
 			return getEdge(eloc)
-		})
+		}).filter(function (e) {return !!e})
 	}).reduce(function (a, b) {
 		return a.concat(b)
 	}, []);
@@ -189,12 +189,20 @@ Map.prototype.getAdjascentVertices = function (location) {
  * @method canPlaceRoad
  * @param {integer} playerId Player ID
  * @param {EdgeLocation} location The location to place the road
+ * @param {boolean} setup whether this is happening during the setup phase
  * @return {boolean} True if user can now place road, false if not.
  */
-Map.prototype.canPlaceRoad = function (playerId, location) {
+Map.prototype.canPlaceRoad = function (playerId, location, setup) {
   if (!location) return false;
-	var edge = this.getEdge(location);
-	if (edge.isOccupied()) return false;
+	var edge = this.getEdge(location)
+    , canPlaceSettlement = this.canPlaceSettlement.bind(this);
+	if (!edge || edge.isOccupied()) return false;
+  if (setup) {
+    // you must be able to place a settlmeent on at least one end
+    return location.getNeighborVertexes().some(function (vx) {
+      return canPlaceSettlement(playerId, vx)
+    })
+  }
 	var ownAdjacent = this.getAdjascentEdges(location).some(function (edge) {
 		return edge.isOccupied() && edge.getOwner() === playerId;
 	});
@@ -213,7 +221,7 @@ Map.prototype.canPlaceRoad = function (playerId, location) {
  */
 Map.prototype.canPlaceRobber = function (playerId, location) {
 	var hex = this.hexGrid.getHex(location);
-	return !((!this.robber || location.equals(this.robber)) || !hex.isLand() || hex.isDesert());
+	return !(!hex || (!this.robber || location.equals(this.robber)) || !hex.isLand() || hex.isDesert());
 };
 
 /**
@@ -301,10 +309,11 @@ Map.prototype.getVertex = function (location) {
  * @method placeRoad
  * @param {integer} playerId Player ID
  * @param {EdgeLocation} Location of edge on hex to place road on
+ * @param {boolean} isFree is it free?
  * @return {void}
  */
-Map.prototype.placeRoad = function (playerId, edgeLocation) {
-  this.proxy.executeCommand(new BuildRoadCommand(playerId, edgeLocation));
+Map.prototype.placeRoad = function (playerId, edgeLocation, isFree) {
+  this.proxy.executeCommand(new BuildRoadCommand(playerId, edgeLocation, isFree));
 };
 
 /**
@@ -315,10 +324,11 @@ Map.prototype.placeRoad = function (playerId, edgeLocation) {
  * @method placeSettlement
  * @param {integer} playerId Player ID
  * @param {VertexLocation} Location of vertex on hex to place settlement on
+ * @param {boolean} isFree is it free?
  * @return {void}
  */
-Map.prototype.placeSettlement = function (playerId, vertexLocation) {
-  this.proxy.executeCommand(new BuildSettlementCommand(playerId, vertexLocation));
+Map.prototype.placeSettlement = function (playerId, vertexLocation, isFree) {
+  this.proxy.executeCommand(new BuildSettlementCommand(playerId, vertexLocation, isFree));
 };
 
 /**
