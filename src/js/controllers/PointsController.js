@@ -47,17 +47,17 @@ PointController.prototype.onUpdate = function() {
 		if(players[i].victoryPoints >= players[i].MAX_GAME_POINTS){
 
 			if(players[i] == clientPlayer){
-				this.gameFinishedView.setWinner(players[i].name, false)
+				this.gameFinishedView.setWinner(players[i].name, true)
 			}
 			else{
-				this.gameFinishedView.setWinner(players[i].name, true)
+				this.gameFinishedView.setWinner(players[i].name, false)
 			}
 
 			this.gameFinished.showModal();
 			break;
 		}
 	}
-	this.gameFinishedView.showModal()
+	
 	
 };
 
