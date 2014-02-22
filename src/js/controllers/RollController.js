@@ -39,8 +39,8 @@ function RollController(view,resultView, clientModel){
  * @return void
  **/
 RollController.prototype.closeResult = function(){
-	this.view.closeModal();
-}
+	this.getRollResultView().closeModal();
+};
 
 /**
  * This method generates a dice roll
@@ -50,8 +50,10 @@ RollController.prototype.closeResult = function(){
 RollController.prototype.rollDice = function(){
 	var currentPlayerId = this.clientModel.getCurrentPlayer().playerID;
 	var randomRollNumber = getRandomInt(2, 12);
-	this.clientModel.proxy.executeCommand(new RollDiceCommand(currentPlayerId, randomRollNumber));	
 	this.view.closeModal();
+	this.getRollResultView().setAmount(randomRollNumber);
+	this.getRollResultView().showModal();
+	this.clientModel.proxy.executeCommand(new RollDiceCommand(currentPlayerId, randomRollNumber));	
 };
 
 /**
@@ -62,7 +64,7 @@ RollController.prototype.rollDice = function(){
 */
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+};
 
 RollController.prototype.onUpdate = function() {
 	if (this.clientModel.isMyTurn() && this.clientModel.getCurrentStatus() == 'Rolling')
