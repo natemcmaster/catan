@@ -31,8 +31,6 @@ function RollController(view,resultView, clientModel){
 	Controller.call(this,view,clientModel);
 	this.rollInterval = false;
 	this.showRollResult = false;
-	this.clientModel = clientModel;
-
 };
 
 /**
@@ -53,6 +51,7 @@ RollController.prototype.rollDice = function(){
 	var currentPlayerId = this.clientModel.getCurrentPlayer().playerID;
 	var randomRollNumber = getRandomInt(2, 12);
 	this.clientModel.proxy.executeCommand(new RollDiceCommand(currentPlayerId, randomRollNumber));	
+	this.view.closeModal();
 };
 
 /**
