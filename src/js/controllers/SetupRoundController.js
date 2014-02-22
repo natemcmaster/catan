@@ -24,6 +24,8 @@ function SetupRoundController(clientModel, mapController) {
 	this.mapController = mapController;
 
 	Controller.call(this, undefined, clientModel);
+
+	this.onUpdate();
 };
 
 core.forceClassInherit(SetupRoundController, Controller);
@@ -36,7 +38,7 @@ SetupRoundController.prototype.onUpdate = function() {
 	var player = this.clientModel.getClientPlayer();
 	if (player.roadsBuilt == player.settlementsBuilt && player.roadsBuilt == 2) {
 		this.clientModel.endMyTurn();
-	} else if (player.roads > player.settlements) {
+	} else if (player.roadsBuilt > player.settlementsBuilt) {
 		this.mapController.startMove('settlement', true, false);
 	} else {
 		this.mapController.startMove('road', true, true);
