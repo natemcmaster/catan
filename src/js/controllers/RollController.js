@@ -53,7 +53,7 @@ RollController.prototype.rollDice = function(){
 	this.view.closeModal();
 	this.getRollResultView().setAmount(randomRollNumber);
 	this.getRollResultView().showModal();
-	this.clientModel.proxy.executeCommand(new RollDiceCommand(currentPlayerId, randomRollNumber));	
+	this.clientModel.gameboard.turnTracker.rollDice(randomRollNumber);
 };
 
 /**
