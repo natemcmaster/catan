@@ -44,57 +44,57 @@ suite('PlayerTests', function () {
 		});
 	});
 
-	suite('player does not have any development cards', function() {
-		
-		var player;
-		var testData;
+	var canPlayTestCases = playerTestCases[1];
 
-		setup (function () {
-			testData = {
-				"MAX_GAME_POINTS":10,
-				"resources":{
-					"brick":1,
-					"wood":1,
-					"sheep":1,
-					"wheat":2,
-					"ore":3
-				},
-				"oldDevCards":{
-					"yearOfPlenty":0,
-					"monopoly":0,
-					"soldier":0,
-					"roadBuilding":0,
-					"monument":0
-				},
-				"newDevCards":{
-					"yearOfPlenty":0,
-					"monopoly":0,
-					"soldier":0,
-					"roadBuilding":0,
-					"monument":0
-				},
-				"roads":1,
-				"cities":1,
-				"settlements":1,
-				"soldiers":0,
-				"victoryPoints":0,
-				"monuments":0,
-				"longestRoad":true,
-				"largestArmy":false,
-				"playedDevCard":false,
-				"discarded":false,
-				"playerID":0,
-				"orderNumber":0,
-				"name":"Sam",
-				"color":"orange"
-			};
+	suite(canPlayTestCases.suite, function() {
 
-			var mockProxy = new MockProxy();
-			player = new Player(mockProxy, testData);
+		canPlayTestCases.testCases.forEach(function(testCase) {
+
+			suite(testCase.description, function() {
+				var player;
+
+				setup(function() {
+					var mockProxy = new MockProxy();
+					player = new Player(mockProxy, testCase.input);
+				});
+
+				test('#canPlayYearOfPlenty()', function() {
+					assert.equal(testCase.output.canPlayYearOfPlenty, player.canPlayYearOfPlenty());
+				});
+
+				test('#canPlayMonopoly()', function() {
+					assert.equal(testCase.output.canPlayMonopoly, player.canPlayMonopoly());
+				});
+
+				test('#canPlaySoldier()', function() {
+					assert.equal(testCase.output.canPlaySoldier, player.canPlaySoldier());
+				});
+
+				test('#canPlayRoadBuilding()', function() {
+					assert.equal(testCase.output.canPlayRoadBuilding, player.canPlayRoadBuilding());
+				});
+			});
 		});
+	});
 
-		test('#playableDevelopmentCards()', function() {
-			assert.equal(testData.oldDevCards, player.playableDevelopmentCards());
+	var canPlayMonumentTestCases = playerTestCases[2];
+
+	suite(canPlayMonumentTestCases.suite, function() {
+
+		canPlayMonumentTestCases.testCases.forEach(function(testCase) {
+
+			suite(testCase.description, function() {
+				var player;
+
+				setup(function() {
+					var mockProxy = new MockProxy();
+					player = new Player(mockProxy, testCase.input);
+				});
+
+				test('#canPlayMonument())', function() {
+					assert.equal(testCase.output.canPlayMonument, player.canPlayMonument());
+				});
+			});
 		});
 	});
 
