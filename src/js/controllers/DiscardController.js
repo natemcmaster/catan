@@ -65,14 +65,14 @@ DiscardController.prototype.initVariables = function(){
 	*/	
 DiscardController.prototype.discard = function(){
 
-	this.clientModel.discardCards(this.clientModel.getClientPlayer(),
+	this.clientModel.getClientPlayer().discardCards(
 								  this.brickToDiscard,
 								  this.oreToDiscard,
 								  this.sheepToDiscard,
 								  this.wheatToDiscard,
 								  this.woodToDiscard);
 
-	this.view.closeModel();
+	this.view.closeModal();
 	this.initVariables();
 }
 
@@ -142,7 +142,7 @@ DiscardController.prototype.decreaseAmount = function(resource){
 
 DiscardController.prototype.onUpdate = function(){
 	
-	if(this.clientModel.getCurrentStatus != 'Discarding'){
+	if(this.clientModel.getCurrentStatus() != 'Discarding'){
 		return;
 	}
 
@@ -163,12 +163,16 @@ DiscardController.prototype.onUpdate = function(){
 		this.updateStateMessage();
 		this.setMaxDiscardAmounts();
 		this.enableButtons();
+		this.setDiscardAmounts();
 
 	}	
 }
 DiscardController.prototype.enableButtons = function(){
 	var reachedMaxed = (this.numToDiscard == this.numSelected)
 
+	console.log("numToDiscard: " + this.numToDiscard)
+	console.log("numSelected: " + this.numSelected)
+	console.log("reachedMaxed: " + reachedMaxed)
 	var sheepUp =false
 	var sheepDown =false
 	var oreUp =false
@@ -212,11 +216,18 @@ DiscardController.prototype.enableButtons = function(){
 		wheatUp = true;
 	}
 
-	this.view.setResouceAmountChangeEnabled('ore', oreUp, oreDown);
-	this.view.setResouceAmountChangeEnabled('wheat', wheatUp, wheatDown);
-	this.view.setResouceAmountChangeEnabled('brick', brickUp, brickDown);
-	this.view.setResouceAmountChangeEnabled('sheep', sheepUp, sheepDown);
-	this.view.setResouceAmountChangeEnabled('wood', woodUp, woodDown);
+
+	console.log('oreUp: ' + oreUp + ' oreDown: ' + oreDown)
+	console.log('woodUp: ' + woodUp + ' woodDown: ' + woodDown)
+	console.log('sheepUp: ' + sheepUp + ' sheepDown: ' + sheepDown)
+	console.log('wheatUp: ' + wheatUp + ' wheatDown: ' + wheatDown)
+	console.log('brickUp: ' + brickUp + ' brickDown: ' + brickDown)
+
+	this.view.setResourceAmountChangeEnabled('ore', oreUp, oreDown);
+	this.view.setResourceAmountChangeEnabled('wheat', wheatUp, wheatDown);
+	this.view.setResourceAmountChangeEnabled('brick', brickUp, brickDown);
+	this.view.setResourceAmountChangeEnabled('sheep', sheepUp, sheepDown);
+	this.view.setResourceAmountChangeEnabled('wood', woodUp, woodDown);
 
 	this.view.setDiscardButtonEnabled(reachedMaxed);
 }
