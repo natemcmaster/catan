@@ -17,6 +17,7 @@ var Definitions = require('byu-catan').definitions;
 var ResourceTypes = Definitions.ResourceTypes;
 
 var Controller = require('./BaseController');
+var MaritimeTradeCommand = require('../model/commands/MaritimeTradeCommand');
 
 /**
 	@class MaritimeController
@@ -27,6 +28,7 @@ var Controller = require('./BaseController');
 	*/
 function MaritimeController(view,clientModel){
 	Controller.call(this,view,clientModel);
+	this.clientModel = clientModel;
 };
 
 MaritimeController.prototype = core.inherit(Controller.prototype);
@@ -74,5 +76,18 @@ function capFirst(str){
  * @return void
  */
 MaritimeController.prototype.makeTrade= function(){
+	/*
+	return {
+		"type": "maritimeTrade",
+		"playerIndex": this.playerID,
+		"ratio": this.ratio,
+		"inputResource": this.inputResource,
+		"outputResource": this.outputResource
+	}
+	(playerID, ratio, inputResource, outputResource)
+	*/
+	var currentPlayerID = this.clientModel.getCurrentPlayer().
+
+	this.clientModel.proxy.executeCommand(new MaritimeTradeCommand());	
 }
 

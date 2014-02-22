@@ -38,6 +38,25 @@ core.forceClassInherit(DiscardController,Controller);
 
 core.defineProperty(DiscardController.prototype,"waitingView");
 
+DiscardController.prototype.initVariables = function(){
+
+	this.numToDiscard = 0
+
+	this.sheepToDiscard = 0
+	this.oreToDiscard = 0
+	this.woodToDiscard = 0
+	this.wheatToDiscard = 0
+	this.brickToDiscard = 0
+
+	this.clientOre = 0
+	this.clientSheep = 0
+	this.clientBrick = 0
+	this.clientWheat = 0
+	this.clientWood = 0
+
+	this.numSelected = 0
+	this.totalRecources = 0
+}
 /**
 	Called by the view when the player clicks the discard button.
 	It should send the discard command and allow the game to continue.
@@ -67,29 +86,26 @@ DiscardController.prototype.increaseAmount = function(resource){
 	this.numSelected++;
 	if(resource == 'wheat'){
 		this.wheatToDiscard++;
-		this.view.setResourceAmount(resource, this.wheatToDiscard)
 	}
 	else if(resource == 'wood'){
 		this.woodToDiscard++;
-		this.view.setResourceAmount(resource, this.woodToDiscard)
 	}
 	else if(resource == 'ore'){
 		this.oreToDiscard++;
-		this.view.setResourceAmount(resource, this.oreToDiscard)
 	}
 	else if(resource == 'brick'){
 		this.brickToDiscard++;
-		this.view.setResourceAmount(resource, this.brickToDiscard)
 	}
 	else if(resource == 'sheep'){
 		this.sheepToDiscard++;
-		this.view.setResourceAmount(resource, this.sheepToDiscard)
 	}
 	else{
 		console.err('UNEXPECTED RESOURCE TYPE');
 	}
-	this.updateStateMessage();
+	
 	this.enableButtons();
+	this.updateStateMessage();
+	this.setDiscardAmounts();
 }
 
 /**
@@ -102,61 +118,53 @@ DiscardController.prototype.decreaseAmount = function(resource){
 	this.numSelected--;
 	if(resource == 'wheat'){
 		this.wheatToDiscard--;
-		this.view.setResourceAmount(resource, this.wheatToDiscard)
 	}
 	else if(resource == 'wood'){
 		this.woodToDiscard--;
-		this.view.setResourceAmount(resource, this.woodToDiscard)
 	}
 	else if(resource == 'ore'){
 		this.oreToDiscard--;
-		this.view.setResourceAmount(resource, this.oreToDiscard)
 	}
 	else if(resource == 'brick'){
 		this.brickToDiscard--;
-		this.view.setResourceAmount(resource, this.brickToDiscard)
 	}
 	else if(resource == 'sheep'){
 		this.sheepToDiscard--;
-		this.view.setResourceAmount(resource, this.sheepToDiscard)
 	}
 	else{
 		console.err('UNEXPECTED RESOURCE TYPE');
 	}
-	this.updateStateMessage();
-	this.enableButtons();
 
+	this.enableButtons();
+	this.updateStateMessage();
+	this.setDiscardAmounts();
 }
 
 DiscardController.prototype.onUpdate = function(){
 	
-	if(this.clientModel.getCurrentStatus == 'discarding')
-	{
-
-		var clientPlayer = this.clientModel.getClientPlayer()
-
-		this.clientOre = clientPlayer.resources.ore
-		this.clientSheep = clientPlayer.resources.sheep
-		this.clientBrick = clientPlayer.resources.brick
-		this.clientWheat = clientPlayer.resources.wheat
-		this.clientWood = clientPlayer.resources.wood
-
-		this.totalRecources = this.clientWood + this.clientWheat + this.clientBrick + this.clientSheep + this.clientOre
-		this.numToDiscard = parseInt(this.totalRecources/2)
-
-		if(this.numToDiscard >= 4){
-
-			this.updateStateMessage();
-			this.setMaxDiscardAmounts();
-			this.enableButtons();
-			this.view.showModal();
-		}
+	if(this.clientModel.getCurrentStatus != 'Discarding'){
+		return;
 	}
-	
-	
-}
-DiscardController.prototype.updateStateMessage = function(){
-	this.view.setStateMessage( this.numSelected + '/' + this.numToDiscard)
+
+	var clientPlayer = this.clientModel.getClientPlayer()
+
+	this.clientOre = clientPlayer.resources.ore
+	this.clientSheep = clientPlayer.resources.sheep
+	this.clientBrick = clientPlayer.resources.brick
+	this.clientWheat = clientPlayer.resources.wheat
+	this.clientWood = clientPlayer.resources.wood
+
+	this.totalRecources = this.clientWood + this.clientWheat + this.clientBrick + this.clientSheep + this.clientOre
+	this.numToDiscard = parseInt(this.totalRecources/2)
+
+	if(this.numToDiscard >= 4){
+
+		this.view.showModal();
+		this.updateStateMessage();
+		this.setMaxDiscardAmounts();
+		this.enableButtons();
+
+	}	
 }
 DiscardController.prototype.enableButtons = function(){
 	var reachedMaxed = (this.numToDiscard == this.numSelected)
@@ -211,7 +219,6 @@ DiscardController.prototype.enableButtons = function(){
 	this.view.setResouceAmountChangeEnabled('wood', woodUp, woodDown);
 
 	this.view.setDiscardButtonEnabled(reachedMaxed);
-
 }
 DiscardController.prototype.setMaxDiscardAmounts = function(){
 	this.view.setResourceMaxAmount('ore', this.clientOre);
@@ -220,26 +227,14 @@ DiscardController.prototype.setMaxDiscardAmounts = function(){
 	this.view.setResourceMaxAmount('sheep', this.clientSheep);
 	this.view.setResourceMaxAmount('brick', this.clientBrick);
 }
+DiscardController.prototype.setDiscardAmounts = function(){
 
-DiscardController.prototype.initVariables = function(){
-
-	this.numToDiscard = 0
-
-	this.sheepToDiscard = 0
-	this.oreToDiscard = 0
-	this.woodToDiscard = 0
-	this.wheatToDiscard = 0
-	this.brickToDiscard = 0
-
-	this.clientOre = 0
-	this.clientSheep = 0
-	this.clientBrick = 0
-	this.clientWheat = 0
-	this.clientWood = 0
-
-	this.numSelected = 0
-	this.totalRecources = 0
-
-
+	this.view.setResourceAmount('wheat', this.wheatToDiscard)
+	this.view.setResourceAmount('wood', this.woodToDiscard)
+	this.view.setResourceAmount('ore', this.oreToDiscard)
+	this.view.setResourceAmount('brick', this.brickToDiscard)
+	this.view.setResourceAmount('sheep', this.sheepToDiscard)	
 }
-
+DiscardController.prototype.updateStateMessage = function(){
+	this.view.setStateMessage( this.numSelected + '/' + this.numToDiscard)
+}

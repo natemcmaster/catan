@@ -31,8 +31,6 @@ function RollController(view,resultView, clientModel){
 	Controller.call(this,view,clientModel);
 	this.rollInterval = false;
 	this.showRollResult = false;
-	this.clientModel = clientModel;
-
 };
 
 /**
@@ -41,6 +39,7 @@ function RollController(view,resultView, clientModel){
  * @return void
  **/
 RollController.prototype.closeResult = function(){
+	this.view.closeModal();
 }
 
 /**
@@ -51,8 +50,8 @@ RollController.prototype.closeResult = function(){
 RollController.prototype.rollDice = function(){
 	var currentPlayerId = this.clientModel.getCurrentPlayer().playerID;
 	var randomRollNumber = getRandomInt(2, 12);
-	this.clientModel.proxy.executeCommand(new RollDiceCommand(currentPlayerId, randomRollNumber));
-	
+	this.clientModel.proxy.executeCommand(new RollDiceCommand(currentPlayerId, randomRollNumber));	
+	this.view.closeModal();
 };
 
 /**
@@ -64,3 +63,10 @@ RollController.prototype.rollDice = function(){
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+RollController.prototype.onUpdate = function() {
+	if (this.clientModel.isMyTurn() && this.clientModel.getCurrentStatus() == 'Rolling')
+	{
+		this.view.showModal();
+	}
+};

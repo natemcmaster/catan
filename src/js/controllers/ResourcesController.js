@@ -2,7 +2,9 @@
 if (typeof(catan) === 'undefined') catan = {}
 catan.resources = catan.resources || {};
 
-module.exports = ResourceBarController
+var ResourceType = require('../model/ResourceType.js');
+
+module.exports = ResourceBarController;
 
 /**
 	This is the namespace for resources
@@ -117,4 +119,45 @@ ResourceBarController.prototype.playCard = function(){
 	// This calls the "showModal" method on the Dev Card View.
 	this.getActions()[PLAY_CARD]();
 }
+
+ResourceBarController.prototype.onUpdate = function() {
+	this.setActionsEnabled();
+	this.updateAmounts();
+};
+
+ResourceBarController.prototype.updateAmounts = function() {
+	var player = this.clientModel.getClientPlayer();
+
+	this.view.updateAmount(ResourceType.BRICK, player.resources[ResourceType.BRICK]);
+	this.view.updateAmount(ResourceType.WOOD, player.resources[ResourceType.WOOD]);
+	this.view.updateAmount(ResourceType.SHEEP, player.resources[ResourceType.SHEEP]);
+	this.view.updateAmount(ResourceType.WHEAT, player.resources[ResourceType.WHEAT]);
+	this.view.updateAmount(ResourceType.ORE, player.resources[ResourceType.ORE]);
+	this.view.updateAmount(ROAD, player.roads);
+	this.view.updateAmount(SETTLEMENT, player.settlements);
+	this.view.updateAmount(CITY, player.cities);
+	this.view.updateAmount(ARMY, player.soldiers);
+};
+
+ResourceBarController.prototype.setActionsEnabled = function() {
+	var player = this.clientModel.getClientPlayer();
+
+	if (this.clientModel.getCurrentStatus() == 'Playing' && this.clientModel.isMyTurn())
+	{
+		this.view.setActionEnabled(ROAD, player.canBuyRoad());
+		this.view.setActionEnabled(SETTLEMENT, player.canBuySettlement());
+		this.view.setActionEnabled(CITY, player.canBuyCity());
+		this.view.setActionEnabled(BUY_CARD, player.canBuyDevCard());
+		this.view.setActionEnabled(PLAY_CARD, true);
+	}
+
+	else
+	{
+		this.view.setActionEnabled(ROAD, false);
+		this.view.setActionEnabled(SETTLEMENT, false);
+		this.view.setActionEnabled(CITY, false);
+		this.view.setActionEnabled(BUY_CARD, false);
+		this.view.setActionEnabled(PLAY_CARD, false);
+	}
+};
 

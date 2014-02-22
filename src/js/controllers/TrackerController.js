@@ -22,12 +22,17 @@ var Controller = require('./BaseController');
 	@param {models.ClientModel} clientModel The clientModel for this object to control.
 	@constructor
  **/
-function TurnTrackerController(view, clientModel){
-	Controller.call(this,view,clientModel);
+function TurnTrackerController(view, clientModel) {
+	Controller.call(this, view, clientModel);
 
-	// TODO: This constructor should configure its view by calling view.setClientColor and view.initializePlayer
-	// NOTE: The view.updateViewState and view.updatePlayer will not work if called from here.  Instead, these
-	//          methods should be called later each time the client model is updated from the server.
+	var player=this.clientModel.getClientPlayer();
+	this.view.setClientColor(player.color);
+
+	var players = this.clientModel.gameboard.players;
+	for(var j = 0;j <players.length; j++){
+		this.view.initializePlayer(players[j].playerID, players[j].name, players[j].color)
+	}
+	this.updatePlayers();
 }
 
 core.forceClassInherit(TurnTrackerController,Controller);
@@ -37,12 +42,25 @@ core.forceClassInherit(TurnTrackerController,Controller);
  * @method endTurn
  * @return void
  */
-TurnTrackerController.prototype.endTurn = function(){
+TurnTrackerController.prototype.endTurn = function() {
 	this.clientModel.endMyTurn();
 }
 
 TurnTrackerController.prototype.onUpdate = function(){
-	var player=this.clientModel.getClientPlayer();
-	this.view.setClientColor(player.color);
-	this.view.initializePlayer(player.playerID, player.name, player.color);
+	this.updatePlayers();
+	this.view.updateStateView(this.clientModel.getCurrentStatus());
+}
+
+TurnTrackerController.prototype.updatePlayers = function(){
+
+	var players = this.clientModel.gameboard.players;
+	for(var i = 0;i <players.length; i++){
+		var update = {'playerIndex' : players[i].playerID,
+					  'score' : players[i].victoryPoints,
+					  'highlight' : (players[i].orderNumber == this.clientModel.gameboard.turnTracker.currentTurn),
+					  'army' : players[i].largestArmy,
+					  'road' : players[i].longestRoad};
+		this.view.updatePlayer(update);
+	}
+
 }

@@ -24,6 +24,7 @@ catan.models.ClientModel  = ClientModel
 function ClientModel(playerID){
   this.playerID = playerID;
   this.observers=[];
+  this.revision = -1;
 }      
 
 /**
@@ -38,17 +39,19 @@ function ClientModel(playerID){
 ClientModel.prototype.initFromServer = function(success){
   this.proxy = new Proxy(this.populateModels.bind(this));
   this.proxy.getModel(function(err, data){
-    success();
     this.populateModels(data);
+    success();
   }.bind(this));
 
   this.proxy.startPolling();
-  // TODO: 1) fetch the game state from the server, 2) update the client model, 3) call the "success" function.
 }
 
 // 
 ClientModel.prototype.populateModels = function (data) {
-
+  if(this.revision === data.revision){
+      return;
+  }
+  this.revision = data.revision;
   this.log = new Log(this.proxy, data.log);
   this.chat = new Chat(this.proxy, data.chat);
   this.gameboard = new GameBoard(this.proxy, data);
@@ -78,6 +81,7 @@ ClientModel.prototype.addObserver = function(observer){
  * @return {void} 
  */
 ClientModel.prototype.notifyObservers = function(){
+
   this.observers.forEach(function(observer){
     observer();
   })
@@ -129,6 +133,18 @@ ClientModel.prototype.getClientPlayer = function() {
   return this.gameboard.getPlayerByID(this.playerID)
 }
 
+ClientModel.prototype.getCurrentStatus = function() {
+  return this.gameboard.turnTracker.getStatus();
+}
+ClientModel.prototype.getPlayerByName = function(name) {
+  var players = this.gameboard.players;
+  for(var i = 0; i < players.length; i++){
+    if(players[i].name == name){
+      return players[i];
+    }
+  }
+  console.err('BAD PLAYER NAME');
+}
 /**
  * Identifies if is the client player's turn
  * @return {Boolean} true when
@@ -154,4 +170,5 @@ ClientModel.prototype.discardCards = function(playerID, brick, ore, sheep, wheat
 ClientModel.prototype.getCurrentStatus = function(){
   return this.gameboard.turnTracker.status;
 }
+
 module.exports = ClientModel;

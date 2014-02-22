@@ -38,7 +38,8 @@ function DevCardController(view, buyView, clientModel, soldierAction, roadAction
  * @method buyCard
  * @return void
  */
-DevCardController.prototype.buyCard = function(){
+DevCardController.prototype.buyCard = function() {
+	this.clientModel.getClientPlayer().buyDevCard();
 }
 
 /**
@@ -48,7 +49,8 @@ DevCardController.prototype.buyCard = function(){
  * @param {String} resource2 The second resource to obtain
  * @return void
  */
-DevCardController.prototype.useYearOfPlenty = function(resource1, resource2){
+DevCardController.prototype.useYearOfPlenty = function(resource1, resource2) {
+	this.clientModel.getClientPlayer().yearOfPlenty(resource1, resource2);
 }
 
 /**
@@ -57,7 +59,8 @@ DevCardController.prototype.useYearOfPlenty = function(resource1, resource2){
  * @param {String} resource the resource to obtain
  * @return void
  */
-DevCardController.prototype.useMonopoly= function(resource){
+DevCardController.prototype.useMonopoly= function(resource) {
+	this.clientModel.getClientPlayer().monopoly(resource);
 }
 
 /**
@@ -65,7 +68,8 @@ DevCardController.prototype.useMonopoly= function(resource){
  * @method useMonument
  * @return void
  */
-DevCardController.prototype.useMonument = function(){
+DevCardController.prototype.useMonument = function() {
+	this.clientModel.getClientPlayer().playMonument();
 }
 
 /**
@@ -73,7 +77,8 @@ DevCardController.prototype.useMonument = function(){
  * @method useSoldier
  * @return void
  */
-DevCardController.prototype.useSoldier= function(){
+DevCardController.prototype.useSoldier= function(hex, playerToRob) {
+	this.clientModel.getClientPlayer().playSolder(hex, playerToRob);
 }
 
 /**
@@ -81,7 +86,23 @@ DevCardController.prototype.useSoldier= function(){
  * @method useRoadBuild
  * @return void
  */
-DevCardController.prototype.useRoadBuild = function(resource){
+DevCardController.prototype.useRoadBuild = function(edge1, edge2) {
+	this.clientModel.getClientPlayer().roadBuilding(edge1, edge2);
 }
 
+DevCardController.prototype.onUpdate = function() {
+	var clientPlayer = this.clientModel.getClientPlayer();
+
+	this.view.updateAmount(Definitions.SOLDIER, clientPlayer.getNumberOfDevCards(Definitions.SOLDIER));
+	this.view.updateAmount(Definitions.YEAR_OF_PLENTY, clientPlayer.getNumberOfDevCards(Definitions.YEAR_OF_PLENTY));
+	this.view.updateAmount(Definitions.MONOPOLY, clientPlayer.getNumberOfDevCards(Definitions.MONOPOLY));
+	this.view.updateAmount(Definitions.ROAD_BUILD, clientPlayer.getNumberOfDevCards(Definitions.ROAD_BUILD));
+	this.view.updateAmount(Definitions.MONUMENT, clientPlayer.getNumberOfDevCards(Definitions.MONUMENT));
+
+	this.view.setCardEnabled(Definitions.SOLDIER, clientPlayer.canPlaySoldier());
+	this.view.setCardEnabled(Definitions.YEAR_OF_PLENTY, clientPlayer.canPlayYearOfPlenty());
+	this.view.setCardEnabled(Definitions.MONOPOLY, clientPlayer.canPlayMonopoly());
+	this.view.setCardEnabled(Definitions.ROAD_BUILD, clientPlayer.canPlayRoadBuilding());
+	this.view.setCardEnabled(Definitions.MONUMENT, clientPlayer.canPlayMonument());
+}
 
