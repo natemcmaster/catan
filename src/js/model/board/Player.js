@@ -84,6 +84,7 @@ Player.prototype.canBuyRoad = function () {
 	else
 		return false;
 };
+
 /**
 <pre>
 Pre-condition: NONE
@@ -103,6 +104,7 @@ Player.prototype.canBuySettlement = function () {
 	else
 		return false;
 };
+
 /**
 <pre>
 Pre-condition: NONE
@@ -120,6 +122,7 @@ Player.prototype.canBuyCity = function () {
 	else
 		return false;
 };
+
 /**
 <pre>
 Pre-condition: NONE
@@ -137,22 +140,17 @@ Player.prototype.canBuyDevCard = function () {
 	else
 		return false;
 };
+
 /**
- * Get a list of the playable development cards.
+ * Get the total number of one type of development card.
  * <pre>
  * Pre-condition: NONE
  * Post-condition: NONE
  * </pre>
- * @method playableDevelopmentCards
- * @return {List<CardType>} A list of the development cards that the player 
- * can play on this turn.
+ * @method getNumberOfCards
+ * @param {String} devCardType the type of development card
+ * @return {int} the total number of one type of development card that the player has
  */
-Player.prototype.playableDevelopmentCards = function () {
-
-	return this.oldDevCards; //TODO: add monument cards from the new hand
-	
-};
-
 Player.prototype.getNumberOfDevCards = function(devCardType) {
 	return this.oldDevCards[devCardType] + this.newDevCards[devCardType];
 };
@@ -238,8 +236,8 @@ Player.prototype.canPlayMonopoly = function () {
  * @method canPlayMonument
  * @return {bool} true if the player at least one monument card
  * and if he plays all his monument cards he will have at least
- * 10 victory points (monument cards are not revealed unless you
- * can win the game)
+ * 10 victory points (monument cards are not revealed unless the
+ * player can win the game)
  */
 Player.prototype.canPlayMonument = function () {
 	

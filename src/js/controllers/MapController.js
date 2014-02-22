@@ -42,6 +42,7 @@ function MapController(view, modalView, model, robView){
 	Controller.call(this,view,model);
 	this.setModalView(modalView);
 	this.setRobView(robView);
+	this.onUpdate();	
 }
 
 MapController.prototype.onUpdate = function () {

@@ -38,14 +38,27 @@ function PointController(view, gameFinishedView, clientModel){
 PointController.prototype.onUpdate = function() {
 
 	var clientPlayer = this.clientModel.getClientPlayer()
-	var clientPlayerPoints = clientPlayer.victoryPoints
-	this.view.setPoints(clientPlayerPoints)
+	this.view.setPoints(clientPlayer.victoryPoints)
 	
-	if(clientPlayerPoints >= clientPlayer.MAX_GAME_POINTS){
-		//How to appropriatly set winner in game finished view
-		this.gameFinishedView.setWinner(clientPlayer.name, true)
-		this.gameFinishedView.showModal()
+	var players = this.clientModel.gameboard.players
+
+	for(var i = 0; i< players.length; i++){
+
+		if(players[i].victoryPoints >= players[i].MAX_GAME_POINTS){
+
+			if(players[i] == clientPlayer){
+				this.gameFinishedView.setWinner(players[i].name, true)
+			}
+			else{
+				this.gameFinishedView.setWinner(players[i].name, false)
+			}
+
+			this.gameFinished.showModal();
+			break;
+		}
 	}
+	
+	
 };
 
 // STUDENT-REMOVE-END

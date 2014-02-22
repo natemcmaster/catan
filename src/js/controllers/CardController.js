@@ -31,6 +31,8 @@ core.defineProperty(DevCardController.prototype, "BuyView");
 function DevCardController(view, buyView, clientModel, soldierAction, roadAction){
 	Controller.call(this,view,clientModel);
 	this.setBuyView(buyView);
+	this.soldierAction = soldierAction;
+	this.roadAction = roadAction;
 }
 
 /**
@@ -40,6 +42,7 @@ function DevCardController(view, buyView, clientModel, soldierAction, roadAction
  */
 DevCardController.prototype.buyCard = function() {
 	this.clientModel.getClientPlayer().buyDevCard();
+	this.getBuyView().closeModal();
 }
 
 /**
@@ -51,6 +54,7 @@ DevCardController.prototype.buyCard = function() {
  */
 DevCardController.prototype.useYearOfPlenty = function(resource1, resource2) {
 	this.clientModel.getClientPlayer().yearOfPlenty(resource1, resource2);
+	this.view.closeModal();
 }
 
 /**
@@ -61,6 +65,7 @@ DevCardController.prototype.useYearOfPlenty = function(resource1, resource2) {
  */
 DevCardController.prototype.useMonopoly= function(resource) {
 	this.clientModel.getClientPlayer().monopoly(resource);
+	this.view.closeModal();
 }
 
 /**
@@ -70,6 +75,7 @@ DevCardController.prototype.useMonopoly= function(resource) {
  */
 DevCardController.prototype.useMonument = function() {
 	this.clientModel.getClientPlayer().playMonument();
+	this.view.closeModal();
 }
 
 /**
@@ -77,8 +83,9 @@ DevCardController.prototype.useMonument = function() {
  * @method useSoldier
  * @return void
  */
-DevCardController.prototype.useSoldier= function(hex, playerToRob) {
-	this.clientModel.getClientPlayer().playSolder(hex, playerToRob);
+DevCardController.prototype.useSoldier= function() {
+	this.soldierAction();
+	this.view.closeModal();
 }
 
 /**
@@ -86,8 +93,9 @@ DevCardController.prototype.useSoldier= function(hex, playerToRob) {
  * @method useRoadBuild
  * @return void
  */
-DevCardController.prototype.useRoadBuild = function(edge1, edge2) {
-	this.clientModel.getClientPlayer().roadBuilding(edge1, edge2);
+DevCardController.prototype.useRoadBuild = function(resource) {
+	this.roadAction();
+	this.view.closeModal();
 }
 
 DevCardController.prototype.onUpdate = function() {
