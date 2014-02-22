@@ -78,7 +78,7 @@ DevCardController.prototype.useMonument = function() {
  * @return void
  */
 DevCardController.prototype.useSoldier= function(hex, playerToRob) {
-	this.clientModel.getClientPlayer().playSolder(hex, playerToRob);
+	this.clientModel.getClientPlayer().playSoldier(hex, playerToRob);
 }
 
 /**
