@@ -37,6 +37,7 @@ var Buyables = new Array(ROAD, SETTLEMENT, CITY, BUY_CARD, PLAY_CARD, ARMY);
 function ResourceBarController(view,clientModel,actions){
 	this.setActions(actions);
 	Controller.call(this,view,clientModel);
+	this.onUpdate();
 };
 
 core.forceClassInherit(ResourceBarController,Controller);
