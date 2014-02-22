@@ -121,8 +121,8 @@ ResourceBarController.prototype.playCard = function(){
 }
 
 ResourceBarController.prototype.onUpdate = function() {
-	this.updateAmounts();
 	this.setActionsEnabled();
+	this.updateAmounts();
 };
 
 ResourceBarController.prototype.updateAmounts = function() {
@@ -133,10 +133,10 @@ ResourceBarController.prototype.updateAmounts = function() {
 	this.view.updateAmount(ResourceType.SHEEP, player.resources[ResourceType.SHEEP]);
 	this.view.updateAmount(ResourceType.WHEAT, player.resources[ResourceType.WHEAT]);
 	this.view.updateAmount(ResourceType.ORE, player.resources[ResourceType.ORE]);
-	this.view.updateAmount("Roads", player.roads);
-	this.view.updateAmount("Settlements", player.settlements);
-	this.view.updateAmount("Cities", player.cities);
-	this.view.updateAmount("Soldiers", player.soldiers);
+	this.view.updateAmount(ROAD, player.roads);
+	this.view.updateAmount(SETTLEMENT, player.settlements);
+	this.view.updateAmount(CITY, player.cities);
+	this.view.updateAmount(ARMY, player.soldiers);
 };
 
 ResourceBarController.prototype.setActionsEnabled = function() {
@@ -144,20 +144,20 @@ ResourceBarController.prototype.setActionsEnabled = function() {
 
 	if (this.clientModel.getCurrentStatus() == 'Playing' && this.clientModel.isMyTurn())
 	{
-		this.view.setActionEnabled("Roads", player.canBuyRoad());
-		this.view.setActionEnabled("Settlements", player.canBuySettlement());
-		this.view.setActionEnabled("Cities", player.canBuyCity());
-		this.view.setActionEnabled("BuyCard", player.canBuyDevCard());
-		this.view.setActionEnabled("DevCards", true);
+		this.view.setActionEnabled(ROAD, player.canBuyRoad());
+		this.view.setActionEnabled(SETTLEMENT, player.canBuySettlement());
+		this.view.setActionEnabled(CITY, player.canBuyCity());
+		this.view.setActionEnabled(BUY_CARD, player.canBuyDevCard());
+		this.view.setActionEnabled(PLAY_CARD, true);
 	}
 
 	else
 	{
-		this.view.setActionEnabled("Roads", false);
-		this.view.setActionEnabled("Settlements", false);
-		this.view.setActionEnabled("Cities", false);
-		this.view.setActionEnabled("BuyCard", false);
-		this.view.setActionEnabled("DevCards", false);
+		this.view.setActionEnabled(ROAD, false);
+		this.view.setActionEnabled(SETTLEMENT, false);
+		this.view.setActionEnabled(CITY, false);
+		this.view.setActionEnabled(BUY_CARD, false);
+		this.view.setActionEnabled(PLAY_CARD, false);
 	}
 };
 
