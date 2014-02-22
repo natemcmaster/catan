@@ -77,7 +77,7 @@ module.exports = function(grunt) {
 			tests: {
 				options: {
 					globals: {
-						global:true,
+						global: true,
 						test: true,
 						suite: true,
 						setup: true,
@@ -108,8 +108,8 @@ module.exports = function(grunt) {
 			src: {
 				src: srcJsFile,
 				dest: browserifyOutput,
-				options:{
-					standalone:'impl'
+				options: {
+					standalone: 'impl'
 				}
 			},
 			test: {
@@ -182,8 +182,8 @@ module.exports = function(grunt) {
 	});
 
 	grunt.registerTask('default', ['copy', 'browserify', 'concat', 'jshint', 'test']);
-	grunt.registerTask('all', ['copy', 'browserify', 'concat', 'yuidoc:compile','jshint', 'test']);
-  grunt.registerTask('build', ['copy', 'browserify', 'concat']);
+	grunt.registerTask('all', ['copy', 'browserify', 'concat', 'yuidoc:compile', 'jshint', 'test']);
+	grunt.registerTask('build', ['copy', 'browserify', 'concat', 'yuidoc:compile']);
 
 	grunt.registerTask('clean', 'Delete build folder', function() {
 		grunt.file.delete(buildDir + '/');
@@ -193,8 +193,8 @@ module.exports = function(grunt) {
 		grunt.file.delete('node_modules/');
 	});
 	grunt.registerTask('test', 'Test models', function() {
-		grunt.log.writeln('Copying files to build output: '+buildDir+'/');
-		grunt.task.run(['browserify:test','copy:test']);
+		grunt.log.writeln('Copying files to build output: ' + buildDir + '/');
+		grunt.task.run(['browserify:test', 'copy:test']);
 		var toFile = grunt.option('output') || '';
 		if (toFile)
 			grunt.config('mochaTest.test.options.captureFile', toFile);
