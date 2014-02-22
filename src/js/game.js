@@ -108,6 +108,7 @@ var modules = {
 		var marView = new catan.trade.maritime.View();
 		var marController = new Controllers.MaritimeController(marView, model);
 		marView.setController(marController);
+		marController.onUpdate();
 		return [marView, marController];
 	},
 	devCard: function(model) {

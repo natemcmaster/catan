@@ -21,7 +21,7 @@
     "grunt-mocha": "~0.4.10",
     "chai": "~1.9.0",
     "grunt-verbosity": "~0.2.2",
-    "byu-catan": "git+https://github.com/natemcmaster/catan_source.git#v1.1.1",
+    "byu-catan": "git://github.com/natemcmaster/catan_source.git#v1.1.3",
     "grunt-contrib-jshint": "~0.8.0",
     "grunt-mocha-test": "~0.9.0",
     "grunt-mocha-cov": "~0.2.0",

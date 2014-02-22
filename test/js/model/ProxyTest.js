@@ -41,7 +41,7 @@ suite('ProxyTest', function() {
 			request.runDone();
 
 			expect(request.options.url).to.equal(testCase.url);
-			expect(request.options.data).to.deep.equal(testCase.data);
+			expect(JSON.parse(request.options.data)).to.deep.equal(testCase.data);
 			expect(loadedGameModel).to.be.true;
 		});
 

@@ -1,3 +1,7 @@
+// inputResource is undefined when 3:1
+// inputResrouce is the resrouce if 2:1
+// Loop through each port and ass
+
 //STUDENT-EDITABLE-BEGIN
 /**
 	This is the namespace for maritime trading
@@ -20,6 +24,7 @@ var Controller = require('./BaseController');
 var MaritimeTradeCommand = require('../model/commands/MaritimeTradeCommand');
 
 /**
+	Initialization...highlight and unhiglight resrouces to give based on what the player has.
 	@class MaritimeController
 	@constructor 
 	@extends misc.BaseController
@@ -32,15 +37,61 @@ function MaritimeController(view,clientModel){
 	this.resourceToGive = null;
 	this.resourceToGet = null;
 
-	//var localPlayerID = this.clientModel.getClientPlayer().playerID;
-	for(var i=0; i < 4; i++){
-		var ports = this.clientModel.gameboard.map.portsForPlayer(i);
-		console.log("Port for player " + i);
-		console.log(ports);
-	}
 };
 
 MaritimeController.prototype = core.inherit(Controller.prototype);
+
+
+
+/**
+* Freaking hacked together onUpdate since the constructor wouldn't work.
+*
+*
+*								*SIGH*
+*
+*       
+*/
+MaritimeController.prototype.onUpdate = function(){
+	showGiveOptions(this);
+	this.view.hideGetOptions();
+	this.view.setMessage("Choose resource to trade in.");
+	this.view.enableTradeButton(false);
+
+}
+
+function showGiveOptions(proto){
+	var localPlayer = proto.clientModel.getClientPlayer();
+	var localPlayerID = localPlayer.playerID;
+	var ports = proto.clientModel.gameboard.map.portsForPlayer(localPlayerID);
+	console.log(ports);
+
+	var giveOptions = [];
+	for(var i=0; i < ports.length; i++){
+		var port = ports[i];
+		
+		// If port.inputResource exsits, then the port ratio is 2:1
+		if(port.inputResource){
+			if(localPlayer.resources[unCapFirst(port.inputResource)] >= port.ratio){
+				giveOptions.push(unCapFirst(port.inputResource));
+			}	
+		}
+		//Otherwise, the ratio is 3:1
+		else {
+			// Loop through each of the resources that a player owns
+			for (var resource in localPlayer.resources) {
+			  if (localPlayer.resources.hasOwnProperty(resource)) {
+			    if(localPlayer.resources[resource] >= 3){
+			    	giveOptions.push(resource);
+			    }
+			  }
+			}
+
+		}
+	}
+
+	proto.view.showGiveOptions(giveOptions);
+}
+
 
 /**
  * Called by the view when the player "undoes" their give selection
@@ -71,8 +122,23 @@ MaritimeController.prototype.unsetGetValue = function(){
  * @return void
  */
 MaritimeController.prototype.setGiveValue = function(resource){
+	console.log(this.clientModel);
+	
+	// Loop through each resource in the bank, enabling
+	// trades for resources that have greater than 1 stock
+	var getOptions = [];
+	for (var resource in this.clientModel.gameboard.bank) {
+	  if (this.clientModel.gameboard.bank.hasOwnProperty(resource)) {
+	    if(this.clientModel.gameboard.bank[resource] >= 1){
+	    	getOptions.push(resource);
+	    }
+	  }
+	}
+	this.view.showGetOptions(getOptions);
+
 	this.resourceToGive = resource;
 	this.view.selectGiveOption(resource, 2);
+	this.view.showGetOptions();
 	console.log("setting give type to: " + resource);
 };
 
@@ -88,8 +154,13 @@ MaritimeController.prototype.setGetValue = function(resource){
 	console.log("setting get to: " + resource);
 };
 
+
 function capFirst(str){
 	return str[0].toUpperCase() + str.slice(1);
+}
+
+function unCapFirst(str){
+	return str[0].toLowerCase() + str.slice(1);
 }
 
 /** Called by the view when the player makes the trade

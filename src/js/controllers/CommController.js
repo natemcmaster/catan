@@ -45,6 +45,7 @@ LogController.prototype.constructor = LogController;
  **/
 function LogController(logView, model){
 	BaseCommController.call(this,logView,model);
+	this.onUpdate();
 }
 
 // update the log lines
@@ -74,6 +75,7 @@ ChatController.prototype.constructor = ChatController;
  **/
 function ChatController(chatView,model){
 	BaseCommController.call(this,chatView,model);
+	this.onUpdate();
 }
 
 // update the chat lines
