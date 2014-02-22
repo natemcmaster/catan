@@ -3,6 +3,7 @@ var Deck = require('./Deck');
 var Map = require('./map/Map');
 var Player = require('./Player');
 var TurnTracker = require("./TurnTraker");
+var TradeOffer = require('./TradeOffer');
 
 var RobPlayerCommand = require('../commands/RobPlayerCommand');
 
@@ -34,6 +35,7 @@ function GameBoard(proxy, data) {
 
 	this.turnTracker = new TurnTracker(proxy, data.turnTracker);
 	this.winner = data.winner;
+	this.tradeOffer = data.tradeOffer ? new TradeOffer(data.tradeOffer) : false;
 
 }
 

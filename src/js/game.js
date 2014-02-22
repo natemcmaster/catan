@@ -99,9 +99,6 @@ var modules = {
 		var acceptView = new catan.trade.domestic.AcceptView();
 		var domController = new Controllers.DomesticController(domView, waitingView, acceptView, model);
 
-		domView.setController(domController);
-		acceptView.setController(domController);
-
 		return [domView, domController];
 	},
 	marTrade: function(model) {

@@ -3,6 +3,9 @@ var Chat = require("./Chat");
 var Log = require("./Log");
 var Proxy = require("./Proxy");
 
+var Definitions = require('byu-catan').definitions;
+var ResourceTypes = Definitions.ResourceTypes;
+
 /**
   This module contains the top-level client model class
   
@@ -165,6 +168,36 @@ ClientModel.prototype.endMyTurn = function(){
 
 ClientModel.prototype.getCurrentStatus = function(){
   return this.gameboard.turnTracker.status;
+}
+
+ClientModel.prototype.receivedTradeOffer = function(){
+  if(!this.gameboard.tradeOffer)
+    return false;
+  return this.gameboard.tradeOffer.receiverID == this.playerID;
+}
+
+ClientModel.prototype.sentTradeOffer = function(){
+  if(!this.gameboard.tradeOffer)
+    return false;
+  return this.gameboard.tradeOffer.senderID == this.playerID;
+}
+
+
+ClientModel.prototype.getTradeSenderName = function(){
+  var sender = this.gameboard.getPlayerByID(this.gameboard.tradeOffer.senderID);
+  return sender.name;
+}
+
+ClientModel.prototype.canAcceptTrade = function(){
+  if(!this.receivedTradeOffer())
+    return false;
+  var receiver = this.gameboard.getPlayerByID(this.gameboard.tradeOffer.receiverID);
+  for(var i in ResourceTypes){
+    var r = ResourceTypes[i];
+    if(Math.abs(this.gameboard.tradeOffer.offer[r]) > receiver.resources[r])
+      return false;
+  }
+  return true;
 }
 
 module.exports = ClientModel;
