@@ -7,20 +7,29 @@ var catan = require('byu-catan')
   , VertexLoc = catan.mapview.VertexLoc
 
 module.exports = {
-  draw: draw
+  draw: draw,
+  drawBase: drawBase
 }
 
-function draw(view, model, colors) {
+function drawBase(view, model, colors) {
   model.getAllHexes().forEach(function (hex) {
     view.addHex(hex.getLocation(), hex.getType(), true)
   })
   drawNumbers(view, model.getNumbers().getNumberPositions())
   drawPorts(view, model.ports)
+  var layers = 'hex port number'.split(' ')
+  layers.forEach(function (layer) {
+    var name = 'get' + layer[0].toUpperCase() + layer.slice(1) + 'Layer'
+    view[name]().draw()
+  })
+}
+
+function draw(view, model, colors) {
   drawRobber(view, model.getRobberPos())
   drawEdges(view, model.getOwnedEdges(), colors)
   drawVertices(view, model.getOwnedVertices(), colors)
 
-  var layers = 'hex port number robber edge vertex drag'.split(' ')
+  var layers = 'robber edge vertex drag'.split(' ')
   layers.forEach(function (layer) {
     var name = 'get' + layer[0].toUpperCase() + layer.slice(1) + 'Layer'
     view[name]().draw()
@@ -97,7 +106,7 @@ function vertexLoc(loc) {
 
 function drawEdges(view, edges, colors) {
   edges.forEach(function (edge) {
-    view.placeRoad(edgeLoc(edge.location), colors[edge.getOwner()])
+    view.placeRoad(edgeLoc(edge.location), colors[edge.getOwner()], true)
     console.log(edge, edge.getOwner())
   })
 }

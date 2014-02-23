@@ -38,10 +38,15 @@ Post-condition: NONE
 **/
 BuildCityCommand.prototype.getData = function(){
 
-	return {'type':'buildCity',
-			'playerIndex': this.playerID,
-			'vertexLocation': {'x': this.cityLocation.getHexLocation().getX(),
-							   'y': this.cityLocation.getHexLocation().getY(),
-							   'direction': this.cityLocation.getDirection()},
-			'free': this.isFree};
+  var dirs = ["W","NW","NE","E","SE","SW"]
+	return {
+    'type':'buildCity',
+    'playerIndex': this.playerID,
+    'vertexLocation': {
+      'x': this.cityLocation.getHexLocation().getX(),
+      'y': this.cityLocation.getHexLocation().getY(),
+      'direction': dirs[this.cityLocation.getDirection()]
+    },
+    'free': this.isFree
+  };
 };

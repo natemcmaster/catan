@@ -38,10 +38,15 @@ Post-condition: NONE
 **/
 BuildSettlementCommand.prototype.getData = function(){
 
-	return {'type':'buildSettlement',
-			'playerIndex': this.playerID,
-			'vertexLocation': {'x': this.settlementLocation.getHexLocation().getX(),
-							   'y': this.settlementLocation.getHexLocation().getY(),
-							   'direction': this.settlementLocation.getDirection()},
-			'free': this.isFree};
+  var dirs = ["W","NW","NE","E","SE","SW"]
+	return {
+    'type':'buildSettlement',
+    'playerIndex': this.playerID,
+    'vertexLocation': {
+      'x': this.settlementLocation.getHexLocation().getX(),
+      'y': this.settlementLocation.getHexLocation().getY(),
+      'direction': dirs[this.settlementLocation.getDirection()]
+    },
+    'free': this.isFree
+  };
 };

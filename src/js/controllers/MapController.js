@@ -42,7 +42,10 @@ function MapController(view, modalView, model, robView){
 	Controller.call(this,view,model);
 	this.setModalView(modalView);
 	this.setRobView(robView);
-	this.onUpdate();	
+  
+  helpers.drawBase(this.view, this.clientModel.gameboard.map, this.clientModel.getPlayerColors())
+  helpers.draw(this.view, this.clientModel.gameboard.map, this.clientModel.getPlayerColors())
+  this.state = 'normal'
 }
 
 MapController.prototype.onUpdate = function () {
@@ -91,11 +94,14 @@ MapController.prototype.startDoubleRoadBuilding = function(){
  * Pops the map out and prompts the player to place the appropriate piece
  * @param {String} pieceType - "road", "settlement", or "city
  * @param {boolean} free - Set to true in road building and the initial setup
- * @param {boolean} disconnected - Whether or not the piece can be disconnected. Set to true only in initial setup
+ * @param {boolean} setup - Whether this is in the setup phase (it can be disconnected)
  * @method startMove
  * @return void
  **/	
-MapController.prototype.startMove = function (pieceType,free,disconnected){
+MapController.prototype.startMove = function (pieceType, free, setup){
+  this.placeState = {type: pieceType, free: free, setup: setup}
+  this.modalView.showModal(pieceType)
+  this.view.startDrop(pieceType, this.clientModel.getClientPlayer().color)
 };
 
 /**
@@ -105,6 +111,18 @@ MapController.prototype.startMove = function (pieceType,free,disconnected){
  * @return void
  * */
 MapController.prototype.cancelMove = function(){
+  this.modalView.hideModal()
+}
+
+function goodLocation(loc, type) {
+  switch (type) {
+    case 'road':
+      return new EdgeLocation(loc.x, loc.y, EdgeDirection[loc.dir])
+    case 'robber':
+      return new HexLocation(loc.x, loc.y)
+    default:
+      return new VertexLocation(loc.x, loc.y, VertexDirection[loc.dir])
+  }
 }
 
 /**
@@ -118,6 +136,11 @@ MapController.prototype.cancelMove = function(){
 	@return {boolean} Whether or not the given piece can be placed at the current location.
 	*/
 MapController.prototype.onDrag = function (loc, type) {
+  console.log('drag', loc, type)
+  type = type.type
+  var fn = 'canPlace' + type[0].toUpperCase() + type.slice(1)
+    , loco = goodLocation(loc, type)
+  return this.clientModel.gameboard.map[fn](this.clientModel.playerID, loco, this.placeState.setup)
 };
 
 /**
@@ -125,9 +148,19 @@ MapController.prototype.onDrag = function (loc, type) {
 	This method should close the modal and possibly trigger the Rob View.
 
 	@param {MapLocation} loc The location where the piece is being placed
-	@param {String} type The type of piece being placed ("robber","road","settlement","city")
+	@param {object} what {type: String, color: String} The type of piece being placed ("robber","road","settlement","city")
 	@method onDrop
 	*/
-MapController.prototype.onDrop = function (loc, type) {
+MapController.prototype.onDrop = function (loc, what) {
+  this.modalView.closeModal()
+  var type = what.type
+    , loco = goodLocation(loc, type)
+  if (type === 'robber') {
+    this.placeState.robHex = loco
+    this.robView.showModal()
+  }
+  var fn = 'place' + type[0].toUpperCase() + type.slice(1)
+  this.clientModel.gameboard.map[fn](this.clientModel.playerID, loco, this.placeState.free)
+  this.placeState = null
 };
 

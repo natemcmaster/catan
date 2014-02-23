@@ -7,10 +7,6 @@
 
 module.exports = SetupRoundController;
 
-var window = window || {};
-var catan = window.catan || {};
-catan.setup = catan.setup || {};
-
 var Controller = require('./BaseController');
 
 /** 
@@ -26,7 +22,7 @@ function SetupRoundController(clientModel, mapController) {
 	Controller.call(this, undefined, clientModel);
 
 	this.onUpdate();
-};
+}
 
 core.forceClassInherit(SetupRoundController, Controller);
 
@@ -35,13 +31,20 @@ SetupRoundController.prototype.onUpdate = function() {
 		//view.statusBar = "Waiting for other players";
 		return;
 	}
-	var player = this.clientModel.getClientPlayer();
-	if (player.roadsBuilt == player.settlementsBuilt && player.roadsBuilt == 2) {
-		this.clientModel.endMyTurn();
-	} else if (player.roadsBuilt > player.settlementsBuilt) {
-		this.mapController.startMove('settlement', true, false);
-	} else {
-		this.mapController.startMove('road', true, true);
-
+	var player = this.clientModel.getClientPlayer()
+    , status = this.clientModel.getCurrentStatus();
+  if (['FirstRound', 'SecondRound'].indexOf(status) === -1) {
+    window.location.href = 'catan.html'
+    return
+  }
+	if (player.roadsBuilt == player.settlementsBuilt) {
+    if ([0, 'FirstRound', 'SecondRound'][player.roadsBuilt] === status) {
+      return this.clientModel.endMyTurn();
+    }
 	}
+  if (player.roadsBuilt > player.settlementsBuilt) {
+		return this.mapController.startMove('settlement', true, false);
+	} 
+  this.mapController.startMove('road', true, true);
 }
+

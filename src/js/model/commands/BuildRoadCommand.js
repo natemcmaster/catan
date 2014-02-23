@@ -38,10 +38,13 @@ Post-condition: NONE
 **/
 BuildRoadCommand.prototype.getData = function(){
 
+  var dirs = ["NW","N","NE","SE","S","SW"]
 	return {'type':'buildRoad',
 			'playerIndex': this.playerID,
-			'roadLocation': {'x': this.roadLocation.getHexLocation().getX(),
-							   'y': this.roadLocation.getHexLocation().getY(),
-							   'direction': this.roadLocation.getDirection()},
+			'roadLocation': {
+        'x': this.roadLocation.getHexLocation().getX(),
+        'y': this.roadLocation.getHexLocation().getY(),
+        'direction': dirs[this.roadLocation.getDirection()]
+      },
 			'free':this.isFree};
 };

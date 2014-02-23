@@ -152,7 +152,7 @@ suite('MapTests', function() {
 				'roadLocation': {
 					'x': x,
 					'y': y,
-					'direction': EdgeDirection.N
+					'direction': 'N'
 				},
 				'free': false
 			};
@@ -177,7 +177,7 @@ suite('MapTests', function() {
 				'vertexLocation': {
 					'x': x,
 					'y': y,
-					'direction': dir
+					'direction': 'NE'
 				},
 				'free': false
 			};
@@ -200,7 +200,7 @@ suite('MapTests', function() {
 				'vertexLocation': {
 					'x': x,
 					'y': y,
-					'direction': dir
+					'direction': 'NE'
 				},
 				'free': false
 			};
