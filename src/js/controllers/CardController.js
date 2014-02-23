@@ -33,7 +33,6 @@ function DevCardController(view, buyView, clientModel, soldierAction, roadAction
 	this.setBuyView(buyView);
 	this.soldierAction = soldierAction;
 	this.roadAction = roadAction;
-	this.onUpdate();
 }
 
 /**

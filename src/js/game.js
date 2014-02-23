@@ -124,6 +124,7 @@ var modules = {
 		useDevCard.setController(controller);
 		this.views.buyDevCard = buyDevCard;
 		this.views.useDevCard = useDevCard;
+		controller.onUpdate()
 		return [null, controller];
 	},
 	chat: function(model) {
