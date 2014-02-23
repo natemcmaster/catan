@@ -9,6 +9,7 @@
 var hexgrid = require('./hexgrid')
   , HexGrid = hexgrid.HexGrid
   , HexLocation = hexgrid.HexLocation
+  , VertexLocation = hexgrid.VertexLocation
   , VertexDirection = hexgrid.VertexDirection
   , Hex = require('./Hex')
   , NumberTiles = require('./NumberTiles')
@@ -128,6 +129,23 @@ Map.prototype.portsForPlayer = function (playerId) {
 		});
 	});
 };
+
+/**
+ * Get IDs of all the players with property on the given hex
+ * @method playersOnHex
+ * @param {HexLocation} hex
+ * @return {List of int}
+ */
+Map.prototype.playersOnHex = function (hex) {
+  var players = []
+    , ow
+  for (var i=0; i<6; i++) {
+    ow = this.getVertex(new VertexLocation(hex, i)).getOwner()
+    if (ow === -1) continue;
+    if (players.indexOf(ow) === -1) players.push(ow)
+  }
+  return players
+}
 
 /**
  * <pre>

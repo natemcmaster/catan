@@ -44,12 +44,14 @@ function MapController(view, modalView, model, robView){
 	this.setRobView(robView);
   
   helpers.drawBase(this.view, this.clientModel.gameboard.map, this.clientModel.getPlayerColors())
-  helpers.draw(this.view, this.clientModel.gameboard.map, this.clientModel.getPlayerColors())
   this.state = 'normal'
 }
 
 MapController.prototype.onUpdate = function () {
   helpers.draw(this.view, this.clientModel.gameboard.map, this.clientModel.getPlayerColors())
+  
+  if (this.clientModel.getCurrentStatus() !== 'Robbing') return
+  this.startMove('robber', true, false)
 };
 
 MapController.prototype.setModalView = function (modalView) {
@@ -66,7 +68,8 @@ MapController.prototype.setRobView = function (robView) {
 	@method robPlayer
 	*/
 MapController.prototype.robPlayer = function(orderID){
-  this.clientModel.robPlayer(orderID)
+  this.clientModel.robPlayer(orderID, this.placeState.robHex)
+  this.robView.closeModal()
 }
 
 /**
@@ -76,8 +79,7 @@ MapController.prototype.robPlayer = function(orderID){
  * @return void
  **/		
 MapController.prototype.doSoldierAction = function(){    
-  this.robView.setPlayerInfo(this.clientModel.getRobPlayerInfo())
-  this.robView.showModal()
+  this.startMove('robber', true, false)
 }
 
 /**
@@ -111,7 +113,7 @@ MapController.prototype.startMove = function (pieceType, free, setup){
  * @return void
  * */
 MapController.prototype.cancelMove = function(){
-  this.modalView.hideModal()
+  this.modalView.closeModal()
 }
 
 function goodLocation(loc, type) {
@@ -156,11 +158,19 @@ MapController.prototype.onDrop = function (loc, what) {
   var type = what.type
     , loco = goodLocation(loc, type)
   if (type === 'robber') {
-    this.placeState.robHex = loco
-    this.robView.showModal()
+    return this.showRobModal(loco)
   }
   var fn = 'place' + type[0].toUpperCase() + type.slice(1)
   this.clientModel.gameboard.map[fn](this.clientModel.playerID, loco, this.placeState.free)
   this.placeState = null
 };
+
+/**
+ * show rob modal for the given hex
+ */
+MapController.prototype.showRobModal = function (loco) {
+  this.placeState.robHex = loco
+  this.robView.setPlayerInfo(this.clientModel.getRobPlayerInfo(loco))
+  this.robView.showModal()
+}
 

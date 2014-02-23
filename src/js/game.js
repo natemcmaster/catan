@@ -35,6 +35,7 @@ var modules = {
 		var view = new catan.turntracker.View();
 		var controller = new Controllers.TrackerController(view, model);
 		view.setController(controller);
+    controller.onUpdate();
 		return [view, controller];
 	},
 	map: function(model) {
@@ -42,7 +43,7 @@ var modules = {
 		var height = $(window).height(); // returns height of browser viewport
 		var width = $(window).width(); // returns width of browser viewport
 		var view = new catan.map.View.MapView(height - 200, MAP_RADIUS * 2 - 1, MAP_RADIUS * 2 - 1);
-		var robberView = (this.gameType == 'setup') ? robberView = new catan.views.overlays.RobOverlay() : null;
+		var robberView = (this.gameType !== 'setup') ? new catan.views.overlays.RobOverlay() : null;
 
 		var overlayView = new catan.views.overlays.MapOverlay();
 		overlayView.setCancelAllowed(this.gameType == 'catan');
@@ -52,6 +53,7 @@ var modules = {
 		overlayView.setController(controller);
 		if (robberView)
 			robberView.setController(controller);
+    controller.onUpdate()
 
 		return [view, controller];
 	},
@@ -67,6 +69,7 @@ var modules = {
 		};
 		var controller = new Controllers.ResourcesController(view, model, buildMoves);
 		view.setController(controller);
+    controller.onUpdate();
 		return [view, controller];
 	},
 	vp: function(model) {
@@ -91,6 +94,7 @@ var modules = {
 
 		view.setController(controller);
 		resultView.setController(controller);
+    controller.onUpdate()
 		return [view, controller];
 	},
 	domTrade: function(model) {

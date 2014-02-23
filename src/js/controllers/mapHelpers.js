@@ -64,6 +64,7 @@ function drawPorts(view, ports) {
 }
 
 function drawRobber(view, loc) {
+  if (!loc) return
   view.placeRobber(loc, true)
 }
 

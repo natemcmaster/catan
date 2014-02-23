@@ -98,18 +98,23 @@ ClientModel.prototype.notifyObservers = function(){
  * Post-condition (async!): the robbery happens
  *
  * @param {int} robbedPlayerID The player to be robbed
+ * @param {HexLocation} hex Where the robber is being moved to
  */
-ClientModel.prototype.robPlayer = function (robbedPlayerID) {
-  this.rob(robbedPlayerID)
-  // TODO: implement, call proxy, etc
+ClientModel.prototype.robPlayer = function (robbedPlayerID, hex) {
+  this.gameboard.robPlayer(this.playerID, robbedPlayerID, hex)
 }
 
-ClientModel.prototype.getRobPlayerInfo = function () {
-  var currentPlayer = this.gameboard.turnTracker.currentPlayerId()
-  return this.gameboard.players.map(function (player) {
-    return player.robInfo()
+/**
+ * Get info for the players on a given hex (excluding the current player)
+ * @param {HexLocation} hex
+ */
+ClientModel.prototype.getRobPlayerInfo = function (hex) {
+  var currentPlayer = this.playerID
+    , players = this.gameboard.players
+  return this.gameboard.map.playersOnHex(hex).map(function (pid) {
+    return players[pid].robInfo(pid)
   }).filter(function (player) {
-    return player.playerNum !== currentPlayer
+    return player.playerNum !== currentPlayer && player.cards > 0
   })
 }
 

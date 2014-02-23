@@ -52,9 +52,10 @@ function Player(proxy, player) {
  * Returned object looks like: {color:, name:, playerNum:, cards:}
  * </pre>
  *
+ * @param {int} pid The player index
  * @returns object
  */
-Player.prototype.robInfo = function () {
+Player.prototype.robInfo = function (num) {
   var cards = 0
   for (var type in this.resources) {
     cards += this.resources[type]
@@ -62,7 +63,7 @@ Player.prototype.robInfo = function () {
   return {
     color: this.color,
     name: this.name,
-    playerNum: this.playerID,
+    playerNum: num,
     cards: cards
   }
 }
