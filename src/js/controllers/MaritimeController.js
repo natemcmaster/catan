@@ -54,13 +54,63 @@ MaritimeController.prototype = core.inherit(Controller.prototype);
 MaritimeController.prototype.onUpdate = function(){
 	showGiveOptions(this);
 	this.view.hideGetOptions();
-	this.view.setMessage("Choose resource to trade in.");
 	this.view.enableTradeButton(false);
-
+	
 }
+
+
+/**
+ * Called by the view when the player "undoes" their give selection
+ * @method unsetGiveValue
+ * @return void
+ */
+MaritimeController.prototype.unsetGiveValue = function(){
+	console.log("unsetting give from: " + this.resourceToGive);
+
+	this.resourceToGive = null;
+	showGiveOptions(this);
+	this.view.hideGetOptions();
+	this.view.setMessage("Choose the resource you want to give");
+};
+
+/**
+ * Called by the view when the player "undoes" their get selection
+ * @method unsetGetValue
+ * @return void
+ */
+MaritimeController.prototype.unsetGetValue = function(){
+	console.log("unsettting get from: " + this.resourceToGet);
+
+	this.resourceToGet = null;
+	this.view.enableTradeButton(false);
+	showGetOptions(this);
+	this.view.setMessage("Choose the resource you want to receive");
+};
+
+/**
+ * Called by the view when the player selects which resource to give
+ * @method setGiveValue
+ * @param{String} resource The resource to trade ("wood","brick","sheep","wheat","ore")
+ * @return void
+ */
+MaritimeController.prototype.setGiveValue = function(resource){
+	console.log(this.clientModel);
+	
+	this.resourceToGive = resource;
+
+	showGetOptions(this);
+	
+	var ratios = getResourceRatios(this);
+	this.tradeRatio = ratios[unCapFirst(resource)];
+	this.view.selectGiveOption(resource, this.tradeRatio);
+
+	this.view.showGetOptions();
+	this.view.setMessage("Choose the resource you want to recieve");
+};
 
 function showGiveOptions(proto){
 	var localPlayer = proto.clientModel.getClientPlayer();
+
 	var localPlayerID = localPlayer.playerID;
 	var ports = proto.clientModel.gameboard.map.portsForPlayer(localPlayerID);
 	console.log(ports);
@@ -89,58 +139,74 @@ function showGiveOptions(proto){
 		}
 	}
 
+	for (var resource in localPlayer.resources) {
+	  if (localPlayer.resources.hasOwnProperty(resource)) {
+	    if(localPlayer.resources[resource] >= 4){
+	    	giveOptions.push(resource);
+	    }
+	  }
+	}
+
 	proto.view.showGiveOptions(giveOptions);
 }
 
 
 /**
- * Called by the view when the player "undoes" their give selection
- * @method unsetGiveValue
- * @return void
- */
-MaritimeController.prototype.unsetGiveValue = function(){
-	console.log("unsetting give from: " + this.resourceToGive);
-
-	this.resourceToGive = null;	
-};
-
-/**
- * Called by the view when the player "undoes" their get selection
- * @method unsetGetValue
- * @return void
- */
-MaritimeController.prototype.unsetGetValue = function(){
-	console.log("unsettting get from: " + this.resourceToGet);
-
-	this.resourceToGet = null;
-};
-
-/**
- * Called by the view when the player selects which resource to give
- * @method setGiveValue
- * @param{String} resource The resource to trade ("wood","brick","sheep","wheat","ore")
- * @return void
- */
-MaritimeController.prototype.setGiveValue = function(resource){
-	console.log(this.clientModel);
+* Assign to each resource the most favorable ratio that the
+* player has availble. 2:1 on special ports, 3:1 on generic ports, or 4:1 in worst case
+*/
+function getResourceRatios(proto){
 	
+	// Initialize to 4 by default
+	var ratios = {
+		wood  : 4,
+		brick : 4,
+		sheep : 4, 
+		wheat : 4,
+		ore   : 4
+	}
+
+	// Get player ports
+	var localPlayer = proto.clientModel.getClientPlayer();
+	var localPlayerID = localPlayer.playerID;
+	var ports = proto.clientModel.gameboard.map.portsForPlayer(localPlayerID);
+
+	// Depending on if a port is generic or 2:1 (special), set ratio
+	for(var i=0; i < ports.length; i++){
+		var port = ports[i];
+		
+		if(port.inputResource){
+			var resource = unCapFirst(port.inputResource);
+			ratios[resource] = port.ratio;
+		} else {
+			ratios.wood = 3; ratios.brick = 3; ratios.sheep = 3; ratios.wheat = 3; ratios.ore = 3;
+		}
+	}
+
+	return ratios;
+}
+
+
+
+/**
+* Enables "get" resource buttons from the bank
+* only if there are 1 or more of that resource.
+*/
+function showGetOptions(proto){
+	var bank = proto.clientModel.gameboard.bank;
+
 	// Loop through each resource in the bank, enabling
 	// trades for resources that have greater than 1 stock
 	var getOptions = [];
-	for (var resource in this.clientModel.gameboard.bank) {
-	  if (this.clientModel.gameboard.bank.hasOwnProperty(resource)) {
-	    if(this.clientModel.gameboard.bank[resource] >= 1){
-	    	getOptions.push(resource);
+	for (var getResource in proto.clientModel.gameboard.bank) {
+	  if (proto.clientModel.gameboard.bank.hasOwnProperty(getResource)) {
+	    if(proto.clientModel.gameboard.bank[getResource] >= 1){
+	    	getOptions.push(getResource);
 	    }
 	  }
 	}
-	this.view.showGetOptions(getOptions);
-
-	this.resourceToGive = resource;
-	this.view.selectGiveOption(resource, 2);
-	this.view.showGetOptions();
-	console.log("setting give type to: " + resource);
-};
+	proto.view.showGetOptions(getOptions);
+}
 
 /**
  * Called by the view when the player selects which resource to get
@@ -150,7 +216,9 @@ MaritimeController.prototype.setGiveValue = function(resource){
  */
 MaritimeController.prototype.setGetValue = function(resource){
 	this.resourceToGet = resource;
-	this.view.selectGetOption(resource, 2);
+	this.view.selectGetOption(resource, 1);
+	this.view.enableTradeButton(true);
+	this.view.setMessage("Trade " + this.tradeRatio + " " + this.resourceToGive + " for 1 " + resource);
 	console.log("setting get to: " + resource);
 };
 
@@ -168,20 +236,11 @@ function unCapFirst(str){
  * @return void
  */
 MaritimeController.prototype.makeTrade= function(){
-	/*
-	return {
-		"type": "maritimeTrade",
-		"playerIndex": this.playerID,
-		"ratio": this.ratio,
-		"inputResource": this.inputResource,
-		"outputResource": this.outputResource
-	}
-	(playerID, ratio, inputResource, outputResource)
-	*/
 	var localPlayerID = this.clientModel.getClientPlayer().playerID;
 
+	var mComm = new MaritimeTradeCommand(localPlayerID, this.tradeRatio, this.resourceToGive, this.resourceToGet);
+	console.log(mComm);
 
-	//TODO: find correct ratio
-	this.clientModel.proxy.executeCommand(new MaritimeTradeCommand(localPlayerID, 2, this.resourceToGive, this.resourceToGet));	
+	this.clientModel.proxy.executeCommand(mComm);	
 }
 
