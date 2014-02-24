@@ -99,15 +99,15 @@ ClientModel.prototype.notifyObservers = function(){
 /**
  * The current player robs another player
  * <pre>
- * Pre-condition: robbedPlayerID is not the current player, and the current
+ * Pre-condition: robbedPlayerIndex is not the current player, and the current
  * player is allowed to rob someone.
  * Post-condition (async!): the robbery happens
  *
- * @param {int} robbedPlayerID The player to be robbed
+ * @param {int} robbedPlayerIndex The player to be robbed
  * @param {HexLocation} hex Where the robber is being moved to
  */
-ClientModel.prototype.robPlayer = function (robbedPlayerID, hex) {
-  this.gameboard.robPlayer(this.playerID, robbedPlayerID, hex)
+ClientModel.prototype.robPlayer = function (robbedPlayerIndex, hex) {
+  this.gameboard.robPlayer(this.playerIndex, robbedPlayerIndex, hex)
 }
 
 /**
@@ -115,7 +115,7 @@ ClientModel.prototype.robPlayer = function (robbedPlayerID, hex) {
  * @param {HexLocation} hex
  */
 ClientModel.prototype.getRobPlayerInfo = function (hex) {
-  var currentPlayer = this.playerID
+  var currentPlayer = this.playerIndex
     , players = this.gameboard.players
   return this.gameboard.map.playersOnHex(hex).map(function (pid) {
     return players[pid].robInfo(pid)
@@ -139,12 +139,12 @@ Helper Function that returns the current player object
 */
 ClientModel.prototype.getCurrentPlayer = function() {
 
-  return this.gameboard.getPlayerByID(this.gameboard.turnTracker.currentPlayerId())
+  return this.gameboard.getPlayerByIndex(this.gameboard.turnTracker.currentPlayerIndex())
 }
 
 ClientModel.prototype.getClientPlayer = function() {
   
-  return this.gameboard.getPlayerByID(this.playerID)
+  return this.gameboard.getPlayerByIndex(this.playerIndex)
 }
 
 ClientModel.prototype.getCurrentStatus = function() {
@@ -164,7 +164,7 @@ ClientModel.prototype.getPlayerByName = function(name) {
  * @return {Boolean} true when
  */
 ClientModel.prototype.isMyTurn = function(){
-  return this.playerID == this.gameboard.turnTracker.currentPlayerId();
+  return this.playerIndex == this.gameboard.turnTracker.currentPlayerIndex();
 }
 
 /**
@@ -184,25 +184,25 @@ ClientModel.prototype.getCurrentStatus = function(){
 ClientModel.prototype.receivedTradeOffer = function(){
   if(!this.gameboard.tradeOffer)
     return false;
-  return this.gameboard.tradeOffer.receiverID == this.playerID;
+  return this.gameboard.tradeOffer.receiverIndex == this.playerIndex;
 }
 
 ClientModel.prototype.sentTradeOffer = function(){
   if(!this.gameboard.tradeOffer)
     return false;
-  return this.gameboard.tradeOffer.senderID == this.playerID;
+  return this.gameboard.tradeOffer.senderIndex == this.playerIndex;
 }
 
 
 ClientModel.prototype.getTradeSenderName = function(){
-  var sender = this.gameboard.getPlayerByID(this.gameboard.tradeOffer.senderID);
+  var sender = this.gameboard.getPlayerByIndex(this.gameboard.tradeOffer.senderIndex);
   return sender.name;
 }
 
 ClientModel.prototype.canAcceptTrade = function(){
   if(!this.receivedTradeOffer())
     return false;
-  var receiver = this.gameboard.getPlayerByID(this.gameboard.tradeOffer.receiverID);
+  var receiver = this.gameboard.getPlayerByIndex(this.gameboard.tradeOffer.receiverIndex);
   for(var i in ResourceTypes){
     var r = ResourceTypes[i];
     if(Math.abs(this.gameboard.tradeOffer.offer[r]) > receiver.resources[r])

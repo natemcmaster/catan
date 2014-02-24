@@ -143,7 +143,7 @@ MapController.prototype.onDrag = function (loc, type) {
   type = type.type
   var fn = 'canPlace' + type[0].toUpperCase() + type.slice(1)
     , loco = goodLocation(loc, type)
-  return this.clientModel.gameboard.map[fn](this.clientModel.playerID, loco, this.placeState.setup)
+  return this.clientModel.gameboard.map[fn](this.clientModel.playerIndex, loco, this.placeState.setup)
 };
 
 /**
@@ -162,7 +162,7 @@ MapController.prototype.onDrop = function (loc, what) {
     return this.showRobModal(loco)
   }
   var fn = 'place' + type[0].toUpperCase() + type.slice(1)
-  this.clientModel.gameboard.map[fn](this.clientModel.playerID, loco, this.placeState.free)
+  this.clientModel.gameboard.map[fn](this.clientModel.playerIndex, loco, this.placeState.free)
   this.placeState = null
 };
 

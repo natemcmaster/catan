@@ -1,7 +1,7 @@
 module.exports = TradeOffer;
 
 function TradeOffer(data){
-	this.senderID = data.sender;
-	this.receiverID = data.receiver;
+	this.senderIndex = data.sender;
+	this.receiverIndex = data.receiver;
 	this.offer = data.offer;
 }
