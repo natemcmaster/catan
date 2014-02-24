@@ -14,14 +14,14 @@ Post-condition: NONE
 </pre>
 @class PlaySoldierCommand
 @constructor 
-@param {int} playerID the ID of the player playing the Soldier Card
-@param {int} victimID The ID of the player being robbed from
+@param {int} playerIndex the index (NOT ID) of the player playing the Soldier Card
+@param {int} victimIndex The index (NOT ID) of the player being robbed from
 @param {HexLocation} robberSpot The spot the robber is being placed
 **/
-function PlaySoldierCommand(playerID, victimID, robberSpot){
+function PlaySoldierCommand(playerIndex, victimIndex, robberSpot){
 
-	this.playerID = playerID;
-	this.victimID = victimID;
+	this.playerIndex = playerIndex;
+	this.victimIndex = victimIndex;
 	this.robberSpot = robberSpot;
 }
 
@@ -39,8 +39,8 @@ Post-condition: NONE
 PlaySoldierCommand.prototype.getData = function(){
 
 	return {'type' : 'Soldier',
-			'playerIndex' : this.playerID,
-			'victimIndex' : this.victimID,
+			'playerIndex' : this.playerIndex,
+			'victimIndex' : this.victimIndex,
 			'robberSpot' : {'x' : this.robberSpot.getX(),
 							'y' : this.robberSpot.getY()}
 			};	

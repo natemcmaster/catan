@@ -14,16 +14,16 @@ Post-condition: NONE
 </pre>
 @class DiscardCardsCommand
 @constructor 
-@param {int} playerID the ID of the player discarding cards
+@param {int} playerIndex the index (NOT ID) of the player discarding cards
 @param {int} brick number of brick to be discarded
 @param {int} ore number of ore to be discarded
 @param {int} sheep number of sheep to be discarded
 @param {int} wheat number of wheat to be discarded
 @param {int} wood number of wood to be discarded
 **/
-function DiscardCardsCommand(playerID, brick, ore, sheep, wheat, wood){
+function DiscardCardsCommand(playerIndex, brick, ore, sheep, wheat, wood){
 
-	this.playerID = playerID;
+	this.playerIndex = playerIndex;
 	this.brick = brick;
 	this.ore = ore;
 	this.sheep = sheep;
@@ -45,7 +45,7 @@ Post-condition: NONE
 DiscardCardsCommand.prototype.getData = function(){
 
 	return {'type': 'discardCards',
-			'playerIndex': this.playerID,
+			'playerIndex': this.playerIndex,
 			'discardedCards':{ 
 				'brick': this.brick,
 				'ore': this.ore,

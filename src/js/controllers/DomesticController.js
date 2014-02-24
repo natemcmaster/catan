@@ -87,9 +87,9 @@ DomesticController.prototype.onUpdate = function() {
 		for (var i in ResourceTypes) {
 			var r = ResourceTypes[i];
 			var c = this.clientModel.gameboard.tradeOffer.offer[r];
-			if (c > 0) {
+			if (c < 0) {
 				this.acceptView.addGetResource(r, c);
-			} else if (c < 0) {
+			} else if (c > 0) {
 				this.acceptView.addGiveResource(r, -c);
 			}
 		}

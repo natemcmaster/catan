@@ -14,12 +14,12 @@ Post-condition: NONE
 </pre>
 @class PlayMonopoplyCommand
 @constructor 
-@param {int} playerID the ID of the player playing the card
+@param {int} playerIndex the index (NOT ID) of the player playing the card
 @param {int} resource the enumeration of the resource to be monopolized
 **/
-function PlayMonopolyCommand(playerID, resource){
+function PlayMonopolyCommand(playerIndex, resource){
 
-	this.playerID = playerID;
+	this.playerIndex = playerIndex;
 	this.resource = resource;	
 }
 
@@ -38,5 +38,5 @@ PlayMonopolyCommand.prototype.getData = function(){
 
 	return {'type' : 'Monopoly',
 						'resource' : this.resource,
-						'playerIndex' : this.playerID};
+						'playerIndex' : this.playerIndex};
 };

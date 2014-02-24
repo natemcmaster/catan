@@ -14,14 +14,14 @@ Post-condition: NONE
 </pre>
 @class RobPlayerCommand
 @constructor 
-@param {int} playerID he ID of the player robbing
-@param {int} victimID the ID of the player being robbed
+@param {int} playerIndex he ID of the player robbing
+@param {int} victimIndex the ID of the player being robbed
 @param {HexLocation} robberSpot the Location the robber is being placed
 **/
-function RobPlayerCommand(playerID, victimID, robberSpot){
+function RobPlayerCommand(playerIndex, victimIndex, robberSpot){
 
-	this.playerID = playerID;
-	this.victimID = victimID;
+	this.playerIndex = playerIndex;
+	this.victimIndex = victimIndex;
 	this.robberSpot = robberSpot;
 }
 
@@ -39,8 +39,8 @@ Post-condition: NONE
 RobPlayerCommand.prototype.getData = function(){
 
 	return {'type' : 'robPlayer',
-			'playerIndex' : this.playerID,
-			'victimIndex' : this.victimID,
+			'playerIndex' : this.playerIndex,
+			'victimIndex' : this.victimIndex,
 			'robberSpot' : {'x' : this.robberSpot.getX(),
 							'y' : this.robberSpot.getY()}
 			};

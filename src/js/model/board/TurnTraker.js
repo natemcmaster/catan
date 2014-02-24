@@ -34,10 +34,10 @@ function TurnTracker(proxy, turnTracker){
 Pre-condition: NONE
 Post-condition: NONE
 </pre>
-@method currentPlayerId
+@method currentPlayerIndex
 @return {int} ID of the player whose turn it is
 **/
-TurnTracker.prototype.currentPlayerId = function () {
+TurnTracker.prototype.currentPlayerIndex = function () {
 	return this.currentTurn;
 };
 

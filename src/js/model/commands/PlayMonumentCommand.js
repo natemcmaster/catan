@@ -10,10 +10,10 @@ var AbstractCommand = require('./AbstractCommand');
 /**
 @class PlayMonumentCommand
 @constructor 
-@param {int} playerID the ID of the player playing the victory point card
+@param {int} playerIndex the index (NOT ID) of the player playing the victory point card
 **/
-function PlayMonumentCommand(playerID){
-	this.playerID = playerID;
+function PlayMonumentCommand(playerIndex){
+	this.playerIndex = playerIndex;
 }
 
 PlayMonumentCommand.prototype = new AbstractCommand();
@@ -31,6 +31,6 @@ PlayMonumentCommand.prototype.getData = function(){
 
 	return {
 		"type":"Monument",
-		"playerIndex":this.playerID
+		"playerIndex":this.playerIndex
 	};
 };

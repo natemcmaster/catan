@@ -51,6 +51,7 @@ MapController.prototype.onUpdate = function () {
   helpers.draw(this.view, this.clientModel.gameboard.map, this.clientModel.getPlayerColors())
   
   if (this.clientModel.getCurrentStatus() !== 'Robbing') return
+  if (!this.clientModel.isMyTurn()) return
   this.startMove('robber', true, false)
 };
 

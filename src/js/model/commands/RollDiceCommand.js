@@ -14,12 +14,12 @@ Post-condition: NONE
 </pre>
 @class RollDiceCommand
 @constructor 
-@param {int} playerID the ID of the player rolling the dice
+@param {int} playerIndex the index (NOT ID) of the player rolling the dice
 @param {int} number number rolled
 **/
-function RollDiceCommand(playerID, number){
+function RollDiceCommand(playerIndex, number){
 
-	this.playerID = playerID;
+	this.playerIndex = playerIndex;
 	this.number = number;
 }
 
@@ -37,6 +37,6 @@ Post-condition: NONE
 RollDiceCommand.prototype.getData = function() {
 
 	return {'type' : 'rollNumber',
-						'playerIndex' : this.playerID,
+						'playerIndex' : this.playerIndex,
 						'number' : this.number};
 };

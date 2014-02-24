@@ -14,11 +14,11 @@ Post-condition: NONE
 </pre>
 @class FinishTurnCommand
 @constructor 
-@param {int} playerID the ID of the player finishing their turn
+@param {int} playerIndex the index (NOT ID) of the player finishing their turn
 **/
-function FinishTurnCommand(playerID){
+function FinishTurnCommand(playerIndex){
 
-	this.playerID = playerID;	
+	this.playerIndex = playerIndex;	
 }
 
 FinishTurnCommand.prototype = new AbstractCommand();
@@ -35,6 +35,6 @@ Post-condition: NONE
 FinishTurnCommand.prototype.getData = function(){
 
 	return {'type' : 'finishTurn',
-			'playerIndex' : this.playerID};
+			'playerIndex' : this.playerIndex};
 
 };

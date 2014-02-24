@@ -15,7 +15,7 @@ Post-condition: NONE
 </pre>
 @class OfferTradeCommand
 @constructor 
-@param {int} playerID the ID of the player offer the trade
+@param {int} playerIndex the index (NOT ID) of the player offer the trade
 @param {int} receiver the ID of the player recieving the offer
 @param {int} brick number of brick to be tradeded
 @param {int} ore number of ore to be tradeded
@@ -23,8 +23,8 @@ Post-condition: NONE
 @param {int} wheat number of wheat to be tradeded
 @param {int} wood number of wood to be tradeded
 **/
-function OfferTradeCommand(playerID, receiver, brick, ore, sheep, wheat, wood){
-	this.playerID = playerID;
+function OfferTradeCommand(playerIndex, receiver, brick, ore, sheep, wheat, wood){
+	this.playerIndex = playerIndex;
 	this.receiver = receiver;
 	this.brick = brick;
 	this.ore = ore;
@@ -47,7 +47,7 @@ Post-condition: NONE
 OfferTradeCommand.prototype.getData = function(){
 
 	return {'type' : 'offerTrade',
-						'playerIndex' : this.playerID,
+						'playerIndex' : this.playerIndex,
 						'offer' : {
 							'brick' : this.brick,
 							'ore' : this.ore,
