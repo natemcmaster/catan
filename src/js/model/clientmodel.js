@@ -58,6 +58,12 @@ ClientModel.prototype.populateModels = function (data) {
   this.log = new Log(this.proxy, data.log);
   this.chat = new Chat(this.proxy, data.chat);
   this.gameboard = new GameBoard(this.proxy, data);
+  for (var x in data.players) {
+    if (data.players[x].playerID == this.playerID) {
+      this.playerIndex = x;
+      break;
+    }
+  }
   this.notifyObservers();
 }
 
