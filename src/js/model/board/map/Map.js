@@ -118,14 +118,14 @@ Map.prototype.getOwnedVertices = function () {
  * Post-condition: NONE
  * </pre>
  * @method portsForPlayer
- * @param {integer} playerId Player ID
+ * @param {integer} playerIndex Player index
  * @return {HexLocation[]} Array of HexLocations of ports that the player owns
  */
-Map.prototype.portsForPlayer = function (playerId) {
+Map.prototype.portsForPlayer = function (playerIndex) {
 	var getVertex = this.getVertex.bind(this);
 	return this.ports.filter(function (port) {
 		return port.getVertexLocations().some(function (vertex) {
-			return getVertex(vertex).getOwner() === playerId;
+			return getVertex(vertex).getOwner() === playerIndex;
 		});
 	});
 };
@@ -205,12 +205,12 @@ Map.prototype.getAdjascentVertices = function (location) {
  * Post-condition: NONE
  * </pre>
  * @method canPlaceRoad
- * @param {integer} playerId Player ID
+ * @param {integer} playerIndex Player index
  * @param {EdgeLocation} location The location to place the road
  * @param {boolean} setup whether this is happening during the setup phase
  * @return {boolean} True if user can now place road, false if not.
  */
-Map.prototype.canPlaceRoad = function (playerId, location, setup) {
+Map.prototype.canPlaceRoad = function (playerIndex, location, setup) {
   if (!location) return false;
 	var edge = this.getEdge(location)
     , getHex = this.hexGrid.getHex.bind(this.hexGrid)
@@ -224,11 +224,11 @@ Map.prototype.canPlaceRoad = function (playerId, location, setup) {
   if (setup) {
     // you must be able to place a settlmeent on at least one end
     return location.getNeighborVertexes().some(function (vx) {
-      return canPlaceSettlement(playerId, vx, true)
+      return canPlaceSettlement(playerIndex, vx, true)
     })
   }
 	var ownAdjacent = this.getAdjascentEdges(location).some(function (edge) {
-		return edge.isOccupied() && edge.getOwner() === playerId;
+		return edge.isOccupied() && edge.getOwner() === playerIndex;
 	});
   return ownAdjacent;
 };
@@ -239,11 +239,11 @@ Map.prototype.canPlaceRoad = function (playerId, location, setup) {
  * Post-condition: NONE
  * </pre>
  * @method canPlaceRobber
- * @param {integer} playerId Player ID
+ * @param {integer} playerIndex Player index
  * @param {HexLocation} location The location to place the robber
  * @return {boolean} True if user can now place robber, false if not.
  */
-Map.prototype.canPlaceRobber = function (playerId, location) {
+Map.prototype.canPlaceRobber = function (playerIndex, location) {
 	var hex = this.hexGrid.getHex(location);
 	return !(!hex || (!this.robber || location.equals(this.robber)) || !hex.isLand() || hex.isDesert());
 };
@@ -254,12 +254,12 @@ Map.prototype.canPlaceRobber = function (playerId, location) {
  * Post-condition: NONE
  * </pre>
  * @method canPlaceSettlement
- * @param {integer} playerId Player ID
+ * @param {integer} playerIndex Player index
  * @param {VertexLocation} vertex The location to place the settlement
  * @param {boolean} detached Is this allowed to be detached from a road?
  * @return {boolean} True if user can now place a settlement, false if not.
  */
-Map.prototype.canPlaceSettlement = function (playerId, location, detached) {
+Map.prototype.canPlaceSettlement = function (playerIndex, location, detached) {
   var vertex = this.getVertex(location)
   if (!vertex || vertex.isOccupied()) return false
 	var tooClose = this.getAdjascentVertices(location).some(function (vertex) {
@@ -271,7 +271,7 @@ Map.prototype.canPlaceSettlement = function (playerId, location, detached) {
     return false;
   }
 	var hasAccess = detached || this.getAdjascentEdges(location).some(function (edge) {
-		return edge && edge.getOwner() === playerId
+		return edge && edge.getOwner() === playerIndex
 	});
   if (!hasAccess) {
     // console.log('no roads');
@@ -285,14 +285,14 @@ Map.prototype.canPlaceSettlement = function (playerId, location, detached) {
  * Post-condition: NONE
  * </pre>
  * @method canPlaceCity
- * @param {integer} playerId Player ID
+ * @param {integer} playerIndex Player index
  * @param {VertexLocation} location The location to place the city
  * @return {boolean} True if user can now place a city there (i.e. they have a
  * settlement there), false if not.
  */
-Map.prototype.canPlaceCity = function (playerId, location) {
+Map.prototype.canPlaceCity = function (playerIndex, location) {
   var vertex = this.getVertex(location);
-  return vertex.getOwner() === playerId && !vertex.hasCity();
+  return vertex.getOwner() === playerIndex && !vertex.hasCity();
 };
 
 /**
@@ -334,13 +334,13 @@ Map.prototype.getVertex = function (location) {
  * Post-condition: a road will be placed there (async!)
  * </pre>
  * @method placeRoad
- * @param {integer} playerId Player ID
+ * @param {integer} playerIndex Player index
  * @param {EdgeLocation} Location of edge on hex to place road on
  * @param {boolean} isFree is it free?
  * @return {void}
  */
-Map.prototype.placeRoad = function (playerId, edgeLocation, isFree) {
-  this.proxy.executeCommand(new BuildRoadCommand(playerId, edgeLocation, isFree));
+Map.prototype.placeRoad = function (playerIndex, edgeLocation, isFree) {
+  this.proxy.executeCommand(new BuildRoadCommand(playerIndex, edgeLocation, isFree));
 };
 
 /**
@@ -349,13 +349,13 @@ Map.prototype.placeRoad = function (playerId, edgeLocation, isFree) {
  * Post-condition: a settlement will be placed there (async!)
  * </pre>
  * @method placeSettlement
- * @param {integer} playerId Player ID
+ * @param {integer} playerIndex Player index
  * @param {VertexLocation} Location of vertex on hex to place settlement on
  * @param {boolean} isFree is it free?
  * @return {void}
  */
-Map.prototype.placeSettlement = function (playerId, vertexLocation, isFree) {
-  this.proxy.executeCommand(new BuildSettlementCommand(playerId, vertexLocation, isFree));
+Map.prototype.placeSettlement = function (playerIndex, vertexLocation, isFree) {
+  this.proxy.executeCommand(new BuildSettlementCommand(playerIndex, vertexLocation, isFree));
 };
 
 /**
@@ -364,12 +364,12 @@ Map.prototype.placeSettlement = function (playerId, vertexLocation, isFree) {
  * Post-condition: a city will replace the settlement at that location (async!)
  * </pre>
  * @method placeCity
- * @param {integer} playerId Player ID
+ * @param {integer} playerIndex Player index
  * @param {VertexLocation} Location of vertex on hex to place city on
  * @return {void}
  */
-Map.prototype.placeCity = function (playerId, vertexLocation) {
-  this.proxy.executeCommand(new BuildCityCommand(playerId, vertexLocation));
+Map.prototype.placeCity = function (playerIndex, vertexLocation) {
+  this.proxy.executeCommand(new BuildCityCommand(playerIndex, vertexLocation));
 };
 
 /**
@@ -379,12 +379,12 @@ Map.prototype.placeCity = function (playerId, vertexLocation) {
  * Post-condition: roads will be placed at the given locations (async!)
  * </pre>
  * @method placeRoads
- * @param {integer} playerId
+ * @param {integer} playerIndex
  * @param {List<EdgeLocation>} locations
  * @return {void}
  */
-Map.prototype.placeRoads = function (playerId, locations) {
-  this.proxy.executeCommand(new PlayRoadBuilding(playerId, locations));
+Map.prototype.placeRoads = function (playerIndex, locations) {
+  this.proxy.executeCommand(new PlayRoadBuilding(playerIndex, locations));
 };
 
 /**

@@ -14,8 +14,8 @@ Post-condition: NONE
 </pre>
 @class RobPlayerCommand
 @constructor 
-@param {int} playerIndex he ID of the player robbing
-@param {int} victimIndex the ID of the player being robbed
+@param {int} playerIndex the index (NOT ID) of the player robbing
+@param {int} victimIndex the index (NOT ID) of the player being robbed
 @param {HexLocation} robberSpot the Location the robber is being placed
 **/
 function RobPlayerCommand(playerIndex, victimIndex, robberSpot){

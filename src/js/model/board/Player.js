@@ -18,7 +18,7 @@ module.exports = Player;
  * @class Player
  * @constructor
  */
-function Player(proxy, player) {
+function Player(proxy, player, playerIndex) {
 	// set things up
 	this.proxy = proxy;
 	this.MAX_GAME_POINTS = player.MAX_GAME_POINTS;
@@ -34,6 +34,7 @@ function Player(proxy, player) {
 	this.orderNumber = player.orderNumber;
 	this.playedDevCard = player.playedDevCard;
 	this.playerID = player.playerID;
+	this.playerIndex = playerIndex;
 	this.resources = player.resources;
 	this.roads = player.roads;
 	this.settlements = player.settlements;
@@ -268,7 +269,7 @@ Player.prototype.canPlayMonument = function () {
  * @return {void}
  */
 Player.prototype.buyDevCard = function () {
-	this.proxy.executeCommand(new commands.BuyDevCardCommand(this.playerID));
+	this.proxy.executeCommand(new commands.BuyDevCardCommand(this.playerIndex));
 };
 
 /**
@@ -287,7 +288,7 @@ Player.prototype.buyDevCard = function () {
  * @return {void}
  */
 Player.prototype.yearOfPlenty = function (resource1, resource2) {
-	this.proxy.executeCommand(new commands.PlayYearOfPlentyCommand(this.playerID, resource1, resource2));
+	this.proxy.executeCommand(new commands.PlayYearOfPlentyCommand(this.playerIndex, resource1, resource2));
 };
 
 /**
@@ -305,7 +306,7 @@ Player.prototype.yearOfPlenty = function (resource1, resource2) {
  * @return {void}
  */
 Player.prototype.roadBuilding = function (edge1, edge2) {
-	this.proxy.executeCommand(new commands.PlayRoadBuildingCommand(this.playerID, edge1, edge2));
+	this.proxy.executeCommand(new commands.PlayRoadBuildingCommand(this.playerIndex, edge1, edge2));
 };
 
 /**
@@ -326,7 +327,7 @@ Player.prototype.roadBuilding = function (edge1, edge2) {
  * @return {void}
  */
 Player.prototype.playSoldier = function (hex, playerToRob) {
-	this.proxy.executeCommand(new commands.PlaySoldierCommand(this.playerID, playerToRob, hex));
+	this.proxy.executeCommand(new commands.PlaySoldierCommand(this.playerIndex, playerToRob, hex));
 };
 
 /**
@@ -343,7 +344,7 @@ Player.prototype.playSoldier = function (hex, playerToRob) {
 * @return {void}
 */
 Player.prototype.monopoly = function (resourceType) {
-	this.proxy.executeCommand(new commands.PlayMonopolyCommand(this.playerID,resourceType));
+	this.proxy.executeCommand(new commands.PlayMonopolyCommand(this.playerIndex,resourceType));
 };
 
 
@@ -365,7 +366,7 @@ Player.prototype.monopoly = function (resourceType) {
 * @return {void}
 */
 Player.prototype.offerTrade = function (playerToTradeWith, brick, ore, sheep, wheat, wood) {
-	this.proxy.executeCommand(new commands.OfferTradeCommand(this.playerID, playerToTradeWith,
+	this.proxy.executeCommand(new commands.OfferTradeCommand(this.playerIndex, playerToTradeWith,
 											 brick, ore, sheep, wheat, wood));
 };
 
@@ -384,7 +385,7 @@ Player.prototype.offerTrade = function (playerToTradeWith, brick, ore, sheep, wh
 */
 Player.prototype.acceptTrade = function (willAccept) {
 
-	this.proxy.executeCommand(new commands.AcceptTradeCommand(this.playerID,willAccept));
+	this.proxy.executeCommand(new commands.AcceptTradeCommand(this.playerIndex,willAccept));
 
 };
 
@@ -405,7 +406,7 @@ Player.prototype.acceptTrade = function (willAccept) {
 * @return {void}
 */
 Player.prototype.discardCards = function (brick, ore, sheep, wheat, wood) {
-	this.proxy.executeCommand(new commands.DiscardCardsCommand(this.playerID, 
+	this.proxy.executeCommand(new commands.DiscardCardsCommand(this.playerIndex, 
 												brick, ore, sheep, wheat, wood));
 };
 
@@ -419,7 +420,7 @@ Player.prototype.discardCards = function (brick, ore, sheep, wheat, wood) {
  * @return {void}
  */
 Player.prototype.playMonument = function(){
-	this.proxy.executeCommand(new commands.PlayMonumentCommand(this.playerID));
+	this.proxy.executeCommand(new commands.PlayMonumentCommand(this.playerIndex));
 }
 
 /**
@@ -433,5 +434,5 @@ Player.prototype.playMonument = function(){
  * @return {void}                    
  */
 Player.prototype.maritimeTrade = function(ratio,inputResourceType,outputResourceType){
-	this.proxy.executeCommand(new commands.MaritimeTradeCommand(this.playerID,ratio,inputResourceType,outputResourceType));
+	this.proxy.executeCommand(new commands.MaritimeTradeCommand(this.playerIndex,ratio,inputResourceType,outputResourceType));
 }

@@ -29,8 +29,8 @@ function GameBoard(proxy, data) {
 	this.map = new Map(proxy, data.map);
 	
 	var players = this.players = [];
-	data.players.forEach(function(player){
-		players.push(new Player(proxy, player));
+	data.players.forEach(function(player, index){
+		players.push(new Player(proxy, player, index));
 	});
 
 	this.turnTracker = new TurnTracker(proxy, data.turnTracker);

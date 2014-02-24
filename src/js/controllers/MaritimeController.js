@@ -111,8 +111,8 @@ MaritimeController.prototype.setGiveValue = function(resource){
 function showGiveOptions(proto){
 	var localPlayer = proto.clientModel.getClientPlayer();
 
-	var localPlayerID = localPlayer.playerID;
-	var ports = proto.clientModel.gameboard.map.portsForPlayer(localPlayerID);
+	var localPlayerIndex = localPlayer.playerIndex;
+	var ports = proto.clientModel.gameboard.map.portsForPlayer(localPlayerIndex);
 	console.log(ports);
 
 	var giveOptions = [];
@@ -168,8 +168,8 @@ function getResourceRatios(proto){
 
 	// Get player ports
 	var localPlayer = proto.clientModel.getClientPlayer();
-	var localPlayerID = localPlayer.playerID;
-	var ports = proto.clientModel.gameboard.map.portsForPlayer(localPlayerID);
+	var localPlayerIndex = localPlayer.playerIndex;
+	var ports = proto.clientModel.gameboard.map.portsForPlayer(localPlayerIndex);
 
 	// Depending on if a port is generic or 2:1 (special), set ratio
 	for(var i=0; i < ports.length; i++){
@@ -236,7 +236,7 @@ function unCapFirst(str){
  * @return void
  */
 MaritimeController.prototype.makeTrade= function(){
-	var localPlayerID = this.clientModel.getClientPlayer().playerID;
+	var localPlayerIndex = this.clientModel.getClientPlayer().playerIndex;
 
 	var mComm = new MaritimeTradeCommand(localPlayerID, this.tradeRatio, capFirst(this.resourceToGive), capFirst(this.resourceToGet));
 	console.log(mComm);
