@@ -190,7 +190,7 @@
             "type": "robPlayer",
             "playerIndex": -1,
             "victimIndex": -1,
-            "robberSpot": {
+            "location": {
                 "x": "",
                 "y": ""
             }
@@ -262,7 +262,7 @@
             "type": "Soldier",
             "playerIndex": -1,
             "victimIndex": -1,
-            "robberSpot": {
+            "location": {
                 "x": "",
                 "y": ""
             }
@@ -371,6 +371,20 @@
             "type": "acceptTrade",
             "playerIndex": -1,
             "willAccept": false
+        }
+    },
+    {
+        "args": [],
+        "url": "/moves/maritimeTrade",
+        "method": "POST",
+        "description": "Accept or reject a trade offered to you.",
+        "type": "JSON",
+        "template": {
+            "type": "maritimeTrade",
+            "playerIndex": -1,
+            "ratio": -1,
+            "inputResource": "",
+            "outputResource": ""
         }
     },
     {
