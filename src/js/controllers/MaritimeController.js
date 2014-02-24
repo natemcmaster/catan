@@ -238,7 +238,7 @@ function unCapFirst(str){
 MaritimeController.prototype.makeTrade= function(){
 	var localPlayerID = this.clientModel.getClientPlayer().playerID;
 
-	var mComm = new MaritimeTradeCommand(localPlayerID, this.tradeRatio, this.resourceToGive, this.resourceToGet);
+	var mComm = new MaritimeTradeCommand(localPlayerID, this.tradeRatio, capFirst(this.resourceToGive), capFirst(this.resourceToGet));
 	console.log(mComm);
 
 	this.clientModel.proxy.executeCommand(mComm);	
