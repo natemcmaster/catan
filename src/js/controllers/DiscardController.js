@@ -30,7 +30,6 @@ function DiscardController(view, waitingView, clientModel){
 	waitingView.setController(this);
 	this.setWaitingView(waitingView);
 
-	this.discarded = false
 	this.initVariables();
 	
 	
@@ -77,7 +76,6 @@ DiscardController.prototype.discard = function(){
 
 	this.view.closeModal();
 	this.initVariables();
-	this.discarded = true;
 }
 
 /**
@@ -147,7 +145,6 @@ DiscardController.prototype.decreaseAmount = function(resource){
 DiscardController.prototype.onUpdate = function(){
 	
 	if(this.clientModel.getCurrentStatus() != 'Discarding'){
-		this.discarded = false;
 		return;
 	}
 
@@ -162,7 +159,7 @@ DiscardController.prototype.onUpdate = function(){
 	this.totalRecources = this.clientWood + this.clientWheat + this.clientBrick + this.clientSheep + this.clientOre
 	this.numToDiscard = parseInt(this.totalRecources/2)
 
-	if(this.numToDiscard >= 4 && !this.discarded){
+	if(!clientPlayer.discarded){
 
 		this.view.showModal();
 		this.updateStateMessage();
