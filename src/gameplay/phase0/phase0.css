@@ -1,0 +1,35 @@
+#heading 
+{
+		color: black;
+		font-weight: bold;
+		font-family: sans-serif;
+		font-size: xx-large;
+}
+#sub-heading 
+{
+	color: black;
+	font-weight: bold;
+	font-family: sans-serif;
+	font-size: x-large;
+}
+#requestBody
+{
+	height: 100px;
+	width: 200px;
+	margin: 0px;
+	padding: 0px;
+}
+#ResponseBody
+{
+	height: 200px;
+	width: 500px;
+	margin: 0px;
+	padding: 0px;
+}
+#loginResponse
+{
+	color: grey;
+	font-family: sans-serif;
+	font-size: small;
+
+}

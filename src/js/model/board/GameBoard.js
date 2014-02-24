@@ -50,9 +50,19 @@ function GameBoard(proxy, data) {
  * @return {Player}       Returns the player object
  */
 GameBoard.prototype.getPlayerByID = function(id){
-	return this.players[id];
+	return this.players.filter(function(s){
+		return s.playerID == id;
+	})[0];
 };
 
+/**
+ * Returns the player INDEX (not ID). As indexed by the players object.
+ * @param  {[type]} index Index of player
+ * @return {Player}       The player responding
+ */
+GameBoard.prototype.getPlayerByIndex = function(index){
+	return this.players[index];
+}
 
 /**
  * <pre>
