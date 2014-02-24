@@ -37,15 +37,16 @@ Post-condition: NONE
 **/
 PlayRoadBuildingCommand.prototype.getData = function(){
 
+  var dirs = ["NW","N","NE","SE","S","SW"]
 	return {'type':'Road_Building',
 			'playerIndex': this.playerIndex,
 			'spot1': {'x': this.locations[0].getHexLocation().getX(),
 					  'y': this.locations[0].getHexLocation().getY(),
-					  'direction': this.locations[0].getDirection()
+					  'direction': dirs[this.locations[0].getDirection()]
 					 },
 			'spot2': {'x': this.locations[1].getHexLocation().getX(),
 					  'y': this.locations[1].getHexLocation().getY(),
-					  'direction': this.locations[1].getDirection()
+					  'direction': dirs[this.locations[1].getDirection()]
 					 }
 			};
 };

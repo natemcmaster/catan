@@ -176,13 +176,14 @@ MapController.prototype.onDrag = function (loc, type) {
 	@method onDrop
 	*/
 MapController.prototype.onDrop = function (loc, what) {
-  this.modalView.closeModal()
   var type = what.type
     , loco = goodLocation(loc, type)
   if (type === 'robber') {
+    this.modalView.closeModal()
     return this.showRobModal(loco)
   }
   if (this.placeState.numLeft <= 1) {
+    this.modalView.closeModal()
     if (this.placeState.places.length) {
       if (this.placeState.places.length !== 1) {
         throw new Error("Can't make more than two of anything at a time")
@@ -199,12 +200,14 @@ MapController.prototype.onDrop = function (loc, what) {
     this.placeState = null
     return
   }
-  helpers.drawItem[type](this.view, loco, this.clientModel.getClientPlayer().color)
-  this.placeState.numLeft -= 1;
-  this.placeState.places.push(loco)
-  this.placeState.placesTaken[loco.getIDString()] = true
-  // this.modalView.showModal(pieceType)
-  this.view.startDrop(type, this.clientModel.getClientPlayer().color)
+  setTimeout(function () {
+    helpers.drawItem[type](this.view, loco, this.clientModel.getClientPlayer().color)
+    this.placeState.numLeft -= 1;
+    this.placeState.places.push(loco)
+    this.placeState.placesTaken[loco.getIDString()] = true
+    // this.modalView.showModal(pieceType)
+    this.view.startDrop(type, this.clientModel.getClientPlayer().color)
+  }.bind(this), 0)
 };
 
 /**

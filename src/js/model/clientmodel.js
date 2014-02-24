@@ -60,7 +60,7 @@ ClientModel.prototype.populateModels = function (data) {
   this.gameboard = new GameBoard(this.proxy, data);
   for (var x in data.players) {
     if (data.players[x].playerID == this.playerID) {
-      this.playerIndex = x;
+      this.playerIndex = +x;
       break;
     }
   }
