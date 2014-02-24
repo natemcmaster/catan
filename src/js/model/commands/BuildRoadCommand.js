@@ -14,13 +14,13 @@ Post-condition: NONE
 </pre>
 @class BuildRoadCommand
 @constructor 
-@param {int} playerID the ID of the player wanting to build a road
+@param {int} playerIndex the index (NOT ID) of the player wanting to build a road
 @param {EdgeLocation} roadLocaiton location where the player wants to build the raod
 @param {isFree} isFree wheter or not can be build at that location
 **/
-function BuildRoadCommand(playerID, roadLocation, isFree){
+function BuildRoadCommand(playerIndex, roadLocation, isFree){
 
-	this.playerID = playerID;
+	this.playerIndex = playerIndex;
 	this.roadLocation = roadLocation;
 	this.isFree = !!isFree;
 }
@@ -40,7 +40,7 @@ BuildRoadCommand.prototype.getData = function(){
 
   var dirs = ["NW","N","NE","SE","S","SW"]
 	return {'type':'buildRoad',
-			'playerIndex': this.playerID,
+			'playerIndex': this.playerIndex,
 			'roadLocation': {
         'x': this.roadLocation.getHexLocation().getX(),
         'y': this.roadLocation.getHexLocation().getY(),

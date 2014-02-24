@@ -14,13 +14,13 @@ Post-condition: NONE
 </pre>
 @class BuildSettlementCommand
 @constructor 
-@param {int} playerID the ID of the player wanting to build a settlement
+@param {int} playerIndex the index (NOT ID) of the player wanting to build a settlement
 @param {VertexLocation} settlementLocation location where the player wants to build the settlement
 @param {isFree} isFree wheter or not can be build at that location
 **/
-function BuildSettlementCommand(playerID, settlementLocation, isFree){
+function BuildSettlementCommand(playerIndex, settlementLocation, isFree){
 
-	this.playerID = playerID;
+	this.playerIndex = playerIndex;
 	this.settlementLocation = settlementLocation;
 	this.isFree = !!isFree;
 }
@@ -41,7 +41,7 @@ BuildSettlementCommand.prototype.getData = function(){
   var dirs = ["W","NW","NE","E","SE","SW"]
 	return {
     'type':'buildSettlement',
-    'playerIndex': this.playerID,
+    'playerIndex': this.playerIndex,
     'vertexLocation': {
       'x': this.settlementLocation.getHexLocation().getX(),
       'y': this.settlementLocation.getHexLocation().getY(),

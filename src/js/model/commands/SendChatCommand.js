@@ -14,12 +14,12 @@ Post-condition: NONE
 </pre>
 @class SendChatCommand
 @constructor 
-@param {int} playerID the ID of the player sending the message
+@param {int} playerIndex the index (NOT ID) of the player sending the message
 @param {String} message the message to be sent
 **/
-function SendChatCommand(playerID, message) {
+function SendChatCommand(playerIndex, message) {
 
-	this.playerID = playerID;
+	this.playerIndex = playerIndex;
 	this.message = message;
 }
 
@@ -38,7 +38,7 @@ SendChatCommand.prototype.getData = function() {
 
 	return {
 		'type': 'sendChat',
-		'playerIndex': this.playerID,
+		'playerIndex': this.playerIndex,
 		'content': this.message
 	};
 }

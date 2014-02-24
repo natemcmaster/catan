@@ -14,13 +14,13 @@ Post-condition: NONE
 </pre>
 @class BuildCityCommand
 @constructor 
-@param {int} playerID the ID of the player wanting to build a City
+@param {int} playerIndex the index (NOT ID) of the player wanting to build a City
 @param {VertexLocation} cityLocation location where the player wants to build the city
 @param {isFree} isFree wheter or not can be build at that location
 **/
-function BuildCityCommand(playerID, cityLocation, isFree){
+function BuildCityCommand(playerIndex, cityLocation, isFree){
 
-	this.playerID = playerID;
+	this.playerIndex = playerIndex;
 	this.cityLocation = cityLocation;
 	this.isFree = !!isFree;
 }
@@ -41,7 +41,7 @@ BuildCityCommand.prototype.getData = function(){
   var dirs = ["W","NW","NE","E","SE","SW"]
 	return {
     'type':'buildCity',
-    'playerIndex': this.playerID,
+    'playerIndex': this.playerIndex,
     'vertexLocation': {
       'x': this.cityLocation.getHexLocation().getX(),
       'y': this.cityLocation.getHexLocation().getY(),

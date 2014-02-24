@@ -14,11 +14,11 @@ Post-condition: NONE
 </pre>
 @class BuyDevCardCommand
 @constructor 
-@param {int} playerID the ID of the player wanting to buy a Development Card
+@param {int} playerIndex the index (NOT ID) of the player wanting to buy a Development Card
 **/
-function BuyDevCardCommand(playerID){
+function BuyDevCardCommand(playerIndex){
 	
-	this.playerID = playerID;
+	this.playerIndex = playerIndex;
 }
 
 BuyDevCardCommand.prototype = new AbstractCommand();
@@ -35,5 +35,5 @@ Post-condition: NONE
 BuyDevCardCommand.prototype.getData = function(){
 
 	return {'type':'buyDevCard',
-			'playerIndex': this.playerID};
+			'playerIndex': this.playerIndex};
 };

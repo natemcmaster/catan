@@ -14,12 +14,12 @@ Post-condition: NONE
 </pre>
 @class AcceptTradeCommand
 @constructor 
-@param {int} PlayerID ID of the player accepting the trade
+@param {int} playerIndex the index (NOT ID) of the player accepting the trade
 @param {bool} willAccept will the player accept the trade
 **/
-function AcceptTradeCommand(playerID, willAccept){
+function AcceptTradeCommand(playerIndex, willAccept){
 
-	this.playerID = playerID;
+	this.playerIndex = playerIndex;
 	this.willAccept = willAccept;
 }
 
@@ -37,6 +37,6 @@ Post-condition: NONE
 AcceptTradeCommand.prototype.getData = function(){
 
 	return {'type':'acceptTrade',
-			'playerIndex' : this.playerID,
+			'playerIndex' : this.playerIndex,
 			'willAccept' : this.willAccept};	
 };

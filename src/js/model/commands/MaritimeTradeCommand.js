@@ -11,13 +11,13 @@ var AbstractCommand = require('./AbstractCommand');
  * Sends command to server to make a maritime trade
  * @class MaritimeTradeCommand
  * @constructor
- * @param {int} playerID         Player who is using the card
+ * @param {int} playerIndex         Player who is using the card
  * @param {int} ratio      How many inputs for one output?
  * @param {ResourceType} inputResource  What type of resource are you trading?
  * @param {ResourceType} outputResource What type of resource do you want?
  */
-function MaritimeTradeCommand(playerID, ratio, inputResource, outputResource) {
-	this.playerID = playerID;
+function MaritimeTradeCommand(playerIndex, ratio, inputResource, outputResource) {
+	this.playerIndex = playerIndex;
 	this.ratio = ratio;
 	this.inputResource = inputResource;
 	this.outputResource = outputResource;
@@ -35,7 +35,7 @@ MaritimeTradeCommand.prototype.url = '/moves/maritimeTrade';
 MaritimeTradeCommand.prototype.getData = function() {
 	return {
 		"type": "maritimeTrade",
-		"playerIndex": this.playerID,
+		"playerIndex": this.playerIndex,
 		"ratio": this.ratio,
 		"inputResource": this.inputResource,
 		"outputResource": this.outputResource

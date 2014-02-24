@@ -14,13 +14,13 @@ Post-condition: NONE
 </pre>
 @class PlayYearOfPlentyCommand
 @constructor 
-@param {int} playerID the ID of the player playing the Year of Plenty Card
+@param {int} playerIndex the index (NOT ID) of the player playing the Year of Plenty Card
 @param {int} resource1 enumeration of the type of resource for resource 1
 @param {int} resource2 enumeration of the type of resource for resource 2
 **/
-function PlayYearOfPlentyCommand(playerId, resource1, resource2){
+function PlayYearOfPlentyCommand(playerIndex, resource1, resource2){
 
-	this.playerID = playerId;
+	this.playerIndex = playerIndex;
 	this.resource1 = resource1;
 	this.resource2 = resource2;
 }
@@ -39,7 +39,7 @@ Post-condition: NONE
 PlayYearOfPlentyCommand.prototype.getData = function(){
 
 	return {'type' : 'Year_of_Plenty',
-			'playerIndex' : this.playerID,
+			'playerIndex' : this.playerIndex,
 			'resource1' : this.resource1,
 			'resource2' : this.resource2};
 };
