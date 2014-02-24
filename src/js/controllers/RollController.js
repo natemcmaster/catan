@@ -48,6 +48,8 @@ RollController.prototype.closeResult = function(){
  * @return void
  **/
 RollController.prototype.rollDice = function(){
+	clearTimeout(this.autoRoll);
+	clearTimeout(this.countDown);
 	var currentPlayerId = this.clientModel.getCurrentPlayer().playerID;
 	var randomRollNumber = getRandomInt(2, 12);
 	this.view.closeModal();
@@ -66,9 +68,24 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
+
 RollController.prototype.onUpdate = function() {
 	if (this.clientModel.isMyTurn() && this.clientModel.getCurrentStatus() == 'Rolling')
 	{
 		this.view.showModal();
+		var count = 5;
+		var test = this;
+		this.autoRoll = setTimeout(function(){test.rollDice()}, 5000);
+		test.view.changeMessage('Rolling automatically in... ' + count);
+		this.countDown = setInterval(function(){
+			count--;
+			test.view.changeMessage('Rolling automatically in... ' + count);
+			
+			
+		}, 1000);
+
+		
+
+		
 	}
 };

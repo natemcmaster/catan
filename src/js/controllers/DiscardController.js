@@ -32,6 +32,7 @@ function DiscardController(view, waitingView, clientModel){
 
 	this.initVariables();
 	
+	
 }
 
 core.forceClassInherit(DiscardController,Controller);
