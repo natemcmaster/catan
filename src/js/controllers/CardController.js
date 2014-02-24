@@ -53,7 +53,7 @@ DevCardController.prototype.buyCard = function() {
  * @return void
  */
 DevCardController.prototype.useYearOfPlenty = function(resource1, resource2) {
-	this.clientModel.getClientPlayer().yearOfPlenty(resource1, resource2);
+	this.clientModel.getClientPlayer().yearOfPlenty(capFirst(resource1), capFirst(resource2));
 	this.view.closeModal();
 }
 
@@ -64,7 +64,7 @@ DevCardController.prototype.useYearOfPlenty = function(resource1, resource2) {
  * @return void
  */
 DevCardController.prototype.useMonopoly= function(resource) {
-	this.clientModel.getClientPlayer().monopoly(resource);
+	this.clientModel.getClientPlayer().monopoly(capFirst(resource));
 	this.view.closeModal();
 }
 
@@ -114,3 +114,6 @@ DevCardController.prototype.onUpdate = function() {
 	this.view.setCardEnabled(Definitions.MONUMENT, clientPlayer.canPlayMonument());
 }
 
+function capFirst(str) {
+	return str[0].toUpperCase() + str.slice(1);
+};
