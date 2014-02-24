@@ -74,12 +74,12 @@ RollController.prototype.onUpdate = function() {
 	{
 		this.view.showModal();
 		var count = 5;
-		var test = this;
-		this.autoRoll = setTimeout(function(){test.rollDice()}, 5000);
-		test.view.changeMessage('Rolling automatically in... ' + count);
+		var that = this;
+		this.autoRoll = setTimeout(function(){that.rollDice()}, 5000);
+		that.view.changeMessage('Rolling automatically in... ' + count);
 		this.countDown = setInterval(function(){
 			count--;
-			test.view.changeMessage('Rolling automatically in... ' + count);
+			that.view.changeMessage('Rolling automatically in... ' + count);
 			
 			
 		}, 1000);
