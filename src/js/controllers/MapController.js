@@ -90,8 +90,21 @@ MapController.prototype.doSoldierAction = function(){
  * @return void
  **/	
 MapController.prototype.startDoubleRoadBuilding = function(){
+  this.multiMove('road', 2)
 }
 
+MapController.prototype.multiMove = function (pieceType, num){
+  this.placeState = {
+    type: pieceType,
+    numLeft: num,
+    placesTaken: {},
+    places: [],
+    free: false,
+    setup: false
+  }
+  this.modalView.showModal(pieceType)
+  this.view.startDrop(pieceType, this.clientModel.getClientPlayer().color)
+}
 
 /**
  * Pops the map out and prompts the player to place the appropriate piece
@@ -102,7 +115,14 @@ MapController.prototype.startDoubleRoadBuilding = function(){
  * @return void
  **/	
 MapController.prototype.startMove = function (pieceType, free, setup){
-  this.placeState = {type: pieceType, free: free, setup: setup}
+  this.placeState = {
+    type: pieceType,
+    placesTaken: {},
+    places: [],
+    numLeft: 1,
+    free: free,
+    setup: setup
+  }
   this.modalView.showModal(pieceType)
   this.view.startDrop(pieceType, this.clientModel.getClientPlayer().color)
 };
@@ -115,6 +135,7 @@ MapController.prototype.startMove = function (pieceType, free, setup){
  * */
 MapController.prototype.cancelMove = function(){
   this.modalView.closeModal()
+  this.placeState = null
 }
 
 function goodLocation(loc, type) {
@@ -139,10 +160,10 @@ function goodLocation(loc, type) {
 	@return {boolean} Whether or not the given piece can be placed at the current location.
 	*/
 MapController.prototype.onDrag = function (loc, type) {
-  console.log('drag', loc, type)
   type = type.type
   var fn = 'canPlace' + type[0].toUpperCase() + type.slice(1)
     , loco = goodLocation(loc, type)
+  if (this.placeState.placesTaken[loco.getIDString()]) return false
   return this.clientModel.gameboard.map[fn](this.clientModel.playerIndex, loco, this.placeState.setup)
 };
 
@@ -161,9 +182,29 @@ MapController.prototype.onDrop = function (loc, what) {
   if (type === 'robber') {
     return this.showRobModal(loco)
   }
-  var fn = 'place' + type[0].toUpperCase() + type.slice(1)
-  this.clientModel.gameboard.map[fn](this.clientModel.playerIndex, loco, this.placeState.free)
-  this.placeState = null
+  if (this.placeState.numLeft <= 1) {
+    if (this.placeState.places.length) {
+      if (this.placeState.places.length !== 1) {
+        throw new Error("Can't make more than two of anything at a time")
+      }
+      if (type !== 'road') {
+        throw new Error("Don't know how to build multiple of anything but road")
+      }
+      this.clientModel.getClientPlayer().roadBuilding(loco, this.placeState.places[0])
+      this.placeState = null
+      return
+    }
+    var fn = 'place' + type[0].toUpperCase() + type.slice(1)
+    this.clientModel.gameboard.map[fn](this.clientModel.playerIndex, loco, this.placeState.free)
+    this.placeState = null
+    return
+  }
+  helpers.drawItem[type](this.view, loco, this.clientModel.getClientPlayer().color)
+  this.placeState.numLeft -= 1;
+  this.placeState.places.push(loco)
+  this.placeState.placesTaken[loco.getIDString()] = true
+  // this.modalView.showModal(pieceType)
+  this.view.startDrop(type, this.clientModel.getClientPlayer().color)
 };
 
 /**

@@ -8,7 +8,11 @@ var catan = require('byu-catan')
 
 module.exports = {
   draw: draw,
-  drawBase: drawBase
+  drawBase: drawBase,
+  drawRoad: drawRoad,
+  drawItem: {
+    road: drawRoad
+  }
 }
 
 function drawBase(view, model, colors) {
@@ -105,10 +109,13 @@ function vertexLoc(loc) {
   return new VertexLoc(x, y, dir)
 }
 
+function drawRoad(view, vloc, color) {
+  view.placeRoad(edgeLoc(vloc), color)
+}
+
 function drawEdges(view, edges, colors) {
   edges.forEach(function (edge) {
     view.placeRoad(edgeLoc(edge.location), colors[edge.getOwner()], true)
-    console.log(edge, edge.getOwner())
   })
 }
 
