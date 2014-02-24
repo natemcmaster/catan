@@ -205,7 +205,7 @@ ClientModel.prototype.canAcceptTrade = function(){
   var receiver = this.gameboard.getPlayerByIndex(this.gameboard.tradeOffer.receiverIndex);
   for(var i in ResourceTypes){
     var r = ResourceTypes[i];
-    if(Math.abs(this.gameboard.tradeOffer.offer[r]) > receiver.resources[r])
+    if(Math.abs(this.gameboard.tradeOffer.offer[r]) > receiver.resources[r] && this.gameboard.tradeOffer.offer[r] < 0)
       return false;
   }
   return true;
