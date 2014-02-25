@@ -169,7 +169,7 @@ MapController.prototype.onDrag = function (loc, type) {
   type = type.type
   var fn = 'canPlace' + type[0].toUpperCase() + type.slice(1)
     , loco = goodLocation(loc, type)
-  if (this.placeState.placesTaken[loco.getIDString()]) return false
+  if (this.placeState.places.length && this.placeState.placesTaken[loco.getIDString()]) return false
   return this.clientModel.gameboard.map[fn](this.clientModel.playerIndex, loco, this.placeState.setup)
 };
 
