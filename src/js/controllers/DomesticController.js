@@ -64,7 +64,7 @@ function resetState() {
 	this.view.setPlayerSelectionEnabled(false);
 	this.view.setResourceSelectionEnabled(false);
 	this.view.setTradeButtonEnabled(false);
-	this.view.setStateMessage('Not your turn');
+	this.view.setStateMessage(this.clientModel.isMyTurn() ? 'Prepare a trade offer': 'Not your turn');
 }
 
 function updateTradeButton() {
@@ -184,6 +184,8 @@ DomesticController.prototype.setResourceToReceive = function(resource) {
  */
 DomesticController.prototype.unsetResource = function(resource) {
 	this[resource].clear();
+	this.view.setResourceAmountChangeEnabled(resource, false, false);
+	this.view.setResourceAmount(resource, 0);
 	updateTradeButton.call(this);
 };
 
@@ -231,7 +233,7 @@ DomesticController.prototype.decreaseResourceAmount = function(resource) {
  * @return void
  */
 DomesticController.prototype.sendTradeOffer = function() {
-	this.waitingView.showModal();
+	resetState.call(this);
 	this.waiting = true;
 	this.clientModel
 		.getClientPlayer()
@@ -256,4 +258,5 @@ DomesticController.prototype.sendTradeOffer = function() {
 DomesticController.prototype.acceptTrade = function(willAccept) {
 	this.clientModel.getClientPlayer().acceptTrade(willAccept);
 	this.acceptView.closeModal();
+	resetState.call(this);
 };
