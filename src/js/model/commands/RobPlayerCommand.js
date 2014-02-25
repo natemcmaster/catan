@@ -41,7 +41,7 @@ RobPlayerCommand.prototype.getData = function(){
 	return {'type' : 'robPlayer',
 			'playerIndex' : this.playerIndex,
 			'victimIndex' : this.victimIndex,
-			'robberSpot' : {'x' : this.robberSpot.getX(),
+			'location' : {'x' : this.robberSpot.getX(),
 							'y' : this.robberSpot.getY()}
 			};
 };

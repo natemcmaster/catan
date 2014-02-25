@@ -38,7 +38,7 @@ suite('GameBoard', function() {
 					'type': 'robPlayer',
 					'playerIndex': 1,
 					'victimIndex': 2,
-					'robberSpot': {
+					'location': {
 						'x': -3,
 						'y': 0
 					}

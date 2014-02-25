@@ -41,7 +41,7 @@ PlaySoldierCommand.prototype.getData = function(){
 	return {'type' : 'Soldier',
 			'playerIndex' : this.playerIndex,
 			'victimIndex' : this.victimIndex,
-			'robberSpot' : {'x' : this.robberSpot.getX(),
+			'location' : {'x' : this.robberSpot.getX(),
 							'y' : this.robberSpot.getY()}
 			};	
 };

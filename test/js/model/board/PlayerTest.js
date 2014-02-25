@@ -226,7 +226,7 @@ suite('PlayerTests', function() {
 					"type": "Soldier",
 					"playerIndex": randomIndex,
 					"victimIndex": victimIndex,
-					"robberSpot": {
+					"location": {
 						"x": x,
 						"y": y
 					}
