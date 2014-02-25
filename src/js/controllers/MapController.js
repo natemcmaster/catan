@@ -58,6 +58,10 @@ MapController.prototype.onUpdate = function () {
   
   if (this.clientModel.getCurrentStatus() !== 'Robbing') return
   if (!this.clientModel.isMyTurn()) return
+  if (this.placeState) {
+    if (this.placeState.type === 'robber') return
+    this.cancelMove()
+  }
   this.startMove('robber', true, false)
 };
 
@@ -77,6 +81,7 @@ MapController.prototype.setRobView = function (robView) {
 MapController.prototype.robPlayer = function(orderID){
   this.clientModel.robPlayer(orderID, this.placeState.robHex)
   this.robView.closeModal()
+  this.placeState = null
 }
 
 /**

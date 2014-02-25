@@ -245,7 +245,7 @@ Map.prototype.canPlaceRoad = function (playerIndex, location, setup) {
  */
 Map.prototype.canPlaceRobber = function (playerIndex, location) {
 	var hex = this.hexGrid.getHex(location);
-	return !(!hex || (!this.robber || location.equals(this.robber)) || !hex.isLand() || hex.isDesert());
+	return !(!hex || (this.robber && location.equals(this.robber)) || !hex.isLand() || hex.isDesert());
 };
 
 /**
