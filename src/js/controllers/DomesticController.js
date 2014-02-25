@@ -34,7 +34,7 @@ function DomesticController(view, waitingView, acceptView, clientModel) {
 			otherPlayers.push({
 				name: players[i].name,
 				color: players[i].color,
-				index: players[i].playerID,
+				index: players[i].playerIndex,
 			});
 		}
 	}
