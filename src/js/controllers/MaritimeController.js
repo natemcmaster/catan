@@ -139,10 +139,10 @@ function showGiveOptions(proto){
 		}
 	}
 
-	for (var resource in localPlayer.resources) {
-	  if (localPlayer.resources.hasOwnProperty(resource)) {
-	    if(localPlayer.resources[resource] >= 4){
-	    	giveOptions.push(resource);
+	for (var r in localPlayer.resources) {
+	  if (localPlayer.resources.hasOwnProperty(r)) {
+	    if(localPlayer.resources[r] >= 4){
+	    	giveOptions.push(r);
 	    }
 	  }
 	}
@@ -238,7 +238,7 @@ function unCapFirst(str){
 MaritimeController.prototype.makeTrade= function(){
 	var localPlayerIndex = this.clientModel.getClientPlayer().playerIndex;
 
-	var mComm = new MaritimeTradeCommand(localPlayerID, this.tradeRatio, capFirst(this.resourceToGive), capFirst(this.resourceToGet));
+	var mComm = new MaritimeTradeCommand(localPlayerIndex, this.tradeRatio, capFirst(this.resourceToGive), capFirst(this.resourceToGet));
 	console.log(mComm);
 
 	this.clientModel.proxy.executeCommand(mComm);	

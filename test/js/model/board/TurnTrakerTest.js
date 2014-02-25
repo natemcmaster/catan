@@ -17,9 +17,9 @@ suite('TurnTrakerTests', function(){
 		TestTurnTraker = new TurnTraker(mockProxy, turnTrakerData);
 	});
 
-	suite('#currentPlayerId()', function(){
+	suite('#currentPlayerIndex()', function(){
 		test('returns correct player ID', function() {
-			assert.equal(0, TestTurnTraker.currentPlayerId());
+			assert.equal(0, TestTurnTraker.currentPlayerIndex());
 		});
 
 	});
