@@ -30,7 +30,7 @@ function DomesticController(view, waitingView, acceptView, clientModel) {
 	var players = this.clientModel.gameboard.players;
 	var otherPlayers = [];
 	for (var i in players) {
-		if (players[i].playerID != this.clientModel.playerID) {
+		if (players[i].playerIndex != this.clientModel.playerIndex) {
 			otherPlayers.push({
 				name: players[i].name,
 				color: players[i].color,
@@ -59,7 +59,7 @@ function resetState() {
 		var t = ResourceTypes[i];
 		this[t] = new DResource(getMaxResource.call(this, t));
 	}
-	this.tradePlayerID = -1;
+	this.tradePlayerIndex = -1;
 	this.view.clearTradeView();
 	this.view.setPlayerSelectionEnabled(false);
 	this.view.setResourceSelectionEnabled(false);
@@ -69,7 +69,7 @@ function resetState() {
 
 function updateTradeButton() {
 	var enabled = false;
-	if (this.tradePlayerID != -1) {
+	if (this.tradePlayerIndex != -1) {
 		for (var i in ResourceTypes) {
 			if (this[ResourceTypes[i]].val() > 0) {
 				enabled = true;
@@ -195,7 +195,7 @@ DomesticController.prototype.unsetResource = function(resource) {
  * @return void
  */
 DomesticController.prototype.setPlayerToTradeWith = function(playerNumber) {
-	this.tradePlayerID = playerNumber;
+	this.tradePlayerIndex = playerNumber;
 	updateTradeButton.call(this);
 };
 
@@ -209,7 +209,6 @@ DomesticController.prototype.increaseResourceAmount = function(resource) {
 	var r = this[resource];
 	r.incr();
 	this.view.setResourceAmountChangeEnabled(resource, r.direction < 0 || r.val() < r.max, r.val() > 0);
-	this.view.setResourceAmount(resource, r.val());
 	updateTradeButton.call(this);
 };
 
@@ -233,17 +232,17 @@ DomesticController.prototype.decreaseResourceAmount = function(resource) {
  * @return void
  */
 DomesticController.prototype.sendTradeOffer = function() {
-	resetState.call(this);
 	this.waiting = true;
 	this.clientModel
 		.getClientPlayer()
-		.offerTrade(this.tradePlayerID,
+		.offerTrade(this.tradePlayerIndex,
 			this.brick.val('abs'),
 			this.ore.val('abs'),
 			this.sheep.val('abs'),
 			this.wheat.val('abs'),
 			this.wood.val('abs')
 	);
+	resetState.call(this);
 };
 
 
