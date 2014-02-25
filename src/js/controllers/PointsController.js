@@ -19,7 +19,7 @@ var Controller = require('./BaseController');
 
 PointController.prototype = core.inherit(Controller.prototype);
 
-core.defineProperty(PointController.prototype, "GameFinishedView");
+core.defineProperty(PointController.prototype, "gameFinishedView");
 
 /** 
 	@class PointController
@@ -53,7 +53,7 @@ PointController.prototype.onUpdate = function() {
 				this.gameFinishedView.setWinner(players[i].name, false)
 			}
 
-			this.gameFinished.showModal();
+			this.gameFinishedView.showModal();
 			break;
 		}
 	}

@@ -54,6 +54,7 @@ DevCardController.prototype.buyCard = function() {
  */
 DevCardController.prototype.useYearOfPlenty = function(resource1, resource2) {
 	this.clientModel.getClientPlayer().yearOfPlenty(capFirst(resource1), capFirst(resource2));
+	this.view.clearView();
 	this.view.closeModal();
 }
 
@@ -63,8 +64,9 @@ DevCardController.prototype.useYearOfPlenty = function(resource1, resource2) {
  * @param {String} resource the resource to obtain
  * @return void
  */
-DevCardController.prototype.useMonopoly= function(resource) {
+DevCardController.prototype.useMonopoly = function(resource) {
 	this.clientModel.getClientPlayer().monopoly(capFirst(resource));
+	this.view.clearView();
 	this.view.closeModal();
 }
 
@@ -83,7 +85,7 @@ DevCardController.prototype.useMonument = function() {
  * @method useSoldier
  * @return void
  */
-DevCardController.prototype.useSoldier= function() {
+DevCardController.prototype.useSoldier = function() {
 	this.soldierAction();
 	this.view.closeModal();
 }
@@ -93,7 +95,7 @@ DevCardController.prototype.useSoldier= function() {
  * @method useRoadBuild
  * @return void
  */
-DevCardController.prototype.useRoadBuild = function(resource) {
+DevCardController.prototype.useRoadBuild = function() {
 	this.roadAction();
 	this.view.closeModal();
 }
@@ -116,4 +118,4 @@ DevCardController.prototype.onUpdate = function() {
 
 function capFirst(str) {
 	return str[0].toUpperCase() + str.slice(1);
-};
+}

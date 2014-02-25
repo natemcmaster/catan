@@ -44,6 +44,12 @@ function MapController(view, modalView, model, robView){
 	this.setRobView(robView);
   
   helpers.drawBase(this.view, this.clientModel.gameboard.map, this.clientModel.getPlayerColors())
+  setTimeout(function () {
+    helpers.drawBase(this.view, this.clientModel.gameboard.map, this.clientModel.getPlayerColors())
+  }.bind(this), 100)
+  setTimeout(function () {
+    helpers.drawBase(this.view, this.clientModel.gameboard.map, this.clientModel.getPlayerColors())
+  }.bind(this), 1000)
   this.state = 'normal'
 }
 
@@ -52,6 +58,10 @@ MapController.prototype.onUpdate = function () {
   
   if (this.clientModel.getCurrentStatus() !== 'Robbing') return
   if (!this.clientModel.isMyTurn()) return
+  if (this.placeState) {
+    if (this.placeState.type === 'robber') return
+    this.cancelMove()
+  }
   this.startMove('robber', true, false)
 };
 
@@ -71,6 +81,7 @@ MapController.prototype.setRobView = function (robView) {
 MapController.prototype.robPlayer = function(orderID){
   this.clientModel.robPlayer(orderID, this.placeState.robHex)
   this.robView.closeModal()
+  this.placeState = null
 }
 
 /**
@@ -134,6 +145,7 @@ MapController.prototype.startMove = function (pieceType, free, setup){
  * @return void
  * */
 MapController.prototype.cancelMove = function(){
+  this.view.cancelDrop()
   this.modalView.closeModal()
   this.placeState = null
 }
@@ -163,7 +175,7 @@ MapController.prototype.onDrag = function (loc, type) {
   type = type.type
   var fn = 'canPlace' + type[0].toUpperCase() + type.slice(1)
     , loco = goodLocation(loc, type)
-  if (this.placeState.placesTaken[loco.getIDString()]) return false
+  if (this.placeState.places.length && this.placeState.placesTaken[loco.getIDString()]) return false
   return this.clientModel.gameboard.map[fn](this.clientModel.playerIndex, loco, this.placeState.setup)
 };
 

@@ -99,6 +99,6 @@ ChatController.prototype.onUpdate = function () {
 ChatController.prototype.addLine = function(lineContents){
 	var clientPlayer = this.clientModel.getClientPlayer();
 
-	this.clientModel.chat.sendChat(clientPlayer.playerID, lineContents)
+	this.clientModel.chat.sendChat(clientPlayer.playerIndex, lineContents)
 };
 
