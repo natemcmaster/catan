@@ -12,11 +12,6 @@
 
 module.exports = MaritimeController;
 
-var window = window || {};
-var catan = window.catan || {};
-catan.trade = catan.trade || {};
-catan.trade.maritime = catan.trade.maritime || {};
-
 var Definitions = require('byu-catan').definitions;
 var ResourceTypes = Definitions.ResourceTypes;
 
@@ -37,7 +32,7 @@ function MaritimeController(view,clientModel){
 	this.resourceToGive = null;
 	this.resourceToGet = null;
 
-};
+}
 
 MaritimeController.prototype = core.inherit(Controller.prototype);
 
@@ -104,7 +99,7 @@ MaritimeController.prototype.setGiveValue = function(resource){
 	this.tradeRatio = ratios[unCapFirst(resource)];
 	this.view.selectGiveOption(resource, this.tradeRatio);
 
-	this.view.showGetOptions();
+	// this.view.showGetOptions();
 	this.view.setMessage("Choose the resource you want to recieve");
 };
 
@@ -115,10 +110,11 @@ function showGiveOptions(proto){
 	var ports = proto.clientModel.gameboard.map.portsForPlayer(localPlayerIndex);
 	console.log(ports);
 
-	var giveOptions = [];
+	var giveOptions = []
+	  , resource;
 	for(var i=0; i < ports.length; i++){
 		var port = ports[i];
-		
+
 		// If port.inputResource exsits, then the port ratio is 2:1
 		if(port.inputResource){
 			if(localPlayer.resources[unCapFirst(port.inputResource)] >= port.ratio){
@@ -128,23 +124,23 @@ function showGiveOptions(proto){
 		//Otherwise, the ratio is 3:1
 		else {
 			// Loop through each of the resources that a player owns
-			for (var resource in localPlayer.resources) {
-			  if (localPlayer.resources.hasOwnProperty(resource)) {
-			    if(localPlayer.resources[resource] >= 3){
-			    	giveOptions.push(resource);
-			    }
-			  }
+			for (resource in localPlayer.resources) {
+				if (localPlayer.resources.hasOwnProperty(resource)) {
+					if(localPlayer.resources[resource] >= 3){
+						giveOptions.push(resource);
+					}
+				}
 			}
 
 		}
 	}
 
-	for (var resource in localPlayer.resources) {
-	  if (localPlayer.resources.hasOwnProperty(resource)) {
-	    if(localPlayer.resources[resource] >= 4){
-	    	giveOptions.push(resource);
-	    }
-	  }
+	for (resource in localPlayer.resources) {
+		if (localPlayer.resources.hasOwnProperty(resource)) {
+			if(localPlayer.resources[resource] >= 4){
+				giveOptions.push(resource);
+			}
+		}
 	}
 
 	proto.view.showGiveOptions(giveOptions);
@@ -199,11 +195,11 @@ function showGetOptions(proto){
 	// trades for resources that have greater than 1 stock
 	var getOptions = [];
 	for (var getResource in proto.clientModel.gameboard.bank) {
-	  if (proto.clientModel.gameboard.bank.hasOwnProperty(getResource)) {
-	    if(proto.clientModel.gameboard.bank[getResource] >= 1){
-	    	getOptions.push(getResource);
-	    }
-	  }
+		if (proto.clientModel.gameboard.bank.hasOwnProperty(getResource)) {
+			if(proto.clientModel.gameboard.bank[getResource] >= 1){
+				getOptions.push(getResource);
+			}
+		}
 	}
 	proto.view.showGetOptions(getOptions);
 }
@@ -238,7 +234,7 @@ function unCapFirst(str){
 MaritimeController.prototype.makeTrade= function(){
 	var localPlayerIndex = this.clientModel.getClientPlayer().playerIndex;
 
-	var mComm = new MaritimeTradeCommand(localPlayerID, this.tradeRatio, capFirst(this.resourceToGive), capFirst(this.resourceToGet));
+	var mComm = new MaritimeTradeCommand(localPlayerIndex, this.tradeRatio, capFirst(this.resourceToGive), capFirst(this.resourceToGet));
 	console.log(mComm);
 
 	this.clientModel.proxy.executeCommand(mComm);	

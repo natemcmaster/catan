@@ -44,6 +44,12 @@ function MapController(view, modalView, model, robView){
 	this.setRobView(robView);
   
   helpers.drawBase(this.view, this.clientModel.gameboard.map, this.clientModel.getPlayerColors())
+  setTimeout(function () {
+    helpers.drawBase(this.view, this.clientModel.gameboard.map, this.clientModel.getPlayerColors())
+  }.bind(this), 100)
+  setTimeout(function () {
+    helpers.drawBase(this.view, this.clientModel.gameboard.map, this.clientModel.getPlayerColors())
+  }.bind(this), 1000)
   this.state = 'normal'
 }
 
