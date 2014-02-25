@@ -32,7 +32,7 @@ function MaritimeController(view,clientModel){
 	this.resourceToGive = null;
 	this.resourceToGet = null;
 
-}
+};
 
 MaritimeController.prototype = core.inherit(Controller.prototype);
 
@@ -47,10 +47,16 @@ MaritimeController.prototype = core.inherit(Controller.prototype);
 *       
 */
 MaritimeController.prototype.onUpdate = function(){
-	showGiveOptions(this);
-	this.view.hideGetOptions();
-	this.view.enableTradeButton(false);
-	
+	if(this.clientModel.isMyTurn()) {
+		showGiveOptions(this);
+		this.view.hideGetOptions();
+	}
+	else {
+		this.view.hideGiveOptions();
+		this.view.enableTradeButton(false);
+		this.view.hideGetOptions();
+		this.view.setMessage("Wait for your turn...");
+	}
 }
 
 
@@ -237,6 +243,7 @@ MaritimeController.prototype.makeTrade= function(){
 	var mComm = new MaritimeTradeCommand(localPlayerIndex, this.tradeRatio, capFirst(this.resourceToGive), capFirst(this.resourceToGet));
 	console.log(mComm);
 
-	this.clientModel.proxy.executeCommand(mComm);	
+	this.clientModel.proxy.executeCommand(mComm);
+	this.view.setMessage("Choose resource to give");
 }
 

@@ -56,7 +56,7 @@ DiscardController.prototype.initVariables = function(){
 	this.clientWood = 0
 
 	this.numSelected = 0
-	this.totalRecources = 0
+	
 
 }
 /**
@@ -156,8 +156,8 @@ DiscardController.prototype.onUpdate = function(){
 	this.clientWheat = clientPlayer.resources.wheat
 	this.clientWood = clientPlayer.resources.wood
 
-	this.totalRecources = this.clientWood + this.clientWheat + this.clientBrick + this.clientSheep + this.clientOre
-	this.numToDiscard = parseInt(this.totalRecources/2)
+	var totalRecources = this.clientWood + this.clientWheat + this.clientBrick + this.clientSheep + this.clientOre
+	this.numToDiscard = parseInt(totalRecources/2)
 
 	if(!clientPlayer.discarded && this.numToDiscard >= 4){
 

@@ -185,7 +185,6 @@ DomesticController.prototype.setResourceToReceive = function(resource) {
 DomesticController.prototype.unsetResource = function(resource) {
 	this[resource].clear();
 	this.view.setResourceAmountChangeEnabled(resource, false, false);
-	this.view.setResourceAmount(resource, 0);
 	updateTradeButton.call(this);
 };
 
@@ -209,6 +208,7 @@ DomesticController.prototype.increaseResourceAmount = function(resource) {
 	var r = this[resource];
 	r.incr();
 	this.view.setResourceAmountChangeEnabled(resource, r.direction < 0 || r.val() < r.max, r.val() > 0);
+	this.view.setResourceAmount(resource, r.val());
 	updateTradeButton.call(this);
 };
 
