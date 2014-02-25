@@ -140,6 +140,7 @@ MapController.prototype.startMove = function (pieceType, free, setup){
  * @return void
  * */
 MapController.prototype.cancelMove = function(){
+  this.view.cancelDrop()
   this.modalView.closeModal()
   this.placeState = null
 }
