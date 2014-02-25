@@ -16,26 +16,36 @@ module.exports = {
 }
 
 function drawBase(view, model, colors) {
+  var layers = 'hex port number'.split(' ')
+  layers.forEach(function (layer) {
+    var name = 'get' + layer[0].toUpperCase() + layer.slice(1) + 'Layer'
+    view[name]().removeChildren()
+  })
   model.getAllHexes().forEach(function (hex) {
     view.addHex(hex.getLocation(), hex.getType(), true)
   })
   drawNumbers(view, model.getNumbers().getNumberPositions())
   drawPorts(view, model.ports)
-  var layers = 'hex port number'.split(' ')
   layers.forEach(function (layer) {
     var name = 'get' + layer[0].toUpperCase() + layer.slice(1) + 'Layer'
+    view[name]().clear()
     view[name]().draw()
   })
 }
 
 function draw(view, model, colors) {
+  var layers = 'robber edge vertex drag'.split(' ')
+  layers.forEach(function (layer) {
+    var name = 'get' + layer[0].toUpperCase() + layer.slice(1) + 'Layer'
+    view[name]().removeChildren()
+  })
   drawRobber(view, model.getRobberPos())
   drawEdges(view, model.getOwnedEdges(), colors)
   drawVertices(view, model.getOwnedVertices(), colors)
 
-  var layers = 'robber edge vertex drag'.split(' ')
   layers.forEach(function (layer) {
     var name = 'get' + layer[0].toUpperCase() + layer.slice(1) + 'Layer'
+    view[name]().clear()
     view[name]().draw()
   })
 }

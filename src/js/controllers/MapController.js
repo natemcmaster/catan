@@ -148,6 +148,7 @@ MapController.prototype.cancelMove = function(){
   this.view.cancelDrop()
   this.modalView.closeModal()
   this.placeState = null
+  this.onUpdate()
 }
 
 function goodLocation(loc, type) {
@@ -176,7 +177,7 @@ MapController.prototype.onDrag = function (loc, type) {
   var fn = 'canPlace' + type[0].toUpperCase() + type.slice(1)
     , loco = goodLocation(loc, type)
   if (this.placeState.places.length && this.placeState.placesTaken[loco.getIDString()]) return false
-  return this.clientModel.gameboard.map[fn](this.clientModel.playerIndex, loco, this.placeState.setup)
+  return this.clientModel.gameboard.map[fn](this.clientModel.playerIndex, loco, this.placeState.setup, this.placeState.places && this.placeState.places[0])
 };
 
 /**

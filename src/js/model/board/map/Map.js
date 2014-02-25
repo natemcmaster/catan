@@ -210,7 +210,7 @@ Map.prototype.getAdjascentVertices = function (location) {
  * @param {boolean} setup whether this is happening during the setup phase
  * @return {boolean} True if user can now place road, false if not.
  */
-Map.prototype.canPlaceRoad = function (playerIndex, location, setup) {
+Map.prototype.canPlaceRoad = function (playerIndex, location, setup, extraLoc) {
   if (!location) return false;
 	var edge = this.getEdge(location)
     , getHex = this.hexGrid.getHex.bind(this.hexGrid)
@@ -228,7 +228,7 @@ Map.prototype.canPlaceRoad = function (playerIndex, location, setup) {
     })
   }
 	var ownAdjacent = this.getAdjascentEdges(location).some(function (edge) {
-		return edge.isOccupied() && edge.getOwner() === playerIndex;
+		return (extraLoc && edge.getLocation().getIDString() === extraLoc.getIDString()) || (edge.isOccupied() && edge.getOwner() === playerIndex);
 	});
   return ownAdjacent;
 };
