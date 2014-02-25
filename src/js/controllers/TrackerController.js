@@ -30,7 +30,7 @@ function TurnTrackerController(view, clientModel) {
 
 	var players = this.clientModel.gameboard.players;
 	for(var j = 0;j <players.length; j++){
-		this.view.initializePlayer(players[j].playerID, players[j].name, players[j].color)
+		this.view.initializePlayer(j, players[j].name, players[j].color)
 	}
 	this.updatePlayers();
 }
@@ -73,11 +73,13 @@ TurnTrackerController.prototype.updatePlayers = function(){
 
 	var players = this.clientModel.gameboard.players;
 	for(var i = 0;i <players.length; i++){
-		var update = {'playerIndex' : players[i].playerID,
-					  'score' : players[i].victoryPoints,
-					  'highlight' : (players[i].orderNumber == this.clientModel.gameboard.turnTracker.currentTurn),
-					  'army' : players[i].largestArmy,
-					  'road' : players[i].longestRoad};
+		var update = {
+			'playerIndex' : i,
+			'score' : players[i].victoryPoints,
+			'highlight' : (i == this.clientModel.gameboard.turnTracker.currentPlayerIndex()),
+			'army' : players[i].largestArmy,
+			'road' : players[i].longestRoad
+		};
 		this.view.updatePlayer(update);
 	}
 
