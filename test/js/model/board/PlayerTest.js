@@ -9,7 +9,7 @@ var EdgeLocation = hexgrid.EdgeLocation;
 var playerTestCases = require('./PlayerTestCases.json');
 var assert = require('chai').assert;
 
-suite('PlayerTests', function () {
+suite('PlayerTests', function() {
 
 	var canBuyTestCases = playerTestCases[0];
 
@@ -101,53 +101,90 @@ suite('PlayerTests', function () {
 	suite('functions that talk to the proxy', function() {
 		var mockProxy;
 		var player;
+		var randomIndex = -1992;
 
 		setup(function() {
 			mockProxy = new MockProxy();
-			var testData = {"MAX_GAME_POINTS":10,"resources":{"brick":14,"wood":13,"sheep":15,"wheat":10,"ore":8},"oldDevCards":{"yearOfPlenty":0,"monopoly":0,"soldier":2,"roadBuilding":0,"monument":1},"newDevCards":{"yearOfPlenty":0,"monopoly":0,"soldier":1,"roadBuilding":1,"monument":0},"roads":8,"cities":2,"settlements":4,"soldiers":1,"victoryPoints":7,"monuments":0,"longestRoad":true,"largestArmy":false,"playedDevCard":true,"discarded":false,"playerID":71,"orderNumber":0,"name":"Sam","color":"orange"};
-			player = new Player(mockProxy, testData);
+			var testData = {
+				"MAX_GAME_POINTS": 10,
+				"resources": {
+					"brick": 14,
+					"wood": 13,
+					"sheep": 15,
+					"wheat": 10,
+					"ore": 8
+				},
+				"oldDevCards": {
+					"yearOfPlenty": 0,
+					"monopoly": 0,
+					"soldier": 2,
+					"roadBuilding": 0,
+					"monument": 1
+				},
+				"newDevCards": {
+					"yearOfPlenty": 0,
+					"monopoly": 0,
+					"soldier": 1,
+					"roadBuilding": 1,
+					"monument": 0
+				},
+				"roads": 8,
+				"cities": 2,
+				"settlements": 4,
+				"soldiers": 1,
+				"victoryPoints": 7,
+				"monuments": 0,
+				"longestRoad": true,
+				"largestArmy": false,
+				"playedDevCard": true,
+				"discarded": false,
+				"playerID": 71,
+				"orderNumber": 0,
+				"name": "Sam",
+				"color": "orange"
+			};
+			player = new Player(mockProxy, testData, randomIndex);
 		});
 
 		test('#buyDevCard()', function() {
-
 			var expected = {
 				"type": "JSON",
-        		"template": {
-            		"type": "buyDevCard",
-            		"playerIndex": player.playerID
-        			}
-        		};
+				"template": {
+					"type": "buyDevCard",
+					"playerIndex": randomIndex
+				}
+			};
 
-        	player.buyDevCard();
-        	assert.deepEqual(expected.template, mockProxy.lastCommand.getData());
-		});		
+			player.buyDevCard();
+			assert.deepEqual(expected.template, mockProxy.lastCommand.getData());
+		});
 
 		test('#yearOfPlenty()', function() {
-			
+
 			var resource1 = ResourceType.BRICK;
 			var resource2 = ResourceType.SHEEP;
 
 			var expected = {
 				"type": "JSON",
-		        "template": {
-		            "type": "Year_of_Plenty",
-		            "playerIndex": player.playerID,
-		            "resource1": resource1,
-		            "resource2": resource2
-		        }
-        	};
+				"template": {
+					"type": "Year_of_Plenty",
+					"playerIndex": randomIndex,
+					"resource1": resource1,
+					"resource2": resource2
+				}
+			};
 
-        	player.yearOfPlenty(resource1, resource2);
-        	assert.deepEqual(expected.template, mockProxy.lastCommand.getData());
+			player.yearOfPlenty(resource1, resource2);
+			assert.deepEqual(expected.template, mockProxy.lastCommand.getData());
 		});
 
 		test('#roadBuilding()', function() {
-			
+
 			var x1 = -4;
 			var y1 = 2;
 			var direction1 = EdgeDirection.S;
 			var edge1 = new EdgeLocation(new HexLocation(x1, y1), direction1);
-			
+
 			var x2 = 3;
 			var y2 = -1;
 			var direction2 = EdgeDirection.N;
@@ -155,28 +192,28 @@ suite('PlayerTests', function () {
 
 			var expected = {
 				"type": "JSON",
-		        "template": {
-		            "type": "Road_Building",
-		            "playerIndex": player.playerID,
-		            "spot1": {
-		                "x": x1,
-		                "y": y1,
-		                "direction": direction1
-		            },
-		            "spot2": {
-		                "x": x2,
-		                "y": y2,
-		                "direction": direction2
-		            }
-		        }
-        	};
+				"template": {
+					"type": "Road_Building",
+					"playerIndex": randomIndex,
+					"spot1": {
+						"x": x1,
+						"y": y1,
+						"direction": "S"
+					},
+					"spot2": {
+						"x": x2,
+						"y": y2,
+						"direction": "N"
+					}
+				}
+			};
 
-        	player.roadBuilding(edge1, edge2);
-        	assert.deepEqual(expected.template, mockProxy.lastCommand.getData());
+			player.roadBuilding(edge1, edge2);
+			assert.deepEqual(mockProxy.lastCommand.getData(), expected.template);
 		});
 
 		test('#playSoldier()', function() {
-			
+
 			var victimIndex = 21;
 
 			var x = 3;
@@ -185,32 +222,32 @@ suite('PlayerTests', function () {
 
 			var expected = {
 				"type": "JSON",
-		        "template": {
-		            "type": "Soldier",
-		            "playerIndex": player.playerID,
-		            "victimIndex": victimIndex,
-		            "robberSpot": {
-		                "x": x,
-		                "y": y
-		            }
-        		}
-        	};
+				"template": {
+					"type": "Soldier",
+					"playerIndex": randomIndex,
+					"victimIndex": victimIndex,
+					"robberSpot": {
+						"x": x,
+						"y": y
+					}
+				}
+			};
 
-        	player.playSoldier(hexLocation, victimIndex);
-        	assert.deepEqual(expected.template, mockProxy.lastCommand.getData());
+			player.playSoldier(hexLocation, victimIndex);
+			assert.deepEqual(mockProxy.lastCommand.getData(), expected.template);
 		});
 
 		test('#monopoly()', function() {
-			
+
 			var resourceType = ResourceType.WHEAT;
 
 			var expected = {
 				"type": "JSON",
-		        "template": {
-		            "type": "Monopoly",
-		            "resource": resourceType,
-		            "playerIndex": player.playerID
-		        }
+				"template": {
+					"type": "Monopoly",
+					"resource": resourceType,
+					"playerIndex": randomIndex
+				}
 			};
 
 			player.monopoly(resourceType);
@@ -221,10 +258,10 @@ suite('PlayerTests', function () {
 
 			var expected = {
 				"type": "JSON",
-		        "template": {
-		            "type": "Monument",
-		            "playerIndex": player.playerID
-		        }
+				"template": {
+					"type": "Monument",
+					"playerIndex": randomIndex
+				}
 			};
 
 			player.playMonument();
@@ -244,17 +281,17 @@ suite('PlayerTests', function () {
 			var expected = {
 				"type": "JSON",
 				"template": {
-		            "type": "offerTrade",
-		            "playerIndex": player.playerID,
-		            "offer": {
-		                "brick": brick,
-		                "ore": ore,
-		                "sheep": sheep,
-		                "wheat": wheat,
-		                "wood": wood
-		            },
-		            "receiver": receiver
-		        }
+					"type": "offerTrade",
+					"playerIndex": randomIndex,
+					"offer": {
+						"brick": brick,
+						"ore": ore,
+						"sheep": sheep,
+						"wheat": wheat,
+						"wood": wood
+					},
+					"receiver": receiver
+				}
 			};
 
 			player.offerTrade(receiver, brick, ore, sheep, wheat, wood);
@@ -267,11 +304,11 @@ suite('PlayerTests', function () {
 
 			var expected = {
 				"type": "JSON",
-		        "template": {
-		            "type": "acceptTrade",
-		            "playerIndex": player.playerID,
-		            "willAccept": willAccept
-		        }
+				"template": {
+					"type": "acceptTrade",
+					"playerIndex": randomIndex,
+					"willAccept": willAccept
+				}
 			};
 
 			player.acceptTrade(willAccept);
@@ -286,17 +323,17 @@ suite('PlayerTests', function () {
 
 			var expected = {
 				"type": "JSON",
-        		"template": {
-            		"type": "maritimeTrade",
-		            "playerIndex": player.playerID,
-		            "ratio": ratio,
-		            "inputResource": inputResource,
-		            "outputResource": outputResource
-		        }
-		    };
+				"template": {
+					"type": "maritimeTrade",
+					"playerIndex": randomIndex,
+					"ratio": ratio,
+					"inputResource": inputResource,
+					"outputResource": outputResource
+				}
+			};
 
-		    player.maritimeTrade(ratio, inputResource, outputResource);
-		    assert.deepEqual(expected.template, mockProxy.lastCommand.getData());
+			player.maritimeTrade(ratio, inputResource, outputResource);
+			assert.deepEqual(expected.template, mockProxy.lastCommand.getData());
 		});
 
 		test('#discardCards()', function() {
@@ -309,17 +346,17 @@ suite('PlayerTests', function () {
 
 			var expected = {
 				"type": "JSON",
-		        "template": {
-		            "type": "discardCards",
-		            "playerIndex": player.playerID,
-		            "discardedCards": {
-		                "brick": brick,
-		                "ore": ore,
-		                "sheep": sheep,
-		                "wheat": wheat,
-		                "wood": wood
-		            }
-		        }
+				"template": {
+					"type": "discardCards",
+					"playerIndex": randomIndex,
+					"discardedCards": {
+						"brick": brick,
+						"ore": ore,
+						"sheep": sheep,
+						"wheat": wheat,
+						"wood": wood
+					}
+				}
 			};
 
 			player.discardCards(brick, ore, sheep, wheat, wood);

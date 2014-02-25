@@ -27,24 +27,21 @@ function SetupRoundController(clientModel, mapController) {
 core.forceClassInherit(SetupRoundController, Controller);
 
 SetupRoundController.prototype.onUpdate = function() {
-	if (!this.clientModel.isMyTurn()) {
-		//view.statusBar = "Waiting for other players";
+	var player = this.clientModel.getClientPlayer(),
+		status = this.clientModel.getCurrentStatus();
+	if (['FirstRound', 'SecondRound'].indexOf(status) === -1) {
+		window.location.href = 'catan.html';
 		return;
 	}
-	var player = this.clientModel.getClientPlayer()
-    , status = this.clientModel.getCurrentStatus();
-  if (['FirstRound', 'SecondRound'].indexOf(status) === -1) {
-    window.location.href = 'catan.html'
-    return
-  }
-	if (player.roadsBuilt == player.settlementsBuilt) {
-    if ([0, 'FirstRound', 'SecondRound'][player.roadsBuilt] === status) {
-      return this.clientModel.endMyTurn();
-    }
+	if (!this.clientModel.isMyTurn()) {
+		return;
 	}
-  if (player.roadsBuilt > player.settlementsBuilt) {
-		return this.mapController.startMove('settlement', true, false);
-	} 
-  this.mapController.startMove('road', true, true);
-}
+	if (player.roadsBuilt == player.settlementsBuilt && [0, 'FirstRound', 'SecondRound'][player.roadsBuilt] === status) {
+		return this.clientModel.endMyTurn();
+	}
 
+	if (player.roadsBuilt > player.settlementsBuilt) {
+		return this.mapController.startMove('settlement', true, false);
+	}
+	this.mapController.startMove('road', true, true);
+}
