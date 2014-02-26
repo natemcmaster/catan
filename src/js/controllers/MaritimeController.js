@@ -237,13 +237,8 @@ function unCapFirst(str){
  * @method makeTrade
  * @return void
  */
-MaritimeController.prototype.makeTrade= function(){
-	var localPlayerIndex = this.clientModel.getClientPlayer().playerIndex;
-
-	var mComm = new MaritimeTradeCommand(localPlayerIndex, this.tradeRatio, capFirst(this.resourceToGive), capFirst(this.resourceToGet));
-	console.log(mComm);
-
-	this.clientModel.proxy.executeCommand(mComm);
+MaritimeController.prototype.makeTrade = function(){
+	this.clientModel.getClientPlayer().maritimeTrade(this.tradeRatio, capFirst(this.resourceToGive), capFirst(this.resourceToGet));
 	this.view.setMessage("Choose resource to give");
 }
 
