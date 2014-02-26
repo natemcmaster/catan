@@ -50,6 +50,7 @@ MaritimeController.prototype.onUpdate = function(){
 	if(this.clientModel.isMyTurn()) {
 		showGiveOptions(this);
 		this.view.hideGetOptions();
+		//Call getResourceRatios here
 	}
 	else {
 		this.view.hideGiveOptions();
