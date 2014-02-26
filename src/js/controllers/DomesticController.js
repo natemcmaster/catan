@@ -64,7 +64,7 @@ function resetState() {
 	this.view.setPlayerSelectionEnabled(false);
 	this.view.setResourceSelectionEnabled(false);
 	this.view.setTradeButtonEnabled(false);
-	this.view.setStateMessage(this.clientModel.isMyTurn() ? 'Prepare a trade offer': 'Not your turn');
+	this.view.setStateMessage(this.clientModel.isMyTurn() ? 'Prepare a trade offer' : 'Not your turn');
 }
 
 function updateTradeButton() {
@@ -233,19 +233,18 @@ DomesticController.prototype.decreaseResourceAmount = function(resource) {
  */
 DomesticController.prototype.sendTradeOffer = function() {
 	this.waiting = true;
-
-	if(!this.clientModel
-		.canOfferTrade(this.tradePlayerIndex,
-			this.brick.val('abs'),
-			this.ore.val('abs'),
-			this.sheep.val('abs'),
-			this.wheat.val('abs'),
-			this.wood.val('abs')
-	)){
+	var r = {
+		brick: this.brick.val('abs'),
+		ore: this.ore.val('abs'),
+		sheep: this.sheep.val('abs'),
+		wheat: this.wheat.val('abs'),
+		wood: this.wood.val('abs')
+	};
+	if (!this.clientModel.canOfferTrade(this.tradePlayerIndex, r)) {
 		resetState.call(this);
 		this.view.setStateMessage('Invalid trade offer');
+		return;
 	}
-
 
 	this.clientModel
 		.getClientPlayer()

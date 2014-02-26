@@ -211,8 +211,17 @@ ClientModel.prototype.getCurrentStatus = function(){
  * @param  {int} wood             number of this resource
  * @return {boolean}  true only when this is a valid trade                 
  */
-ClientModel.prototype.canOfferTrade = function(tradePlayerIndex,brick,ore,sheep,wheat,wood){
-
+ClientModel.prototype.canOfferTrade = function(tradePlayerIndex,offer){
+  var player = this.getClientPlayer();
+  if(!this.gameboard.getPlayerByIndex(tradePlayerIndex))
+    return false;
+  
+  for(var i in ResourceTypes){
+    var r = ResourceTypes[i];
+    if(player.resources[r] < offer[r])
+      return false;
+  }
+  return true;
 }
 
 /**
