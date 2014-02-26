@@ -49,7 +49,11 @@ ClientModel.prototype.initFromServer = function(success){
   this.proxy.startPolling();
 }
 
-// 
+/**
+ * Updates the models if the revision number has changed.
+ * @param  {object} data Raw data from server
+ * @return {void}      
+ */
 ClientModel.prototype.populateModels = function (data) {
   if(this.revision === data.revision){
       return;
@@ -134,22 +138,32 @@ ClientModel.prototype.getPlayerColors = function () {
 }
 
 /**
-Helper Function that returns the current player object
-
-*/
+ * Get the player whose turn it is
+ * @return {Player} current player
+ */
 ClientModel.prototype.getCurrentPlayer = function() {
 
   return this.gameboard.getPlayerByIndex(this.gameboard.turnTracker.currentPlayerIndex())
 }
 
+/**
+ * Get the player 
+ * @return {Player} Client player
+ */
 ClientModel.prototype.getClientPlayer = function() {
   
   return this.gameboard.getPlayerByIndex(this.playerIndex)
 }
 
-ClientModel.prototype.getCurrentStatus = function() {
-  return this.gameboard.turnTracker.getStatus();
-}
+/**
+ * <pre>
+ * Pre-condition: give a valid string
+ * Post-conition: returns only the first player with the name, or undefined if not player has that name
+ * </pre>
+ * Get the player by their first name
+ * @param  {string} name Name of the player
+ * @return {Player}      The first player with this name.
+ */
 ClientModel.prototype.getPlayerByName = function(name) {
   var players = this.gameboard.players;
   for(var i = 0; i < players.length; i++){
@@ -159,6 +173,7 @@ ClientModel.prototype.getPlayerByName = function(name) {
   }
   console.err('BAD PLAYER NAME');
 }
+
 /**
  * Identifies if is the client player's turn
  * @return {Boolean} true when
@@ -176,29 +191,67 @@ ClientModel.prototype.endMyTurn = function(){
     this.gameboard.turnTracker.finishTurn();
 }
 
-
+/**
+ * Gets current status from turn tracker
+ * @return {string} Status of the turn tracker { Rolling, Robbing, Playing, Discarding, FirstRound, SecondRound }
+ */
 ClientModel.prototype.getCurrentStatus = function(){
   return this.gameboard.turnTracker.status;
 }
 
+/** === Trade functionality === **/
+
+/**
+ * Checks if the player can offer a trade with the given resources
+ * @param  {int} tradePlayerIndex who will receive this offer
+ * @param  {int} brick            number of this resource
+ * @param  {int} ore              number of this resource
+ * @param  {int} sheep            number of this resource
+ * @param  {int} wheat            number of this resource
+ * @param  {int} wood             number of this resource
+ * @return {boolean}  true only when this is a valid trade                 
+ */
+ClientModel.prototype.canOfferTrade = function(tradePlayerIndex,brick,ore,sheep,wheat,wood){
+
+}
+
+/**
+ * Checks if client player has received a trade offer
+ * @return {boolean} true when the client player has received an offer and has not yet responded
+ */
 ClientModel.prototype.receivedTradeOffer = function(){
   if(!this.gameboard.tradeOffer)
     return false;
   return this.gameboard.tradeOffer.receiverIndex == this.playerIndex;
 }
 
+/**
+ * Checks if the client player has made an offer AND if the receiver has not responded
+ * @return {boolean} true when the client player has sent a trade offer 
+ */
 ClientModel.prototype.sentTradeOffer = function(){
   if(!this.gameboard.tradeOffer)
     return false;
   return this.gameboard.tradeOffer.senderIndex == this.playerIndex;
 }
 
-
+/**
+ * Returns the name of the player who sent the outstanding trade offer
+ * @return {string} Name of trade sender
+ */
 ClientModel.prototype.getTradeSenderName = function(){
   var sender = this.gameboard.getPlayerByIndex(this.gameboard.tradeOffer.senderIndex);
   return sender.name;
 }
 
+/**
+ * <pre>
+ * Pre-condition: player has received an ovver
+ * Post-condition: it is correct
+ * </pre>
+ * Checks if client player has enough resources to accept the outstanding trade offer.
+ * @return {[type]} [description]
+ */
 ClientModel.prototype.canAcceptTrade = function(){
   if(!this.receivedTradeOffer())
     return false;

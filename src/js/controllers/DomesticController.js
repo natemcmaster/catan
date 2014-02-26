@@ -233,6 +233,20 @@ DomesticController.prototype.decreaseResourceAmount = function(resource) {
  */
 DomesticController.prototype.sendTradeOffer = function() {
 	this.waiting = true;
+
+	if(!this.clientModel
+		.canOfferTrade(this.tradePlayerIndex,
+			this.brick.val('abs'),
+			this.ore.val('abs'),
+			this.sheep.val('abs'),
+			this.wheat.val('abs'),
+			this.wood.val('abs')
+	)){
+		resetState.call(this);
+		this.view.setStateMessage('Invalid trade offer');
+	}
+
+
 	this.clientModel
 		.getClientPlayer()
 		.offerTrade(this.tradePlayerIndex,
