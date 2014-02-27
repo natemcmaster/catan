@@ -41,20 +41,6 @@ TurnTracker.prototype.currentPlayerIndex = function () {
 	return this.currentTurn;
 };
 
-
-/**
-<pre>
-Pre-condition: NONE
-Post-condition: NONE
-</pre>
-@method getStatus
-@return {StatusEnum} State of the game (pre game, in-progress, post game)
-**/
-TurnTracker.prototype.getStatus = function () {
-	return this.status;
-};
-
-
 /**
 <pre>
 Pre-condition: NONE

@@ -24,13 +24,6 @@ suite('TurnTrakerTests', function(){
 
 	});
 
-	suite('#getStatus()', function(){
-		test('returns correct game status', function() {
-			assert.equal("Playing", TestTurnTraker.getStatus());
-		});
-
-	});
-
 	suite('#canTradeCards()', function(){
 		test('checks if given player has the right to trade cards', function() {
 			assert.equal(true, TestTurnTraker.canTradeCards(0));
