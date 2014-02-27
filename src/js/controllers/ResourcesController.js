@@ -148,7 +148,7 @@ ResourceBarController.prototype.setActionsEnabled = function() {
 		this.view.setActionEnabled(ROAD, player.canBuyRoad());
 		this.view.setActionEnabled(SETTLEMENT, player.canBuySettlement());
 		this.view.setActionEnabled(CITY, player.canBuyCity());
-		this.view.setActionEnabled(BUY_CARD, player.canBuyDevCard());
+		this.view.setActionEnabled(BUY_CARD, this.clientModel.canPlayerBuyDevCard());
 		this.view.setActionEnabled(PLAY_CARD, true);
 	}
 

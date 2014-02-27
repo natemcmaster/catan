@@ -225,6 +225,15 @@ ClientModel.prototype.canOfferTrade = function(tradePlayerIndex,offer){
 }
 
 /**
+ * Checks to see if the client player can buy a dev card.
+ * Checks the bank for number of dev cards and the player for resources
+ * @return {boolean}
+ */
+ClientModel.prototype.canPlayerBuyDevCard = function () {
+  return this.getClientPlayer().canBuyDevCard() && this.gameboard.deck.canDrawCard()
+}
+
+/**
  * Checks if client player has received a trade offer
  * @return {boolean} true when the client player has received an offer and has not yet responded
  */
