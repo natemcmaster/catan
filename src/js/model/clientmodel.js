@@ -42,8 +42,16 @@ function ClientModel(playerID){
 ClientModel.prototype.initFromServer = function(success){
   this.proxy = new Proxy(this.populateModels.bind(this));
   this.proxy.getModel(function(err, data){
-    this.populateModels(data);
+    try{
+      this.populateModels(data); 
+    }
+    catch(e){
+      console.error(e);
+      return;
+    }
+    
     success();
+
   }.bind(this));
 
   this.proxy.startPolling();
@@ -55,13 +63,21 @@ ClientModel.prototype.initFromServer = function(success){
  * @return {void}      
  */
 ClientModel.prototype.populateModels = function (data) {
+  if(!data || !data.log || !data.chat || 'undefined' === typeof data.revision)
+    throw new TypeError('invalid data model');
+
   if(this.revision === data.revision){
       return;
   }
   this.revision = data.revision;
   this.log = new Log(this.proxy, data.log);
   this.chat = new Chat(this.proxy, data.chat);
-  this.gameboard = new GameBoard(this.proxy, data);
+  try{
+    this.gameboard = new GameBoard(this.proxy, data);
+  }
+  catch(e){
+    throw new TypeError('invalid gameboard model');
+  }
   for (var x in data.players) {
     if (data.players[x].playerID == this.playerID) {
       this.playerIndex = +x;

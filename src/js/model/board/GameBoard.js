@@ -20,7 +20,8 @@ module.exports = GameBoard;
  * @param {model.proxy} proxy Proxy responsiple for communication with the server
  */
 function GameBoard(proxy, data) {
-
+	if(!data || !data.bank || !data.map || !data.deck || !data.players)
+		throw new TypeError('invalid gameboard model');
 	this.proxy = proxy;
 	this.bank = new Bank(proxy, data.bank);
 	this.biggestArmyOwner = data.biggestArmy;

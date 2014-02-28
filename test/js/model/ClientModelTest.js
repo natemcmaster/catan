@@ -5,6 +5,38 @@ var assert = require('chai').assert;
 
 suite('ClientModelTests', function() {
 
+	suite('#populateModels()', function() {
+		var exceptions = [{
+			title: 'rejects null data model',
+			data: null,
+			err: [TypeError,'invalid data model']
+		}, {
+			title: 'rejects when missing pieces',
+			data: {
+				revision: 0
+			},
+			err: [TypeError,'invalid data model']
+		},
+		{
+			title: 'rejects invalid gameboard',
+			data:{
+				revision:0,
+				log:{},
+				chat:{}
+			},
+			err: [TypeError,'invalid gameboard model']
+		}
+		];
+		exceptions.forEach(function(testCase) {
+			test(testCase.title, function() {
+				var clientModel = new ClientModel(0);
+				assert.throws(function() {
+						clientModel.populateModels(testCase.data);
+					},
+					testCase.err[0],testCase.err[1]);
+			});
+		})
+	})
 
 	suite('#canOfferTrade()', function() {
 		var clientModel;
@@ -23,20 +55,20 @@ suite('ClientModelTests', function() {
 				"ore": 1
 			};
 			assert.isFalse(clientModel.canOfferTrade(1, tradeOffer));
-			for(var x in tradeOffer)
+			for (var x in tradeOffer)
 				tradeOffer[x]--;
 			assert.isTrue(clientModel.canOfferTrade(1, tradeOffer));
 		});
 
 	});
 
-	suite('#canAcceptTrade()',function(){
+	suite('#canAcceptTrade()', function() {
 		var clientModel;
 		setup(function() {
 			clientModel = new ClientModel(1);
 			clientModel.populateModels(ClientModelTestCases);
 		});
-		test('does not accept when not enough resources',function(){
+		test('does not accept when not enough resources', function() {
 			assert.isFalse(clientModel.canAcceptTrade());
 		})
 	});
