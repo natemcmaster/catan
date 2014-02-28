@@ -27,6 +27,18 @@ function DomesticController(view, waitingView, acceptView, clientModel) {
 	Controller.call(this, view, clientModel);
 	this.waitingView = waitingView;
 	this.acceptView = acceptView;
+	var players = this.clientModel.gameboard.players;
+	var otherPlayers = [];
+	for (var i in players) {
+		if (players[i].playerIndex != this.clientModel.playerIndex) {
+			otherPlayers.push({
+				name: players[i].name,
+				color: players[i].color,
+				index: players[i].playerIndex,
+			});
+		}
+	}
+	this.view.setPlayers(otherPlayers);
 	view.setController(this);
 	acceptView.setController(this);
 	resetState.call(this);
@@ -136,6 +148,10 @@ DResource.prototype.recv = function() {
 	this.direction = -1;
 }
 
+DResource.prototype.setMax = function (max) {
+  this.max = max
+}
+
 DResource.prototype.decr = function() {
 	this._val = Math.max(0, this._val - 1);
 }
@@ -161,6 +177,7 @@ DResource.prototype.val = function(opt) {
  * @return void
  */
 DomesticController.prototype.setResourceToSend = function(resource) {
+  this[resource].setMax(getMaxResource.call(this, resource))
 	this[resource].send();
 	this.increaseResourceAmount(resource);
 	updateTradeButton.call(this);
