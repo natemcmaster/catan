@@ -51,9 +51,10 @@ TurnTrackerController.prototype.onUpdate = function() {
 	this.updatePlayers();
 	var status = this.clientModel.getCurrentStatus();
 
-	if (!this.clientModel.isMyTurn()) {
+	if (!this.clientModel.isMyTurn() || status == 'Discarding') {
 		this.view.updateStateView(false, "Waiting for other players... " + status);
-	} else if (this.clientModel.canEndTurn()) {
+	} 
+	else if (this.clientModel.canEndTurn()) {
 		this.view.updateStateView(true, 'Click Here to End Your Turn')
 	} else {
 		this.view.updateStateView(false, status);
