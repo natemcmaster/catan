@@ -292,15 +292,14 @@ Map.prototype.canPlaceSettlement = function (playerIndex, location, detached) {
  */
 Map.prototype.canPlaceCity = function (playerIndex, location) {
   var vertex = this.getVertex(location);
-  return vertex.getOwner() === playerIndex && !vertex.hasCity();
+  return vertex && vertex.getOwner() === playerIndex && !vertex.hasCity();
 };
 
 /**
  */
 Map.prototype.getEdge = function (location) {
   var hex = this.hexGrid.getHex(location.getHexLocation());
-  if (!hex) return false
-  return hex.getEdge(location.direction)
+  return hex && hex.getEdge(location.direction)
 };
 
 /**

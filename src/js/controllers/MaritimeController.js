@@ -50,6 +50,7 @@ MaritimeController.prototype.onUpdate = function(){
 	if(this.clientModel.isMyTurn()) {
 		showGiveOptions(this);
 		this.view.hideGetOptions();
+		this.view.enableTradeButton(false);
 		//Call getResourceRatios here
 	}
 	else {
@@ -127,22 +128,22 @@ function showGiveOptions(proto){
 			if(localPlayer.resources[unCapFirst(port.inputResource)] >= port.ratio){
 				giveOptions.push(unCapFirst(port.inputResource));
 			}	
-		}
 		//Otherwise, the ratio is 3:1
-		else {
+		} else {
 			// Loop through each of the resources that a player owns
 			for (resource in localPlayer.resources) {
+				if (giveOptions.indexOf(resource) !== -1) continue;
 				if (localPlayer.resources.hasOwnProperty(resource)) {
 					if(localPlayer.resources[resource] >= 3){
 						giveOptions.push(resource);
 					}
 				}
 			}
-
 		}
 	}
 
 	for (resource in localPlayer.resources) {
+		if (giveOptions.indexOf(resource) !== -1) continue;
 		if (localPlayer.resources.hasOwnProperty(resource)) {
 			if(localPlayer.resources[resource] >= 4){
 				giveOptions.push(resource);
@@ -240,6 +241,8 @@ function unCapFirst(str){
  */
 MaritimeController.prototype.makeTrade = function(){
 	this.clientModel.getClientPlayer().maritimeTrade(this.tradeRatio, capFirst(this.resourceToGive), capFirst(this.resourceToGet));
+	this.unsetGetValue()
+	this.unsetGiveValue()
 	this.view.setMessage("Choose resource to give");
 }
 
