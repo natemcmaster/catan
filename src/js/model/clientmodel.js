@@ -241,6 +241,15 @@ ClientModel.prototype.canOfferTrade = function(tradePlayerIndex,offer){
 }
 
 /**
+ * Checks to see if the client player can play the road building card. They
+ * must have the card and at least one road.
+ * @return {boolean}
+ */
+ClientModel.prototype.canPlayerPlayRoadBuilding = function () {
+  return this.getClientPlayer().canPlayRoadBuilding() && this.getClientPlayer().roads >= 2
+}
+
+/**
  * Checks to see if the client player can buy a dev card.
  * Checks the bank for number of dev cards and the player for resources
  * @return {boolean}

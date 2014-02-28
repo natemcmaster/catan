@@ -97,6 +97,9 @@ MapController.prototype.doSoldierAction = function(){
 /**
  * Pops the map out and prompts the player to place two roads.
  * This is called when the user plays a "road building" progress development card.
+ * <pre>
+ * Precondition: player has a road building card and at least two roads
+ * </pre>
  * @method startDoubleRoadBuilding
  * @return void
  **/	

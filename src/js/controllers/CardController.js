@@ -112,7 +112,7 @@ DevCardController.prototype.onUpdate = function() {
 	this.view.setCardEnabled(Definitions.SOLDIER, clientPlayer.canPlaySoldier());
 	this.view.setCardEnabled(Definitions.YEAR_OF_PLENTY, clientPlayer.canPlayYearOfPlenty());
 	this.view.setCardEnabled(Definitions.MONOPOLY, clientPlayer.canPlayMonopoly());
-	this.view.setCardEnabled(Definitions.ROAD_BUILD, clientPlayer.canPlayRoadBuilding());
+	this.view.setCardEnabled(Definitions.ROAD_BUILD, this.clientModel.canPlayerPlayRoadBuilding());
 	this.view.setCardEnabled(Definitions.MONUMENT, clientPlayer.canPlayMonument());
 }
 
