@@ -2,7 +2,6 @@ var MockProxy = require('../../MockProxy.js');
 var Bank = require('../../../../src/js/model/board/Bank.js');
 var ResourceType = require('../../../../src/js/model/ResourceType.js');
 var assert = require('chai').assert;
-var expect = require('chai').expect;
 
 suite('BankTests', function() {
 
@@ -58,7 +57,6 @@ suite('BankTests', function() {
 			});
 
 			test('#getAvailableResources()', function() {
-				//expect(testCase.getAvailableResources).to.deep.equal(bank.getAvailableResources());
 				assert.deepEqual(testCase.getAvailableResources, bank.getAvailableResources());
 			});
 		});
