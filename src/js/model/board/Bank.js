@@ -17,11 +17,11 @@ function Bank(proxy, bank){
 	this.proxy = proxy;
 
 	this.brick = bank.brick;
-	this.ore = bank.ore;
+	this.wood = bank.wood;
 	this.sheep = bank.sheep;
 	this.wheat = bank.wheat;
-	this.wood = bank.wood;
-}
+	this.ore = bank.ore;
+};
 
 /**
 <pre>
