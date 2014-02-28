@@ -398,3 +398,34 @@ Map.prototype.getNumbers = function () {
   return this.numberTiles;
 };
 
+Map.prototype.getResourceRatios = function(localPlayerIndex){
+  // Initialize to 4 by default
+  var ratios = {
+    wood  : 4,
+    brick : 4,
+    sheep : 4, 
+    wheat : 4,
+    ore   : 4
+  }
+
+  // Get player ports
+  var ports = proto.clientModel.gameboard.map.portsForPlayer(localPlayerIndex);
+
+  // Depending on if a port is generic or 2:1 (special), set ratio
+  for(var i=0; i < ports.length; i++){
+    var port = ports[i];
+    
+    if(port.inputResource){
+      var resource = unCapFirst(port.inputResource);
+      ratios[resource] = port.ratio;
+    } else {
+      ratios.wood = 3; ratios.brick = 3; ratios.sheep = 3; ratios.wheat = 3; ratios.ore = 3;
+    }
+  }
+
+  return ratios;
+}
+
+
+
+

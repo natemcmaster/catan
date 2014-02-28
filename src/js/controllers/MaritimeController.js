@@ -17,6 +17,7 @@ var ResourceTypes = Definitions.ResourceTypes;
 
 var Controller = require('./BaseController');
 var MaritimeTradeCommand = require('../model/commands/MaritimeTradeCommand');
+var Map = require('../model/board/map/Map');
 
 /**
 	Initialization...highlight and unhiglight resrouces to give based on what the player has.
@@ -98,7 +99,7 @@ MaritimeController.prototype.setGiveValue = function(resource){
 	
 	this.view.showGetOptions(this.clientModel.gameboard.bank.getAvailableResources());
 	
-	var ratios = getResourceRatios(this);
+	var ratios = Map.getResourceRatios(this.clientModel.getClientPlayer().playerIndex);y
 	this.tradeRatio = ratios[unCapFirst(resource)];
 	this.view.selectGiveOption(resource, this.tradeRatio);
 
@@ -109,6 +110,12 @@ function showGiveOptions(proto){
 	var localPlayer = proto.clientModel.getClientPlayer();
 
 	var localPlayerIndex = localPlayer.playerIndex;
+	var ratios = Map.getResourceRatios(localPlayerIndex);
+	var giveOptions = this.clientModel.getClientPlayer().getMaritimeGiveOptions(ratios);
+	proto.view.showGiveOptions(giveOptions);
+
+
+	/*
 	var ports = proto.clientModel.gameboard.map.portsForPlayer(localPlayerIndex);
 	console.log(ports);
 
@@ -145,43 +152,7 @@ function showGiveOptions(proto){
 		}
 	}
 
-	proto.view.showGiveOptions(giveOptions);
-}
-
-
-/**
-* Assign to each resource the most favorable ratio that the
-* player has availble. 2:1 on special ports, 3:1 on generic ports, or 4:1 in worst case
-*/
-function getResourceRatios(proto){
-	
-	// Initialize to 4 by default
-	var ratios = {
-		wood  : 4,
-		brick : 4,
-		sheep : 4, 
-		wheat : 4,
-		ore   : 4
-	}
-
-	// Get player ports
-	var localPlayer = proto.clientModel.getClientPlayer();
-	var localPlayerIndex = localPlayer.playerIndex;
-	var ports = proto.clientModel.gameboard.map.portsForPlayer(localPlayerIndex);
-
-	// Depending on if a port is generic or 2:1 (special), set ratio
-	for(var i=0; i < ports.length; i++){
-		var port = ports[i];
-		
-		if(port.inputResource){
-			var resource = unCapFirst(port.inputResource);
-			ratios[resource] = port.ratio;
-		} else {
-			ratios.wood = 3; ratios.brick = 3; ratios.sheep = 3; ratios.wheat = 3; ratios.ore = 3;
-		}
-	}
-
-	return ratios;
+	proto.view.showGiveOptions(giveOptions); */
 }
 
 /**
