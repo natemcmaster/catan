@@ -398,6 +398,11 @@ Map.prototype.getNumbers = function () {
   return this.numberTiles;
 };
 
+
+/**
+* Assign to each resource the most favorable ratio that the
+* player has availble. 2:1 on special ports, 3:1 on generic ports, or 4:1 in worst case
+*/
 Map.prototype.getResourceRatios = function(localPlayerIndex){
   // Initialize to 4 by default
   var ratios = {
@@ -409,7 +414,7 @@ Map.prototype.getResourceRatios = function(localPlayerIndex){
   }
 
   // Get player ports
-  var ports = proto.clientModel.gameboard.map.portsForPlayer(localPlayerIndex);
+  var ports = this.portsForPlayer(localPlayerIndex);
 
   // Depending on if a port is generic or 2:1 (special), set ratio
   for(var i=0; i < ports.length; i++){

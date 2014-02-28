@@ -49,7 +49,19 @@ MaritimeController.prototype = core.inherit(Controller.prototype);
 */
 MaritimeController.prototype.onUpdate = function(){
 	if(this.clientModel.isMyTurn() && this.clientModel.getCurrentStatus() == "Playing") {
-		showGiveOptions(this);
+		
+
+		var localPlayer = this.clientModel.getClientPlayer();
+
+		var localPlayerIndex = localPlayer.playerIndex;
+		var ratios = Map.getResourceRatios(localPlayerIndex);
+		var giveOptions = this.clientModel.getClientPlayer().getMaritimeGiveOptions(ratios);
+		this.view.showGiveOptions(giveOptions);
+
+
+
+
+
 		this.view.hideGetOptions();
 		this.view.enableTradeButton(false);
 		this.view.setMessage("Choose the resource you want to give");
@@ -107,12 +119,12 @@ MaritimeController.prototype.setGiveValue = function(resource){
 };
 
 function showGiveOptions(proto){
-	var localPlayer = proto.clientModel.getClientPlayer();
+	/*var localPlayer = proto.clientModel.getClientPlayer();
 
 	var localPlayerIndex = localPlayer.playerIndex;
 	var ratios = Map.getResourceRatios(localPlayerIndex);
 	var giveOptions = this.clientModel.getClientPlayer().getMaritimeGiveOptions(ratios);
-	proto.view.showGiveOptions(giveOptions);
+	proto.view.showGiveOptions(giveOptions);*/
 
 
 	/*
