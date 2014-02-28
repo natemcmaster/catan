@@ -65,6 +65,7 @@ function resetState() {
 	this.view.setResourceSelectionEnabled(false);
 	this.view.setTradeButtonEnabled(false);
 	this.view.setStateMessage(this.clientModel.isMyTurn() ? 'Prepare a trade offer' : 'Not your turn');
+	this.waitingView.closeModal();
 }
 
 function updateTradeButton() {
@@ -113,13 +114,11 @@ DomesticController.prototype.onUpdate = function() {
 	} else if (this.clientModel.sentTradeOffer()) {
 		this.waitingView.showModal();
 	} else if (this.clientModel.isMyTurn()) {
+		this.waitingView.closeModal();
 		this.view.setPlayerSelectionEnabled(true);
 		this.view.setResourceSelectionEnabled(true);
 		this.view.setStateMessage('Prepare a trade offer');
 
-		if (this.waiting && !this.clientModel.sentTradeOffer()) {
-			this.waitingView.closeModal();
-		}
 	} else {
 		resetState.call(this);
 	}
@@ -249,7 +248,6 @@ DomesticController.prototype.decreaseResourceAmount = function(resource) {
  * @return void
  */
 DomesticController.prototype.sendTradeOffer = function() {
-	this.waiting = true;
 	var r = {
 		brick: this.brick.val('abs'),
 		ore: this.ore.val('abs'),

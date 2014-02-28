@@ -190,6 +190,19 @@ ClientModel.prototype.getPlayerByName = function(name) {
   console.err('BAD PLAYER NAME');
 }
 
+
+/**
+ * Determines if a player can finish their turn
+ * @return {boolean}             True if the player has finished their turn.
+ */
+ClientModel.prototype.canEndTurn = function(){
+  if(!this.isMyTurn())
+    return false;
+  if(this.sentTradeOffer())
+    return false;
+  return this.getCurrentStatus() != 'Rolling';
+}
+
 /**
  * Identifies if is the client player's turn
  * @return {Boolean} true when
@@ -203,7 +216,7 @@ ClientModel.prototype.isMyTurn = function(){
  * @return {void} 
  */
 ClientModel.prototype.endMyTurn = function(){
-  if(this.isMyTurn())
+  if(this.canEndTurn())
     this.gameboard.turnTracker.finishTurn();
 }
 

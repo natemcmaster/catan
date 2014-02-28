@@ -25,17 +25,17 @@ var Controller = require('./BaseController');
 function TurnTrackerController(view, clientModel) {
 	Controller.call(this, view, clientModel);
 
-	var player=this.clientModel.getClientPlayer();
+	var player = this.clientModel.getClientPlayer();
 	this.view.setClientColor(player.color);
 
 	var players = this.clientModel.gameboard.players;
-	for(var j = 0;j <players.length; j++){
+	for (var j = 0; j < players.length; j++) {
 		this.view.initializePlayer(j, players[j].name, players[j].color)
 	}
 	this.updatePlayers();
 }
 
-core.forceClassInherit(TurnTrackerController,Controller);
+core.forceClassInherit(TurnTrackerController, Controller);
 
 /**
  * Called by the view when the local player ends their turn.
@@ -47,39 +47,30 @@ TurnTrackerController.prototype.endTurn = function() {
 	this.view.updateStateView(false, 'Ending turn');
 }
 
-TurnTrackerController.prototype.onUpdate = function(){
+TurnTrackerController.prototype.onUpdate = function() {
 	this.updatePlayers();
 	var status = this.clientModel.getCurrentStatus();
-	var yourTurn = (this.clientModel.getClientPlayer() == this.clientModel.getCurrentPlayer())
 
-	if(yourTurn){
-
-		if(status == 'Playing'){
-			this.view.updateStateView(true, 'Click Here to End Your Turn')
-		}
-		else{
-			this.view.updateStateView(false, status);
-		}
-		
-	}
-	else{
-		this.view.updateStateView(yourTurn, "Waiting for other players... " + status);
+	if (!this.clientModel.isMyTurn()) {
+		this.view.updateStateView(false, "Waiting for other players... " + status);
+	} else if (this.clientModel.canEndTurn()) {
+		this.view.updateStateView(true, 'Click Here to End Your Turn')
+	} else {
+		this.view.updateStateView(false, status);
 	}
 
-
-	
 }
 
-TurnTrackerController.prototype.updatePlayers = function(){
+TurnTrackerController.prototype.updatePlayers = function() {
 
 	var players = this.clientModel.gameboard.players;
-	for(var i = 0;i <players.length; i++){
+	for (var i = 0; i < players.length; i++) {
 		var update = {
-			'playerIndex' : i,
-			'score' : players[i].victoryPoints,
-			'highlight' : (i == this.clientModel.gameboard.turnTracker.currentPlayerIndex()),
-			'army' : players[i].largestArmy,
-			'road' : players[i].longestRoad
+			'playerIndex': i,
+			'score': players[i].victoryPoints,
+			'highlight': (i == this.clientModel.gameboard.turnTracker.currentPlayerIndex()),
+			'army': players[i].largestArmy,
+			'road': players[i].longestRoad
 		};
 		this.view.updatePlayer(update);
 	}

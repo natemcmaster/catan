@@ -47,16 +47,17 @@ Pre-condition: NONE
 Post-condition: NONE
 </pre>
 @method canTradeCards
-@param {int} playerId
+@param {int} playerIndex
 @return {boolean} True if player can trade cards, false if not
 **/
-TurnTracker.prototype.canTradeCards = function (playerId) {
-	return this.status == "Playing" && playerId == this.currentTurn;
+TurnTracker.prototype.canTradeCards = function (playerIndex) {
+	return this.status == "Playing" && playerIndex == this.currentTurn;
 };
+
 
 /**
 <pre>
-Pre-condition: NONE
+Pre-condition: The player can end their turn
 Post-condition: The next person in order starts their turn. (async!)
 </pre>
 Notifies system that a player's turn is finished
