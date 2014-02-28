@@ -40,6 +40,7 @@ function RollController(view,resultView, clientModel){
  **/
 RollController.prototype.closeResult = function(){
 	this.getRollResultView().closeModal();
+	this.clientModel.gameboard.turnTracker.rollDice(this.randomRollNumber);
 };
 
 /**
@@ -50,11 +51,11 @@ RollController.prototype.closeResult = function(){
 RollController.prototype.rollDice = function(){
 	clearTimeout(this.autoRoll);
 	clearTimeout(this.countDown);
-	var randomRollNumber = getRandomInt(2, 12);
+	this.randomRollNumber = getRandomInt(2, 12);
 	this.view.closeModal();
-	this.getRollResultView().setAmount(randomRollNumber);
+	this.getRollResultView().setAmount(this.randomRollNumber);
 	this.getRollResultView().showModal();
-	this.clientModel.gameboard.turnTracker.rollDice(randomRollNumber);
+	
 };
 
 /**
