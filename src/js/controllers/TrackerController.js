@@ -44,6 +44,7 @@ core.forceClassInherit(TurnTrackerController,Controller);
  */
 TurnTrackerController.prototype.endTurn = function() {
 	this.clientModel.endMyTurn();
+  this.view.updateStateView(false, 'Ending turn');
 }
 
 TurnTrackerController.prototype.onUpdate = function(){
