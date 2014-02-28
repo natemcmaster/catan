@@ -47,11 +47,11 @@ MaritimeController.prototype = core.inherit(Controller.prototype);
 *       
 */
 MaritimeController.prototype.onUpdate = function(){
-	if(this.clientModel.isMyTurn()) {
+	if(this.clientModel.isMyTurn() && this.clientModel.getCurrentStatus() == "Playing") {
 		showGiveOptions(this);
 		this.view.hideGetOptions();
 		this.view.enableTradeButton(false);
-		//Call getResourceRatios here
+		this.view.setMessage("Choose the resource you want to give");
 	}
 	else {
 		this.view.hideGiveOptions();
@@ -68,9 +68,8 @@ MaritimeController.prototype.onUpdate = function(){
  * @return void
  */
 MaritimeController.prototype.unsetGiveValue = function(){
-	console.log("unsetting give from: " + this.resourceToGive);
-
 	this.resourceToGive = null;
+	this.view.enableTradeButton(false);
 	showGiveOptions(this);
 	this.view.hideGetOptions();
 	this.view.setMessage("Choose the resource you want to give");
@@ -82,11 +81,9 @@ MaritimeController.prototype.unsetGiveValue = function(){
  * @return void
  */
 MaritimeController.prototype.unsetGetValue = function(){
-	console.log("unsettting get from: " + this.resourceToGet);
-
 	this.resourceToGet = null;
 	this.view.enableTradeButton(false);
-	showGetOptions(this);
+	this.view.showGetOptions(this.clientModel.gameboard.bank.getAvailableResources());
 	this.view.setMessage("Choose the resource you want to receive");
 };
 
@@ -97,17 +94,14 @@ MaritimeController.prototype.unsetGetValue = function(){
  * @return void
  */
 MaritimeController.prototype.setGiveValue = function(resource){
-	console.log(this.clientModel);
-	
 	this.resourceToGive = resource;
-
-	showGetOptions(this);
+	
+	this.view.showGetOptions(this.clientModel.gameboard.bank.getAvailableResources());
 	
 	var ratios = getResourceRatios(this);
 	this.tradeRatio = ratios[unCapFirst(resource)];
 	this.view.selectGiveOption(resource, this.tradeRatio);
 
-	// this.view.showGetOptions();
 	this.view.setMessage("Choose the resource you want to recieve");
 };
 
@@ -190,28 +184,6 @@ function getResourceRatios(proto){
 	return ratios;
 }
 
-
-
-/**
-* Enables "get" resource buttons from the bank
-* only if there are 1 or more of that resource.
-*/
-function showGetOptions(proto){
-	var bank = proto.clientModel.gameboard.bank;
-
-	// Loop through each resource in the bank, enabling
-	// trades for resources that have greater than 1 stock
-	var getOptions = [];
-	for (var getResource in proto.clientModel.gameboard.bank) {
-		if (proto.clientModel.gameboard.bank.hasOwnProperty(getResource)) {
-			if(proto.clientModel.gameboard.bank[getResource] >= 1){
-				getOptions.push(getResource);
-			}
-		}
-	}
-	proto.view.showGetOptions(getOptions);
-}
-
 /**
  * Called by the view when the player selects which resource to get
  * @method setGetValue
@@ -223,7 +195,6 @@ MaritimeController.prototype.setGetValue = function(resource){
 	this.view.selectGetOption(resource, 1);
 	this.view.enableTradeButton(true);
 	this.view.setMessage("Trade " + this.tradeRatio + " " + this.resourceToGive + " for 1 " + resource);
-	console.log("setting get to: " + resource);
 };
 
 
@@ -245,4 +216,3 @@ MaritimeController.prototype.makeTrade = function(){
 	this.unsetGiveValue()
 	this.view.setMessage("Choose resource to give");
 }
-
