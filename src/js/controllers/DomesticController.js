@@ -84,8 +84,8 @@ DomesticController.prototype.onUpdate = function() {
 	}
 	this.view.setPlayers(otherPlayers);
 	if (this.clientModel.receivedTradeOffer()) {
-		for (var i in ResourceTypes) {
-			var r = ResourceTypes[i];
+		for (var j in ResourceTypes) {
+			var r = ResourceTypes[j];
 			var c = this.clientModel.gameboard.tradeOffer.offer[r];
 			if (c < 0) {
 				this.acceptView.addGetResource(r, c);
