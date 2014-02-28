@@ -35,7 +35,10 @@ Proxy.prototype.startPolling = function() {
 }
 
 
-Proxy.prototype.executeCommand = function(command) {
+/**
+ * Optional "done" arg called with data
+ */
+Proxy.prototype.executeCommand = function(command, done) {
 	var onNewModel = this.onNewModel;
 	jQuery.ajax({
 		url: command.getURL(),
@@ -46,6 +49,7 @@ Proxy.prototype.executeCommand = function(command) {
 	})
 		.done(function(data) {
 			onNewModel(data);
+      done && done(data)
 		})
 		.fail(function(xhr, status) {
 			console.error('Failed to get stuff from server', status, xhr);

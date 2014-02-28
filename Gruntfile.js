@@ -112,6 +112,13 @@ module.exports = function(grunt) {
 					standalone: 'impl'
 				}
 			},
+      hackatan: {
+        src: srcDir + '/js/hackatan/index.js',
+        dest: gameplay + '/js/hackatan.js',
+				options: {
+					standalone: 'hackatan'
+				}
+      },
 			test: {
 				src: testDir + '/js/**/*.js',
 				dest: testJsOutput
