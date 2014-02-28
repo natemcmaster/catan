@@ -320,4 +320,9 @@ ClientModel.prototype.canAcceptTrade = function(){
   return true;
 }
 
+ClientModel.prototype.getMaritimeGiveOptions = function() {
+  var ratios = this.gameboard.map.getResourceRatios(this.getClientPlayer().playerIndex);
+  return this.getClientPlayer().getMaritimeGiveOptions(ratios);
+}
+
 module.exports = ClientModel;

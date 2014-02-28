@@ -447,7 +447,7 @@ Player.prototype.getMaritimeGiveOptions = function(ratios) {
 	for (var resource in ratios) {
 		if (maritimeGiveOptions.indexOf(resource) !== -1) continue;
 		if (ratios.hasOwnProperty(resource)) {
-			if(canMaritimeTrade(resource, ratios[resource])) {
+			if(this.canMaritimeTrade(resource, ratios[resource])) {
 				maritimeGiveOptions.push(resource);
 			}
 		}
