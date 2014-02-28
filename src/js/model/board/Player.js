@@ -436,3 +436,22 @@ Player.prototype.playMonument = function(){
 Player.prototype.maritimeTrade = function(ratio,inputResourceType,outputResourceType){
 	this.proxy.executeCommand(new commands.MaritimeTradeCommand(this.playerIndex,ratio,inputResourceType,outputResourceType));
 }
+
+Player.prototype.canMaritimeTrade = function(resource, ratio) {
+	return this.resources[resource] >= ratio;
+}
+
+Player.prototype.getMaritimeGiveOptions = function(ratios) {
+	var maritimeGiveOptions = [];
+
+	for (var resource in ratios) {
+		if (maritimeGiveOptions.indexOf(resource) !== -1) continue;
+		if (ratios.hasOwnProperty(resource)) {
+			if(canMaritimeTrade(resource, ratios[resource])) {
+				maritimeGiveOptions.push(resource);
+			}
+		}
+	}
+
+	return maritimeGiveOptions;
+}
