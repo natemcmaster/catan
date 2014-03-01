@@ -125,6 +125,27 @@ suite('PlayerTests', function() {
 		});
 	});
 
+	var hasToDiscardTests = playerTestCases[4];
+
+	suite(hasToDiscardTests.suite, function() {
+
+		hasToDiscardTests.testCases.forEach(function(testCase) {
+
+			suite(testCase.description, function() {
+				var player;
+
+				setup(function() {
+					var mockProxy = new MockProxy();
+					player = new Player(mockProxy, testCase.input);
+				});
+
+				test('#hasToDiscard()', function() {
+					assert.equal(testCase.output.hasToDiscard, player.hasToDiscard());
+				});
+			});
+		});
+	});
+
 	suite('functions that talk to the proxy', function() {
 		var mockProxy;
 		var player;
