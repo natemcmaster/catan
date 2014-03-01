@@ -159,7 +159,7 @@ DiscardController.prototype.onUpdate = function(){
 	var totalRecources = this.clientWood + this.clientWheat + this.clientBrick + this.clientSheep + this.clientOre
 	this.numToDiscard = parseInt(totalRecources/2)
 
-	if(!clientPlayer.discarded && this.numToDiscard >= 4){
+	if (clientPlayer.hasToDiscard()) {
 
 		this.view.showModal();
 		this.updateStateMessage();

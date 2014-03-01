@@ -252,6 +252,29 @@ Player.prototype.canPlayMonument = function () {
 		return false;
 };
 
+/**
+ * Does the player have to discard?
+ * <pre>
+ * Pre-condition: NONE
+ * Post-condition: NONE
+ * </pre>
+ * @method hasToDiscard
+ * @return {bool} true if the player has not already discarded and
+ * has more than 7 cards, false otherwise
+ */
+Player.prototype.hasToDiscard = function() {
+	var totalResources = 0;
+
+	for (var resource in this.resources) {
+		totalResources += this.resources[resource];
+	}
+
+	if (!this.discarded && totalResources > 7)
+		return true;
+	else
+		return false;
+};
+
 // mutable!
 
 /**
