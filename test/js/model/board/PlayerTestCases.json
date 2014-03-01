@@ -1186,7 +1186,7 @@
 		},
 
 		{
-			"description": "player has both a 3:1 and 2:1 port but not enough resources to trade anything",
+			"description": "player has 3:1 and 2:1 ports but not enough resources to trade anything",
 			"input": {
 				"MAX_GAME_POINTS":10,
 				"resources":{
@@ -1233,7 +1233,7 @@
 		},
 
 		{
-			"description": "player has both a 3:1 and 2:1 port and enough resources to trade some things",
+			"description": "player has 3:1 and 2:1 ports and enough resources to trade some things",
 			"input": {
 				"MAX_GAME_POINTS":10,
 				"resources":{

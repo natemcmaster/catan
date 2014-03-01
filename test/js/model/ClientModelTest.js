@@ -73,4 +73,16 @@ suite('ClientModelTests', function() {
 		})
 	});
 
+	suite('#getMaritimeGiveOptions()', function() {
+		var clientModel;
+		setup(function() {
+			clientModel = new ClientModel(1);
+			clientModel.populateModels(ClientModelTestCases);
+		});
+		test('the correct resources are give options for maritime trade', function() {
+			var maritimeGiveOptions = ["sheep"];
+			assert.deepEqual(maritimeGiveOptions, clientModel.getMaritimeGiveOptions());
+		})
+	});
+
 });
