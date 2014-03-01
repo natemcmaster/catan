@@ -24,13 +24,17 @@ function SetupRoundController(clientModel, mapController) {
 	this.onUpdate();
 }
 
+function forwardToGame(){
+	window.location.href = 'catan.html';
+}
+
 core.forceClassInherit(SetupRoundController, Controller);
 
 SetupRoundController.prototype.onUpdate = function() {
 	var player = this.clientModel.getClientPlayer(),
 		status = this.clientModel.getCurrentStatus();
-	if (['FirstRound', 'SecondRound'].indexOf(status) === -1) {
-		window.location.href = 'catan.html';
+	if (['FirstRound', 'SecondRound'].indexOf(status) === -1 || this.clientModel.gameboard.isGameOver()) {
+		forwardToGame();
 		return;
 	}
 	if (!this.clientModel.isMyTurn()) {
