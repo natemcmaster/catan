@@ -39,7 +39,8 @@ PointController.prototype.onUpdate = function() {
 
 	var clientPlayer = this.clientModel.getClientPlayer()
 	this.view.setPoints(clientPlayer.victoryPoints)
-	
+	if(!this.gameFinishedView)
+		return;
 	var players = this.clientModel.gameboard.players
 
 	for(var i = 0; i< players.length; i++){
@@ -60,6 +61,4 @@ PointController.prototype.onUpdate = function() {
 	
 	
 };
-
-// STUDENT-REMOVE-END
 
