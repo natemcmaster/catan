@@ -209,4 +209,71 @@ suite('MapTests', function() {
 		});
 	});
 
+
+	suite('#getResourceRatios()', function() {
+		test('player has correct trade ratios', function() {
+
+			var ratiosThreeToOne = {
+			    wood  : 3,
+			    brick : 3,
+			    sheep : 3, 
+			    wheat : 3,
+			    ore   : 3
+			};
+
+			var ratiosFourToOne = {
+			    wood  : 4,
+			    brick : 4,
+			    sheep : 4, 
+			    wheat : 4,
+			    ore   : 4
+			};
+
+			var ratiosTwoToOneWithSheep = {
+			    wood  : 4,
+			    brick : 4,
+			    sheep : 2, 
+			    wheat : 4,
+			    ore   : 4
+			};
+
+			var ratiosThreeToOneTwoToOneWood = {
+			    wood  : 2,
+			    brick : 3,
+			    sheep : 3, 
+			    wheat : 3,
+			    ore   : 3
+			};
+
+			var twoToOneBrickTwoToOneSheep = {
+			    wood  : 4,
+			    brick : 2,
+			    sheep : 2, 
+			    wheat : 4,
+			    ore   : 4
+			}; 
+
+			var testRatiosThreeToOne = testMaps[3].getResourceRatios(0);
+			var testRatiosFourToOne = testMaps[4].getResourceRatios(0);
+			var testRatiosTwoToOneWithSheep = testMaps[5].getResourceRatios(0);
+			var testRatiosThreeToOneTwoToOneWood = testMaps[6].getResourceRatios(0);
+			var testRatiosTwoToOneBrickTwoToOneSheep = testMaps[7].getResourceRatios(0);
+
+
+			assert.deepEqual(ratiosThreeToOne, testRatiosThreeToOne);
+			assert.deepEqual(ratiosFourToOne, testRatiosFourToOne);
+			assert.deepEqual(ratiosTwoToOneWithSheep, testRatiosTwoToOneWithSheep);
+			assert.deepEqual(ratiosThreeToOneTwoToOneWood, testRatiosThreeToOneTwoToOneWood);
+			assert.deepEqual(twoToOneBrickTwoToOneSheep, testRatiosTwoToOneBrickTwoToOneSheep);
+		});
+	});
+	
+
+
+
+
+
+
+
+
 });
