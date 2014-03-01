@@ -98,6 +98,33 @@ suite('PlayerTests', function() {
 		});
 	});
 
+	var canMaritimeTradeTestCases = playerTestCases[3];
+
+	suite(canMaritimeTradeTestCases.suite, function() {
+
+		canMaritimeTradeTestCases.testCases.forEach(function(testCase) {
+
+			suite(testCase.description, function() {
+				var player;
+
+				setup(function() {
+					var mockProxy = new MockProxy();
+					player = new Player(mockProxy, testCase.input);
+				});
+
+				for (var resource in testCase.output.canMaritimeTrade) {
+					test('#canMaritimeTrade()', function() {
+						assert.equal(testCase.output.canMaritimeTrade[resource], player.canMaritimeTrade(resource, testCase.ratios[resource]));
+					});
+				}
+
+				test('#getMaritimeGiveOptions()', function() {
+					assert.deepEqual(testCase.output.getMaritimeGiveOptions, player.getMaritimeGiveOptions(testCase.ratios));
+				});
+			});
+		});
+	});
+
 	suite('functions that talk to the proxy', function() {
 		var mockProxy;
 		var player;

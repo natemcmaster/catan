@@ -710,4 +710,573 @@
 			}
 		}
 	]
+},
+
+{
+	"suite": "canMaritimeTrade tests",
+	"testCases":[
+		{
+			"description": "player has no ports nor enough resources to trade anything",
+			"input": {
+				"MAX_GAME_POINTS":10,
+				"resources":{
+					"brick":1,
+					"wood":0,
+					"sheep":0,
+					"wheat":2,
+					"ore":1
+				},
+				"oldDevCards":{
+					"yearOfPlenty":0,
+					"monopoly":0,
+					"soldier":2,
+					"roadBuilding":0,
+					"monument":1
+				},
+				"newDevCards":{
+					"yearOfPlenty":0,
+					"monopoly":0,
+					"soldier":1,
+					"roadBuilding":1,
+					"monument":0
+				},
+				"roads":0,
+				"cities":0,
+				"settlements":0,
+				"soldiers":1,
+				"victoryPoints":7,
+				"monuments":0,
+				"longestRoad":true,
+				"largestArmy":false,
+				"playedDevCard":true,
+				"discarded":false,
+				"playerID":0,
+				"orderNumber":0,
+				"name":"Sam",
+				"color":"orange"
+			},
+			"ratios":{"wood":4, "brick":4, "sheep":4, "wheat":4, "ore":4},
+			"output":{
+				"canMaritimeTrade":{"brick":false, "wood":false, "sheep":false, "wheat":false, "ore":false},
+				"getMaritimeGiveOptions":[]
+			}
+		},
+
+		{
+			"description": "player has no ports but enough resources to trade some things",
+			"input": {
+				"MAX_GAME_POINTS":10,
+				"resources":{
+					"brick":4,
+					"wood":2,
+					"sheep":0,
+					"wheat":2,
+					"ore":4
+				},
+				"oldDevCards":{
+					"yearOfPlenty":0,
+					"monopoly":0,
+					"soldier":2,
+					"roadBuilding":0,
+					"monument":1
+				},
+				"newDevCards":{
+					"yearOfPlenty":0,
+					"monopoly":0,
+					"soldier":1,
+					"roadBuilding":1,
+					"monument":0
+				},
+				"roads":0,
+				"cities":0,
+				"settlements":0,
+				"soldiers":1,
+				"victoryPoints":7,
+				"monuments":0,
+				"longestRoad":true,
+				"largestArmy":false,
+				"playedDevCard":true,
+				"discarded":false,
+				"playerID":0,
+				"orderNumber":0,
+				"name":"Sam",
+				"color":"orange"
+			},
+			"ratios":{"wood":4, "brick":4, "sheep":4, "wheat":4, "ore":4},
+			"output":{
+				"canMaritimeTrade":{"brick":true, "wood":false, "sheep":false, "wheat":false, "ore":true},
+				"getMaritimeGiveOptions":["brick", "ore"]
+			}
+		},
+
+		{
+			"description": "player has no ports but enough resources to trade everything",
+			"input": {
+				"MAX_GAME_POINTS":10,
+				"resources":{
+					"brick":4,
+					"wood":5,
+					"sheep":5,
+					"wheat":6,
+					"ore":4
+				},
+				"oldDevCards":{
+					"yearOfPlenty":0,
+					"monopoly":0,
+					"soldier":2,
+					"roadBuilding":0,
+					"monument":1
+				},
+				"newDevCards":{
+					"yearOfPlenty":0,
+					"monopoly":0,
+					"soldier":1,
+					"roadBuilding":1,
+					"monument":0
+				},
+				"roads":0,
+				"cities":0,
+				"settlements":0,
+				"soldiers":1,
+				"victoryPoints":7,
+				"monuments":0,
+				"longestRoad":true,
+				"largestArmy":false,
+				"playedDevCard":true,
+				"discarded":false,
+				"playerID":0,
+				"orderNumber":0,
+				"name":"Sam",
+				"color":"orange"
+			},
+			"ratios":{"wood":4, "brick":4, "sheep":4, "wheat":4, "ore":4},
+			"output":{
+				"canMaritimeTrade":{"brick":true, "wood":true, "sheep":true, "wheat":true, "ore":true},
+				"getMaritimeGiveOptions":["wood", "brick", "sheep", "wheat", "ore"]
+			}
+		},
+
+		{
+			"description": "player has a 3:1 port but not enough resources to trade anything",
+			"input": {
+				"MAX_GAME_POINTS":10,
+				"resources":{
+					"brick":2,
+					"wood":0,
+					"sheep":1,
+					"wheat":1,
+					"ore":2
+				},
+				"oldDevCards":{
+					"yearOfPlenty":0,
+					"monopoly":0,
+					"soldier":2,
+					"roadBuilding":0,
+					"monument":1
+				},
+				"newDevCards":{
+					"yearOfPlenty":0,
+					"monopoly":0,
+					"soldier":1,
+					"roadBuilding":1,
+					"monument":0
+				},
+				"roads":0,
+				"cities":0,
+				"settlements":0,
+				"soldiers":1,
+				"victoryPoints":7,
+				"monuments":0,
+				"longestRoad":true,
+				"largestArmy":false,
+				"playedDevCard":true,
+				"discarded":false,
+				"playerID":0,
+				"orderNumber":0,
+				"name":"Sam",
+				"color":"orange"
+			},
+			"ratios":{"wood":3, "brick":3, "sheep":3, "wheat":3, "ore":3},
+			"output":{
+				"canMaritimeTrade":{"brick":false, "wood":false, "sheep":false, "wheat":false, "ore":false},
+				"getMaritimeGiveOptions":[]
+			}
+		},
+
+		{
+			"description": "player has a 3:1 port and enough resources to trade some things",
+			"input": {
+				"MAX_GAME_POINTS":10,
+				"resources":{
+					"brick":2,
+					"wood":3,
+					"sheep":0,
+					"wheat":3,
+					"ore":2
+				},
+				"oldDevCards":{
+					"yearOfPlenty":0,
+					"monopoly":0,
+					"soldier":2,
+					"roadBuilding":0,
+					"monument":1
+				},
+				"newDevCards":{
+					"yearOfPlenty":0,
+					"monopoly":0,
+					"soldier":1,
+					"roadBuilding":1,
+					"monument":0
+				},
+				"roads":0,
+				"cities":0,
+				"settlements":0,
+				"soldiers":1,
+				"victoryPoints":7,
+				"monuments":0,
+				"longestRoad":true,
+				"largestArmy":false,
+				"playedDevCard":true,
+				"discarded":false,
+				"playerID":0,
+				"orderNumber":0,
+				"name":"Sam",
+				"color":"orange"
+			},
+			"ratios":{"wood":3, "brick":3, "sheep":3, "wheat":3, "ore":3},
+			"output":{
+				"canMaritimeTrade":{"brick":false, "wood":true, "sheep":false, "wheat":true, "ore":false},
+				"getMaritimeGiveOptions":["wood", "wheat"]
+			}
+		},
+
+		{
+			"description": "player has a 3:1 port and enough resources to trade everything",
+			"input": {
+				"MAX_GAME_POINTS":10,
+				"resources":{
+					"brick":3,
+					"wood":3,
+					"sheep":3,
+					"wheat":3,
+					"ore":3
+				},
+				"oldDevCards":{
+					"yearOfPlenty":0,
+					"monopoly":0,
+					"soldier":2,
+					"roadBuilding":0,
+					"monument":1
+				},
+				"newDevCards":{
+					"yearOfPlenty":0,
+					"monopoly":0,
+					"soldier":1,
+					"roadBuilding":1,
+					"monument":0
+				},
+				"roads":0,
+				"cities":0,
+				"settlements":0,
+				"soldiers":1,
+				"victoryPoints":7,
+				"monuments":0,
+				"longestRoad":true,
+				"largestArmy":false,
+				"playedDevCard":true,
+				"discarded":false,
+				"playerID":0,
+				"orderNumber":0,
+				"name":"Sam",
+				"color":"orange"
+			},
+			"ratios":{"wood":3, "brick":3, "sheep":3, "wheat":3, "ore":3},
+			"output":{
+				"canMaritimeTrade":{"brick":true, "wood":true, "sheep":true, "wheat":true, "ore":true},
+				"getMaritimeGiveOptions":["wood", "brick", "sheep", "wheat", "ore"]
+			}
+		},
+
+		{
+			"description": "player has a 2:1 port but not enough resources to trade anything",
+			"input": {
+				"MAX_GAME_POINTS":10,
+				"resources":{
+					"brick":3,
+					"wood":1,
+					"sheep":1,
+					"wheat":1,
+					"ore":0
+				},
+				"oldDevCards":{
+					"yearOfPlenty":0,
+					"monopoly":0,
+					"soldier":2,
+					"roadBuilding":0,
+					"monument":1
+				},
+				"newDevCards":{
+					"yearOfPlenty":0,
+					"monopoly":0,
+					"soldier":1,
+					"roadBuilding":1,
+					"monument":0
+				},
+				"roads":0,
+				"cities":0,
+				"settlements":0,
+				"soldiers":1,
+				"victoryPoints":7,
+				"monuments":0,
+				"longestRoad":true,
+				"largestArmy":false,
+				"playedDevCard":true,
+				"discarded":false,
+				"playerID":0,
+				"orderNumber":0,
+				"name":"Sam",
+				"color":"orange"
+			},
+			"ratios":{"wood":4, "brick":4, "sheep":4, "wheat":2, "ore":4},
+			"output":{
+				"canMaritimeTrade":{"brick":false, "wood":false, "sheep":false, "wheat":false, "ore":false},
+				"getMaritimeGiveOptions":[]
+			}
+		},
+
+		{
+			"description": "player has a 2:1 wheat port and enough wheat to trade",
+			"input": {
+				"MAX_GAME_POINTS":10,
+				"resources":{
+					"brick":3,
+					"wood":1,
+					"sheep":1,
+					"wheat":2,
+					"ore":0
+				},
+				"oldDevCards":{
+					"yearOfPlenty":0,
+					"monopoly":0,
+					"soldier":2,
+					"roadBuilding":0,
+					"monument":1
+				},
+				"newDevCards":{
+					"yearOfPlenty":0,
+					"monopoly":0,
+					"soldier":1,
+					"roadBuilding":1,
+					"monument":0
+				},
+				"roads":0,
+				"cities":0,
+				"settlements":0,
+				"soldiers":1,
+				"victoryPoints":7,
+				"monuments":0,
+				"longestRoad":true,
+				"largestArmy":false,
+				"playedDevCard":true,
+				"discarded":false,
+				"playerID":0,
+				"orderNumber":0,
+				"name":"Sam",
+				"color":"orange"
+			},
+			"ratios":{"wood":4, "brick":4, "sheep":4, "wheat":2, "ore":4},
+			"output":{
+				"canMaritimeTrade":{"brick":false, "wood":false, "sheep":false, "wheat":true, "ore":false},
+				"getMaritimeGiveOptions":["wheat"]
+			}
+		},
+
+		{
+			"description": "player has two 2:1 ports and enough resources for the 2:1 exchanges",
+			"input": {
+				"MAX_GAME_POINTS":10,
+				"resources":{
+					"brick":3,
+					"wood":1,
+					"sheep":1,
+					"wheat":2,
+					"ore":0
+				},
+				"oldDevCards":{
+					"yearOfPlenty":0,
+					"monopoly":0,
+					"soldier":2,
+					"roadBuilding":0,
+					"monument":1
+				},
+				"newDevCards":{
+					"yearOfPlenty":0,
+					"monopoly":0,
+					"soldier":1,
+					"roadBuilding":1,
+					"monument":0
+				},
+				"roads":0,
+				"cities":0,
+				"settlements":0,
+				"soldiers":1,
+				"victoryPoints":7,
+				"monuments":0,
+				"longestRoad":true,
+				"largestArmy":false,
+				"playedDevCard":true,
+				"discarded":false,
+				"playerID":0,
+				"orderNumber":0,
+				"name":"Sam",
+				"color":"orange"
+			},
+			"ratios":{"wood":4, "brick":2, "sheep":4, "wheat":2, "ore":4},
+			"output":{
+				"canMaritimeTrade":{"brick":true, "wood":false, "sheep":false, "wheat":true, "ore":false},
+				"getMaritimeGiveOptions":["brick", "wheat"]
+			}
+		},
+
+		{
+			"description": "player has two 2:1 ports and enough resources to trade some things",
+			"input": {
+				"MAX_GAME_POINTS":10,
+				"resources":{
+					"brick":3,
+					"wood":1,
+					"sheep":1,
+					"wheat":0,
+					"ore":4
+				},
+				"oldDevCards":{
+					"yearOfPlenty":0,
+					"monopoly":0,
+					"soldier":2,
+					"roadBuilding":0,
+					"monument":1
+				},
+				"newDevCards":{
+					"yearOfPlenty":0,
+					"monopoly":0,
+					"soldier":1,
+					"roadBuilding":1,
+					"monument":0
+				},
+				"roads":0,
+				"cities":0,
+				"settlements":0,
+				"soldiers":1,
+				"victoryPoints":7,
+				"monuments":0,
+				"longestRoad":true,
+				"largestArmy":false,
+				"playedDevCard":true,
+				"discarded":false,
+				"playerID":0,
+				"orderNumber":0,
+				"name":"Sam",
+				"color":"orange"
+			},
+			"ratios":{"wood":4, "brick":2, "sheep":4, "wheat":2, "ore":4},
+			"output":{
+				"canMaritimeTrade":{"brick":true, "wood":false, "sheep":false, "wheat":false, "ore":true},
+				"getMaritimeGiveOptions":["brick", "ore"]
+			}
+		},
+
+		{
+			"description": "player has both a 3:1 and 2:1 port but not enough resources to trade anything",
+			"input": {
+				"MAX_GAME_POINTS":10,
+				"resources":{
+					"brick":2,
+					"wood":1,
+					"sheep":1,
+					"wheat":0,
+					"ore":2
+				},
+				"oldDevCards":{
+					"yearOfPlenty":0,
+					"monopoly":0,
+					"soldier":2,
+					"roadBuilding":0,
+					"monument":1
+				},
+				"newDevCards":{
+					"yearOfPlenty":0,
+					"monopoly":0,
+					"soldier":1,
+					"roadBuilding":1,
+					"monument":0
+				},
+				"roads":0,
+				"cities":0,
+				"settlements":0,
+				"soldiers":1,
+				"victoryPoints":7,
+				"monuments":0,
+				"longestRoad":true,
+				"largestArmy":false,
+				"playedDevCard":true,
+				"discarded":false,
+				"playerID":0,
+				"orderNumber":0,
+				"name":"Sam",
+				"color":"orange"
+			},
+			"ratios":{"wood":3, "brick":3, "sheep":2, "wheat":3, "ore":3},
+			"output":{
+				"canMaritimeTrade":{"brick":false, "wood":false, "sheep":false, "wheat":false, "ore":false},
+				"getMaritimeGiveOptions":[]
+			}
+		},
+
+		{
+			"description": "player has both a 3:1 and 2:1 port and enough resources to trade some things",
+			"input": {
+				"MAX_GAME_POINTS":10,
+				"resources":{
+					"brick":3,
+					"wood":1,
+					"sheep":2,
+					"wheat":3,
+					"ore":2
+				},
+				"oldDevCards":{
+					"yearOfPlenty":0,
+					"monopoly":0,
+					"soldier":2,
+					"roadBuilding":0,
+					"monument":1
+				},
+				"newDevCards":{
+					"yearOfPlenty":0,
+					"monopoly":0,
+					"soldier":1,
+					"roadBuilding":1,
+					"monument":0
+				},
+				"roads":0,
+				"cities":0,
+				"settlements":0,
+				"soldiers":1,
+				"victoryPoints":7,
+				"monuments":0,
+				"longestRoad":true,
+				"largestArmy":false,
+				"playedDevCard":true,
+				"discarded":false,
+				"playerID":0,
+				"orderNumber":0,
+				"name":"Sam",
+				"color":"orange"
+			},
+			"ratios":{"wood":3, "brick":3, "sheep":2, "wheat":3, "ore":3},
+			"output":{
+				"canMaritimeTrade":{"brick":true, "wood":false, "sheep":true, "wheat":true, "ore":false},
+				"getMaritimeGiveOptions":["brick", "sheep", "wheat"]
+			}
+		}
+	]
 }]
