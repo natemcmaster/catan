@@ -404,6 +404,7 @@ Map.prototype.getNumbers = function () {
 * player has availble. 2:1 on special ports, 3:1 on generic ports, or 4:1 in worst case
 */
 Map.prototype.getResourceRatios = function(localPlayerIndex){
+  
   // Initialize to 4 by default
   var ratios = {
     wood  : 4,
@@ -416,15 +417,19 @@ Map.prototype.getResourceRatios = function(localPlayerIndex){
   // Get player ports
   var ports = this.portsForPlayer(localPlayerIndex);
 
-  // Depending on if a port is generic or 2:1 (special), set ratio
+  // Check for 3:1 port, if it exists, set all resources to 3:1
   for(var i=0; i < ports.length; i++){
     var port = ports[i];
-    
-    if(port.inputResource){
-      var resource = unCapFirst(port.inputResource);
-      ratios[resource] = port.ratio;
-    } else {
+    if(!port.inputResource){
       ratios.wood = 3; ratios.brick = 3; ratios.sheep = 3; ratios.wheat = 3; ratios.ore = 3;
+    }
+  }
+
+  // Dirty. Can be refactored. Now check for 2:1 on specific ports 
+  for(var i=0; i < ports.length; i++){
+    var port = ports[i];
+    if(port.inputResource){
+      ratios[unCapFirst(port.inputResource)] = 2;
     }
   }
 
