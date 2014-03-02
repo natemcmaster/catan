@@ -31,21 +31,43 @@ function forwardToGame(){
 core.forceClassInherit(SetupRoundController, Controller);
 
 SetupRoundController.prototype.onUpdate = function() {
-	var player = this.clientModel.getClientPlayer(),
-		status = this.clientModel.getCurrentStatus();
-	if (['FirstRound', 'SecondRound'].indexOf(status) === -1 || this.clientModel.gameboard.isGameOver()) {
+	var state = this.getState();
+	this.stateHandlers[state].call(this)
+}
+
+SetupRoundController.prototype.stateHandlers = {
+	notInSetup: function () {
 		forwardToGame();
-		return;
+	},
+	notMyTurn: function () {
+		// do nothing
+	},
+	finishedMyTurn: function () {
+		this.clientModel.endMyTurn();
+	},
+	buildingSettlement: function () {
+		this.mapController.startMove('settlement', true, false);
+	},
+	buildingRoad: function () {
+		this.mapController.startMove('road', true, true);
+	}
+}
+
+SetupRoundController.prototype.getState = function () {
+	var player = this.clientModel.getClientPlayer()
+		, status = this.clientModel.getCurrentStatus();
+	if (['FirstRound', 'SecondRound'].indexOf(status) === -1 || this.clientModel.gameboard.isGameOver()) {
+		return 'notInSetup';
 	}
 	if (!this.clientModel.isMyTurn()) {
-		return;
+		return 'notMyTurn';
 	}
 	if (player.roadsBuilt == player.settlementsBuilt && [0, 'FirstRound', 'SecondRound'][player.roadsBuilt] === status) {
-		return this.clientModel.endMyTurn();
+		return 'finishedMyTurn';
 	}
-
 	if (player.roadsBuilt > player.settlementsBuilt) {
-		return this.mapController.startMove('settlement', true, false);
+		return 'buildingSettlement';
 	}
-	this.mapController.startMove('road', true, true);
+	return 'buildingRoad';
 }
+
