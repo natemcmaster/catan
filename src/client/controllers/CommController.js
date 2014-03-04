@@ -26,11 +26,25 @@ var Controller = require('./BaseController');
  **/
 BaseCommController.prototype = core.inherit(Controller.prototype);
 BaseCommController.prototype.contructor = BaseCommController;
+BaseCommController.prototype.commType = 'base';
 
 function BaseCommController(logView, model){
 	Controller.call(this,logView,model);
+
 }
 
+// update the log lines
+BaseCommController.prototype.onUpdate = function () {
+	
+	var clientPlayer = this.clientModel.getClientPlayer();
+	var lines = this.clientModel.getCommLines(this.commType);
+
+	for(var i = 0; i < lines.length; i++){
+		lines[i].className = this.clientModel.getPlayerByName(lines[i].source).color;
+	}
+
+	this.view.resetLines(lines)
+}
 
 LogController.prototype = core.inherit(BaseCommController.prototype);
 LogController.prototype.constructor = LogController;
@@ -45,21 +59,10 @@ LogController.prototype.constructor = LogController;
  **/
 function LogController(logView, model){
 	BaseCommController.call(this,logView,model);
+	LogController.prototype.commType = 'log';
 	this.onUpdate();
 }
 
-// update the log lines
-LogController.prototype.onUpdate = function () {
-	
-	var clientPlayer = this.clientModel.getClientPlayer();
-	var lines = this.clientModel.log.entries;
-
-	for(var i = 0; i < lines.length; i++){
-		lines[i].className = this.clientModel.getPlayerByName(lines[i].source).color;
-	}
-
-	this.view.resetLines(lines)
-}
 
 
 ChatController.prototype = core.inherit(BaseCommController.prototype);
@@ -75,19 +78,8 @@ ChatController.prototype.constructor = ChatController;
  **/
 function ChatController(chatView,model){
 	BaseCommController.call(this,chatView,model);
+	ChatController.prototype.commType = 'chat';
 	this.onUpdate();
-}
-
-// update the chat lines
-ChatController.prototype.onUpdate = function () {
-	var clientPlayer = this.clientModel.getClientPlayer();
-	var lines = this.clientModel.chat.chat;
-
-	for(var i = 0; i < lines.length; i++){
-		lines[i].className = this.clientModel.getPlayerByName(lines[i].source).color;
-	}
-
-	this.view.resetLines(lines)
 }
 
 

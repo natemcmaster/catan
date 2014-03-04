@@ -325,4 +325,17 @@ ClientModel.prototype.getMaritimeGiveOptions = function() {
   return this.getClientPlayer().getMaritimeGiveOptions(ratios);
 }
 
+ClientModel.prototype.getCommLines = function(commType){
+
+  if(commType == 'chat'){
+    return this.chat.chat
+  }
+  else if(commType == 'log'){
+    return this.log.entries
+  }
+  else{
+    console.err("NOT A VALID COMM TYPE");
+  }
+}
+
 module.exports = ClientModel;
