@@ -6,8 +6,13 @@
 			<fileset dir="node_modules/byu-catan/" />
 		</copy>
 	</target>
-	<target name="run" depends="copy">
+	<target name="java-server" depends="copy">
 	 	<ant inheritAll="false" antfile="${out.dir}/build.xml" target="server"/>
+	 </target>
+	 <target name="run" depends="copy">
+	 	<exec executable="node">
+	 		<arg value="src/server/app.js" />
+	 	</exec>
 	 </target>
 	<target name="clean">
 		<delete dir="${out.dir}" includeemptydirs="true"/>

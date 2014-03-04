@@ -31,8 +31,9 @@ module.exports = function(grunt) {
 		pkg: grunt.file.readJSON('package.json'),
 		shell: {
 			serve: {
-				command: 'java -jar build/server.jar 8081 build/gameplay ug',
-				stdout: true
+				command: 'node src/server/app.js',
+				stdout: true,
+				stderr: true
 			}
 		},
 		jshint: {
@@ -156,9 +157,9 @@ module.exports = function(grunt) {
 			test: {
 				files: [{
 					expand: true,
-					cwd: srcDir + '/',
-					src: ['server/www/test.html'],
-					dest: buildDir + '/'
+					cwd: srcDir + '/server/www/',
+					src: ['test.html'],
+					dest: buildDir + '/gameplay/'
 				}]
 			}
 		},
