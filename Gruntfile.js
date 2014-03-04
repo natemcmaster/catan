@@ -25,7 +25,7 @@ module.exports = function(grunt) {
 		return gameplay + '/js/' + p;
 	});
 
-	var srcJsFile = srcDir + '/js/index.js';
+	var srcJsFile = srcDir + '/client/index.js';
 
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
@@ -61,17 +61,17 @@ module.exports = function(grunt) {
 			},
 			base: {
 				src: [
-					srcDir + '/js/*.js'
+					srcDir + '/client/*.js'
 				]
 			},
 			controllers: {
 				src: [
-					srcDir + '/js/controllers/**/*.js'
+					srcDir + '/client/controllers/**/*.js'
 				]
 			},
 			models: {
 				src: [
-					srcDir + '/js/model/**/*.js'
+					srcDir + '/common/model/**/*.js'
 				]
 			},
 			tests: {
@@ -112,13 +112,13 @@ module.exports = function(grunt) {
 					standalone: 'impl'
 				}
 			},
-      hackatan: {
-        src: srcDir + '/js/hackatan/index.js',
-        dest: gameplay + '/js/hackatan.js',
+			hackatan: {
+				src: srcDir + '/client/hackatan/index.js',
+				dest: gameplay + '/js/hackatan.js',
 				options: {
 					standalone: 'hackatan'
 				}
-      },
+			},
 			test: {
 				src: testDir + '/js/**/*.js',
 				dest: testJsOutput
@@ -148,7 +148,7 @@ module.exports = function(grunt) {
 					dest: buildDir + '/'
 				}, {
 					expand: true,
-					cwd: srcDir + '/gameplay/',
+					cwd: srcDir + '/server/www/',
 					src: ['**'],
 					dest: gameplay + '/'
 				}]
@@ -157,7 +157,7 @@ module.exports = function(grunt) {
 				files: [{
 					expand: true,
 					cwd: srcDir + '/',
-					src: ['gameplay/test.html'],
+					src: ['server/www/test.html'],
 					dest: buildDir + '/'
 				}]
 			}
@@ -181,7 +181,7 @@ module.exports = function(grunt) {
 				description: '<%= pkg.description %>',
 				version: '<%= pkg.version %>',
 				options: {
-					paths: [srcDir + '/js/', pkgSrc + '/gameplay/js/'],
+					paths: [srcDir + '/', pkgSrc + '/gameplay/js/'],
 					outdir: yuiOutput
 				}
 			}

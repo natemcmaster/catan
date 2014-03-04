@@ -2,7 +2,7 @@ module.exports = function() {
 	return new GameSetup();
 };
 
-var ClientModel = require('./model/').ClientModel;
+var ClientModel = require('../common/model/').ClientModel;
 var Controllers = require('./controllers/');
 var gameTypeModules = {
 	setup: ['turnTracker', 'map', 'resources', 'vp', 'log', 'setup'],

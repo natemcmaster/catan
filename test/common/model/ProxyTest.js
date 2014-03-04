@@ -1,6 +1,6 @@
 var Proxy = require('./impl').Proxy,
 	expect = require('chai').expect,
-	FakeQuery = require('../FakeQuery'),
+	FakeQuery = require('../../client/FakeQuery'),
 	AbstractCommand = require('./impl').commands.AbstractCommand;
 
 global.jQuery = FakeQuery;

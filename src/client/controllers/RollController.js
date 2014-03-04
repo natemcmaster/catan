@@ -12,7 +12,6 @@ var catan = window.catan || {};
 catan.roll = catan.roll || {};
 
 var Controller = require('./BaseController');
-var RollDiceCommand = require('../model/commands/RollDiceCommand');
 
 /**
  * @class RollController

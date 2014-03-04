@@ -2,7 +2,7 @@
 if (typeof(catan) === 'undefined') catan = {}
 catan.resources = catan.resources || {};
 
-var ResourceType = require('../model/ResourceType.js');
+var ResourceType = require('../../common/model/ResourceType.js');
 
 module.exports = ResourceBarController;
 

@@ -1,6 +1,6 @@
 var MockProxy = require('../../MockProxy.js');
-var Bank = require('../../../../src/js/model/board/Bank.js');
-var ResourceType = require('../../../../src/js/model/ResourceType.js');
+var Bank = require('../../../../src/common/model/board/Bank.js');
+var ResourceType = require('../../../../src/common/model/ResourceType.js');
 var assert = require('chai').assert;
 
 suite('BankTests', function() {
