@@ -149,7 +149,7 @@ module.exports = function(grunt) {
 					dest: buildDir + '/'
 				}, {
 					expand: true,
-					cwd: srcDir + '/server/www/',
+					cwd: srcDir + '/server/public/',
 					src: ['**'],
 					dest: gameplay + '/'
 				}]
@@ -157,7 +157,7 @@ module.exports = function(grunt) {
 			test: {
 				files: [{
 					expand: true,
-					cwd: srcDir + '/server/www/',
+					cwd: srcDir + '/server/public/',
 					src: ['test.html'],
 					dest: buildDir + '/gameplay/'
 				}]
