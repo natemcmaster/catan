@@ -7,7 +7,7 @@
 
 module.exports = SetupRoundController;
 
-var Controller = require('./BaseController');
+var StatefulController = require('./StatefulController');
 
 /** 
 	@class SetupRoundController
@@ -19,20 +19,15 @@ var Controller = require('./BaseController');
 function SetupRoundController(clientModel, mapController) {
 	this.mapController = mapController;
 
-	Controller.call(this, undefined, clientModel);
+	StatefulController.call(this, undefined, clientModel);
 
 	this.onUpdate();
 }
 
+core.forceClassInherit(SetupRoundController, StatefulController);
+
 function forwardToGame(){
 	window.location.href = 'catan.html';
-}
-
-core.forceClassInherit(SetupRoundController, Controller);
-
-SetupRoundController.prototype.onUpdate = function() {
-	var state = this.getState();
-	this.stateHandlers[state].call(this)
 }
 
 SetupRoundController.prototype.stateHandlers = {

@@ -42,7 +42,7 @@ function MapController(view, modalView, model, robView){
 	Controller.call(this,view,model);
 	this.setModalView(modalView);
 	this.setRobView(robView);
-  
+
   helpers.drawBase(this.view, this.clientModel.gameboard.map, this.clientModel.getPlayerColors())
   setTimeout(function () {
     helpers.drawBase(this.view, this.clientModel.gameboard.map, this.clientModel.getPlayerColors())
@@ -50,20 +50,30 @@ function MapController(view, modalView, model, robView){
   setTimeout(function () {
     helpers.drawBase(this.view, this.clientModel.gameboard.map, this.clientModel.getPlayerColors())
   }.bind(this), 1000)
-  this.state = 'normal'
+  this.state = this.getState()
 }
 
 MapController.prototype.onUpdate = function () {
   helpers.draw(this.view, this.clientModel.gameboard.map, this.clientModel.getPlayerColors())
-  
-  if (this.clientModel.getCurrentStatus() !== 'Robbing') return
-  if (!this.clientModel.isMyTurn()) return
+
+  if (this.shouldStartRobbing()) {
+    this.startRobbing()
+  }
+};
+
+MapController.prototype.showStartRobbing = function () {
+  if (this.clientModel.getCurrentStatus() !== 'Robbing') return false
+  if (!this.clientModel.isMyTurn()) return false
+  return true
+}
+
+MapController.prototype.startRobbing = function () {
   if (this.placeState) {
     if (this.placeState.type === 'robber') return
     this.cancelMove()
   }
   this.startMove('robber', true, false)
-};
+}
 
 MapController.prototype.setModalView = function (modalView) {
   this.modalView = modalView;
