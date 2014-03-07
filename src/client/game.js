@@ -35,7 +35,7 @@ var modules = {
 		var view = new catan.turntracker.View();
 		var controller = new Controllers.TrackerController(view, model);
 		view.setController(controller);
-    controller.onUpdate();
+		controller.onUpdate();
 		return [view, controller];
 	},
 	map: function(model) {
@@ -53,23 +53,36 @@ var modules = {
 		overlayView.setController(controller);
 		if (robberView)
 			robberView.setController(controller);
-    controller.onUpdate()
-
+		controller.onUpdate()
 		return [view, controller];
 	},
 	resources: function(model) {
 		var view = new catan.resources.View();
-		var map = this.controllers.map;
 		var buildMoves = (this.gameType == 'setup') ? null : {
-			"Roads": core.makeAnonymousAction(map, map.startMove, ["Road", false]),
-			"Cities": core.makeAnonymousAction(map, map.startMove, ["City", false]),
-			"Settlements": core.makeAnonymousAction(map, map.startMove, ["Settlement", false]),
-			"DevCards": core.makeAnonymousAction(this.views.useDevCard, this.views.useDevCard.showModal, [true]),
-			"BuyCard": core.makeAnonymousAction(this.views.buyDevCard, this.views.buyDevCard.showModal, [true])
+			"Roads": function() {
+				this.controllers.map.startMove("Road", false);
+			},
+			"Cities": function() {
+				this.controllers.map.startMove("City", false);
+			},
+			"Settlements": function() {
+				this.controllers.map.startMove("Settlement", false);
+			},
+			"DevCards": function() {
+				this.views.useDevCard.showModal(true);
+			},
+			"BuyCard": function() {
+				this.views.buyDevCard.showModal(true);
+			}
 		};
+		if(buildMoves){
+			for(var m in buildMoves){
+				buildMoves[m].bind(this); // set scope on all move functions
+			}
+		}
 		var controller = new Controllers.ResourcesController(view, model, buildMoves);
 		view.setController(controller);
-    controller.onUpdate();
+		controller.onUpdate();
 		return [view, controller];
 	},
 	vp: function(model) {
@@ -94,7 +107,7 @@ var modules = {
 
 		view.setController(controller);
 		resultView.setController(controller);
-    controller.onUpdate()
+		controller.onUpdate()
 		return [view, controller];
 	},
 	domTrade: function(model) {
@@ -140,7 +153,6 @@ var modules = {
 	discard: function(model) {
 		var discardView = new catan.discard.View();
 		var waitingView = new catan.misc.WaitOverlay("Waiting for other Players to Discard");
-
 		var discardController = new Controllers.DiscardController(discardView, waitingView, model);
 		discardView.setController(discardController);
 		return [discardView, discardController];
