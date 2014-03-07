@@ -59,7 +59,6 @@ TurnTrackerController.prototype.onUpdate = function() {
 	} else {
 		this.view.updateStateView(false, status);
 	}
-
 }
 
 TurnTrackerController.prototype.updatePlayers = function() {

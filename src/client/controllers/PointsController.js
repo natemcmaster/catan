@@ -37,28 +37,17 @@ function PointController(view, gameFinishedView, clientModel){
 
 PointController.prototype.onUpdate = function() {
 
-	var clientPlayer = this.clientModel.getClientPlayer()
-	this.view.setPoints(clientPlayer.victoryPoints)
+	var pointStatus = this.clientModel.getPointStatus();
+
+	this.view.setPoints(pointStatus.clientPoints);
+
 	if(!this.gameFinishedView)
 		return;
-	var players = this.clientModel.gameboard.players
 
-	for(var i = 0; i< players.length; i++){
-
-		if(players[i].victoryPoints >= players[i].MAX_GAME_POINTS){
-
-			if(players[i] == clientPlayer){
-				this.gameFinishedView.setWinner(players[i].name, true)
-			}
-			else{
-				this.gameFinishedView.setWinner(players[i].name, false)
-			}
-
-			this.gameFinishedView.showModal();
-			break;
-		}
+	if(pointStatus.winner) {
+		this.gameFinishedView.setWinner(pointStatus.winner, pointStatus.isClient);
+		this.gameFinishedView.showModal();
 	}
-	
 	
 };
 

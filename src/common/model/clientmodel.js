@@ -232,7 +232,7 @@ ClientModel.prototype.getCurrentStatus = function(){
 
 /** === Trade functionality === **/
 
-/**
+/**w
  * Checks if the player can offer a trade with the given resources
  * @param  {int} tradePlayerIndex who will receive this offer
  * @param  {int} brick            number of this resource
@@ -355,4 +355,30 @@ ClientModel.prototype.getDomesticPlayerInfo = function () {
 	}
   return otherPlayers;
 }
+
+ClientModel.prototype.getPointStatus = function () {
+
+  var pointStatus = {};
+
+  var clientPlayer = this.getClientPlayer();
+  pointStatus.clientPoints = clientPlayer.victoryPoints;
+
+  var players = this.gameboard.players;
+
+  for(var i = 0; i < players.length; i++){
+    if(players[i].victoryPoints >= players[i].MAX_GAME_POINTS){
+      pointStatus.winner = players[i].name;
+      players[i] == clientPlayer ? pointStatus.isClient == true : pointStatus.isClient = false;
+      break;
+    }
+  }
+
+  return pointStatus;
+}
+
+
+
+
+
+
 
