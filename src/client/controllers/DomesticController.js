@@ -77,9 +77,8 @@ DomesticController.prototype.updatePlayers = function () {
 	this.view.setPlayers(this.clientModel.getDomesticPlayerInfo());
 }
 
-DomesticController.prototype.onUpdate = function() {
-  this.updatePlayers()
-	if (this.clientModel.receivedTradeOffer()) {
+DomesticController.prototype.stateActions = {
+	'receivedTradeOffer': function () {
 		for (var j in ResourceTypes) {
 			var r = ResourceTypes[j];
 			var c = this.clientModel.gameboard.tradeOffer.offer[r];
@@ -94,17 +93,38 @@ DomesticController.prototype.onUpdate = function() {
 		this.acceptView.setAcceptEnabled(canAccept);
 
 		this.acceptView.showModal();
-	} else if (this.clientModel.sentTradeOffer()) {
+	},
+	'sentTradeOffer': function () {
 		this.waitingView.showModal();
-	} else if (this.clientModel.isMyTurn()) {
+	},
+	'myTurn': function () {
 		this.waitingView.closeModal();
 		this.view.setPlayerSelectionEnabled(true);
 		this.view.setResourceSelectionEnabled(true);
 		this.view.setStateMessage('Prepare a trade offer');
-
-	} else {
+	},
+	'default': function () {
 		resetState.call(this);
 	}
+}
+
+DomesticController.prototype.getState = function () {
+	if (this.clientModel.receivedTradeOffer()) {
+		return 'receivedTradeOffer'
+	}
+	if (this.clientModel.sentTradeOffer()) {
+		return 'sentTradeOffer'
+	}
+	if (this.clientModel.isMyTurn()) {
+		return 'myTurn'
+	}
+	return 'default'
+}
+
+DomesticController.prototype.onUpdate = function() {
+	this.updatePlayers()
+	var state = this.getState()
+	this.stateActions[state].call(this)
 }
 
 function DResource(max) {
@@ -131,7 +151,7 @@ DResource.prototype.recv = function() {
 }
 
 DResource.prototype.setMax = function (max) {
-  this.max = max
+	this.max = max
 }
 
 DResource.prototype.decr = function() {
@@ -159,7 +179,7 @@ DResource.prototype.val = function(opt) {
  * @return void
  */
 DomesticController.prototype.setResourceToSend = function(resource) {
-  this[resource].setMax(getMaxResource.call(this, resource))
+	this[resource].setMax(getMaxResource.call(this, resource))
 	this[resource].send();
 	this.increaseResourceAmount(resource);
 	updateTradeButton.call(this);
@@ -246,13 +266,14 @@ DomesticController.prototype.sendTradeOffer = function() {
 
 	this.clientModel
 		.getClientPlayer()
-		.offerTrade(this.tradePlayerIndex,
+		.offerTrade(
+			this.tradePlayerIndex,
 			this.brick.val('abs'),
 			this.ore.val('abs'),
 			this.sheep.val('abs'),
 			this.wheat.val('abs'),
 			this.wood.val('abs')
-	);
+		);
 	resetState.call(this);
 };
 
