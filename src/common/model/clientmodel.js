@@ -351,7 +351,6 @@ ClientModel.prototype.getDomesticPlayerInfo = function () {
   return otherPlayers;
 }
 
-<<<<<<< HEAD
 ClientModel.prototype.getPointStatus = function () {
 
   var pointStatus = {};
@@ -372,13 +371,6 @@ ClientModel.prototype.getPointStatus = function () {
   return pointStatus;
 }
 
-
-
-
-
-
-
-=======
 //---------------------------------------------------------------------------------------
 //Functions called by MaritimeController
 //---------------------------------------------------------------------------------------
@@ -394,4 +386,3 @@ ClientModel.prototype.getMaritimeGiveOptions = function(ratios) {
 ClientModel.prototype.getMaritimeGetOptions = function() {
   return this.bank.getAvailableResources();
 }
->>>>>>> Add functions on client model to remove chaining in MaritimeController onUpdate function
