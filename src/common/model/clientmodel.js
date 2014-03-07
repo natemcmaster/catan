@@ -322,14 +322,6 @@ ClientModel.prototype.canAcceptTrade = function(){
   return true;
 }
 
-ClientModel.prototype.getMaritimeGiveOptions = function(ratios) {
-  return this.getClientPlayer().getMaritimeGiveOptions(ratios);
-}
-
-ClientModel.prototype.getResourceRatios = function() {
-  return this.gameboard.map.getResourceRatios(this.getClientPlayer().playerIndex);
-}
-
 ClientModel.prototype.getCommLines = function(commType){
 
   if(commType == 'chat'){
@@ -385,9 +377,18 @@ ClientModel.prototype.getPointStatus = function () {
   return pointStatus;
 }
 
+//---------------------------------------------------------------------------------------
+//Functions called by MaritimeController
+//---------------------------------------------------------------------------------------
 
+ClientModel.prototype.getMaritimeResourceRatios = function() {
+  return this.gameboard.map.getResourceRatios(this.getClientPlayer().playerIndex);
+}
 
+ClientModel.prototype.getMaritimeGiveOptions = function(ratios) {
+  return this.getClientPlayer().getMaritimeGiveOptions(ratios);
+}
 
-
-
-
+ClientModel.prototype.getMaritimeGetOptions = function() {
+  return this.bank.getAvailableResources();
+}
