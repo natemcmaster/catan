@@ -44,7 +44,7 @@ MaritimeController.prototype.onUpdate = function(){
 	if(this.clientModel.isMyTurn() && this.clientModel.getCurrentStatus() == "Playing") {
 		this.ratios = this.clientModel.getMaritimeResourceRatios();
 		this.giveOptions = this.clientModel.getMaritimeGiveOptions(this.ratios);
-		this.getOptions = this.clientModel.getMaritimeGetResources();
+		this.getOptions = this.clientModel.getMaritimeGetOptions();
 
 		this.view.showGiveOptions(this.giveOptions);
 		this.view.hideGetOptions();
