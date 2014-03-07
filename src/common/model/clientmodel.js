@@ -322,9 +322,12 @@ ClientModel.prototype.canAcceptTrade = function(){
   return true;
 }
 
-ClientModel.prototype.getMaritimeGiveOptions = function() {
-  var ratios = this.gameboard.map.getResourceRatios(this.getClientPlayer().playerIndex);
+ClientModel.prototype.getMaritimeGiveOptions = function(ratios) {
   return this.getClientPlayer().getMaritimeGiveOptions(ratios);
+}
+
+ClientModel.prototype.getResourceRatios = function() {
+  return this.gameboard.map.getResourceRatios(this.getClientPlayer().playerIndex);
 }
 
 ClientModel.prototype.getCommLines = function(commType){
