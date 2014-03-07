@@ -138,3 +138,14 @@ GameBoard.prototype.robPlayer = function(thiefId, victimId, hex) {
 	this.proxy.executeCommand(new RobPlayerCommand(thiefId, victimId, hex));
 	
 }
+
+GameBoard.prototype.toTurnTracker = function(playerIndex){
+	var p = this.players[playerIndex];
+	return {
+		'playerIndex': playerIndex,
+		'score': p.victoryPoints,
+		'highlight': (playerIndex == this.turnTracker.currentPlayerIndex()),
+		'army': p.largestArmy,
+		'road': p.longestRoad
+	}
+}
