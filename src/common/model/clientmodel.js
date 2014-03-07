@@ -322,14 +322,6 @@ ClientModel.prototype.canAcceptTrade = function(){
   return true;
 }
 
-ClientModel.prototype.getMaritimeGiveOptions = function(ratios) {
-  return this.getClientPlayer().getMaritimeGiveOptions(ratios);
-}
-
-ClientModel.prototype.getResourceRatios = function() {
-  return this.gameboard.map.getResourceRatios(this.getClientPlayer().playerIndex);
-}
-
 ClientModel.prototype.getCommLines = function(commType){
 
   if(commType == 'chat'){
@@ -359,6 +351,7 @@ ClientModel.prototype.getDomesticPlayerInfo = function () {
   return otherPlayers;
 }
 
+<<<<<<< HEAD
 ClientModel.prototype.getPointStatus = function () {
 
   var pointStatus = {};
@@ -385,3 +378,20 @@ ClientModel.prototype.getPointStatus = function () {
 
 
 
+=======
+//---------------------------------------------------------------------------------------
+//Functions called by MaritimeController
+//---------------------------------------------------------------------------------------
+
+ClientModel.prototype.getMaritimeResourceRatios = function() {
+  return this.gameboard.map.getResourceRatios(this.getClientPlayer().playerIndex);
+}
+
+ClientModel.prototype.getMaritimeGiveOptions = function(ratios) {
+  return this.getClientPlayer().getMaritimeGiveOptions(ratios);
+}
+
+ClientModel.prototype.getMaritimeGetOptions = function() {
+  return this.bank.getAvailableResources();
+}
+>>>>>>> Add functions on client model to remove chaining in MaritimeController onUpdate function
