@@ -28,6 +28,9 @@ var Controller = require('./BaseController');
 function MaritimeController(view,clientModel){
 	Controller.call(this,view,clientModel);
 	this.clientModel = clientModel;
+	this.ratios = null;
+	this.giveOptions = null;
+	this.getOptions = null;
 	this.resourceToGive = null;
 	this.resourceToGet = null;
 };
@@ -39,15 +42,19 @@ MaritimeController.prototype = core.inherit(Controller.prototype);
 */
 MaritimeController.prototype.onUpdate = function(){
 	if(this.clientModel.isMyTurn() && this.clientModel.getCurrentStatus() == "Playing") {
-		this.view.showGiveOptions(this.clientModel.getMaritimeGiveOptions());
+		this.ratios = this.clientModel.gameboard.map.getResourceRatios();
+		this.giveOptions = this.clientModel.getMaritimeGiveOptions(this.ratios);
+		this.getOptions = this.clientModel.bank.getAvailableResources();
+
+		this.view.showGiveOptions(this.giveOptions);
 		this.view.hideGetOptions();
 		this.view.enableTradeButton(false);
 		this.view.setMessage("Choose the resource you want to give");
 	}
 	else {
 		this.view.hideGiveOptions();
-		this.view.enableTradeButton(false);
 		this.view.hideGetOptions();
+		this.view.enableTradeButton(false);
 		this.view.setMessage("Wait for your turn...");
 	}
 };
@@ -59,9 +66,10 @@ MaritimeController.prototype.onUpdate = function(){
  */
 MaritimeController.prototype.unsetGiveValue = function(){
 	this.resourceToGive = null;
-	this.view.enableTradeButton(false);
-	this.view.showGiveOptions(this.clientModel.getMaritimeGiveOptions());
+	this.resourceToGet = null;
+	this.view.showGiveOptions(this.giveOptions);
 	this.view.hideGetOptions();
+	this.view.enableTradeButton(false);
 	this.view.setMessage("Choose the resource you want to give");
 };
 
@@ -72,8 +80,8 @@ MaritimeController.prototype.unsetGiveValue = function(){
  */
 MaritimeController.prototype.unsetGetValue = function(){
 	this.resourceToGet = null;
+	this.view.showGetOptions(this.getOptions);
 	this.view.enableTradeButton(false);
-	this.view.showGetOptions(this.clientModel.gameboard.bank.getAvailableResources());
 	this.view.setMessage("Choose the resource you want to receive");
 };
 
@@ -85,13 +93,10 @@ MaritimeController.prototype.unsetGetValue = function(){
  */
 MaritimeController.prototype.setGiveValue = function(resource){
 	this.resourceToGive = resource;
+	this.tradeRatio = this.ratios[unCapFirst(resource)];
 	
-	this.view.showGetOptions(this.clientModel.gameboard.bank.getAvailableResources());
-	
-	var ratios = this.clientModel.gameboard.map.getResourceRatios(this.clientModel.getClientPlayer().playerIndex);
-	this.tradeRatio = ratios[unCapFirst(resource)];
+	this.view.showGetOptions(this.getOptions);
 	this.view.selectGiveOption(resource, this.tradeRatio);
-
 	this.view.setMessage("Choose the resource you want to recieve");
 };
 
