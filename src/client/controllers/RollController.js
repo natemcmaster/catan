@@ -50,7 +50,7 @@ RollController.prototype.closeResult = function(){
 RollController.prototype.rollDice = function(){
 	clearTimeout(this.autoRoll);
 	clearTimeout(this.countDown);
-	this.randomRollNumber = getRandomInt(2, 12);
+	this.randomRollNumber = (getRandomInt(1, 6) + getRandomInt(1,6));
 	this.view.closeModal();
 	this.getRollResultView().setAmount(this.randomRollNumber);
 	this.getRollResultView().showModal();
