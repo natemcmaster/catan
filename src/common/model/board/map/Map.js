@@ -426,10 +426,10 @@ Map.prototype.getResourceRatios = function(localPlayerIndex){
   }
 
   // Dirty. Can be refactored. Now check for 2:1 on specific ports 
-  for(var i=0; i < ports.length; i++){
-    var port = ports[i];
-    if(port.inputResource){
-      ratios[unCapFirst(port.inputResource)] = 2;
+  for(var j=0; j < ports.length; j++){
+    var p = ports[j];
+    if(p.inputResource){
+      ratios[unCapFirst(p.inputResource)] = 2;
     }
   }
 

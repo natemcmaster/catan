@@ -59,21 +59,13 @@ TurnTrackerController.prototype.onUpdate = function() {
 	} else {
 		this.view.updateStateView(false, status);
 	}
-
 }
 
 TurnTrackerController.prototype.updatePlayers = function() {
 
-	var players = this.clientModel.gameboard.players;
-	for (var i = 0; i < players.length; i++) {
-		var update = {
-			'playerIndex': i,
-			'score': players[i].victoryPoints,
-			'highlight': (i == this.clientModel.gameboard.turnTracker.currentPlayerIndex()),
-			'army': players[i].largestArmy,
-			'road': players[i].longestRoad
-		};
-		this.view.updatePlayer(update);
+	for (var i = 0; i < 4; i++) {
+		var obj = this.clientModel.gameboard.toTurnTracker(i);
+		this.view.updatePlayer(obj);
 	}
 
 }

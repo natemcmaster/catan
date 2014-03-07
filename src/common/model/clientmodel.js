@@ -232,7 +232,7 @@ ClientModel.prototype.getCurrentStatus = function(){
 
 /** === Trade functionality === **/
 
-/**
+/**w
  * Checks if the player can offer a trade with the given resources
  * @param  {int} tradePlayerIndex who will receive this offer
  * @param  {int} brick            number of this resource
@@ -322,11 +322,6 @@ ClientModel.prototype.canAcceptTrade = function(){
   return true;
 }
 
-ClientModel.prototype.getMaritimeGiveOptions = function() {
-  var ratios = this.gameboard.map.getResourceRatios(this.getClientPlayer().playerIndex);
-  return this.getClientPlayer().getMaritimeGiveOptions(ratios);
-}
-
 ClientModel.prototype.getCommLines = function(commType){
 
   if(commType == 'chat'){
@@ -356,3 +351,44 @@ ClientModel.prototype.getDomesticPlayerInfo = function () {
   return otherPlayers;
 }
 
+ClientModel.prototype.getPointStatus = function () {
+
+  var pointStatus = {};
+
+  var clientPlayer = this.getClientPlayer();
+  pointStatus.clientPoints = clientPlayer.victoryPoints;
+
+  var players = this.gameboard.players;
+
+  for(var i = 0; i < players.length; i++){
+    if(players[i].victoryPoints >= players[i].MAX_GAME_POINTS){
+      pointStatus.winner = players[i].name;
+      
+      if(players[i] == clientPlayer) {
+        pointStatus.isClient = true
+      } else {
+        pointStatus.isClient = false;
+      }
+      
+      break;
+    }
+  }
+
+  return pointStatus;
+}
+
+//---------------------------------------------------------------------------------------
+//Functions called by MaritimeController
+//---------------------------------------------------------------------------------------
+
+ClientModel.prototype.getMaritimeResourceRatios = function() {
+  return this.gameboard.map.getResourceRatios(this.getClientPlayer().playerIndex);
+}
+
+ClientModel.prototype.getMaritimeGiveOptions = function(ratios) {
+  return this.getClientPlayer().getMaritimeGiveOptions(ratios);
+}
+
+ClientModel.prototype.getMaritimeGetOptions = function() {
+  return this.bank.getAvailableResources();
+}
