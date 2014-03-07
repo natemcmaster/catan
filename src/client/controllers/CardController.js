@@ -103,17 +103,18 @@ DevCardController.prototype.useRoadBuild = function() {
 DevCardController.prototype.onUpdate = function() {
 	var clientPlayer = this.clientModel.getClientPlayer();
 
-	this.view.updateAmount(Definitions.SOLDIER, clientPlayer.getNumberOfDevCards(Definitions.SOLDIER));
-	this.view.updateAmount(Definitions.YEAR_OF_PLENTY, clientPlayer.getNumberOfDevCards(Definitions.YEAR_OF_PLENTY));
-	this.view.updateAmount(Definitions.MONOPOLY, clientPlayer.getNumberOfDevCards(Definitions.MONOPOLY));
-	this.view.updateAmount(Definitions.ROAD_BUILD, clientPlayer.getNumberOfDevCards(Definitions.ROAD_BUILD));
-	this.view.updateAmount(Definitions.MONUMENT, clientPlayer.getNumberOfDevCards(Definitions.MONUMENT));
+	var playable = {
+		SOLDIER: clientPlayer.canPlaySoldier(),
+		YEAR_OF_PLENTY: clientPlayer.canPlayYearOfPlenty(),
+		MONOPOLY: clientPlayer.canPlayMonopoly(),
+		ROAD_BUILD: this.clientModel.canPlayerPlayRoadBuilding(),
+		MONUMENT: clientPlayer.canPlayMonument()
+	};
 
-	this.view.setCardEnabled(Definitions.SOLDIER, clientPlayer.canPlaySoldier());
-	this.view.setCardEnabled(Definitions.YEAR_OF_PLENTY, clientPlayer.canPlayYearOfPlenty());
-	this.view.setCardEnabled(Definitions.MONOPOLY, clientPlayer.canPlayMonopoly());
-	this.view.setCardEnabled(Definitions.ROAD_BUILD, this.clientModel.canPlayerPlayRoadBuilding());
-	this.view.setCardEnabled(Definitions.MONUMENT, clientPlayer.canPlayMonument());
+	for (var card in playable) {
+		this.view.updateAmount(Definitions[card], clientPlayer.getNumberOfDevCards(Definitions[card]));
+		this.view.setCardEnabled(Definitions[card], playable[card])
+	}
 }
 
 function capFirst(str) {
