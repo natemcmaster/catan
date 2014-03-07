@@ -6,6 +6,8 @@ var Proxy = require("./Proxy");
 var Definitions = require('byu-catan').definitions;
 var ResourceTypes = Definitions.ResourceTypes;
 
+module.exports = ClientModel;
+
 /**
   This module contains the top-level client model class
   
@@ -338,4 +340,19 @@ ClientModel.prototype.getCommLines = function(commType){
   }
 }
 
-module.exports = ClientModel;
+// Build a list of the objects used by the DomesticController
+ClientModel.prototype.getDomesticPlayerInfo = function () {
+	var players = this.gameboard.players;
+	var otherPlayers = [];
+	for (var i in players) {
+		if (players[i].playerIndex != this.playerIndex) {
+			otherPlayers.push({
+				name: players[i].name,
+				color: players[i].color,
+				index: players[i].playerIndex,
+			});
+		}
+	}
+  return otherPlayers;
+}
+

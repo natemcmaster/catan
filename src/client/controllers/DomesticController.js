@@ -27,18 +27,7 @@ function DomesticController(view, waitingView, acceptView, clientModel) {
 	Controller.call(this, view, clientModel);
 	this.waitingView = waitingView;
 	this.acceptView = acceptView;
-	var players = this.clientModel.gameboard.players;
-	var otherPlayers = [];
-	for (var i in players) {
-		if (players[i].playerIndex != this.clientModel.playerIndex) {
-			otherPlayers.push({
-				name: players[i].name,
-				color: players[i].color,
-				index: players[i].playerIndex,
-			});
-		}
-	}
-	this.view.setPlayers(otherPlayers);
+  this.updatePlayers();
 	view.setController(this);
 	acceptView.setController(this);
 	resetState.call(this);
@@ -83,19 +72,13 @@ function updateTradeButton() {
 }
 //#endregion private
 
+// Build the players thing
+DomesticController.prototype.updatePlayers = function () {
+	this.view.setPlayers(this.clientModel.getDomesticPlayerInfo());
+}
+
 DomesticController.prototype.onUpdate = function() {
-	var players = this.clientModel.gameboard.players;
-	var otherPlayers = [];
-	for (var i in players) {
-		if (players[i].playerIndex != this.clientModel.playerIndex) {
-			otherPlayers.push({
-				name: players[i].name,
-				color: players[i].color,
-				index: players[i].playerIndex,
-			});
-		}
-	}
-	this.view.setPlayers(otherPlayers);
+  this.updatePlayers()
 	if (this.clientModel.receivedTradeOffer()) {
 		for (var j in ResourceTypes) {
 			var r = ResourceTypes[j];

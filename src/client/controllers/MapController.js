@@ -50,7 +50,6 @@ function MapController(view, modalView, model, robView){
   setTimeout(function () {
     helpers.drawBase(this.view, this.clientModel.gameboard.map, this.clientModel.getPlayerColors())
   }.bind(this), 1000)
-  this.state = this.getState()
 }
 
 MapController.prototype.onUpdate = function () {
@@ -61,7 +60,7 @@ MapController.prototype.onUpdate = function () {
   }
 };
 
-MapController.prototype.showStartRobbing = function () {
+MapController.prototype.shouldStartRobbing = function () {
   if (this.clientModel.getCurrentStatus() !== 'Robbing') return false
   if (!this.clientModel.isMyTurn()) return false
   return true
