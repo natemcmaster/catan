@@ -371,7 +371,13 @@ ClientModel.prototype.getPointStatus = function () {
   for(var i = 0; i < players.length; i++){
     if(players[i].victoryPoints >= players[i].MAX_GAME_POINTS){
       pointStatus.winner = players[i].name;
-      players[i] == clientPlayer ? pointStatus.isClient == true : pointStatus.isClient = false;
+      
+      if(players[i] == clientPlayer) {
+        pointStatus.isClient = true
+      } else {
+        pointStatus.isClient = false;
+      }
+      
       break;
     }
   }
