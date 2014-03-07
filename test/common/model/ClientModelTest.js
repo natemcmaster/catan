@@ -70,7 +70,7 @@ suite('ClientModelTests', function() {
 		});
 		test('does not accept when not enough resources', function() {
 			assert.isFalse(clientModel.canAcceptTrade());
-		})
+		});
 	});
 
 	suite('#getMaritimeGiveOptions()', function() {
@@ -81,8 +81,7 @@ suite('ClientModelTests', function() {
 		});
 		test('the correct resources are give options for maritime trade', function() {
 			var maritimeGiveOptions = ["sheep"];
-			assert.deepEqual(maritimeGiveOptions, clientModel.getMaritimeGiveOptions());
-		})
+			assert.deepEqual(maritimeGiveOptions, clientModel.getMaritimeGiveOptions(clientModel.getMaritimeResourceRatios()));
+		});
 	});
-
 });
