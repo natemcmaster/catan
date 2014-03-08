@@ -93,7 +93,7 @@ var modules = {
 	},
 	log: function(model) {
 		var view = new catan.comm.View.LogView();
-		var controller = new Controllers.CommController.LogController(view, model);
+		var controller = new Controllers.LogController(view, model);
 		return [view, controller];
 	},
 	setup: function(model) {
@@ -146,7 +146,7 @@ var modules = {
 	},
 	chat: function(model) {
 		var chatView = new catan.comm.View.ChatView();
-		var chatController = new Controllers.CommController.ChatController(chatView, model);
+		var chatController = new Controllers.ChatController(chatView, model);
 		chatView.setController(chatController);
 		return [chatView, chatController]
 	},

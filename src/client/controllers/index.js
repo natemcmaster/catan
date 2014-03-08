@@ -1,8 +1,8 @@
 
 module.exports = {
-	BaseController: require('./BaseController'),
 	CardController: require('./CardController'),
-	CommController: require('./CommController'),
+	ChatController: require('./ChatController'),
+	LogController: require('./LogController'),
 	DiscardController: require('./DiscardController'),
 	DomesticController: require('./DomesticController'),
 	MapController: require('./MapController'),
