@@ -230,7 +230,40 @@ ClientModel.prototype.getCurrentStatus = function(){
   return this.gameboard.turnTracker.status;
 }
 
-/** === Trade functionality === **/
+/**
+ * Checks to see if the client player can play the road building card. They
+ * must have the card and at least one road.
+ * @return {boolean}
+ */
+ClientModel.prototype.canPlayerPlayRoadBuilding = function () {
+  return this.getClientPlayer().canPlayRoadBuilding() && this.getClientPlayer().roads >= 2
+}
+
+/**
+ * Checks to see if the client player can buy a dev card.
+ * Checks the bank for number of dev cards and the player for resources
+ * @return {boolean}
+ */
+ClientModel.prototype.canPlayerBuyDevCard = function () {
+  return this.getClientPlayer().canBuyDevCard() && this.gameboard.deck.canDrawCard()
+}
+
+ClientModel.prototype.getCommLines = function(commType){
+
+  if(commType == 'chat'){
+    return this.chat.chat
+  }
+  else if(commType == 'log'){
+    return this.log.entries
+  }
+  else{
+    console.err("NOT A VALID COMM TYPE");
+  }
+}
+
+//---------------------------------------------------------------------------------------
+//Functions called by DomesticController
+//---------------------------------------------------------------------------------------
 
 /**
  * Checks if the player can offer a trade with the given resources
@@ -253,24 +286,6 @@ ClientModel.prototype.canOfferTrade = function(tradePlayerIndex,offer){
       return false;
   }
   return true;
-}
-
-/**
- * Checks to see if the client player can play the road building card. They
- * must have the card and at least one road.
- * @return {boolean}
- */
-ClientModel.prototype.canPlayerPlayRoadBuilding = function () {
-  return this.getClientPlayer().canPlayRoadBuilding() && this.getClientPlayer().roads >= 2
-}
-
-/**
- * Checks to see if the client player can buy a dev card.
- * Checks the bank for number of dev cards and the player for resources
- * @return {boolean}
- */
-ClientModel.prototype.canPlayerBuyDevCard = function () {
-  return this.getClientPlayer().canBuyDevCard() && this.gameboard.deck.canDrawCard()
 }
 
 /**
@@ -320,19 +335,6 @@ ClientModel.prototype.canAcceptTrade = function(){
       return false;
   }
   return true;
-}
-
-ClientModel.prototype.getCommLines = function(commType){
-
-  if(commType == 'chat'){
-    return this.chat.chat
-  }
-  else if(commType == 'log'){
-    return this.log.entries
-  }
-  else{
-    console.err("NOT A VALID COMM TYPE");
-  }
 }
 
 // Build a list of the objects used by the DomesticController
