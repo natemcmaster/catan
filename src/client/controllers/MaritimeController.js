@@ -68,7 +68,7 @@ MaritimeController.prototype.unsetGiveValue = function(){
 	this.resourceToGive = null;
 	this.resourceToGet = null;
 	this.tradeRatio = null;
-	
+
 	this.view.hideGetOptions();
 	this.view.showGiveOptions(this.giveOptions);
 	this.view.enableTradeButton(false);
@@ -124,6 +124,7 @@ MaritimeController.prototype.makeTrade = function(){
 
 	this.unsetGetValue();
 	this.unsetGiveValue();
+	this.view.hideGiveOptions();
 	this.view.enableTradeButton(false);
 	this.view.setMessage("Choose resource to give");
 };
