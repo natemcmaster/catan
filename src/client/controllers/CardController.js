@@ -1,4 +1,3 @@
-//STUDENT-EDITABLE-BEGIN
 /**
 	This is the namespace for development cards
 	@module catan.devCards

@@ -31,11 +31,6 @@ BaseCommController.prototype.onUpdate = function () {
 	
 	var clientPlayer = this.clientModel.getClientPlayer();
 	var lines = this.clientModel.getCommLines(this.commType);
-
-	for(var i = 0; i < lines.length; i++){
-		lines[i].className = this.clientModel.getPlayerByName(lines[i].source).color;
-	}
-
 	this.view.resetLines(lines)
 }
 

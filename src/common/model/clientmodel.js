@@ -185,16 +185,15 @@ ClientModel.prototype.getPlayerByName = function(name){
 }
 
 ClientModel.prototype.getCommLines = function(commType){
-
-  if(commType == 'chat'){
-    return this.chat.chat
+  if(['log','chat'].indexOf(commType) < 0){
+    console.error('Invalid commType: '+ commType);
+    return false;
   }
-  else if(commType == 'log'){
-    return this.log.entries
+  var lines = (commType == 'log') ? this.log.entries : this.chat.chat;
+  for(var i = 0; i < lines.length; i++){
+    lines[i].className = this.getPlayerByName(lines[i].source).color;
   }
-  else{
-    console.err("NOT A VALID COMM TYPE");
-  }
+  return lines;
 }
 
 //---------------------------------------------------------------------------------------
