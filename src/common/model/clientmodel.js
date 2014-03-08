@@ -118,49 +118,15 @@ ClientModel.prototype.notifyObservers = function(){
   })
 }
 
-/**
- * The current player robs another player
- * <pre>
- * Pre-condition: robbedPlayerIndex is not the current player, and the current
- * player is allowed to rob someone.
- * Post-condition (async!): the robbery happens
- *
- * @param {int} robbedPlayerIndex The player to be robbed
- * @param {HexLocation} hex Where the robber is being moved to
- */
-ClientModel.prototype.robPlayer = function (robbedPlayerIndex, hex) {
-  this.gameboard.robPlayer(this.playerIndex, robbedPlayerIndex, hex)
-}
-
-/**
- * Get info for the players on a given hex (excluding the current player)
- * @param {HexLocation} hex
- */
-ClientModel.prototype.getRobPlayerInfo = function (hex) {
-  var currentPlayer = this.playerIndex
-    , players = this.gameboard.players
-  return this.gameboard.map.playersOnHex(hex).map(function (pid) {
-    return players[pid].robInfo(pid)
-  }).filter(function (player) {
-    return player.playerNum !== currentPlayer && player.cards > 0
-  })
-}
-
-/**
- * Get a map of playerId to color
- * @method getPlayerColors
- * @return {object}
- */
-ClientModel.prototype.getPlayerColors = function () {
-  return this.gameboard.players.map(function (player) { return player.color })
-}
+//---------------------------------------------------------------------------------------
+//Functions called by multiple controllers
+//---------------------------------------------------------------------------------------
 
 /**
  * Get the player whose turn it is
  * @return {Player} current player
  */
 ClientModel.prototype.getCurrentPlayer = function() {
-
   return this.gameboard.getPlayerByIndex(this.gameboard.turnTracker.currentPlayerIndex())
 }
 
@@ -169,40 +135,7 @@ ClientModel.prototype.getCurrentPlayer = function() {
  * @return {Player} Client player
  */
 ClientModel.prototype.getClientPlayer = function() {
-  
   return this.gameboard.getPlayerByIndex(this.playerIndex)
-}
-
-/**
- * <pre>
- * Pre-condition: give a valid string
- * Post-conition: returns only the first player with the name, or undefined if not player has that name
- * </pre>
- * Get the player by their first name
- * @param  {string} name Name of the player
- * @return {Player}      The first player with this name.
- */
-ClientModel.prototype.getPlayerByName = function(name) {
-  var players = this.gameboard.players;
-  for(var i = 0; i < players.length; i++){
-    if(players[i].name == name){
-      return players[i];
-    }
-  }
-  console.err('BAD PLAYER NAME');
-}
-
-
-/**
- * Determines if a player can finish their turn
- * @return {boolean}             True if the player has finished their turn.
- */
-ClientModel.prototype.canEndTurn = function(){
-  if(!this.isMyTurn())
-    return false;
-  if(this.sentTradeOffer())
-    return false;
-  return this.getCurrentStatus() != 'Rolling';
 }
 
 /**
@@ -230,6 +163,10 @@ ClientModel.prototype.getCurrentStatus = function(){
   return this.gameboard.turnTracker.status;
 }
 
+//---------------------------------------------------------------------------------------
+//Functions called by CardController
+//---------------------------------------------------------------------------------------
+
 /**
  * Checks to see if the client player can play the road building card. They
  * must have the card and at least one road.
@@ -239,13 +176,27 @@ ClientModel.prototype.canPlayerPlayRoadBuilding = function () {
   return this.getClientPlayer().canPlayRoadBuilding() && this.getClientPlayer().roads >= 2
 }
 
+//---------------------------------------------------------------------------------------
+//Functions called by CommController
+//---------------------------------------------------------------------------------------
+
 /**
- * Checks to see if the client player can buy a dev card.
- * Checks the bank for number of dev cards and the player for resources
- * @return {boolean}
+ * <pre>
+ * Pre-condition: give a valid string
+ * Post-conition: returns only the first player with the name, or undefined if not player has that name
+ * </pre>
+ * Get the player by their first name
+ * @param  {string} name Name of the player
+ * @return {Player}      The first player with this name.
  */
-ClientModel.prototype.canPlayerBuyDevCard = function () {
-  return this.getClientPlayer().canBuyDevCard() && this.gameboard.deck.canDrawCard()
+ClientModel.prototype.getPlayerByName = function(name) {
+  var players = this.gameboard.players;
+  for(var i = 0; i < players.length; i++){
+    if(players[i].name == name){
+      return players[i];
+    }
+  }
+  console.err('BAD PLAYER NAME');
 }
 
 ClientModel.prototype.getCommLines = function(commType){
@@ -354,6 +305,47 @@ ClientModel.prototype.getDomesticPlayerInfo = function () {
 }
 
 //---------------------------------------------------------------------------------------
+//Functions called by MapController
+//---------------------------------------------------------------------------------------
+
+/**
+ * Get info for the players on a given hex (excluding the current player)
+ * @param {HexLocation} hex
+ */
+ClientModel.prototype.getRobPlayerInfo = function (hex) {
+  var currentPlayer = this.playerIndex
+    , players = this.gameboard.players
+  return this.gameboard.map.playersOnHex(hex).map(function (pid) {
+    return players[pid].robInfo(pid)
+  }).filter(function (player) {
+    return player.playerNum !== currentPlayer && player.cards > 0
+  })
+}
+
+/**
+ * The current player robs another player
+ * <pre>
+ * Pre-condition: robbedPlayerIndex is not the current player, and the current
+ * player is allowed to rob someone.
+ * Post-condition (async!): the robbery happens
+ *
+ * @param {int} robbedPlayerIndex The player to be robbed
+ * @param {HexLocation} hex Where the robber is being moved to
+ */
+ClientModel.prototype.robPlayer = function (robbedPlayerIndex, hex) {
+  this.gameboard.robPlayer(this.playerIndex, robbedPlayerIndex, hex)
+}
+
+/**
+ * Get a map of playerId to color
+ * @method getPlayerColors
+ * @return {object}
+ */
+ClientModel.prototype.getPlayerColors = function () {
+  return this.gameboard.players.map(function (player) { return player.color })
+}
+
+//---------------------------------------------------------------------------------------
 //Functions called by MaritimeController
 //---------------------------------------------------------------------------------------
 
@@ -397,4 +389,33 @@ ClientModel.prototype.getPointStatus = function () {
   }
 
   return pointStatus;
+}
+
+//---------------------------------------------------------------------------------------
+//Functions called by ResourcesController
+//---------------------------------------------------------------------------------------
+
+/**
+ * Checks to see if the client player can buy a dev card.
+ * Checks the bank for number of dev cards and the player for resources
+ * @return {boolean}
+ */
+ClientModel.prototype.canPlayerBuyDevCard = function () {
+  return this.getClientPlayer().canBuyDevCard() && this.gameboard.deck.canDrawCard()
+}
+
+//---------------------------------------------------------------------------------------
+//Functions called by TrackerController
+//---------------------------------------------------------------------------------------
+
+/**
+ * Determines if a player can finish their turn
+ * @return {boolean}             True if the player has finished their turn.
+ */
+ClientModel.prototype.canEndTurn = function(){
+  if(!this.isMyTurn())
+    return false;
+  if(this.sentTradeOffer())
+    return false;
+  return this.getCurrentStatus() != 'Rolling';
 }
