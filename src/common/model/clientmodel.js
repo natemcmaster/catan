@@ -390,5 +390,5 @@ ClientModel.prototype.getMaritimeGiveOptions = function(ratios) {
 }
 
 ClientModel.prototype.getMaritimeGetOptions = function() {
-  return this.bank.getAvailableResources();
+  return this.gameboard.bank.getAvailableResources();
 }
