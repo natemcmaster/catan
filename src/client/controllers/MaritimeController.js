@@ -1,7 +1,3 @@
-// inputResource is undefined when 3:1
-// inputResrouce is the resrouce if 2:1
-// Loop through each port and ass
-
 //STUDENT-EDITABLE-BEGIN
 /**
 	This is the namespace for maritime trading
@@ -27,10 +23,11 @@ var Controller = require('./BaseController');
 	*/
 function MaritimeController(view,clientModel){
 	Controller.call(this,view,clientModel);
-	this.clientModel = clientModel;
+	
 	this.ratios = null;
 	this.giveOptions = null;
 	this.getOptions = null;
+	this.tradeRatio = null;
 	this.resourceToGive = null;
 	this.resourceToGet = null;
 };
@@ -38,7 +35,10 @@ function MaritimeController(view,clientModel){
 MaritimeController.prototype = core.inherit(Controller.prototype);
 
 /**
-*  onUpdate
+* Called by the client model every time the model changes.
+* Overrides onUpdate in BaseController
+* @method onUpdate
+* @return void
 */
 MaritimeController.prototype.onUpdate = function(){
 	if(this.clientModel.isMyTurn() && this.clientModel.getCurrentStatus() == "Playing") {
@@ -67,8 +67,10 @@ MaritimeController.prototype.onUpdate = function(){
 MaritimeController.prototype.unsetGiveValue = function(){
 	this.resourceToGive = null;
 	this.resourceToGet = null;
-	this.view.showGiveOptions(this.giveOptions);
+	this.tradeRatio = null;
+	
 	this.view.hideGetOptions();
+	this.view.showGiveOptions(this.giveOptions);
 	this.view.enableTradeButton(false);
 	this.view.setMessage("Choose the resource you want to give");
 };
@@ -93,10 +95,10 @@ MaritimeController.prototype.unsetGetValue = function(){
  */
 MaritimeController.prototype.setGiveValue = function(resource){
 	this.resourceToGive = resource;
-	this.tradeRatio = this.ratios[unCapFirst(resource)];
+	this.tradeRatio = this.ratios[resource];
 	
-	this.view.showGetOptions(this.getOptions);
 	this.view.selectGiveOption(resource, this.tradeRatio);
+	this.view.showGetOptions(this.getOptions);
 	this.view.setMessage("Choose the resource you want to recieve");
 };
 
@@ -118,16 +120,10 @@ MaritimeController.prototype.setGetValue = function(resource){
  * @return void
  */
 MaritimeController.prototype.makeTrade = function(){
-	this.clientModel.getClientPlayer().maritimeTrade(this.tradeRatio, capFirst(this.resourceToGive), capFirst(this.resourceToGet));
-	this.unsetGetValue()
-	this.unsetGiveValue()
+	this.clientModel.getClientPlayer().maritimeTrade(this.tradeRatio, this.resourceToGive, this.resourceToGet);
+
+	this.unsetGetValue();
+	this.unsetGiveValue();
+	this.view.enableTradeButton(false);
 	this.view.setMessage("Choose resource to give");
-};
-
-function capFirst(str){
-	return str[0].toUpperCase() + str.slice(1);
-};
-
-function unCapFirst(str){
-	return str[0].toLowerCase() + str.slice(1);
 };
