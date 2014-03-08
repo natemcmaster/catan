@@ -180,23 +180,8 @@ ClientModel.prototype.canPlayerPlayRoadBuilding = function () {
 //Functions called by CommController
 //---------------------------------------------------------------------------------------
 
-/**
- * <pre>
- * Pre-condition: give a valid string
- * Post-conition: returns only the first player with the name, or undefined if not player has that name
- * </pre>
- * Get the player by their first name
- * @param  {string} name Name of the player
- * @return {Player}      The first player with this name.
- */
-ClientModel.prototype.getPlayerByName = function(name) {
-  var players = this.gameboard.players;
-  for(var i = 0; i < players.length; i++){
-    if(players[i].name == name){
-      return players[i];
-    }
-  }
-  console.err('BAD PLAYER NAME');
+ClientModel.prototype.getPlayerByName = function(name){
+  return this.gameboard.getPlayerByName(name);
 }
 
 ClientModel.prototype.getCommLines = function(commType){
@@ -219,24 +204,11 @@ ClientModel.prototype.getCommLines = function(commType){
 /**
  * Checks if the player can offer a trade with the given resources
  * @param  {int} tradePlayerIndex who will receive this offer
- * @param  {int} brick            number of this resource
- * @param  {int} ore              number of this resource
- * @param  {int} sheep            number of this resource
- * @param  {int} wheat            number of this resource
- * @param  {int} wood             number of this resource
+ * @param  {object} offer            the number of all resources offered/requested
  * @return {boolean}  true only when this is a valid trade                 
  */
 ClientModel.prototype.canOfferTrade = function(tradePlayerIndex,offer){
-  var player = this.getClientPlayer();
-  if(!this.gameboard.getPlayerByIndex(tradePlayerIndex))
-    return false;
-  
-  for(var i in ResourceTypes){
-    var r = ResourceTypes[i];
-    if(player.resources[r] < offer[r])
-      return false;
-  }
-  return true;
+  return this.gameboard.canOfferTrade(this.playerIndex,tradePlayerIndex,offer);
 }
 
 /**
@@ -244,9 +216,7 @@ ClientModel.prototype.canOfferTrade = function(tradePlayerIndex,offer){
  * @return {boolean} true when the client player has received an offer and has not yet responded
  */
 ClientModel.prototype.receivedTradeOffer = function(){
-  if(!this.gameboard.tradeOffer)
-    return false;
-  return this.gameboard.tradeOffer.receiverIndex == this.playerIndex;
+  return this.gameboard.hasReceivedTradeOffer(this.playerIndex);
 }
 
 /**
@@ -254,9 +224,7 @@ ClientModel.prototype.receivedTradeOffer = function(){
  * @return {boolean} true when the client player has sent a trade offer 
  */
 ClientModel.prototype.sentTradeOffer = function(){
-  if(!this.gameboard.tradeOffer)
-    return false;
-  return this.gameboard.tradeOffer.senderIndex == this.playerIndex;
+  return this.gameboard.hasSentTradeOffer(this.playerIndex);
 }
 
 /**
@@ -264,44 +232,20 @@ ClientModel.prototype.sentTradeOffer = function(){
  * @return {string} Name of trade sender
  */
 ClientModel.prototype.getTradeSenderName = function(){
-  var sender = this.gameboard.getPlayerByIndex(this.gameboard.tradeOffer.senderIndex);
-  return sender.name;
+  return this.gameboard.getTradeSenderName();
 }
 
 /**
- * <pre>
- * Pre-condition: player has received an ovver
- * Post-condition: it is correct
- * </pre>
  * Checks if client player has enough resources to accept the outstanding trade offer.
- * @return {[type]} [description]
+ * @return {Boolean} True if the client player can accept the trade 
  */
 ClientModel.prototype.canAcceptTrade = function(){
-  if(!this.receivedTradeOffer())
-    return false;
-  var receiver = this.gameboard.getPlayerByIndex(this.gameboard.tradeOffer.receiverIndex);
-  for(var i in ResourceTypes){
-    var r = ResourceTypes[i];
-    if(Math.abs(this.gameboard.tradeOffer.offer[r]) > receiver.resources[r] && this.gameboard.tradeOffer.offer[r] < 0)
-      return false;
-  }
-  return true;
+  return this.gameboard.canAcceptTrade(this.playerIndex);
 }
 
 // Build a list of the objects used by the DomesticController
 ClientModel.prototype.getDomesticPlayerInfo = function () {
-	var players = this.gameboard.players;
-	var otherPlayers = [];
-	for (var i in players) {
-		if (players[i].playerIndex != this.playerIndex) {
-			otherPlayers.push({
-				name: players[i].name,
-				color: players[i].color,
-				index: players[i].playerIndex,
-			});
-		}
-	}
-  return otherPlayers;
+	return this.gameboard.getDomesticPlayerInfo(this.playerIndex);
 }
 
 //---------------------------------------------------------------------------------------
