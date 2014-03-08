@@ -232,7 +232,7 @@ ClientModel.prototype.getCurrentStatus = function(){
 
 /** === Trade functionality === **/
 
-/**w
+/**
  * Checks if the player can offer a trade with the given resources
  * @param  {int} tradePlayerIndex who will receive this offer
  * @param  {int} brick            number of this resource
@@ -351,6 +351,26 @@ ClientModel.prototype.getDomesticPlayerInfo = function () {
   return otherPlayers;
 }
 
+//---------------------------------------------------------------------------------------
+//Functions called by MaritimeController
+//---------------------------------------------------------------------------------------
+
+ClientModel.prototype.getMaritimeResourceRatios = function() {
+  return this.gameboard.map.getResourceRatios(this.getClientPlayer().playerIndex);
+}
+
+ClientModel.prototype.getMaritimeGiveOptions = function(ratios) {
+  return this.getClientPlayer().getMaritimeGiveOptions(ratios);
+}
+
+ClientModel.prototype.getMaritimeGetOptions = function() {
+  return this.gameboard.bank.getAvailableResources();
+}
+
+//---------------------------------------------------------------------------------------
+//Functions called by PointController
+//---------------------------------------------------------------------------------------
+
 ClientModel.prototype.getPointStatus = function () {
 
   var pointStatus = {};
@@ -375,20 +395,4 @@ ClientModel.prototype.getPointStatus = function () {
   }
 
   return pointStatus;
-}
-
-//---------------------------------------------------------------------------------------
-//Functions called by MaritimeController
-//---------------------------------------------------------------------------------------
-
-ClientModel.prototype.getMaritimeResourceRatios = function() {
-  return this.gameboard.map.getResourceRatios(this.getClientPlayer().playerIndex);
-}
-
-ClientModel.prototype.getMaritimeGiveOptions = function(ratios) {
-  return this.getClientPlayer().getMaritimeGiveOptions(ratios);
-}
-
-ClientModel.prototype.getMaritimeGetOptions = function() {
-  return this.gameboard.bank.getAvailableResources();
 }
