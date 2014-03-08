@@ -429,17 +429,9 @@ Map.prototype.getResourceRatios = function(localPlayerIndex){
   for(var j=0; j < ports.length; j++){
     var p = ports[j];
     if(p.inputResource){
-      ratios[unCapFirst(p.inputResource)] = 2;
+      ratios[p.inputResource.toLowerCase()] = 2;
     }
   }
 
   return ratios;
-}
-
-function capFirst(str){
-  return str[0].toUpperCase() + str.slice(1);
-}
-
-function unCapFirst(str){
-  return str[0].toLowerCase() + str.slice(1);
 }
