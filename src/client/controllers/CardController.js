@@ -36,6 +36,29 @@ function DevCardController(view, buyView, clientModel, soldierAction, roadAction
 }
 
 /**
+* Called by the client model every time the model changes.
+* Overrides onUpdate in BaseController
+* @method onUpdate
+* @return void
+*/
+DevCardController.prototype.onUpdate = function() {
+	var clientPlayer = this.clientModel.getClientPlayer();
+
+	var playable = {
+		SOLDIER: clientPlayer.canPlaySoldier(),
+		YEAR_OF_PLENTY: clientPlayer.canPlayYearOfPlenty(),
+		MONOPOLY: clientPlayer.canPlayMonopoly(),
+		ROAD_BUILD: this.clientModel.canPlayerPlayRoadBuilding(),
+		MONUMENT: clientPlayer.canPlayMonument()
+	};
+
+	for (var card in playable) {
+		this.view.updateAmount(Definitions[card], clientPlayer.getNumberOfDevCards(Definitions[card]));
+		this.view.setCardEnabled(Definitions[card], playable[card])
+	}
+}
+
+/**
  * Called when the player buys a development card
  * @method buyCard
  * @return void
@@ -53,7 +76,7 @@ DevCardController.prototype.buyCard = function() {
  * @return void
  */
 DevCardController.prototype.useYearOfPlenty = function(resource1, resource2) {
-	this.clientModel.getClientPlayer().yearOfPlenty(capFirst(resource1), capFirst(resource2));
+	this.clientModel.getClientPlayer().yearOfPlenty(resource1, resource2);
 	this.view.clearView();
 	this.view.closeModal();
 }
@@ -65,7 +88,7 @@ DevCardController.prototype.useYearOfPlenty = function(resource1, resource2) {
  * @return void
  */
 DevCardController.prototype.useMonopoly = function(resource) {
-	this.clientModel.getClientPlayer().monopoly(capFirst(resource));
+	this.clientModel.getClientPlayer().monopoly(resource);
 	this.view.clearView();
 	this.view.closeModal();
 }
@@ -98,25 +121,4 @@ DevCardController.prototype.useSoldier = function() {
 DevCardController.prototype.useRoadBuild = function() {
 	this.roadAction();
 	this.view.closeModal();
-}
-
-DevCardController.prototype.onUpdate = function() {
-	var clientPlayer = this.clientModel.getClientPlayer();
-
-	var playable = {
-		SOLDIER: clientPlayer.canPlaySoldier(),
-		YEAR_OF_PLENTY: clientPlayer.canPlayYearOfPlenty(),
-		MONOPOLY: clientPlayer.canPlayMonopoly(),
-		ROAD_BUILD: this.clientModel.canPlayerPlayRoadBuilding(),
-		MONUMENT: clientPlayer.canPlayMonument()
-	};
-
-	for (var card in playable) {
-		this.view.updateAmount(Definitions[card], clientPlayer.getNumberOfDevCards(Definitions[card]));
-		this.view.setCardEnabled(Definitions[card], playable[card])
-	}
-}
-
-function capFirst(str) {
-	return str[0].toUpperCase() + str.slice(1);
 }
