@@ -93,7 +93,8 @@ var modules = {
 	},
 	log: function(model) {
 		var view = new catan.comm.View.LogView();
-		var controller = new Controllers.LogController(view, model);
+		var controller = new Controllers.BaseCommController(view, model,'log');
+		controller.onUpdate();
 		return [view, controller];
 	},
 	setup: function(model) {

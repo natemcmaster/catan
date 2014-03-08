@@ -20,9 +20,10 @@ BaseCommController.prototype = core.inherit(Controller.prototype);
 BaseCommController.prototype.contructor = BaseCommController;
 BaseCommController.prototype.commType = 'base';
 
-function BaseCommController(logView, model){
+function BaseCommController(logView, model, commType){
 	Controller.call(this,logView,model);
-
+	if(commType)
+		this.commType = commType;
 }
 
 // update the log lines
