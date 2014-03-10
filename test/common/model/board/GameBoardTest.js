@@ -35,7 +35,7 @@ suite('GameBoard', function() {
 			});
 			test('#robPlayer()', function() {
 				var expected = {
-					'type': 'Soldier',
+					'type': 'robPlayer',
 					'playerIndex': 1,
 					'victimIndex': 2,
 					'location': {
