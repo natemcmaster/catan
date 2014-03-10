@@ -305,6 +305,18 @@ ClientModel.prototype.getMaritimeGetOptions = function() {
   return this.gameboard.bank.getAvailableResources();
 }
 
+ClientModel.prototype.canMaritimeTrade = function(tradeRatio, resourceToGive, resourceToGet) {
+  return (this.isMyTurn() 
+          && this.getCurrentStatus() == 'Playing'
+          && this.gameboard.bank.canWithdraw(resourceToGet) 
+          && this.getClientPlayer().canMaritimeTrade(resourceToGive, tradeRatio));
+}
+
+ClientModel.prototype.maritimeTrade = function(tradeRatio, resourceToGive, resourceToGet) {
+  if (this.canMaritimeTrade(tradeRatio, resourceToGive, resourceToGet))
+    this.getClientPlayer().maritimeTrade(tradeRatio, resourceToGive, resourceToGet);
+}
+
 //---------------------------------------------------------------------------------------
 //Functions called by PointController
 //---------------------------------------------------------------------------------------

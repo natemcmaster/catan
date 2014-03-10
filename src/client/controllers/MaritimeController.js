@@ -120,7 +120,7 @@ MaritimeController.prototype.setGetValue = function(resource){
  * @return void
  */
 MaritimeController.prototype.makeTrade = function(){
-	this.clientModel.getClientPlayer().maritimeTrade(this.tradeRatio, this.resourceToGive, this.resourceToGet);
+	this.clientModel.maritimeTrade(this.tradeRatio, this.resourceToGive, this.resourceToGet);
 
 	this.unsetGetValue();
 	this.unsetGiveValue();
