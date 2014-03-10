@@ -1,6 +1,7 @@
 ﻿<project name="Catan Java" default="run" basedir=".">
 	<property name="out.dir" value="build" />
 	<target name="server" depends="copy,run" />
+	<target name="our-server" depends="server" />
 	<target name="copy">
 		<copy todir="${out.dir}">
 			<fileset dir="node_modules/byu-catan/" />
