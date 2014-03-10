@@ -44,7 +44,7 @@ suite('GameBoard', function() {
 					}
 				};
 
-				gb.robPlayer(expected.playerIndex, expected.victimIndex, new HexLocation(-3, 0));
+				gb.robPlayer(expected.playerIndex, expected.victimIndex, new HexLocation(-3, 0),true);
 
 				expect(mockProxy.lastCommand.getData()).to.deep.equal(expected);
 			});
