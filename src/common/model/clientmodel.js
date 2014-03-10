@@ -274,9 +274,10 @@ ClientModel.prototype.getRobPlayerInfo = function (hex) {
  *
  * @param {int} robbedPlayerIndex The player to be robbed
  * @param {HexLocation} hex Where the robber is being moved to
+ * @param {bool} free true if a 7 was rolled, false if a dev card is used
  */
-ClientModel.prototype.robPlayer = function (robbedPlayerIndex, hex) {
-  this.gameboard.robPlayer(this.playerIndex, robbedPlayerIndex, hex)
+ClientModel.prototype.robPlayer = function (robbedPlayerIndex, hex, free) {
+  this.gameboard.robPlayer(this.playerIndex, robbedPlayerIndex, hex, free)
 }
 
 /**

@@ -8,6 +8,7 @@ var Definitions = require('byu-catan').definitions;
 var ResourceTypes = Definitions.ResourceTypes;
 
 var RobPlayerCommand = require('../commands/RobPlayerCommand');
+var PlaySoldierCommand = require('../commands/PlaySoldierCommand');
 
 module.exports = GameBoard;
 
@@ -152,10 +153,15 @@ GameBoard.prototype.longRoadOwner = function () {
  * @param  {int} thiefId  The player stealing the cards
  * @param  {int} victimId The player getting stolen from
  * @param  {HexLocation} hex Where the robber is being moved to   
+ * @param  {bool} free true if a 7 was rolled, false if using DevCard
  * @return {null}        nothing
  */
-GameBoard.prototype.robPlayer = function(thiefId, victimId, hex) {
-	this.proxy.executeCommand(new RobPlayerCommand(thiefId, victimId, hex));
+GameBoard.prototype.robPlayer = function(thiefId, victimId, hex, free) {
+  if (free) {
+    this.proxy.executeCommand(new RobPlayerCommand(thiefId, victimId, hex));
+  } else {
+    this.proxy.executeCommand(new PlaySoldierCommand(thiefId, victimId, hex));
+  }
 	
 }
 

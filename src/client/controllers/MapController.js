@@ -88,7 +88,7 @@ MapController.prototype.setRobView = function (robView) {
 	@method robPlayer
 	*/
 MapController.prototype.robPlayer = function(orderID){
-  this.clientModel.robPlayer(orderID, this.placeState.robHex)
+  this.clientModel.robPlayer(orderID, this.placeState.robHex, this.placeState.free)
   this.robView.closeModal()
   this.placeState = null
 }
@@ -100,7 +100,7 @@ MapController.prototype.robPlayer = function(orderID){
  * @return void
  **/		
 MapController.prototype.doSoldierAction = function(){    
-  this.startMove('robber', true, false)
+  this.startMove('robber', false, false)
 }
 
 /**
