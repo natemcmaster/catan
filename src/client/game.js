@@ -61,25 +61,21 @@ var modules = {
 		var buildMoves = (this.gameType == 'setup') ? null : {
 			"Roads": function() {
 				this.controllers.map.startMove("Road", false);
-			},
+			}.bind(this),
 			"Cities": function() {
 				this.controllers.map.startMove("City", false);
-			},
+			}.bind(this),
 			"Settlements": function() {
 				this.controllers.map.startMove("Settlement", false);
-			},
+			}.bind(this),
 			"DevCards": function() {
 				this.views.useDevCard.showModal(true);
-			},
+			}.bind(this),
 			"BuyCard": function() {
 				this.views.buyDevCard.showModal(true);
-			}
+			}.bind(this)
 		};
-		if(buildMoves){
-			for(var m in buildMoves){
-				buildMoves[m].bind(this); // set scope on all move functions
-			}
-		}
+		
 		var controller = new Controllers.ResourcesController(view, model, buildMoves);
 		view.setController(controller);
 		controller.onUpdate();
