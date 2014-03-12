@@ -26,7 +26,7 @@ function RobPlayerCommand(playerIndex, victimIndex, robberSpot){
 }
 
 RobPlayerCommand.prototype = new AbstractCommand();
-RobPlayerCommand.prototype.url = '/moves/robPlayer';
+RobPlayerCommand.prototype._name = 'RobPlayer';
 
 /**
 <pre>

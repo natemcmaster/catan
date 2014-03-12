@@ -22,7 +22,7 @@ function BuyDevCardCommand(playerIndex){
 }
 
 BuyDevCardCommand.prototype = new AbstractCommand();
-BuyDevCardCommand.prototype.url = '/moves/buyDevCard';
+BuyDevCardCommand.prototype._name = 'BuyDevCard';
 
 /**
 <pre>

@@ -24,7 +24,7 @@ function RollDiceCommand(playerIndex, number){
 }
 
 RollDiceCommand.prototype = new AbstractCommand();
-RollDiceCommand.prototype.url = '/moves/rollNumber';
+RollDiceCommand.prototype._name = 'RollDice';
 
 /**
 <pre>

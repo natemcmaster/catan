@@ -25,7 +25,7 @@ function MaritimeTradeCommand(playerIndex, ratio, inputResource, outputResource)
 
 MaritimeTradeCommand.prototype = new AbstractCommand();
 
-MaritimeTradeCommand.prototype.url = '/moves/maritimeTrade';
+MaritimeTradeCommand.prototype._name = 'MaritimeTrade';
 
 /**
  * Returns data to send for the proxy

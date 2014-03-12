@@ -34,7 +34,7 @@ function OfferTradeCommand(playerIndex, receiverIndex, brick, ore, sheep, wheat,
 }
 
 OfferTradeCommand.prototype = new AbstractCommand();
-OfferTradeCommand.prototype.url = '/moves/offerTrade';
+OfferTradeCommand.prototype._name = 'OfferTrade';
 
 /**
 <pre>

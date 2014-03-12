@@ -1,4 +1,4 @@
-module.exports=PlayMonopolyCommand;
+module.exports = PlayMonopolyCommand;
 
 /**
  * 
@@ -12,7 +12,7 @@ var AbstractCommand = require('./AbstractCommand');
 Pre-condition: NONE
 Post-condition: NONE
 </pre>
-@class PlayMonopoplyCommand
+@class PlayMonopolyCommand
 @constructor 
 @param {int} playerIndex the index (NOT ID) of the player playing the card
 @param {int} resource the enumeration of the resource to be monopolized
@@ -24,7 +24,7 @@ function PlayMonopolyCommand(playerIndex, resource){
 }
 
 PlayMonopolyCommand.prototype = new AbstractCommand();
-PlayMonopolyCommand.prototype.url = '/moves/Monopoly';
+PlayMonopolyCommand.prototype._name = 'PlayMonopoly',
 
 /**
 <pre>

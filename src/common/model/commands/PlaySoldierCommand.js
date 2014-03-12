@@ -26,7 +26,7 @@ function PlaySoldierCommand(playerIndex, victimIndex, robberSpot){
 }
 
 PlaySoldierCommand.prototype = new AbstractCommand();
-PlaySoldierCommand.prototype.url = '/moves/Soldier';
+PlaySoldierCommand.prototype._name = 'PlaySoldier';
 
 /**
 <pre>

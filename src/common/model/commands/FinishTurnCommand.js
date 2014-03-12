@@ -22,7 +22,7 @@ function FinishTurnCommand(playerIndex){
 }
 
 FinishTurnCommand.prototype = new AbstractCommand();
-FinishTurnCommand.prototype.url = '/moves/finishTurn';
+FinishTurnCommand.prototype._name = 'FinishTurn';
 
 /**
 <pre>

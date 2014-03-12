@@ -26,7 +26,7 @@ function PlayYearOfPlentyCommand(playerIndex, resource1, resource2){
 }
 
 PlayYearOfPlentyCommand.prototype = new AbstractCommand();
-PlayYearOfPlentyCommand.prototype.url = '/moves/Year_of_Plenty';
+PlayYearOfPlentyCommand.prototype._name = 'PlayYearOfPlenty';
 
 /**
 <pre>

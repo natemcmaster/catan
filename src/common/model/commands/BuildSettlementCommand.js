@@ -26,7 +26,7 @@ function BuildSettlementCommand(playerIndex, settlementLocation, isFree){
 }
 
 BuildSettlementCommand.prototype = new AbstractCommand();
-BuildSettlementCommand.prototype.url = '/moves/buildSettlement';
+BuildSettlementCommand.prototype._name = 'BuildSettlement';
 
 /**
 <pre>

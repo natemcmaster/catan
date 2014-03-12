@@ -5,10 +5,12 @@
  */
 module.exports=AbstractCommand;
 
+var URLS = require('./Urls');
+
 function AbstractCommand(){
 }
 
-AbstractCommand.prototype.url = 'Forgot to Overide URL in sub-class';
+AbstractCommand.prototype._name = null;
 
 /**
 <pre>
@@ -19,5 +21,6 @@ Post-condition: NONE
 @return {String} returns the URL of the command 
 **/
 AbstractCommand.prototype.getURL = function() {
-	return this.url;
+	return URLS[this._name];
 };
+

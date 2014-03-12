@@ -24,7 +24,7 @@ function SendChatCommand(playerIndex, message) {
 }
 
 SendChatCommand.prototype = new AbstractCommand();
-SendChatCommand.prototype.url = '/moves/sendChat';
+SendChatCommand.prototype._name = 'SendChat';
 
 /**
 <pre>

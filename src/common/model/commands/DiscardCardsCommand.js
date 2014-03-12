@@ -32,7 +32,7 @@ function DiscardCardsCommand(playerIndex, brick, ore, sheep, wheat, wood){
 }
 
 DiscardCardsCommand.prototype = new AbstractCommand();
-DiscardCardsCommand.prototype.url = '/moves/discardCards';
+DiscardCardsCommand.prototype._name = 'DiscardCard';
 
 /**
 <pre>

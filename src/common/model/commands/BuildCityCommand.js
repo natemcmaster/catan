@@ -26,7 +26,7 @@ function BuildCityCommand(playerIndex, cityLocation, isFree){
 }
 
 BuildCityCommand.prototype = new AbstractCommand();
-BuildCityCommand.prototype.url = '/moves/buildCity';
+BuildCityCommand.prototype._name = 'BuildCity';
 
 /**
 <pre>

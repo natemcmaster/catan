@@ -17,7 +17,7 @@ function PlayMonumentCommand(playerIndex){
 }
 
 PlayMonumentCommand.prototype = new AbstractCommand();
-PlayMonumentCommand.prototype.url = '/moves/Monument';
+PlayMonumentCommand.prototype._name = 'PlayMonument';
 
 /**
 <pre>

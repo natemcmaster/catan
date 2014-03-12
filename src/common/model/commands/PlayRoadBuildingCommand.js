@@ -25,7 +25,7 @@ function PlayRoadBuildingCommand(playerIndex, location1,location2){
 }
 
 PlayRoadBuildingCommand.prototype = new AbstractCommand();
-PlayRoadBuildingCommand.prototype.url = '/moves/Road_Building';
+PlayRoadBuildingCommand.prototype._name = 'PlayRoadBuilding';
 
 /**
 <pre>

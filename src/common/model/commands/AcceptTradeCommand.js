@@ -1,4 +1,4 @@
-module.exports=AcceptTradeCommand;
+module.exports = AcceptTradeCommand;
 /**
  * 
  * @module catan.model.commands
@@ -24,19 +24,21 @@ function AcceptTradeCommand(playerIndex, willAccept){
 }
 
 AcceptTradeCommand.prototype = new AbstractCommand();
-AcceptTradeCommand.prototype.url = '/moves/acceptTrade';
+AcceptTradeCommand.prototype._name = 'AcceptTrade';
 
 /**
-<pre>
-Pre-condition: NONE
-Post-condition: NONE
-</pre>
-@method getData
-@return {JSON} returns the JSON object formatted as the server will want it
-**/
+ * <pre>
+ * Pre-condition: NONE
+ * Post-condition: NONE
+ * </pre>
+ * @method getData
+ * @return {JSON} returns the JSON object formatted as the server will want it
+ */
 AcceptTradeCommand.prototype.getData = function(){
-
-	return {'type':'acceptTrade',
-			'playerIndex' : this.playerIndex,
-			'willAccept' : this.willAccept};	
+	return {
+		'type':'acceptTrade',
+		'playerIndex' : this.playerIndex,
+		'willAccept' : this.willAccept
+	};
 };
+

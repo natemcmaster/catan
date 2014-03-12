@@ -26,7 +26,7 @@ function BuildRoadCommand(playerIndex, roadLocation, isFree) {
 }
 
 BuildRoadCommand.prototype = new AbstractCommand();
-BuildRoadCommand.prototype.url = '/moves/buildRoad';
+BuildRoadCommand.prototype._name = 'BuildRoad';
 
 /**
 <pre>
