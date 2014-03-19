@@ -4,8 +4,7 @@
 var express = require('express'),
     http = require('http'),
     path = require('path'),
-    authMiddleware = require('./middleware/auth'),
-    gameMiddleware = require('./middleware/game')
+    authware = require('./middleware/auth')
     ;
 
 var app = express();
@@ -17,10 +16,10 @@ app.set('port', process.env.PORT || 8081);
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.favicon());
 app.use(express.logger('dev'));
-app.use(express.cookieParser());
-app.use(authMiddleware);
-app.use(gameMiddleware);
+app.use(authware);
 //app.use(express.json());
+app.use(express.bodyParser());
+app.use(express.cookieParser());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(app.router);
