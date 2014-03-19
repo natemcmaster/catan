@@ -1,35 +1,42 @@
 
-/**
-This module containts functionality for the log
+var Messager = require('./Messager')
+  , util = require('util')
 
-@module catan.server.model
-@namespace servermodel
-**/
+/**
+ * This module containts functionality for the log
+ * 
+ * @module catan.server.model
+ * @namespace servermodel
+ */
 
 module.exports = Log;
 
-/**
-Keeps track of the log
-<pre>
-Invariant: the log always has room for more.
-</pre>
-@class Log
-@property entries Array Contains the entire message list
-@constructor
-**/
-function Log(log){
-	this.entries = log.lines;
-};
+util.inherits(Log, Messager);
 
 /**
-<pre>
-Pre-condition: NONE
-Post-condition: NONE
-</pre>
-@method mostRecentEntry
-@return {Object} Log entry containing detailed log info.
+ * Keeps track of the log
+ * <pre>
+ * Invariant: the log always has room for more.
+ * </pre>
+ * @class Log
+ * @property entries Array Contains the entire message list
+ * @constructor
+ */
+function Log(data) {
+  Messager.call(this, data);
+}
 
-**/
-Log.prototype.addEntry = function (logEntry) {
-	
-};
+/**
+ * <pre>
+ * Pre-condition: NONE
+ * Post-condition: a new entry is added to the end of the log
+ * </pre>
+ * @method addEntry
+ * @param {string} source name of player
+ * @param {string} message content of message
+ * @return {void}
+ */
+Log.prototype.addEntry = function (source, message) {
+  this.add(source, message)
+}
+
