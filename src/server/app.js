@@ -33,6 +33,18 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
+
+
+// making the game room
+var gameRoom = new GameRoom();
+
+app.use(function (req, res, next) {
+  req.gameRoom = gameRoom;
+  next();
+});
+
+
+
 // controller instantiation
 var controllers = require('./controllers');
 var model={};
@@ -44,3 +56,4 @@ for(var c in controllers){
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Server listening on port ' + app.get('port'));
 });
+
