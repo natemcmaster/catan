@@ -13,6 +13,7 @@ function BuildCityCommand(gameId, playerIndex, cityLocation, isFree) {
 }
 
 BuildCityCommand.prototype.executeOnGame = function (game) {
+  game.buildCity(this.playerIndex, this.cityLocation, this.isFree);
   // do something
 }
 
