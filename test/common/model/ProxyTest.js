@@ -12,8 +12,8 @@ suite('ProxyTest', function() {
 		cmd.prototype = new AbstractCommand;
 		cmd.constructor = AbstractCommand;
 
-		return function(url, data) {
-			cmd.prototype.url = url;
+		return function(name, data) {
+			cmd.prototype._name = name;
 			cmd.prototype.getData = function() {
 				return data;
 			}
@@ -30,17 +30,17 @@ suite('ProxyTest', function() {
 			});
 			var testCase = {
 				description: '',
-				url: 'testurl.com',
+				name: 'AcceptTrade',
 				data: {
 					'unit': 'testing'
 				}
 			};
 
-			proxy.executeCommand(cmdFactory(testCase.url, testCase.data));
+			proxy.executeCommand(cmdFactory(testCase.name, testCase.data));
 			var request = FakeQuery.lastRequest();
 			request.runDone();
 
-			expect(request.options.url).to.equal(testCase.url);
+			expect(request.options.url).to.equal('/moves/acceptTrade');
 			expect(JSON.parse(request.options.data)).to.deep.equal(testCase.data);
 			expect(loadedGameModel).to.be.true;
 		});
