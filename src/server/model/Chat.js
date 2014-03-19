@@ -1,5 +1,6 @@
 
-var SendChatCommand = require('./commands/SendChatCommand');
+var BaseModel = require('./BaseModel')
+  , util = require('util')
 
 /**
  * @module catan.server.model
@@ -7,6 +8,7 @@ var SendChatCommand = require('./commands/SendChatCommand');
  */
 
 module.exports = Chat;
+util.inherits(Chat, BaseModel);
 
 /**
  * <pre>
@@ -16,19 +18,22 @@ module.exports = Chat;
  * @constructor
  */
 function Chat(chat){
-	this.chat = chat.lines;
+  BaseModel.call(this, chat || {lines: []});
 };
 
 /**
  * <pre>
  * Pre-condition: NONE
- * Post-condition: The message is sent to all players (async!)
+ * Post-condition: A new message is appended to the list
  * </pre>
  * @method sendChat
- * @param {int} playerId id of player sending the message
+ * @param {string} playerName name of player sending the message
  * @param {string} message content of message
  * @return {void}
  */
-Chat.prototype.sendChat = function (playerId,message) {
-	
+Chat.prototype.sendChat = function (name, message) {
+  this.data.lines.push({
+    source: name,
+    message: message
+  })
 };

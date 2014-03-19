@@ -1,7 +1,7 @@
 
 var expect = require('chai').expect
 
-describe('Injector', function () {
+describe.skip('Injector', function () {
   var Injector, inj;
   before(function () {
     Injector = require('../../src/common/injector.js')
