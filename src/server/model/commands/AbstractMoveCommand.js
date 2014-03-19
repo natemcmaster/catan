@@ -10,7 +10,7 @@ function AbstractMoveCommand(gameid) {
 }
 
 AbstractCommand.prototype.execute = function (gameRoom) {
-  this.executeOnGame(gameRoom.getGame(this._gameid));
+  this.executeOnGame(gameRoom.getGameByID(this._gameid));
 }
 
 AbstractCommand.prototype.executeOnGame = function (game) {
