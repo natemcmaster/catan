@@ -173,8 +173,19 @@ module.exports = function(grunt) {
 					logErrors: true,
 					log: true
 				},
-				src: ['test/**/*.js']
-			}
+				src: ['test/client/**/*.js', 'test/common/**/*.js']
+			},
+      testServer: {
+				options: {
+					reporter: 'spec',
+					run: true,
+					ui: 'bdd',
+					bail: false,
+					logErrors: true,
+					log: true
+				},
+				src: ['test/server/**/*.js']
+      }
 		},
 		yuidoc: {
 			compile: {
@@ -216,6 +227,7 @@ module.exports = function(grunt) {
 
 		grunt.task.run(['mochaTest:test']);
 	});
+	grunt.registerTask('testServer', ['mochaTest:testServer']);
 	grunt.registerTask('coverage', ['mochacov']);
 	grunt.registerTask('serve', ['shell:serve']);
 	grunt.registerTask('docs', ['copy', 'yuidoc:compile']);
