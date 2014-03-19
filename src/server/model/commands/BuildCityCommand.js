@@ -1,4 +1,3 @@
-
 var AbstractMoveCommand = require('./AbstractMoveCommand')
   , util = require('util')
 
@@ -13,6 +12,8 @@ function BuildCityCommand(gameId, playerIndex, cityLocation, isFree) {
 }
 
 BuildCityCommand.prototype.executeOnGame = function (game) {
-  // do something
+
+	game.buildCity(this.playerIndex, this.cityLocation, this.isFree);
+	
 }
 
