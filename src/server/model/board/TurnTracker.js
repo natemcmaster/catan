@@ -1,18 +1,12 @@
+var BaseModel = require('../BaseModel');
+var util = require('util');
 
+module.exports = TurnTracker;
+util.inherits(TurnTracker, BaseModel);
 
-
-
-function TurnTracker(data){
-
-	var turnTracker = data.turnTracker || {'status' : 'FirstRound',
-										   'currentTurn' : 0};
-	this.currentTurn = turnTracker.currentTurn;
-
-	// Status can be Discarding, Robbing, Playing, Rolling, FirstRound, SecondRound
-	this.status = turnTracker.status;
-
+function TurnTracker(data) {
+	this.data = data. || {'status':'FirstRound','currentTurn':0};
 };
-
 
 TurnTracker.prototype.setStatus = function(status){
 
@@ -29,10 +23,3 @@ TurnTracker.prototype.nextTurn = function(){
 	}
 
 };
-
-TurnTracker.prototype.toJSON = function(){
-
-	return {'status' : this.status,
-			'currentTurn' : this.currentTurn};
-
-}

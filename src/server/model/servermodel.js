@@ -1,25 +1,18 @@
+var BaseModel = require('./BaseModel');
+var util = require('util');
+
 module.exports = ServerModel;
+util.inherits(ServerModel, BaseModel);
 
-/**
-  This module contains the top-level server model class
-  
-  @module   catan.server.model
-  @namespace servermodel
-*/
-
-if (typeof(catan) === 'undefined') catan = {}
-catan.models = catan.models || {};
-
-catan.models.ServerModel = ServerModel
 /** 
-* This the top-level server model class
+* This is the server model class
 
 * @class ServerModel
 * @constructor
-* @param {integer} playerID The id of the local player, extracted from the cookie
+* @param {data} playerID The id of the local player, extracted from the cookie
 */
 function ServerModel(data, $Log, $Chat, $GameBoard){
-  if(!data || !data.log || !data.chat || 'undefined' === typeof data.revision)
+  if(!data)
     throw new TypeError('invalid data model');
 
   this.log = $Log(data.log);
