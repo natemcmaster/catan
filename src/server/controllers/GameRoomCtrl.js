@@ -4,31 +4,28 @@ module.exports = GameRoomCtrl;
 
 var fs = require('fs');
 var path = require('path');
-var sampleJson = JSON.parse(fs.readFileSync(path.join(__dirname, './_sampledata.json')));
-
+var util = require('util');
 
 var BaseCtrl = require('./BaseCtrl');
 
+util.inherits(GameRoomCtrl, BaseCtrl);
 function GameRoomCtrl(app, model) {
 	BaseCtrl.call(this, app, model);
-
 }
-GameRoomCtrl.prototype = Object.create(BaseCtrl);
-GameRoomCtrl.constructor = GameRoomCtrl;
 
 GameRoomCtrl.prototype.assignRoutes = function(app) {
-	app.get('/games/list', this.listAll.bind(this));
-	app.post('/games/create', this.create.bind(this));
+  BaseCtrl.prototype.assignRoutes.call(this, app);
 	app.post('/games/join', this.join.bind(this));
-
 }
 
-GameRoomCtrl.prototype.listAll = function(q, r) {
-	r.json(sampleJson.gamesList);
+GameRoomCtrl.prototype.commands = {
+  '/games/create': CreateGameCommand,
 }
 
-GameRoomCtrl.prototype.create = function(q, r) {
-	r.json(sampleJson.gameCreate);
+GameRoomCtrl.prototype.getters = {
+  '/games/list': function (req, res) {
+    res.json(req.gameRoom.listAll());
+  }
 }
 
 GameRoomCtrl.prototype.join = function(q, r) {
@@ -37,3 +34,10 @@ GameRoomCtrl.prototype.join = function(q, r) {
 	});
 	r.send(200);
 }
+
+/*
+GameRoomCtrl.prototype.create = function(q, r) {
+	r.json(sampleJson.gameCreate);
+}
+*/
+

@@ -17,4 +17,7 @@ AbstractCommand.prototype.executeOnGame = function (game) {
   throw new Error('This must be overridden');
 }
 
+AbstractCommand.prototype.response = function (room) {
+  return room.getGameByID(this._gameid).toJSON()
+}
 
