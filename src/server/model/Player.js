@@ -80,6 +80,11 @@ Player.prototype.playYearOfPlenty = function(resource1, resource2){
 	this.oldDevCards['yearOfPlenty']--;
 }
 
+Player.prototype.finishTurn = function() {
+	this.updateDevCards();
+	this.playedDevCard = false;
+	this.discarded = false;
+}
 
 Player.prototype.updateDevCards = function(){
 

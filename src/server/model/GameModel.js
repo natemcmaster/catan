@@ -78,8 +78,8 @@ GameModel.prototype.robPlayer = function(playerIndex, victimIndex, location) {
 };
 
 GameModel.prototype.finishTurn = function(playerIndex) {
-	//TurnTracker
-	//player
+	this.turnTracker.finishTurn();
+	this.players[playerIndex].finishTurn();
 };
 
 GameModel.prototype.buyDevCard = function(playerIndex) {

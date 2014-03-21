@@ -13,11 +13,13 @@ TurnTracker.prototype.setStatus = function(status){
 	this.status = status;
 };
 
-TurnTracker.prototype.nextTurn = function(){
+TurnTracker.prototype.finishTurn = function(){
 
 	this.currentTurn++;
 
 	if(this.currentTurn > 3){
 		this.currentTurn = 0;
 	}
+
+	this.setStatus('Rolling');
 };
