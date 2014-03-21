@@ -1,21 +1,30 @@
 'use strict';
 
+var HttpError = require('../../common/').Errors.HttpError;
+
 module.exports = BaseCtrl;
 
-function BaseCtrl(app) {
-	this.assignRoutes(app);
+function BaseCtrl(app, inj) {
+  this.injector = inj;
+  this.assignRoutes(app, this.dynamicCall.bind(this));
 }
 
-BaseCtrl.prototype.commands = {};
-BaseCtrl.prototype.resources = {};
+BaseCtrl.prototype.assignRoutes = function(app, handler) {}
 
-BaseCtrl.prototype.assignRoutes = function(app) {
-  for (var path in this.resources) {
-    app.get(path, this.resources[path].bind(this));
-  }
-  for (var path in this.commands) {
-    app.post(path, this.commandRoute.bind(this, path));
-  }
+BaseCtrl.prototype.dynamicCall = function(func){
+  var op = this.injector.inject(func);
+  // Wrap the operation in error catching
+  return function handler(request,response) {
+    try {
+      op(request, response);
+    } catch (e) {
+      if (e instanceof HttpError) {
+        response.send(e.code, e.message);
+      } else {
+        response.send(500, 'Server Error: ' + e.message + '\n'+e.stack);
+      }
+    }
+  };
 }
 
 // Constructs a command from the argument body
@@ -75,4 +84,3 @@ BaseCtrl.prototype.commandRoute = function (path, req, res) {
   }
   res.json(response);
 }
-

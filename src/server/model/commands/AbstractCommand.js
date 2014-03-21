@@ -1,6 +1,8 @@
 module.exports = AbstractCommand;
 
-function AbstractCommand(){}
+function AbstractCommand($Logger){
+	this.logger=$Logger();
+}
 
 AbstractCommand.fromJSON = function(){
 

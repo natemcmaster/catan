@@ -1,4 +1,2 @@
-module.exports={
-	RegisterUserCommand:require('./RegisterUserCommand'),
-	UserLoginCommand:require('./UserLoginCommand'),
-};
+var exportDir = require('export-dir');
+module.exports = exportDir(__dirname);

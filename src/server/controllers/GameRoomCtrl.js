@@ -3,29 +3,31 @@
 module.exports = GameRoomCtrl;
 
 var fs = require('fs');
-var path = require('path');
-var util = require('util');
+var path = require('path'),
+	util = require('util');
+var sampleJson = JSON.parse(fs.readFileSync(path.join(__dirname, './_sampledata.json')));
+
 
 var BaseCtrl = require('./BaseCtrl');
 
-util.inherits(GameRoomCtrl, BaseCtrl);
-function GameRoomCtrl(app, model) {
-	BaseCtrl.call(this, app, model);
+function GameRoomCtrl(app, inj) {
+	BaseCtrl.call(this, app, inj);
+}
+util.inherits(GameRoomCtrl,BaseCtrl);
+
+GameRoomCtrl.prototype.assignRoutes = function(app,h) {
+	app.get('/games/list', h(this.listAll));
+	app.post('/games/create', h(this.create));
+	app.post('/games/join', h(this.join));
+
 }
 
-GameRoomCtrl.prototype.assignRoutes = function(app) {
-  BaseCtrl.prototype.assignRoutes.call(this, app);
-	app.post('/games/join', this.join.bind(this));
+GameRoomCtrl.prototype.listAll = function(q, r) {
+	r.json(sampleJson.gamesList);
 }
 
-GameRoomCtrl.prototype.commands = {
-  '/games/create': CreateGameCommand,
-}
-
-GameRoomCtrl.prototype.resources = {
-  '/games/list': function (req, res) {
-    res.json(req.gameRoom.listAll());
-  }
+GameRoomCtrl.prototype.create = function(q, r) {
+	r.json(sampleJson.gameCreate);
 }
 
 GameRoomCtrl.prototype.join = function(q, r) {
@@ -34,10 +36,3 @@ GameRoomCtrl.prototype.join = function(q, r) {
 	});
 	r.send(200);
 }
-
-/*
-GameRoomCtrl.prototype.create = function(q, r) {
-	r.json(sampleJson.gameCreate);
-}
-*/
-

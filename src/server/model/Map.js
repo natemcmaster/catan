@@ -8,14 +8,14 @@ var util = require('util');
  * @namespace model
  */
 
-var hexgrid = require('./hexgrid')
-  , HexGrid = hexgrid.HexGrid
-  , HexLocation = hexgrid.HexLocation
-  , VertexLocation = hexgrid.VertexLocation
-  , VertexDirection = hexgrid.VertexDirection
-  , Hex = require('./Hex')
-  , NumberTiles = require('./NumberTiles')
-  , Port = require('./Port')
+// var hexgrid = require('./hexgrid')
+//   , HexGrid = hexgrid.HexGrid
+//   , HexLocation = hexgrid.HexLocation
+//   , VertexLocation = hexgrid.VertexLocation
+//   , VertexDirection = hexgrid.VertexDirection
+//   , Hex = require('./Hex')
+//   , NumberTiles = require('./NumberTiles')
+//   , Port = require('./Port')
 
 module.exports = Map;
 util.inherits(Map, BaseModel);

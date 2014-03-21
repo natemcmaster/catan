@@ -1,5 +1,5 @@
 module.exports = GameRoom;
-
+var _ = require('underscore');
 /**
   This module contains the game room
   
@@ -14,9 +14,11 @@ module.exports = GameRoom;
 * @constructor
 * @param {integer} playerID The id of the local player, extracted from the cookie
 */
-function GameRoom(users, games){
-  this.users = users;
-  this.games = games;
+function GameRoom(users, games, $User, $UserIDGenerator){
+  this.users = users || [];
+  this.games = games || [];
+  this.makeUser = $User;
+  this.idGen = $UserIDGenerator();
 };
 
 GameRoom.prototype.getGameByID = function(gameID) {
@@ -28,11 +30,23 @@ GameRoom.prototype.getGameByID = function(gameID) {
 //--------------------------------------------------------------
 
 GameRoom.prototype.login = function(username, password) {
-
+	var user = _(this.users).find(function(u){
+		return u.username == username;
+	});
+	if(!user || user.password !== password)
+		return false;
+	return user;
 };
 
 GameRoom.prototype.registerUser = function(username, password) {
-
+	var user = _(this.users).find(function(u){
+		return u.username == username;
+	});
+	if(user)
+		return false;
+	var user=this.makeUser(username,password,this.idGen.next());
+	this.users.push(user);
+	return user;
 };
 
 GameRoom.prototype.listGames = function() {

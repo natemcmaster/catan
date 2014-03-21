@@ -1,5 +1,6 @@
 module.exports = Injector;
-var InjectorError = require('./Errors').InjectorError;
+var InjectorError = require('./Errors').InjectorError,
+  util = require('util');
 
 function Injector() {
   this.dependencies = {};
@@ -29,11 +30,11 @@ Injector.prototype.register = function(id, obj) {
  * Example: inj.map({'Bank':MockBank})
  * is the same as inj.register('Bank',MockBank)
  * @param  {object} mapping key value pairs of id an constructors
- * @return {void}    
+ * @return {void}
  */
-Injector.prototype.map = function(mp){
-  for(var id in mp){
-    this.register(id,mp[id]);
+Injector.prototype.map = function(mp) {
+  for (var id in mp) {
+    this.register(id, mp[id]);
   }
 }
 
@@ -66,16 +67,16 @@ Injector.prototype.create = function(name) {
  * @param  {Function} func Function to inject
  * @return {Function}      Function with matched dependencies
  */
-Injector.prototype.inject = function(func){
-  var dep = new Dependency(func); 
-  var args=[];
-  for(var x in dep.dependencies){
-    args.push(namedFactory.call(this,dep.dependencies[x]));
+Injector.prototype.inject = function(func) {
+  var dep = new Dependency(func);
+  var args = [];
+  for (var x in dep.dependencies) {
+    args.push(namedFactory.call(this, dep.dependencies[x]));
   };
 
-  return function(){
-    var a = Array.prototype.slice.call(arguments,0).concat(args);
-    return func.apply(this,a);
+  return function() {
+    var a = Array.prototype.slice.call(arguments, 0).concat(args);
+    return func.apply(this, a);
   };
 }
 
@@ -93,13 +94,20 @@ var namedFactory = function(name, stack) {
     dependents.push(namedFactory.call(this, dep.dependencies[i], stack));
   };
 
-  return dynamicConstructor(dep.initializer,dependents,dep.variables);
+  return dynamicConstructor(dep.initializer, dependents, dep.variables);
 }
 
-var dynamicConstructor = function(initializer,dependents,variables){
+var dynamicConstructor = function(initializer, dependents, variables) {
   return function() {
-    var dataArgs = Array.prototype.slice.call(arguments, 0, variables.length);
-    var args = dataArgs.concat(dependents);
+    var args = Array.prototype.slice.call(arguments, 0);
+    //Aligh data arguments with the constructor
+    var dataArgs = args.splice(0, variables.length);
+    if (dataArgs.length < variables.length) {
+      dataArgs = dataArgs.concat(new Array(variables.length - dataArgs.length));
+    }
+    var a = dataArgs.concat(dependents);
+    // apply eny left over args
+    a = a.concat(args);
     var obj, instance;
 
     function fakeConstructor() {}
@@ -107,7 +115,7 @@ var dynamicConstructor = function(initializer,dependents,variables){
     obj = new fakeConstructor();
     obj.constructor = initializer.constructor;
 
-    instance = initializer.apply(obj, args);
+    instance = initializer.apply(obj, a);
 
     if (instance !== null && (typeof instance === "object" || typeof instance === "function")) {
       obj = instance;

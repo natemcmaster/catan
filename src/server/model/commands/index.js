@@ -1,6 +1,2 @@
-module.exports = {
-	'AbstractCommand' : require('./AbstractCommand'),
-	'game':require('./gameCommands/'),
-	'move':require('./moveCommands/'),
-	'user':require('./userCommands/')
-};
+var exportDir = require('export-dir');
+module.exports = exportDir(__dirname);

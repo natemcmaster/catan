@@ -1,21 +1,2 @@
-module.exports = {
-	AbstractMoveCommand: require('./AbstractMoveCommand'),
-	AcceptTradeCommand: require('./AcceptTradeCommand'),
-	BuildCityCommand: require('./BuildCityCommand'),
-	BuildRoadCommand: require('./BuildRoadCommand'),
-	BuildSettlementCommand: require('./BuildSettlementCommand'),
-	BuyDevCardCommand: require('./BuyDevCardCommand'),
-	DiscardCardsCommand: require('./DiscardCardsCommand'),
-	FinishTurnCommand: require('./FinishTurnCommand'),
-	MartimeTradeCommand: require('./MartimeTradeCommand'),
-	OfferTradeCommand: require('./OfferTradeCommand'),
-	PlayMonopolyCommand: require('./PlayMonopolyCommand'),
-	PlayMonumentCommand: require('./PlayMonumentCommand'),
-	PlayRoadBuildingCommand: require('./PlayRoadBuildingCommand'),
-	PlaySoldierCommand: require('./PlaySoldierCommand'),
-	PlayYearOfPlentyCommand: require('./PlayYearOfPlentyCommand'),
-	ResetGameCommand: require('./ResetGameCommand'),
-	RobPlayerCommand: require('./RobPlayerCommand'),
-	RollDiceCommand: require('./RollDiceCommand'),
-	SendChatCommand: require('./SendChatCommand'),
-};
+var exportDir = require('export-dir');
+module.exports = exportDir(__dirname);

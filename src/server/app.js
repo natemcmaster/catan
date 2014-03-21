@@ -6,8 +6,10 @@ var express = require('express'),
     path = require('path'),
     authMiddleware = require('./middleware/auth'),
     gameMiddleware = require('./middleware/game')
-    Injector = require('../common/Injector')
+    Injector = require('../common').Injector
     ;
+    
+global.HttpError = require('../common/Errors').HttpError;
 
 var app = express();
 
@@ -21,23 +23,15 @@ app.use(express.logger('dev'));
 app.use(express.cookieParser());
 app.use(authMiddleware);
 app.use(gameMiddleware);
-//app.use(express.json());
+app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
-app.use(app.router);
-
-
-app.use('/',express.static(path.resolve(buildRoot, './gameplay')));
-app.use('/docs/',express.static(path.resolve(buildRoot, './docs/')));
-
-// development only
-if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
-}
+app.use(express.bodyParser());
 
 var config = require('./config');
 var injector = new Injector();
 injector.map(config.runtime);
+injector.map(config.repo.memory); // store everything in memory
 
 // making the game room
 var gameRoom = injector.create('GameRoom');
@@ -47,12 +41,19 @@ app.use(function (req, res, next) {
   next();
 });
 
-
+app.use(app.router);
+app.use('/',express.static(path.join(buildRoot, 'gameplay')));
+app.use('/docs/',express.static(path.join(buildRoot, 'docs')));
 
 // controller instantiation
 var controllers = require('./controllers');
 for(var c in controllers){
-	var d = new controllers[c](app);
+  var d = new controllers[c](app,injector);
+}
+
+// development only
+if ('development' == app.get('env')) {
+  app.use(express.errorHandler());
 }
 
 // start server
