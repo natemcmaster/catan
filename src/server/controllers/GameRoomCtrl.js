@@ -19,7 +19,6 @@ GameRoomCtrl.prototype.assignRoutes = function(app,h) {
 	app.get('/games/list', h(this.listAll));
 	app.post('/games/create', h(this.create));
 	app.post('/games/join', h(this.join));
-
 }
 
 GameRoomCtrl.prototype.listAll = function(q, r, $ListGamesCommand) {
@@ -30,8 +29,17 @@ GameRoomCtrl.prototype.listAll = function(q, r, $ListGamesCommand) {
 	 })
 }
 
-GameRoomCtrl.prototype.create = function(q, r) {
-	r.json(sampleJson.gameCreate);
+GameRoomCtrl.prototype.create = function(q, r, $CreateGameCommand) {
+	var name =q.param('name');
+	if(!name)
+		throw new BaseCtrl.HttpError(400,'Missing name');
+	
+	$CreateGameCommand(name,!!q.param('randomHexes'), !!q.param('randomTiles'), !!q.param('randomtile'))
+	.execute(q.gameRoom, function(err,data){
+		if(err)
+			throw new BaseCtrl.HttpError(500);
+		r.json(data);
+	});
 }
 
 GameRoomCtrl.prototype.join = function(q, r) {

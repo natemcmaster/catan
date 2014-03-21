@@ -53,25 +53,32 @@ GameRoom.prototype.registerUser = function(username, password) {
 	return user;
 };
 
-GameRoom.prototype.listGames = function() {
-	return _(this.games).map(function(s){
-		var players = _(s.model.players).map(function(p){
-			return {
-				name: p.name,
-				id: p.playerID,
-				color: p.color
-			};
-		});
+var gameSummary = function(s){
+	var players = _(s.model.players).map(function(p){
 		return {
-			title: s.title,
-			id: s.id,
-			players: players
-		}
+			name: p.name,
+			id: p.playerID,
+			color: p.color
+		};
 	});
+	return {
+		title: s.title,
+		id: s.id,
+		players: players
+	}
+}
+
+GameRoom.prototype.listGames = function() {
+	return _(this.games).map(gameSummary);
 };
 
-GameRoom.prototype.createGame = function(randomTiles, randomNumbers, randomPorts, name) {
-
+GameRoom.prototype.createGame = function(title, randomTiles, randomNumbers, randomPorts) {
+	var newGame = this.gameRepo.create(title,randomTiles,randomNumbers,randomPorts);
+	if(newGame)
+		this.games.push(newGame);
+	else
+		throw new Error('Could not create game');
+	return gameSummary(newGame);
 };
 
 GameRoom.prototype.joinGame = function(color, gameID) {
