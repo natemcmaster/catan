@@ -1,4 +1,5 @@
 var expect = require('chai').expect
+var InjectorError = require('../../src/common/Errors').InjectorError;
 
 describe('Injector', function() {
 	var Injector, inj;
@@ -40,10 +41,8 @@ describe('Injector', function() {
 			else this.child = null;
 		}
 		inj.register('One', One);
-		var inst = inj.create('One', 2);
-		expect(inst.child).to.be.ok;
-		expect(inst.child.child).to.be.ok;
-		expect(inst.child.child.child).to.not.be.ok;
+		var inst = function(){inj.create('One', 2)};
+		expect(inst).to.throw(InjectorError);
 	})
 
 	it('#circular injection', function() {
@@ -56,9 +55,8 @@ describe('Injector', function() {
 		}
 		inj.register('One', One);
 		inj.register('Two', Two);
-		var inst = inj.create('One', 2);
-		expect(inst.two.one).to.be.ok;
-		expect(inst.two.one.two).to.not.be.ok;
+		var inst = function(){inj.create('One', 2)};
+		expect(inst).to.throw(InjectorError);
 	})
 
 	it('#multi injection', function() {
