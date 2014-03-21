@@ -10,9 +10,7 @@ function TurnTracker(data) {
 };
 
 TurnTracker.prototype.setStatus = function(status){
-
 	this.status = status;
-
 };
 
 TurnTracker.prototype.nextTurn = function(){
@@ -22,5 +20,4 @@ TurnTracker.prototype.nextTurn = function(){
 	if(this.currentTurn > 3){
 		this.currentTurn = 0;
 	}
-
 };

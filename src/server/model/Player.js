@@ -107,6 +107,20 @@ Player.prototype.discardResource = function(resource, amount){
 	this.resources[resource] -= a;
 }
 
+Player.prototype.discardCards = function(cardsToDiscard){
+	this.resources['brick'] = this.resources['brick'] - cardsToDiscard['brick'];
+	this.resources['wood'] = this.resources['wood'] - cardsToDiscard['wood'];
+	this.resources['sheep'] = this.resources['sheep'] - cardsToDiscard['sheep'];
+	this.resources['wheat'] = this.resources['wheat'] - cardsToDiscard['wheat'];
+	this.resources['ore'] = this.resources['ore'] - cardsToDiscard['ore'];
+
+	this.discarded = true;
+}
+
+Player.prototype.hasDiscarded = function() {
+	return this.discarded;
+}
+
 Player.prototype.maritimeTrade = function(resourceToGive, ratio, resourceToGet) {
 	this.resources[resourceToGive] = this.resources[resourceToGive] - ratio;
 	this.resources[resourceToGet]++;

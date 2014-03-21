@@ -157,7 +157,16 @@ GameModel.prototype.maritimeTrade = function(playerIndex, ratio, inputResource, 
 };
 
 GameModel.prototype.discardCards = function(playerIndex, cardsToDiscard) {
-	//player
-	//bank
-	//turnTracker
+	this.players[playerIndex].discardCards(cardsToDiscard);
+	this.bank.depositResources(cardsToDiscard);
+
+	var changeStatus = true;
+
+	this.players.forEach(function(player) {
+		if (!player.hasDiscarded())
+			changeStatus = false;
+	});
+
+	if (changeStatus)
+		this.turnTracker.setStatus('Playing');
 };
