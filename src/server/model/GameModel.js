@@ -11,7 +11,7 @@ util.inherits(Game, BaseModel);
 * @constructor
 * @param {data} playerID The id of the local player, extracted from the cookie
 */
-function Game(data, $Log, $Chat, $Bank, $Deck, $Map, $Player, $TurnTracker){
+function GameModel(data, $Log, $Chat, $Bank, $Deck, $Map, $Player, $TurnTracker){
 
 
 if(!data){
@@ -57,29 +57,33 @@ if(!data){
 
 	}
 
-
-
-  this.gameboard = $GameBoard(data);
 };
 
 GameModel.prototype.sendChat = function(playerIndex, message) {
-	this.sendChat(playerIndex,message);
+	this.chat.sendChat(playerIndex,message);
 };
 
 GameModel.prototype.rollNumber = function(playerIndex, number) {
-
+	//Map
+	//Players
+	//Bank
+	//TurnTracker
 };
 
 GameModel.prototype.robPlayer = function(playerIndex, victimIndex, location) {
-
+	//TurnTracker
+	//Players
+	//Map
 };
 
 GameModel.prototype.finishTurn = function(playerIndex) {
-
+	//TurnTracker
+	//player
 };
 
 GameModel.prototype.buyDevCard = function(playerIndex) {
 	this.players[playerIndex].buyDevCard(this.deck.drawRandomCard());
+	//bank
 };
 
 GameModel.prototype.playYearOfPlenty = function(playerIndex, resource1, resource2) {
@@ -87,48 +91,70 @@ GameModel.prototype.playYearOfPlenty = function(playerIndex, resource1, resource
 	this.bank.withdraw(resource2);
 
 	players[playerIndex].playYearOfPlenty(resource1, resource2);
+
 };
 
 GameModel.prototype.playRoadBuilding = function(playerIndex, spot1, spot2) {
-
+	//player
+	//map
+	//check for longest road
+	//check for winner
 };
 
 GameModel.prototype.playSoldier = function(playerIndex, victimIndex, location) {
+	//players
+	//map
+	//check for largest army
+	//check for winner
 
 };
 
 GameModel.prototype.playMonopoly = function(playerIndex, resource) {
-
+	//players
 };
 
 GameModel.prototype.playMonument = function(playerIndex) {
-
+	//players
+	//check for winner
 };
 
 GameModel.prototype.buildRoad = function(playerIndex, roadLocation, free) {
-
+	//bank
+	//player
+	//map
+	//check for longest road
+	//check for winner
 };
 
 GameModel.prototype.buildSettlement = function(playerIndex, vertexLocation, free) {
-
+	//bank
+	//player
+	//map
+	//check for winner
 };
 
 GameModel.prototype.buildCity = function(playerIndex, vertexLocation, free) {
-
+	//bank
+	//player
+	//map
+	//check for winner
 };
 
 GameModel.prototype.offerTrade = function(playerIndex, offer, receiver) {
-
+	//ASK NATE
 };
 
 GameModel.prototype.acceptTrade = function(playerIndex, willAccept) {
-
+	//ASK NATE
 };
 
 GameModel.prototype.maritimeTrade = function(playerIndex, ratio, inputResource, outputResource) {
-
+	//player
+	//bank
 };
 
 GameModel.prototype.discardCards = function(playerIndex, cardsToDiscard) {
-
+	//player
+	//bank
+	//turnTracker
 };
