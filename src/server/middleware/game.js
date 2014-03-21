@@ -8,10 +8,10 @@ module.exports = function(req, res, next){
   var catanGameCookie = req.cookies['catan.game'];
 
   if(catanGameCookie) {
-    req.gameID = parsedCatanGameCookie;
+  	var parsedCatanGameCookie = JSON.parse(catanGameCookie);
+    req.gameID = parsedCatanGameCookie.gameID || false;
     //req.userIndex = TODO: calculate game-specific userIndex based on global playerId in cookie
 
-  } else {
-    res.send(400);
-  }
+  } 
+  next();
 }
