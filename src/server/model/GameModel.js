@@ -112,7 +112,14 @@ GameModel.prototype.playSoldier = function(playerIndex, victimIndex, location) {
 };
 
 GameModel.prototype.playMonopoly = function(playerIndex, resource) {
-	//players
+	var totalNumberOfResource = 0;
+
+	this.players.forEach(function(player) {
+		totalNumberOfResource += player.getResource(resource);
+		player.setResource(resource, 0);
+	});
+
+	this.players[playerIndex].setResource(resource, totalNumberOfResource);
 };
 
 GameModel.prototype.playMonument = function(playerIndex) {

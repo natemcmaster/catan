@@ -86,6 +86,14 @@ Player.prototype.finishTurn = function() {
 	this.discarded = false;
 }
 
+Player.prototype.getResource = function(resource) {
+	return this.resources[resource];
+}
+
+Player.prototype.setResource = function(resource, amount) {
+	this.resources[resource] = amount;
+}
+
 Player.prototype.updateDevCards = function(){
 
 	this.oldDevCards['yearOfPlenty'] += this.newDevCards['yearOfPlenty'];
