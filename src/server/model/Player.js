@@ -87,7 +87,7 @@ Player.prototype.buildRoad = function(free) {
 	this.roads--;
 }
 
-Player.prototype.getNumberOfRoadsBuilt() {
+Player.prototype.getNumberOfRoadsBuilt = function() {
 	return 15 - this.roads;
 }
 
