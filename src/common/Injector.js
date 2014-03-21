@@ -58,7 +58,14 @@ Injector.prototype.find = function(name) {
  * @return {Object}      An instance of the module
  */
 Injector.prototype.create = function(name) {
-  var initer = namedFactory.call(this, name);
+  try {
+    var initer = namedFactory.call(this, name);
+  } catch (e) {
+    if (e instanceof InjectorError) {
+      e.message += ': Could not create ' + name;
+    }
+    throw e;
+  }
   return initer.apply(initer, Array.prototype.slice.call(arguments, 1));
 }
 
@@ -98,7 +105,7 @@ var namedFactory = function(name, stack) {
 }
 
 var dynamicConstructor = function(initializer, dependents, variables) {
-  return function() {
+  var construct = function() {
     var args = Array.prototype.slice.call(arguments, 0);
     //Aligh data arguments with the constructor
     var dataArgs = args.splice(0, variables.length);
@@ -120,8 +127,18 @@ var dynamicConstructor = function(initializer, dependents, variables) {
     if (instance !== null && (typeof instance === "object" || typeof instance === "function")) {
       obj = instance;
     }
+    // Add add static methods
+    for (var x in initializer) {
+      if ('function' === typeof initializer[x] && x !== 'constructor')
+        obj[x] = initializer[x];
+    }
     return obj;
   }
+  for (var x in initializer) {
+    if ('function' === typeof initializer[x] && x !== 'constructor')
+      construct[x] = initializer[x];
+  }
+  return construct;
 }
 
 /**
@@ -154,7 +171,7 @@ var variablesFromArgs = function(func) {
   for (var i = 0; i < args.length; i++) {
     var t = args[i];
     if (t[0] != '$') {
-      dep.push(t.substr(1));
+      dep.push(t);
     }
   }
   return dep;
@@ -169,10 +186,10 @@ var variablesFromArgs = function(func) {
 var argList = function(func) {
   var desc = func.toString();
   var fn_r = /^function\s*[^\(]*\(\s*([^\)]*)\)/m;
-  var m = desc.match(fn_r)[1];
+  var m = desc.match(fn_r);
   if (!m)
     return [];
-  var args = m.split(',');
+  var args = m[1].split(',');
   for (var i = args.length - 1; i >= 0; i--) {
     args[i] = args[i].trim();
   };

@@ -5,63 +5,37 @@ module.exports = GameModel;
 util.inherits(GameModel, BaseModel);
 
 /** 
-* This is the server model class
+ * This is the server model class
+ 
+ * @class GameModel
+ * @constructor
+ * @param {data} playerID The id of the local player, extracted from the cookie
+ */
+function GameModel(data, $Log, $Chat, $Bank, $Deck, $Map, $Player, $TurnTracker) {
 
-* @class GameModel
-* @constructor
-* @param {data} playerID The id of the local player, extracted from the cookie
-*/
-function GameModel(data, $Log, $Chat, $Bank, $Deck, $Map, $Player, $TurnTracker){
+	if(!data)
+		throw new Error('Cannot instantiate without data');
 
+	this.data = data
 
-if(!data){
-		this.bank = $Bank();
-		this.deck = $Deck();
-		this.map = $Map();
-		this.turnTracker = $TurnTracker();
-		this.players = [];
-		this.chat = $Chat();
-		this.log = $Log();
-		for(var i = 0; i < 4; i++){
-			this.players.push($Player(undefined, i));
-		}
+	this.bank = $Bank(this.data.bank);
+	this.deck = $Deck(this.data.deck);
+	this.map = $Map(this.data.map);
+	this.log = $Log(data.log);
+	this.chat = $Chat(data.chat);
+	this.turnTracker = $TurnTracker(this.data.turnTracker);
 
-		this.data = {'bank' : this.bank,
-					 'deck' : this.deck,
-					 'map' : this.map,
-					 'turnTracker' : this.turnTracker,
-					 'players' :  this.players,
-					 'log' : this.log,
-					 'chat' : this.chat,
-					 'biggestArmy' : -1,
-					 'longestRoad' : -1,
-					 'winner' : -1,
-					 'revision' : 0};
-
+	this.players = [];
+	for (var i = 0; i < 4; i++) {
+		this.players.push($Player(this.data.players[i], i));
 	}
 
-	else{
-		this.data = data 
-
-		this.bank = $Bank(this.data.bank);
-		this.deck = $Deck(this.data.deck);
-		this.map = $Map(this.data.map);
-		this.log = $Log(data.log);
-  		this.chat = $Chat(data.chat);
-		this.turnTracker = $TurnTracker(this.data.turnTracker);
-
-		this.players = [];
-		for(var i = 0; i < 4; i++){
-			this.players.push($Player(this.data.players[i], i));
-		}
-
-	}
 
 
 };
 
 GameModel.prototype.sendChat = function(playerIndex, message) {
-	this.chat.sendChat(playerIndex,message);
+	this.chat.sendChat(playerIndex, message);
 };
 
 GameModel.prototype.rollNumber = function(playerIndex, number) {

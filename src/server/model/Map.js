@@ -8,15 +8,6 @@ var util = require('util');
  * @namespace model
  */
 
-// var hexgrid = require('./hexgrid')
-//   , HexGrid = hexgrid.HexGrid
-//   , HexLocation = hexgrid.HexLocation
-//   , VertexLocation = hexgrid.VertexLocation
-//   , VertexDirection = hexgrid.VertexDirection
-//   , Hex = require('./Hex')
-//   , NumberTiles = require('./NumberTiles')
-//   , Port = require('./Port')
-
 module.exports = Map;
 util.inherits(Map, BaseModel);
 
@@ -28,10 +19,10 @@ util.inherits(Map, BaseModel);
  * @constructor
  */
 
-function Map(data, $Port, $HexLocation, $NumberTiles){
+function Map(data, $Port, $HexLocation, $NumberTiles,$HexGrid,$Hex){
 	this.data = data;
 
-  this.hexGrid = HexGrid.getRegular(data.hexGrid.radius, Hex, data.hexGrid.hexes);
+  this.hexGrid = $HexGrid.getRegular(data.hexGrid.radius, $Hex, data.hexGrid.hexes);
 
 	this.ports = [];
 	for (var i=0; i<data.ports.length; i++) {

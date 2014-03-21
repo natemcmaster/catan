@@ -14,11 +14,11 @@ var _ = require('underscore');
 * @constructor
 * @param {integer} playerID The id of the local player, extracted from the cookie
 */
-function GameRoom(users, games, $User, $UserIDGenerator){
-  this.users = users || [];
-  this.games = games || [];
-  this.makeUser = $User;
-  this.idGen = $UserIDGenerator();
+function GameRoom(users, games, $UserRepo,$GameRepo){
+  this.userRepo =  $UserRepo();
+  this.gameRepo =  $GameRepo();
+  this.users = users || this.userRepo.getAll();
+  this.games = games || this.gameRepo.getAll();
 };
 
 GameRoom.prototype.getGameByID = function(gameID) {
@@ -44,7 +44,9 @@ GameRoom.prototype.registerUser = function(username, password) {
 	});
 	if(user)
 		return false;
-	var user=this.makeUser(username,password,this.idGen.next());
+	var user=this.userRepo.create(username,password);
+	if(!user)
+		return false;
 	this.users.push(user);
 	return user;
 };

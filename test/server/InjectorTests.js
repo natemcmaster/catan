@@ -35,14 +35,48 @@ describe('Injector', function() {
 		expect(inst.two.num).to.equal(10);
 	})
 
+	it('#static methods', function() {
+		function One() {}
+		One.staticMethod = function() {
+			return 3
+		}
+		inj.register('One', One);
+		var inst = inj.create('One');
+		expect(inst.staticMethod).to.be.a('function')
+		expect(inst.staticMethod()).to.equal(3);
+	})
+
+	it('#hexgrid static method', function() {
+		var h = require('byu-catan').models.hexgrid.HexGrid;
+		inj.register('HexGrid', h);
+		var inst = inj.create('HexGrid');
+		expect(inst.getRegular).to.be.a('function');
+	})
+
+	it('#hexgrid nested static method', function() {
+		var h = require('byu-catan').models.hexgrid.HexGrid;
+		inj.register('HexGrid', h);
+		var run=false;
+		function Two($HexGrid){
+			expect($HexGrid.getRegular).to.be.a('function');
+			run=true;
+		}
+		inj.register('Two',Two);
+		var t = inj.create('Two');
+		expect(run).to.be.ok;
+	})
+
 	it('#recursive injection', function() {
 		function One(num, $One) {
 			if (num > 0) this.child = $One(num - 1);
 			else this.child = null;
 		}
 		inj.register('One', One);
-		var inst = function(){inj.create('One', 2)};
-		expect(inst).to.throw(InjectorError);
+		var inst = function() {
+			inj.create('One', 2)
+		};
+		expect(inst).to.
+		throw (InjectorError);
 	})
 
 	it('#circular injection', function() {
@@ -55,8 +89,11 @@ describe('Injector', function() {
 		}
 		inj.register('One', One);
 		inj.register('Two', Two);
-		var inst = function(){inj.create('One', 2)};
-		expect(inst).to.throw(InjectorError);
+		var inst = function() {
+			inj.create('One', 2)
+		};
+		expect(inst).to.
+		throw (InjectorError);
 	})
 
 	it('#multi injection', function() {
@@ -75,12 +112,12 @@ describe('Injector', function() {
 		expect(inst.three.d).to.equal(6);
 	})
 
-	it('#injects anonymous functions', function(){
-		inj.register('Taco',function(a){
-			this.b=a;
+	it('#injects anonymous functions', function() {
+		inj.register('Taco', function(a) {
+			this.b = a;
 		});
-		var func = inj.inject(function(num,$Taco){
-			return $Taco(num+4);
+		var func = inj.inject(function(num, $Taco) {
+			return $Taco(num + 4);
 		});
 		var dyn = func(7);
 		expect(dyn.b).to.equal(11);
