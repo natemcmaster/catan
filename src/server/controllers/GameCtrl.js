@@ -13,7 +13,7 @@ function GameCtrl(app, model) {
 GameCtrl.prototype = Object.create(BaseCtrl);
 GameCtrl.constructor = GameCtrl;
 
-GameCtrl.prototype.getters = {
+GameCtrl.prototype.resources = {
   '/game/model': function (req, res) {
     res.json(req.gameRoom.getGameByID(req.gameID).toJSON());
   },

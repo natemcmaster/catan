@@ -7,11 +7,11 @@ function BaseCtrl(app) {
 }
 
 BaseCtrl.prototype.commands = {};
-BaseCtrl.prototype.getters = {};
+BaseCtrl.prototype.resources = {};
 
 BaseCtrl.prototype.assignRoutes = function(app) {
-  for (var path in this.getters) {
-    app.get(path, this.getters[path].bind(this));
+  for (var path in this.resources) {
+    app.get(path, this.resources[path].bind(this));
   }
   for (var path in this.commands) {
     app.post(path, this.commandRoute.bind(this, path));
@@ -29,7 +29,7 @@ BaseCtrl.prototype.getCommand = function (path, req) {
   if (cmd instanceof AbstractGameCommand) {
     args.push(req.gameID);
   }
-  args = args.concat(getArgs(cmd, data);
+  args = args.concat(getArgs(cmd, data));
   return applyToConstructor(cmd, args)
 }
 

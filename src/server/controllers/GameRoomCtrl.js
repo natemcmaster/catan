@@ -22,7 +22,7 @@ GameRoomCtrl.prototype.commands = {
   '/games/create': CreateGameCommand,
 }
 
-GameRoomCtrl.prototype.getters = {
+GameRoomCtrl.prototype.resources = {
   '/games/list': function (req, res) {
     res.json(req.gameRoom.listAll());
   }

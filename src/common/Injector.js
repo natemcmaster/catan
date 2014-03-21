@@ -6,14 +6,43 @@ function Injector() {
   return this;
 }
 
-Injector.prototype.register = function(name, obj) {
-  this.dependencies[name] = {
-    initializer: obj,
-    dependencies: dpFromArgs(obj),
-    variables: variablesFromArgs(obj)
-  };
+function Dependency(obj) {
+  this.initializer = obj;
+  this.dependencies = dpFromArgs(obj);
+  this.variables = variablesFromArgs(obj);
 }
 
+Injector.Dependency = Dependency;
+
+/**
+ * Creates a new Dependency
+ * @param  {string} id Unique Id for dependency
+ * @param  {constructor} obj  Constructor of the object
+ * @return {Injector.Dependency}      [description]
+ */
+Injector.prototype.register = function(id, obj) {
+  return this.dependencies[id] = new Dependency(obj);
+}
+
+/**
+ * Utility function. Maps an object of key:value pairs
+ * Example: inj.map({'Bank':MockBank})
+ * is the same as inj.register('Bank',MockBank)
+ * @param  {object} mapping key value pairs of id an constructors
+ * @return {void}    
+ */
+Injector.prototype.map = function(mp){
+  for(var id in mp){
+    this.register(id,mp[id]);
+  }
+}
+
+/**
+ * Returns the dependendey matchin that name.
+ * Throws an InjectorError if the name is now matched
+ * @param  {string} name Name of dependency
+ * @return {object} the parsed dependency
+ */
 Injector.prototype.resolve = function(name) {
   if (!this.dependencies[name])
     throw new InjectorError('Could not resolve: $' + name);
@@ -29,21 +58,21 @@ Injector.prototype.resolve = function(name) {
  */
 Injector.prototype.create = function(name) {
   var initer = factory.call(this, name);
-  return initer.apply(initer,Array.prototype.slice.call(arguments, 1));
+  return initer.apply(initer, Array.prototype.slice.call(arguments, 1));
 }
 
 // #Private 
 
-var factory = function(name,stack) {
+var factory = function(name, stack) {
   stack = stack || [];
-  if(~stack.indexOf(name))
+  if (~stack.indexOf(name))
     throw new InjectorError('Circular references');
   var dep = this.resolve(name);
   var dependents = [];
   stack.push(name);
   stack.concat(dep.dependencies);
   for (var i = 0; i < dep.dependencies.length; i++) {
-    dependents.push(factory.call(this,dep.dependencies[i],stack));
+    dependents.push(factory.call(this, dep.dependencies[i], stack));
   };
 
   return function() {
@@ -51,12 +80,12 @@ var factory = function(name,stack) {
     var args = dataArgs.concat(dependents);
     var obj, instance;
 
-    function fakeConstructor(){}
+    function fakeConstructor() {}
     fakeConstructor.prototype = Object.create(dep.initializer.prototype)
     obj = new fakeConstructor();
     obj.constructor = dep.initializer.constructor;
 
-    instance = dep.initializer.apply(obj,args);
+    instance = dep.initializer.apply(obj, args);
 
     if (instance !== null && (typeof instance === "object" || typeof instance === "function")) {
       obj = instance;

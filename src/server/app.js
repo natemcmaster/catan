@@ -6,6 +6,7 @@ var express = require('express'),
     path = require('path'),
     authMiddleware = require('./middleware/auth'),
     gameMiddleware = require('./middleware/game')
+    Injector = require('../common/Injector')
     ;
 
 var app = express();
@@ -34,10 +35,12 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-
+var config = require('./config');
+var injector = new Injector();
+injector.map(config.runtime);
 
 // making the game room
-var gameRoom = new GameRoom();
+var gameRoom = injector.create('GameRoom');
 
 app.use(function (req, res, next) {
   req.gameRoom = gameRoom;
