@@ -2,12 +2,12 @@ var BaseModel = require('./BaseModel');
 var util = require('util');
 
 module.exports = GameModel;
-util.inherits(Game, BaseModel);
+util.inherits(GameModel, BaseModel);
 
 /** 
 * This is the server model class
 
-* @class Game
+* @class GameModel
 * @constructor
 * @param {data} playerID The id of the local player, extracted from the cookie
 */
@@ -57,6 +57,7 @@ if(!data){
 
 	}
 
+
 };
 
 GameModel.prototype.sendChat = function(playerIndex, message) {
@@ -91,6 +92,7 @@ GameModel.prototype.playYearOfPlenty = function(playerIndex, resource1, resource
 	this.bank.withdraw(resource2);
 
 	players[playerIndex].playYearOfPlenty(resource1, resource2);
+
 
 };
 
@@ -152,6 +154,7 @@ GameModel.prototype.maritimeTrade = function(playerIndex, ratio, inputResource, 
 	//player
 	//bank
 };
+
 
 GameModel.prototype.discardCards = function(playerIndex, cardsToDiscard) {
 	//player
