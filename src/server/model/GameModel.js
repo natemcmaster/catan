@@ -151,10 +151,10 @@ GameModel.prototype.acceptTrade = function(playerIndex, willAccept) {
 };
 
 GameModel.prototype.maritimeTrade = function(playerIndex, ratio, inputResource, outputResource) {
-	//player
-	//bank
+	this.players[playerIndex].maritimeTrade(inputResource, ratio, outputResource);
+	this.bank.deposit(inputResource, ratio);
+	this.bank.withdraw(outputResource, 1);
 };
-
 
 GameModel.prototype.discardCards = function(playerIndex, cardsToDiscard) {
 	//player

@@ -97,13 +97,19 @@ Player.prototype.updateDevCards = function(){
 
 }
 
-Player.prototype.getResource = function(resource, amount){
+Player.prototype.addResource = function(resource, amount){
 	var a = amount || 1
 	this.resources[resource] += a;
 }
-Player.prototype.discardedResource = function(resource, amount){
+
+Player.prototype.discardResource = function(resource, amount){
 	var a = amount || 1
 	this.resources[resource] -= a;
+}
+
+Player.prototype.maritimeTrade = function(resourceToGive, ratio, resourceToGet) {
+	this.resources[resourceToGive] = this.resources[resourceToGive] - ratio;
+	this.resources[resourceToGet]++;
 }
 
 Player.prototype.toJSON = function(){
