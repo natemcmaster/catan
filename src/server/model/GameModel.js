@@ -67,8 +67,6 @@ GameModel.prototype.playYearOfPlenty = function(playerIndex, resource1, resource
 	this.bank.withdraw(resource2);
 
 	players[playerIndex].playYearOfPlenty(resource1, resource2);
-
-
 };
 
 GameModel.prototype.playRoadBuilding = function(playerIndex, spot1, spot2) {
@@ -105,11 +103,32 @@ GameModel.prototype.playMonument = function(playerIndex) {
 };
 
 GameModel.prototype.buildRoad = function(playerIndex, roadLocation, free) {
-	//bank
-	//player
-	//map
-	//check for longest road
-	//check for winner
+	this.bank.roadWasBuilt();
+	this.players[playerIndex].buildRoad();
+
+	var playerWithLongestRoad = this.data.longestRoad;
+
+	//If no one has the longest road and the player who just built has 5 or more roads,
+	//that player claims the longest road
+	if (playerWithLongestRoad == -1 && this.players[playerIndex].getNumberOfRoadsBuilt() >= 5) {
+		this.data.longestRoad = playerIndex;
+		this.players[playerIndex].setLongestRoad(true);
+	}
+
+	//If the player who built did not have the longest road, but has now beaten the current
+	//owner of the longest road, that player now claims the longest road
+	else if (playerIndex != playerWithLongestRoad && 
+			this.players[playerIndex].getNumberOfRoadsBuilt() > this.players[playerWithLongestRoad].getNumberOfRoadsBuilt()) {
+		this.data.longestRoad = playerIndex;
+		this.players[playerWithLongestRoad].setLongestRoad(false);
+		this.players[playerIndex].setLongestRoad(true);
+	}
+
+	//Check if the player who built has won
+	if (this.players[playerIndex].hasWon())
+		this.data.winner = playerIndex;
+		
+	//STILL NEED TO CHANGE THE MAP
 };
 
 GameModel.prototype.buildSettlement = function(playerIndex, vertexLocation, free) {

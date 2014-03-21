@@ -78,6 +78,50 @@ Player.prototype.buyDevCard = function(cardType){
 	this.newDevCards[cardType]++;
 }
 
+Player.prototype.buildRoad = function() {
+	this.resources['brick']--;
+	this.resources['wood']--;
+
+	this.roads--;
+}
+
+Player.prototype.getNumberOfRoadsBuilt() {
+	return 15 - this.roads;
+}
+
+Player.prototype.hasLongestRoad = function() {
+	return this.longestRoad;
+}
+
+Player.prototype.setLongestRoad = function(longestRoad) {
+	this.longestRoad = true;
+
+	if (this.longestRoad)
+		this.victoryPoints += 2;
+	else
+		this.victoryPoints -= 2;
+}
+
+Player.prototype.hasLargestArmy = function() {
+	return this.largestArmy;
+}
+
+Player.prototype.buildSettlement = function() {
+	this.resources['brick']--;
+	this.resources['wood']--;
+	this.resources['sheep']--;
+	this.resources['wheat']--;
+
+	this.settlements--;
+}
+
+Player.prototype.buildCity = function() {
+	this.resources['wheat'] -= 2;
+	this.resources['ore'] -= 3;
+
+	this.cities--;
+}
+
 Player.prototype.playYearOfPlenty = function(resource1, resource2){
 	this.resources[resource1]++;
 	this.resources[resource2]++;
