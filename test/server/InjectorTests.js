@@ -74,4 +74,15 @@ describe('Injector', function() {
 		expect(inst.two.a).to.equal(1);
 		expect(inst.three.d).to.equal(6);
 	})
+
+	it('#injects anonymous functions', function(){
+		inj.register('Taco',function(a){
+			this.b=a;
+		});
+		var func = inj.inject(function(num,$Taco){
+			return $Taco(num+4);
+		});
+		var dyn = func(7);
+		expect(dyn.b).to.equal(11);
+	})
 })

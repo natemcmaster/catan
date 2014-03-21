@@ -43,9 +43,9 @@ Injector.prototype.map = function(mp){
  * @param  {string} name Name of dependency
  * @return {object} the parsed dependency
  */
-Injector.prototype.resolve = function(name) {
+Injector.prototype.find = function(name) {
   if (!this.dependencies[name])
-    throw new InjectorError('Could not resolve: $' + name);
+    throw new InjectorError('Could not find: $' + name);
   return this.dependencies[name];
 }
 
@@ -57,35 +57,57 @@ Injector.prototype.resolve = function(name) {
  * @return {Object}      An instance of the module
  */
 Injector.prototype.create = function(name) {
-  var initer = factory.call(this, name);
+  var initer = namedFactory.call(this, name);
   return initer.apply(initer, Array.prototype.slice.call(arguments, 1));
+}
+
+/**
+ * Injects an anonymous function with dependencies. This produces a function
+ * @param  {Function} func Function to inject
+ * @return {Function}      Function with matched dependencies
+ */
+Injector.prototype.inject = function(func){
+  var dep = new Dependency(func); 
+  var args=[];
+  for(var x in dep.dependencies){
+    args.push(namedFactory.call(this,dep.dependencies[x]));
+  };
+
+  return function(){
+    var a = Array.prototype.slice.call(arguments,0).concat(args);
+    return func.apply(this,a);
+  };
 }
 
 // #Private 
 
-var factory = function(name, stack) {
+var namedFactory = function(name, stack) {
   stack = stack || [];
   if (~stack.indexOf(name))
     throw new InjectorError('Circular references');
-  var dep = this.resolve(name);
+  var dep = this.find(name);
   var dependents = [];
   stack.push(name);
   stack.concat(dep.dependencies);
   for (var i = 0; i < dep.dependencies.length; i++) {
-    dependents.push(factory.call(this, dep.dependencies[i], stack));
+    dependents.push(namedFactory.call(this, dep.dependencies[i], stack));
   };
 
+  return dynamicConstructor(dep.initializer,dependents,dep.variables);
+}
+
+var dynamicConstructor = function(initializer,dependents,variables){
   return function() {
-    var dataArgs = Array.prototype.slice.call(arguments, 0, dep.variables.length);
+    var dataArgs = Array.prototype.slice.call(arguments, 0, variables.length);
     var args = dataArgs.concat(dependents);
     var obj, instance;
 
     function fakeConstructor() {}
-    fakeConstructor.prototype = Object.create(dep.initializer.prototype)
+    fakeConstructor.prototype = Object.create(initializer.prototype)
     obj = new fakeConstructor();
-    obj.constructor = dep.initializer.constructor;
+    obj.constructor = initializer.constructor;
 
-    instance = dep.initializer.apply(obj, args);
+    instance = initializer.apply(obj, args);
 
     if (instance !== null && (typeof instance === "object" || typeof instance === "function")) {
       obj = instance;
