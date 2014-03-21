@@ -13,11 +13,17 @@ function Bank(data) {
 };
 
 Bank.prototype.withdraw = function(resource, amount){
-	var a = amount || 1
-	this[resource] -= a
+	var a = amount || 1;
+	this.data[resource] -= a;
 };
 
 Bank.prototype.deposit = function(resource, amount){
-	var a = amount || 1
-	this[resource] += a
+	var a = amount || 1;
+	this.data[resource] += a;
+};
+
+Bank.prototype.devCardWasBought = function(){
+	this.data['sheep']++;
+	this.data['wheat']++;
+	this.data['ore']++;
 };

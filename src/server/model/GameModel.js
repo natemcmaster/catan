@@ -83,8 +83,9 @@ GameModel.prototype.finishTurn = function(playerIndex) {
 };
 
 GameModel.prototype.buyDevCard = function(playerIndex) {
-	this.players[playerIndex].buyDevCard(this.deck.drawRandomCard());
-	//bank
+	var card = this.deck.drawRandomCard();
+	this.players[playerIndex].buyDevCard(card);
+	this.bank.devCardWasBought();
 };
 
 GameModel.prototype.playYearOfPlenty = function(playerIndex, resource1, resource2) {

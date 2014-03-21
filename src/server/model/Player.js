@@ -71,6 +71,10 @@ function Player(data, index){
 }
 
 Player.prototype.buyDevCard = function(cardType){
+	this.resources['sheep']--;
+	this.resources['wheat']--;
+	this.resources['ore']--;
+
 	this.newDevCards[cardType]++;
 }
 
