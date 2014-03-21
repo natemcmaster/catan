@@ -1,5 +1,7 @@
 var BaseModel = require('./BaseModel');
 var util = require('util');
+var CatanError = require('../../common').Errors.CatanError;
+var _ = require('underscore');
 
 module.exports = GameModel;
 util.inherits(GameModel, BaseModel);
@@ -14,7 +16,7 @@ util.inherits(GameModel, BaseModel);
 function GameModel(data, $Log, $Chat, $Bank, $Deck, $Map, $Player, $TurnTracker) {
 
 	if(!data)
-		throw new Error('Cannot instantiate without data');
+		throw new CatanError('Cannot instantiate without data');
 
 	this.data = data
 
@@ -26,13 +28,33 @@ function GameModel(data, $Log, $Chat, $Bank, $Deck, $Map, $Player, $TurnTracker)
 	this.turnTracker = $TurnTracker(this.data.turnTracker);
 
 	this.players = [];
-	for (var i = 0; i < 4; i++) {
-		this.players.push($Player(this.data.players[i], i));
-	}
+	this.data.players.forEach(function(p,i){
+		this.players.push($Player(p, i));
+	}.bind(this));
+
+	this.playerConstruct = $Player;
 
 
 
 };
+GameModel.prototype.updateColor = function(playerID, color) {
+	var p = _(this.players).find(function(s) {
+		return s.playerID == playerID
+	});
+	if (!p) return false;
+	p.color = color;
+	return true;
+}
+
+GameModel.prototype.addPlayer = function(playerID,username,color) {
+	var p = this.playerConstruct({
+		name: username,
+		color: color,
+		playerID: playerID
+	}, this.players.length);
+	this.players.push(p);
+	return p;
+}
 
 GameModel.prototype.sendChat = function(playerIndex, message) {
 	this.chat.sendChat(playerIndex, message);

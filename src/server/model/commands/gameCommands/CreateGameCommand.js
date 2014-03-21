@@ -19,6 +19,6 @@ CreateGameCommand.prototype.execute = function(gameRoom, callback) {
 		callback('Could not create game', data);
 	} else {
 		callback(null,data);
-		this.logger.log('Created game: id = ' + data);
+		this.logger.log('Created game: id = ' + data.id);
 	}
 }

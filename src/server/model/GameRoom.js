@@ -1,5 +1,6 @@
 module.exports = GameRoom;
 var _ = require('underscore');
+var CatanError = require('../../common').Errors.CatanError;
 /**
   This module contains the game room
   
@@ -24,6 +25,12 @@ function GameRoom(users, games, $UserRepo,$GameRepo){
 GameRoom.prototype.getGameByID = function(gameID) {
 	return _(this.games).find(function(s){
 		return s.id == gameID;
+	});
+};
+
+GameRoom.prototype.getUserByID = function(playerID) {
+	return _(this.users).find(function(s){
+		return s.playerID == playerID;
 	});
 };
 
@@ -61,6 +68,9 @@ var gameSummary = function(s){
 			color: p.color
 		};
 	});
+	while(players.length < 4){
+		players.push({});
+	}
 	return {
 		title: s.title,
 		id: s.id,
@@ -81,8 +91,18 @@ GameRoom.prototype.createGame = function(title, randomTiles, randomNumbers, rand
 	return gameSummary(newGame);
 };
 
-GameRoom.prototype.joinGame = function(color, gameID) {
-
+GameRoom.prototype.joinGame = function(playerID, color, gameID) {
+	var game = this.getGameByID(gameID);
+	if(!game)
+		throw new CatanError('Could not find game');
+	if(!game.model.updateColor(playerID,color)){
+		var user = this.getUserByID(playerID);
+		game.model.addPlayer(user.playerID,user.username,color)
+	}
+	process.nextTick(function() {
+		this.gameRepo.update(gameID, game, 'players');
+	}.bind(this));
+	return true;
 };
 
 GameRoom.prototype.getGameModel = function(gameID) {

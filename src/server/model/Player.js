@@ -1,73 +1,55 @@
 var BaseModel = require('./BaseModel');
 var util = require('util');
+var CatanError = require('../../common').Errors.CatanError;
 
 module.exports = Player;
 util.inherits(Player, BaseModel);
 
-function Player(data, index){
+function Player(input, index){
+	var required = ['name','playerID','color'];
+	if(!input)
+		throw new CatanError('Must have at least this properties: '+required.join(','));
+	required.forEach(function(s){
+		if(!input[s] && input[s]!==0)
+			throw new CatanError('Missing '+s);
+	});
+	this.playerID = input.playerID;
+	this.name = input.name;
+	this.color = input.color;
 
-	data = data || {'MAX_GAME_POINTS': 10,
-										'resources': {
-											'brick': 0,
-											'wood': 0,
-											'sheep': 0,
-											'wheat': 0,
-											'ore': 0
-										},
-										'oldDevCards': {
-											'yearOfPlenty': 0,
-											'monopoly': 0,
-											'soldier': 0,
-											'roadBuilding': 0,
-											'monument': 0
-										},
-										'newDevCards': {
-											'yearOfPlenty': 0,
-											'monopoly': 0,
-											'soldier': 0,
-											'roadBuilding': 0,
-											'monument': 0
-										},
-										'roads': 15,
-										'cities': 4,
-										'settlements': 5,
-										'soldiers': 0,
-										'victoryPoints': 0,
-										'monuments': 0,
-										'longestRoad': false,
-										'largestArmy': false,
-										'playedDevCard': false,
-										'discarded': false,
-										'playerID': -1,
-										'orderNumber': index,
-										'name': null,
-										'color': null
-										};
-
-	this.MAX_GAME_POINTS = data.MAX_GAME_POINTS;
-	this.resources = data.resources;
-
-	this.oldDevCards = data.oldDevCards;
-
-    this.newDevCards = data.newDevCards;
-
-	this.roads = data.roads;
-	this.cities = data.cities;
-	this.settlements = data.settlements;
-	this.soldiers = data.soldiers;
-	this.victoryPoints = data.victoryPoints;
-	this.monuments = data.monuments;
-
-	this.longestRoad = data.longestRoad;
-	this.largestArmy = data.largestArmy;
-	this.playedDevCard = data.playedDevCard;
-	this.discarded = data.discarded;
-
-	this.playerID = data.playerID;
-	this.orderNumber = data.orderNumber;
-
-	this.name = data.name;
-	this.color = data.color;
+	this.MAX_GAME_POINTS = input.MAX_GAME_POINTS || 10;
+	this.resources = input.resources || {
+		'brick': 0,
+		'wood': 0,
+		'sheep': 0,
+		'wheat': 0,
+		'ore': 0
+	};
+	this.oldDevCards = input.oldDevCards || {
+		'yearOfPlenty': 0,
+		'monopoly': 0,
+		'soldier': 0,
+		'roadBuilding': 0,
+		'monument': 0
+	};
+	this.newDevCards = input.newDevCards || {
+		'yearOfPlenty': 0,
+		'monopoly': 0,
+		'soldier': 0,
+		'roadBuilding': 0,
+		'monument': 0
+	};
+	this.roads = input.roads || 15;
+	this.cities = input.cities || 4;
+	this.settlements = input.settlements || 5;
+	this.soldiers = input.soldiers || 0;
+	this.victoryPoints = input.victoryPoints || 0;
+	this.monuments = input.monuments || 0;
+	this.longestRoad = input.longestRoad || false;
+	this.largestArmy = input.largestArmy || false;
+	this.playedDevCard = input.playedDevCard || false;
+	this.discarded = input.discarded || false;
+	this.orderNumber = input.orderNumber || index;
 }
 
 Player.prototype.buyDevCard = function(cardType){
