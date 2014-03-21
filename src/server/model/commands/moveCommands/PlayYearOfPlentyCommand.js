@@ -1,7 +1,7 @@
 var AbstractMoveCommand = require('./AbstractMoveCommand')
   , util = require('util')
 
-moduel.exports = PlayYearOfPlentyCommand
+module.exports = PlayYearOfPlentyCommand
 
 
 util.inherits(PlayYearOfPlentyCommand, AbstractMoveCommand);

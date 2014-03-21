@@ -141,7 +141,7 @@ var argList = function(func) {
   var fn_r = /^function\s*[^\(]*\(\s*([^\)]*)\)/m;
   var m = desc.match(fn_r)[1];
   if (!m)
-    return dep;
+    return [];
   var args = m.split(',');
   for (var i = args.length - 1; i >= 0; i--) {
     args[i] = args[i].trim();

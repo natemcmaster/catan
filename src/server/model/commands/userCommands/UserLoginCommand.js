@@ -1,7 +1,7 @@
-var AbstractMoveCommand = require('../AbstractCommand')
+var AbstractCommand = require('../AbstractCommand')
   , util = require('util')
 
-moduel.exports = LoginCommand
+module.exports = LoginCommand
 
 util.inherits(LoginCommand, AbstractCommand);
 

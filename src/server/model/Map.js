@@ -1,4 +1,4 @@
-var BaseModel = require('../BaseModel');
+var BaseModel = require('./BaseModel');
 var util = require('util');
 
 /**
@@ -28,17 +28,17 @@ util.inherits(Map, BaseModel);
  * @constructor
  */
 
-function Map(data){
+function Map(data, $Port, $HexLocation, $NumberTiles){
 	this.data = data;
 
   this.hexGrid = HexGrid.getRegular(data.hexGrid.radius, Hex, data.hexGrid.hexes);
 
 	this.ports = [];
 	for (var i=0; i<data.ports.length; i++) {
-		this.ports.push(new Port(proxy, data.ports[i]));
+		this.ports.push($Port(proxy, data.ports[i]));
 	}
-	this.robber = data.robber && new HexLocation(data.robber.x, data.robber.y);
-	this.numberTiles = new NumberTiles(data.numbers);
+	this.robber = data.robber && $HexLocation(data.robber.x, data.robber.y);
+	this.numberTiles = $NumberTiles(data.numbers);
 }
 
 /*********** MUTATION FUNCTIONS **************/

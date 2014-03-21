@@ -1,10 +1,15 @@
 var model = require('./model');
 
-exports.runtime = {
-	'Chat': model.Chat,
-	'GameRoom': model.GameRoom,
-	'Log': model.Log,
-	'Messager': model.Messager,
-	'User': model.User,
-	'ServerModel': model.ServerModel,
-};
+exports.runtime = flatten(model,{});
+
+function flatten(obj,d){
+	for(var x in obj){
+		if(typeof obj[x] === 'object'){
+			flatten(obj[x],d);
+		}
+		else{
+			d[x]=obj[x];
+		}
+	}
+	return d;
+}

@@ -35,7 +35,7 @@ if(!data){
 					 'chat' : this.chat,
 					 'biggestArmy' : -1,
 					 'longestRoad' : -1,
-					 'winner' : -1;
+					 'winner' : -1,
 					 'revision' : 0};
 
 	}

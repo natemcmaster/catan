@@ -1,7 +1,7 @@
 var AbstractMoveCommand = require('./AbstractMoveCommand')
   , util = require('util')
 
-moduel.exports = BuildSettlementCommand
+module.exports = BuildSettlementCommand
 
 
 util.inherits(BuildSettlementCommand, AbstractMoveCommand);

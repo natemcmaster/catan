@@ -1,7 +1,7 @@
 var AbstractMoveCommand = require('./AbstractMoveCommand')
   , util = require('util')
 
-moduel.exports = BuyDevCardCommand
+module.exports = BuyDevCardCommand
 
 
 util.inherits(BuyDevCardCommand, AbstractMoveCommand);

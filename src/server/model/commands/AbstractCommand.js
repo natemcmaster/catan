@@ -1,5 +1,6 @@
 module.exports = AbstractCommand;
 
+function AbstractCommand(){}
 
 AbstractCommand.fromJSON = function(){
 
