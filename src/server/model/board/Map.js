@@ -1,3 +1,5 @@
+var BaseModel = require('../BaseModel');
+var util = require('util');
 
 /**
  * This module containts functionality for the map
@@ -14,12 +16,9 @@ var hexgrid = require('./hexgrid')
   , Hex = require('./Hex')
   , NumberTiles = require('./NumberTiles')
   , Port = require('./Port')
-  , BuildRoadCommand = require('../../commands/BuildRoadCommand')
-  , BuildSettlementCommand = require('../../commands/BuildSettlementCommand')
-  , BuildCityCommand = require('../../commands/BuildCityCommand')
-  , PlayRoadBuilding = require('../../commands/PlayRoadBuildingCommand');
 
 module.exports = Map;
+util.inherits(Map, BaseModel);
 
 /**
  * <pre>
@@ -30,7 +29,9 @@ module.exports = Map;
  */
 
 function Map(data){
-	this.hexGrid = HexGrid.getRegular(data.hexGrid.radius, Hex, data.hexGrid.hexes);
+	this.data = data;
+
+  this.hexGrid = HexGrid.getRegular(data.hexGrid.radius, Hex, data.hexGrid.hexes);
 
 	this.ports = [];
 	for (var i=0; i<data.ports.length; i++) {

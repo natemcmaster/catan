@@ -1,11 +1,12 @@
+var BaseModel = require('../BaseModel');
+var util = require('util');
 
-
-
-
+module.exports = Player;
+util.inherits(Player, BaseModel);
 
 function Player(data, index){
 
-	var player = data.players[index] ||{'MAX_GAME_POINTS': 10,
+	this.data = data || {'MAX_GAME_POINTS': 10,
 										'resources': {
 											'brick': 0,
 											'wood': 0,
@@ -67,10 +68,6 @@ function Player(data, index){
 
 	this.name = player.name;
 	this.color = player.color;
-	
-	
-
-	
 }
 
 Player.prototype.buyDevCard = function(cardType){

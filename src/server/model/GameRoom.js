@@ -8,17 +8,24 @@ module.exports = GameRoom;
 */
 
 /** 
-* This class represents a game room with a list of players and games
+* This class represents a game room with a list of users and games
 
 * @class GameRoom
 * @constructor
 * @param {integer} playerID The id of the local player, extracted from the cookie
 */
-function GameRoom(){
-  this.users = [];
-  this.AIPlayers = [];
-  this.games = [];
+function GameRoom(users, games){
+  this.users = users;
+  this.games = games;
 };
+
+GameRoom.prototype.getGameByID = function(gameID) {
+
+};
+
+//--------------------------------------------------------------
+// Commands
+//--------------------------------------------------------------
 
 GameRoom.prototype.login = function(username, password) {
 
@@ -29,7 +36,7 @@ GameRoom.prototype.registerUser = function(username, password) {
 };
 
 GameRoom.prototype.listGames = function() {
-	return games;
+	return this.games;
 };
 
 GameRoom.prototype.createGame = function(randomTiles, randomNumbers, randomPorts, name) {
@@ -57,11 +64,11 @@ GameRoom.prototype.listCommands = function(gameID) {
 };
 
 GameRoom.prototype.addAIPlayer = function(gameID, AIPlayer) {
-
+	//Not implementing
 };
 
 GameRoom.prototype.listAIPlayers = function(gameID) {
-
+	//Not implementing
 };
 
 GameRoom.prototype.setLogLevel = function(gameID, logLevel) {

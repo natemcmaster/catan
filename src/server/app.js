@@ -47,9 +47,8 @@ app.use(function (req, res, next) {
 
 // controller instantiation
 var controllers = require('./controllers');
-var model={};
 for(var c in controllers){
-	var d = new controllers[c](app,model);
+	var d = new controllers[c](app);
 }
 
 // start server
