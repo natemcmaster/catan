@@ -22,7 +22,9 @@ function GameRoom(users, games, $UserRepo,$GameRepo){
 };
 
 GameRoom.prototype.getGameByID = function(gameID) {
-
+	return _(this.games).find(function(s){
+		return s.id == gameID;
+	});
 };
 
 //--------------------------------------------------------------
@@ -52,7 +54,20 @@ GameRoom.prototype.registerUser = function(username, password) {
 };
 
 GameRoom.prototype.listGames = function() {
-	return this.games;
+	return _(this.games).map(function(s){
+		var players = _(s.model.players).map(function(p){
+			return {
+				name: p.name,
+				id: p.playerID,
+				color: p.color
+			};
+		});
+		return {
+			title: s.title,
+			id: s.id,
+			players: players
+		}
+	});
 };
 
 GameRoom.prototype.createGame = function(randomTiles, randomNumbers, randomPorts, name) {

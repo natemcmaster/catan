@@ -34,7 +34,8 @@ GameCtrl.prototype.listCommands = function(q, r) {
 }
 
 GameCtrl.prototype.listAi = function(q, r) {
-	r.json(['LARGEST_ARMY']);
+	// we don't support AI
+	r.json([]);
 }
 
 GameCtrl.prototype.reset = function(q, r) {

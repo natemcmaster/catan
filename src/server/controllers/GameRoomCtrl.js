@@ -22,8 +22,12 @@ GameRoomCtrl.prototype.assignRoutes = function(app,h) {
 
 }
 
-GameRoomCtrl.prototype.listAll = function(q, r) {
-	r.json(sampleJson.gamesList);
+GameRoomCtrl.prototype.listAll = function(q, r, $ListGamesCommand) {
+	 $ListGamesCommand().execute(q.gameRoom,function(err,data){
+	 	if(err)
+	 		throw new BaseCtrl.HttpError(404);
+	 	r.json(data);
+	 })
 }
 
 GameRoomCtrl.prototype.create = function(q, r) {

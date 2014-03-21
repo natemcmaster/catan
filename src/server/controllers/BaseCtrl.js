@@ -3,6 +3,7 @@
 var HttpError = require('../../common/').Errors.HttpError;
 
 module.exports = BaseCtrl;
+module.exports.HttpError = HttpError;
 
 function BaseCtrl(app, inj) {
   this.injector = inj;
