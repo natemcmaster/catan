@@ -95,16 +95,37 @@ GameModel.prototype.playRoadBuilding = function(playerIndex, spot1, spot2) {
 	//Check if the player who built has won
 	if (this.players[playerIndex].hasWon())
 		this.data.winner = playerIndex;
-	
+
 	//STILL NEED TO CHANGE THE MAP
 };
 
 GameModel.prototype.playSoldier = function(playerIndex, victimIndex, location) {
-	//players
-	//map
-	//check for largest army
-	//check for winner
+	var stolenCard = this.players[victimIndex].loseCard();
+	this.players[playerIndex].playSoldier(stolenCard);
 
+	var playerWithLargestArmy = this.data.largestArmy;
+
+	//If no one has the longest road and the player who just built has 5 or more roads,
+	//that player claims the longest road
+	if (playerWithLargestArmy == -1 && this.players[playerIndex].getSizeOfArmy() >= 3) {
+		this.data.largestArmy = playerIndex;
+		this.players[playerIndex].setLargestArmy(true);
+	}
+
+	//If the player who built did not have the longest road, but has now beaten the current
+	//owner of the longest road, that player now claims the longest road
+	else if (playerIndex != playerWithLargestArmy && 
+			this.players[playerIndex].getSizeOfArmy() > this.players[playerWithLargestArmy].getSizeOfArmy()) {
+		this.data.largestArmy = playerIndex;
+		this.players[playerWithLargestArmy].setLargestArmy(false);
+		this.players[playerIndex].setLargestArmy(true);
+	}
+
+	//Check if the player who built has won
+	if (this.players[playerIndex].hasWon())
+		this.data.winner = playerIndex;
+
+	//STILL NEED TO CHANGE THE MAP
 };
 
 GameModel.prototype.playMonopoly = function(playerIndex, resource) {

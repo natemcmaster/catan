@@ -96,7 +96,7 @@ Player.prototype.hasLongestRoad = function() {
 }
 
 Player.prototype.setLongestRoad = function(longestRoad) {
-	this.longestRoad = true;
+	this.longestRoad = longestRoad;
 
 	if (this.longestRoad)
 		this.victoryPoints += 2;
@@ -170,6 +170,25 @@ Player.prototype.playMonument = function() {
 		this.oldDevCards['monument']--;
 }
 
+Player.prototype.playSoldier = function(stolenCard) {
+	this.resources[stolenCard]++;
+	this.oldDevCards['soldier']--;
+	this.soldiers++;
+}
+
+Player.prototype.loseCard = function() {
+	var type = getRandomInt(0, 4);
+
+	while (this.resources[type] == 0)
+	{
+		type = getRandomInt(0, 4);
+	}
+
+	this.resources[type]--;
+	
+	return this.resources[type].name;
+}
+
 Player.prototype.hasWon = function() {
 	if (this.victoryPoints >= this.MAX_GAME_POINTS)
 		return true;
@@ -215,6 +234,15 @@ Player.prototype.discardCards = function(cardsToDiscard){
 
 Player.prototype.hasDiscarded = function() {
 	return this.discarded;
+}
+
+Player.prototype.setLargestArmy = function(largestArmy) {
+	this.largestArmy = largestArmy;
+
+	if (largestArmy)
+		this.victoryPoints += 2;
+	else
+		this.victoryPoints -= 2;
 }
 
 Player.prototype.maritimeTrade = function(resourceToGive, ratio, resourceToGet) {
