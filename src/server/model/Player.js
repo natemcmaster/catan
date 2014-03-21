@@ -94,6 +94,27 @@ Player.prototype.setResource = function(resource, amount) {
 	this.resources[resource] = amount;
 }
 
+Player.prototype.playMonument = function() {
+	this.victoryPoints++;
+	this.monuments++;
+
+	//Note: I don't set this.playedDevCard to true since I'm assuming that behavior
+	//is different for monument cards, particularly since they can only be played if
+	//the player can win.
+
+	if (this.newDevCards['monument'] > 0)
+		this.newDevCards['monument']--;
+	else
+		this.oldDevCards['monument']--;
+}
+
+Player.prototype.hasWon = function() {
+	if (this.victoryPoints >= this.MAX_GAME_POINTS)
+		return true;
+	else
+		return false;
+}
+
 Player.prototype.updateDevCards = function(){
 
 	this.oldDevCards['yearOfPlenty'] += this.newDevCards['yearOfPlenty'];

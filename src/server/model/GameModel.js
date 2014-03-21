@@ -123,8 +123,10 @@ GameModel.prototype.playMonopoly = function(playerIndex, resource) {
 };
 
 GameModel.prototype.playMonument = function(playerIndex) {
-	//players
-	//check for winner
+	this.players[playerIndex].playMonument();
+
+	if (this.players[playerIndex].hasWon())
+		this.data.winner = playerIndex;
 };
 
 GameModel.prototype.buildRoad = function(playerIndex, roadLocation, free) {
