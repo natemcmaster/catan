@@ -78,9 +78,11 @@ Player.prototype.buyDevCard = function(cardType){
 	this.newDevCards[cardType]++;
 }
 
-Player.prototype.buildRoad = function() {
-	this.resources['brick']--;
-	this.resources['wood']--;
+Player.prototype.buildRoad = function(free) {
+	if (!free) {
+		this.resources['brick']--;
+		this.resources['wood']--;
+	}
 
 	this.roads--;
 }
@@ -106,20 +108,27 @@ Player.prototype.hasLargestArmy = function() {
 	return this.largestArmy;
 }
 
-Player.prototype.buildSettlement = function() {
-	this.resources['brick']--;
-	this.resources['wood']--;
-	this.resources['sheep']--;
-	this.resources['wheat']--;
+Player.prototype.buildSettlement = function(free) {
+	if (!free) {
+		this.resources['brick']--;
+		this.resources['wood']--;
+		this.resources['sheep']--;
+		this.resources['wheat']--;
+	}
 
 	this.settlements--;
+	this.victoryPoints++;
 }
 
-Player.prototype.buildCity = function() {
-	this.resources['wheat'] -= 2;
-	this.resources['ore'] -= 3;
+Player.prototype.buildCity = function(free) {
+	if (!free) {
+		this.resources['wheat'] -= 2;
+		this.resources['ore'] -= 3;
+	}
 
+	this.settlements++;
 	this.cities--;
+	this.victoryPoints++;
 }
 
 Player.prototype.playYearOfPlenty = function(resource1, resource2){

@@ -54,6 +54,8 @@ GameModel.prototype.robPlayer = function(playerIndex, victimIndex, location) {
 GameModel.prototype.finishTurn = function(playerIndex) {
 	this.turnTracker.finishTurn();
 	this.players[playerIndex].finishTurn();
+
+	//Resources at the end of setup?
 };
 
 GameModel.prototype.buyDevCard = function(playerIndex) {
@@ -103,8 +105,10 @@ GameModel.prototype.playMonument = function(playerIndex) {
 };
 
 GameModel.prototype.buildRoad = function(playerIndex, roadLocation, free) {
-	this.bank.roadWasBuilt();
-	this.players[playerIndex].buildRoad();
+	if (!free)
+		this.bank.roadWasBuilt();
+	
+	this.players[playerIndex].buildRoad(free);
 
 	var playerWithLongestRoad = this.data.longestRoad;
 
@@ -132,17 +136,29 @@ GameModel.prototype.buildRoad = function(playerIndex, roadLocation, free) {
 };
 
 GameModel.prototype.buildSettlement = function(playerIndex, vertexLocation, free) {
-	//bank
-	//player
-	//map
-	//check for winner
+	if (!free)
+		this.bank.settlementWasBuilt();
+	
+	this.players[playerIndex].buildSettlement(free);
+
+	//Check if the player who built has won
+	if (this.players[playerIndex].hasWon())
+		this.data.winner = playerIndex;
+
+	//STILL NEED TO CHANGE THE MAP
 };
 
 GameModel.prototype.buildCity = function(playerIndex, vertexLocation, free) {
-	//bank
-	//player
-	//map
-	//check for winner
+	if (!free)
+		this.bank.cityWasBuilt();
+
+	this.players[playerIndex].buildCity(free);
+
+	//Check if the player who built has won
+	if (this.players[playerIndex].hasWon())
+		this.data.winner = playerIndex;
+
+	//STILL NEED TO CHANGE THE MAP
 };
 
 GameModel.prototype.offerTrade = function(playerIndex, offer, receiver) {
