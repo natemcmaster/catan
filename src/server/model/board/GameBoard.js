@@ -6,23 +6,45 @@ util.inherits(GameBoard, BaseModel);
 
 function GameBoard(data, $Bank, $Deck, $Map, $Player, $TurnTracker) {
 
-	if(!data)
-    	throw new TypeError('invalid data model');
+	if(!data){
+		this.bank = $Bank();
+		this.deck = $Deck();
+		this.map = $Map();
+		this.turnTracker = $TurnTracker();
+		this.players = [];
+		for(var i = 0; i < 4; i++){
+			this.players.push($Player(undefined, i));
+		}
 
-	this.data = data || {'biggestArmy' : -1,
-						 'longestRoad' : -1,
-						 'winner' : -1,
-						 'revision' : 0};
+		this.data = {'bank' : this.bank,
+					 'deck' : this.deck,
+					 'map' : this.map,
+					 'turnTracker' : this.turnTracker,
+					 'players' :  this.players,
+					 'biggestArmy' : -1,
+					 'longestRoad' : -1,
+					 'winner' : -1;
+					 'revision' : 0};
 
-	this.bank = $Bank(this.data.bank);
-	this.deck = $Deck(this.data.deck);
-	this.map = $Map(this.data.map);
-	this.turnTracker = $TurnTracker(this.data.turnTracker);
-
-	this.players = [];
-	for(var i = 0; i < 4; i++){
-		this.players.push($Player(this.data.players[i], i));
 	}
+
+	else{
+		this.data = data 
+
+		this.bank = $Bank(this.data.bank);
+		this.deck = $Deck(this.data.deck);
+		this.map = $Map(this.data.map);
+		this.turnTracker = $TurnTracker(this.data.turnTracker);
+
+		this.players = [];
+		for(var i = 0; i < 4; i++){
+			this.players.push($Player(this.data.players[i], i));
+		}
+
+	}
+	
+
+	
 };
 
 GameBoard.prototype.rollNumber = function(playerIndex, number) {
