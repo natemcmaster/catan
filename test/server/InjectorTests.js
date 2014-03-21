@@ -41,7 +41,7 @@ describe('Injector', function() {
 			return 3
 		}
 		inj.register('One', One);
-		var inst = inj.create('One');
+		var inst = inj.resolve('One');
 		expect(inst.staticMethod).to.be.a('function')
 		expect(inst.staticMethod()).to.equal(3);
 	})
@@ -49,7 +49,7 @@ describe('Injector', function() {
 	it('#hexgrid static method', function() {
 		var h = require('byu-catan').models.hexgrid.HexGrid;
 		inj.register('HexGrid', h);
-		var inst = inj.create('HexGrid');
+		var inst = inj.resolve('HexGrid');
 		expect(inst.getRegular).to.be.a('function');
 	})
 

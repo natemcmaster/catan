@@ -58,6 +58,16 @@ Injector.prototype.find = function(name) {
  * @return {Object}      An instance of the module
  */
 Injector.prototype.create = function(name) {
+  var initer = this.resolve(name);
+  return initer.apply(initer, Array.prototype.slice.call(arguments, 1));
+}
+
+/**
+ * Returns the injected, dyanmic constructor for an object
+ * @param  {string} name Name of the module to create
+ * @return {Function}      A dynamic constructor
+ */
+Injector.prototype.resolve = function(name) {
   try {
     var initer = namedFactory.call(this, name);
   } catch (e) {
@@ -66,7 +76,7 @@ Injector.prototype.create = function(name) {
     }
     throw e;
   }
-  return initer.apply(initer, Array.prototype.slice.call(arguments, 1));
+  return initer;
 }
 
 /**
@@ -127,13 +137,10 @@ var dynamicConstructor = function(initializer, dependents, variables) {
     if (instance !== null && (typeof instance === "object" || typeof instance === "function")) {
       obj = instance;
     }
-    // Add add static methods
-    for (var x in initializer) {
-      if ('function' === typeof initializer[x] && x !== 'constructor')
-        obj[x] = initializer[x];
-    }
+
     return obj;
   }
+  // add static methods for nested dependencies
   for (var x in initializer) {
     if ('function' === typeof initializer[x] && x !== 'constructor')
       construct[x] = initializer[x];
