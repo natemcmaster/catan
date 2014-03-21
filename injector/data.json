@@ -1,0 +1,299 @@
+{
+    "project": {},
+    "files": {
+        "Errors.js": {
+            "name": "Errors.js",
+            "modules": {},
+            "classes": {
+                "InjectorError": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "Injector.js": {
+            "name": "Injector.js",
+            "modules": {},
+            "classes": {
+                "Injector.Dependency": 1,
+                "Injector": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {},
+    "classes": {
+        "InjectorError": {
+            "name": "InjectorError",
+            "shortname": "InjectorError",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "Errors.js",
+            "line": 14,
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "message",
+                    "description": "Message about this error",
+                    "type": "String"
+                }
+            ]
+        },
+        "Injector.Dependency": {
+            "name": "Injector.Dependency",
+            "shortname": "Injector.Dependency",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "Injector.js",
+            "line": 6,
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "construct",
+                    "description": "Constructor the the object",
+                    "type": "Function"
+                },
+                {
+                    "name": "singleton",
+                    "description": "Singleton. Default = false",
+                    "type": "Boolean"
+                }
+            ],
+            "itemtype": "property"
+        },
+        "Injector": {
+            "name": "Injector",
+            "shortname": "Injector",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "Injector.js",
+            "line": 23,
+            "description": "Creates a new instance of injector",
+            "is_constructor": 1
+        }
+    },
+    "classitems": [
+        {
+            "file": "Injector.js",
+            "line": 33,
+            "description": "Creates a new Dependency",
+            "itemtype": "method",
+            "name": "register",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "Unique Id for dependency",
+                    "type": "String"
+                },
+                {
+                    "name": "obj",
+                    "description": "Constructor of the object",
+                    "type": "Constructor"
+                }
+            ],
+            "return": {
+                "description": "the generated dependency",
+                "type": "Injector.Dependency"
+            },
+            "class": "Injector"
+        },
+        {
+            "file": "Injector.js",
+            "line": 44,
+            "description": "Utility function. Maps an object of key:value pairs\nExample: inj.map({'Bank':MockBank})\nis the same as inj.register('Bank',MockBank)",
+            "itemtype": "method",
+            "name": "map",
+            "params": [
+                {
+                    "name": "mapping",
+                    "description": "key value pairs of id an constructors",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Void"
+            },
+            "class": "Injector"
+        },
+        {
+            "file": "Injector.js",
+            "line": 58,
+            "description": "Returns the dependendey matchin that name.\nThrows an InjectorError if the name is now matched",
+            "itemtype": "method",
+            "name": "find",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "Name of dependency",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "the parsed dependency",
+                "type": "Injector.Dependency"
+            },
+            "class": "Injector"
+        },
+        {
+            "file": "Injector.js",
+            "line": 71,
+            "description": "Creates an instance of the requested module, and\ninjects all dependencies with a new instance of that dependency\nIf dependency was registered as a singleton, it does not recreate a new object",
+            "itemtype": "method",
+            "name": "create",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "Name of the module to create",
+                    "type": "String"
+                },
+                {
+                    "name": "arguments",
+                    "description": "All arguments index > 0 are passed to the constructor",
+                    "type": "arguments..."
+                }
+            ],
+            "return": {
+                "description": "An instance of the module",
+                "type": "Object"
+            },
+            "class": "Injector"
+        },
+        {
+            "file": "Injector.js",
+            "line": 85,
+            "description": "Returns the injected, dyanmic constructor for an object",
+            "itemtype": "method",
+            "name": "resolve",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "Name of the module to create",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "A dynamic constructor",
+                "type": "Function"
+            },
+            "class": "Injector"
+        },
+        {
+            "file": "Injector.js",
+            "line": 103,
+            "description": "Injects an anonymous function with dependencies. This produces a function",
+            "itemtype": "method",
+            "name": "inject",
+            "params": [
+                {
+                    "name": "func",
+                    "description": "Function to inject",
+                    "type": "Function"
+                }
+            ],
+            "return": {
+                "description": "Function with matched dependencies",
+                "type": "Function"
+            },
+            "class": "Injector"
+        },
+        {
+            "file": "Injector.js",
+            "line": 122,
+            "description": "Same as register, except there can only be on instance of this object",
+            "itemtype": "method",
+            "name": "singleton",
+            "params": [
+                {
+                    "name": "id",
+                    "description": "Unique Id for dependency",
+                    "type": "String"
+                },
+                {
+                    "name": "obj",
+                    "description": "Constructor of the object",
+                    "type": "Constructor"
+                }
+            ],
+            "return": {
+                "description": "the generated dependency",
+                "type": "Injector.Dependency"
+            },
+            "class": "Injector"
+        },
+        {
+            "file": "Injector.js",
+            "line": 191,
+            "description": "This reads the function description and finds all arguments that begin\nwith the dollar sign. Returns a list of these arguments WITHOUT the dollar sign.",
+            "params": [
+                {
+                    "name": "func",
+                    "description": "Function of analyze",
+                    "type": "Function"
+                }
+            ],
+            "return": {
+                "description": "List of all arguments with dollar sign",
+                "type": "Array"
+            },
+            "class": "Injector"
+        },
+        {
+            "file": "Injector.js",
+            "line": 209,
+            "description": "This reads the function description and finds all arguments that DO NOT begin\nwith the dollar sign.",
+            "params": [
+                {
+                    "name": "func",
+                    "description": "Function of analyze",
+                    "type": "Function"
+                }
+            ],
+            "return": {
+                "description": "List of all arguments with dollar sign",
+                "type": "Array"
+            },
+            "class": "Injector"
+        },
+        {
+            "file": "Injector.js",
+            "line": 227,
+            "description": "Magic.\nCreates a list of the named arguments for the given function",
+            "params": [
+                {
+                    "name": "func",
+                    "description": "Function",
+                    "type": "Function"
+                }
+            ],
+            "return": {
+                "description": "list of the named arguments",
+                "type": "Array"
+            },
+            "class": "Injector"
+        }
+    ],
+    "warnings": [
+        {
+            "message": "Missing item type\nThis reads the function description and finds all arguments that begin\nwith the dollar sign. Returns a list of these arguments WITHOUT the dollar sign.",
+            "line": " Injector.js:191"
+        },
+        {
+            "message": "Missing item type\nThis reads the function description and finds all arguments that DO NOT begin\nwith the dollar sign.",
+            "line": " Injector.js:209"
+        },
+        {
+            "message": "Missing item type\nMagic.\nCreates a list of the named arguments for the given function",
+            "line": " Injector.js:227"
+        }
+    ]
+}
