@@ -34,11 +34,16 @@ Injector.prototype.create = function(name) {
 
 // #Private 
 
-var factory = function(name) {
+var factory = function(name,stack) {
+  stack = stack || [];
+  if(~stack.indexOf(name))
+    throw new InjectorError('Circular references');
   var dep = this.resolve(name);
   var dependents = [];
+  stack.push(name);
+  stack.concat(dep.dependencies);
   for (var i = 0; i < dep.dependencies.length; i++) {
-    dependents.push(factory.call(this,dep.dependencies[i]));
+    dependents.push(factory.call(this,dep.dependencies[i],stack));
   };
 
   return function() {
