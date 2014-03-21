@@ -2,16 +2,16 @@ var BaseModel = require('./BaseModel');
 var util = require('util');
 
 module.exports = GameModel;
-util.inherits(Game, BaseModel);
+util.inherits(GameModel, BaseModel);
 
 /** 
 * This is the server model class
 
-* @class Game
+* @class GameModel
 * @constructor
 * @param {data} playerID The id of the local player, extracted from the cookie
 */
-function Game(data, $Log, $Chat, $Bank, $Deck, $Map, $Player, $TurnTracker){
+function GameModel(data, $Log, $Chat, $Bank, $Deck, $Map, $Player, $TurnTracker){
 
 
 if(!data){
@@ -56,79 +56,75 @@ if(!data){
 		}
 
 	}
-
-
-
-  this.gameboard = $GameBoard(data);
 };
 
-Game.prototype.sendChat = function(playerIndex, message) {
+GameModel.prototype.sendChat = function(playerIndex, message) {
 
 };
 
-Game.prototype.rollNumber = function(playerIndex, number) {
+GameModel.prototype.rollNumber = function(playerIndex, number) {
 
 };
 
-Game.prototype.robPlayer = function(playerIndex, victimIndex, location) {
+GameModel.prototype.robPlayer = function(playerIndex, victimIndex, location) {
 
 };
 
-Game.prototype.finishTurn = function(playerIndex) {
+GameModel.prototype.finishTurn = function(playerIndex) {
 
 };
 
-Game.prototype.buyDevCard = function(playerIndex) {
+GameModel.prototype.buyDevCard = function(playerIndex) {
 	this.players[playerIndex].buyDevCard(this.deck.drawRandomCard());
 };
 
-Game.prototype.playYearOfPlenty = function(playerIndex, resource1, resource2) {
+GameModel.prototype.playYearOfPlenty = function(playerIndex, resource1, resource2) {
 	this.bank.withdraw(resource1);
 	this.bank.withdraw(resource2);
 
 	players[playerIndex].playYearOfPlenty(resource1, resource2);
 };
 
-Game.prototype.playRoadBuilding = function(playerIndex, spot1, spot2) {
+GameModel.prototype.playRoadBuilding = function(playerIndex, spot1, spot2) {
 
 };
 
-Game.prototype.playSoldier = function(playerIndex, victimIndex, location) {
+GameModel.prototype.playSoldier = function(playerIndex, victimIndex, location) {
 
 };
 
-Game.prototype.playMonopoly = function(playerIndex, resource) {
+GameModel.prototype.playMonopoly = function(playerIndex, resource) {
 
 };
 
-Game.prototype.playMonument = function(playerIndex) {
+GameModel.prototype.playMonument = function(playerIndex) {
 
 };
 
-Game.prototype.buildRoad = function(playerIndex, roadLocation, free) {
+GameModel.prototype.buildRoad = function(playerIndex, roadLocation, free) {
 
 };
 
-Game.prototype.buildSettlement = function(playerIndex, vertexLocation, free) {
+GameModel.prototype.buildSettlement = function(playerIndex, vertexLocation, free) {
 
 };
 
-Game.prototype.buildCity = function(playerIndex, vertexLocation, free) {
+GameModel.prototype.buildCity = function(playerIndex, vertexLocation, free) {
 
 };
 
-Game.prototype.offerTrade = function(playerIndex, offer, receiver) {
+GameModel.prototype.offerTrade = function(playerIndex, offer, receiver) {
 
 };
 
-Game.prototype.acceptTrade = function(playerIndex, willAccept) {
+GameModel.prototype.acceptTrade = function(playerIndex, willAccept) {
 
 };
 
-Game.prototype.maritimeTrade = function(playerIndex, ratio, inputResource, outputResource) {
+GameModel.prototype.maritimeTrade = function(playerIndex, ratio, inputResource, outputResource) {
 
 };
 
-Game.prototype.discardCards = function(playerIndex, cardsToDiscard) {
+GameModel.prototype.discardCards = function(playerIndex, cardsToDiscard) {
 
 };
