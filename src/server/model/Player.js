@@ -137,6 +137,11 @@ Player.prototype.playYearOfPlenty = function(resource1, resource2){
 	this.oldDevCards['yearOfPlenty']--;
 }
 
+Player.prototype.playRoadBuilding = function(){
+	this.roads -= 2;
+	this.oldDevCards['roadBuilding']--;
+}
+
 Player.prototype.finishTurn = function() {
 	this.updateDevCards();
 	this.playedDevCard = false;
