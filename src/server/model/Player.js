@@ -6,7 +6,7 @@ util.inherits(Player, BaseModel);
 
 function Player(data, index){
 
-	this.data = data || {'MAX_GAME_POINTS': 10,
+	data = data || {'MAX_GAME_POINTS': 10,
 										'resources': {
 											'brick': 0,
 											'wood': 0,
@@ -44,30 +44,30 @@ function Player(data, index){
 										'color': null
 										};
 
-	this.MAX_GAME_POINTS = player.MAX_GAME_POINTS;
-	this.resources = player.resources;
+	this.MAX_GAME_POINTS = data.MAX_GAME_POINTS;
+	this.resources = data.resources;
 
-	this.oldDevCards = player.oldDevCards;
+	this.oldDevCards = data.oldDevCards;
 
-    this.newDevCards = player.newDevCards;
+    this.newDevCards = data.newDevCards;
 
-	this.roads = player.roads;
-	this.cities = player.cities;
-	this.settlements = player.settlements;
-	this.soldiers = player.soldiers;
-	this.victoryPoints = player.victoryPoints;
-	this.monuments = player.monuments;
+	this.roads = data.roads;
+	this.cities = data.cities;
+	this.settlements = data.settlements;
+	this.soldiers = data.soldiers;
+	this.victoryPoints = data.victoryPoints;
+	this.monuments = data.monuments;
 
-	this.longestRoad = player.longestRoad;
-	this.largestArmy = player.largestArmy;
-	this.playedDevCard = player.playedDevCard;
-	this.discarded = player.discarded;
+	this.longestRoad = data.longestRoad;
+	this.largestArmy = data.largestArmy;
+	this.playedDevCard = data.playedDevCard;
+	this.discarded = data.discarded;
 
-	this.playerID = player.playerID;
-	this.orderNumber = player.orderNumber;
+	this.playerID = data.playerID;
+	this.orderNumber = data.orderNumber;
 
-	this.name = player.name;
-	this.color = player.color;
+	this.name = data.name;
+	this.color = data.color;
 }
 
 Player.prototype.buyDevCard = function(cardType){

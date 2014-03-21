@@ -26,7 +26,7 @@ function Map(data, $Port, $HexLocation, $NumberTiles,$HexGrid,$Hex){
 
 	this.ports = [];
 	for (var i=0; i<data.ports.length; i++) {
-		this.ports.push($Port(proxy, data.ports[i]));
+		this.ports.push($Port(null, data.ports[i]));
 	}
 	this.robber = data.robber && $HexLocation(data.robber.x, data.robber.y);
 	this.numberTiles = $NumberTiles(data.numbers);
