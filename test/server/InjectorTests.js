@@ -105,6 +105,24 @@ describe('Injector', function() {
 		expect(inst2.data).to.equal('Chuck Norris has 7 singletons');
 	})
 
+	it('#nested singleton',function(){
+		function Parent($Singleton){
+			var n = $Singleton();
+			n.data++;
+			this.count=n.data;
+			this.sgl=n;
+		}
+		function Singleton(){this.data=0;}
+		inj.singleton('Singleton',Singleton);
+		inj.register('Parent',Parent);
+
+		var inst1 = inj.create('Parent');
+		var inst2 = inj.create('Parent');
+		expect(inst2.count).to.equal(2);
+		expect(inst1.sgl.data).to.equal(2);
+
+	})
+
 	it('#multi injection', function() {
 		inj.register('One', function(a, b, c, $Two, $Three) {
 			this.two = $Two(a);
