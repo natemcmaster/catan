@@ -1,4 +1,5 @@
 var BaseModel = require('./BaseModel');
+var Hexgrid = require('./hexgrid');
 var util = require('util');
 
 /**
@@ -21,53 +22,67 @@ util.inherits(Map, BaseModel);
 
 function Map(data){
   BaseModel.call(this, data);
+  this.hex = new Hexgrid(data);
 }
 
-/*********** MUTATION FUNCTIONS **************/
-Map.prototype.moveRobber = function (from, to) {
+/**
+ * <pre>
+ * Pre-condition: The robber is not currently at the location desired
+ * Post-condition: The robber is moved to the new location
+ * </pre>
+ * @method moveRobber
+ * @param {integer} x
+ * @param {integer} y
+ * @return {void}
+ */
+Map.prototype.moveRobber = function (x, y) {
+  if (this.data.robber.x === x && this.data.robber.y === y) {
+    throw new Error('Must move the robber from its current position');
+  }
+  this.data.robber = {
+    x: x,
+    y: y
+  }
 }
-
-Map.prototype.buildRoad = function (playerIndex, roadLocation) {
-}
-
-Map.prototype.robPlayer = function(playerIndex, victimIndex, location) {
-
-};
 
 /**
  * <pre>
  * Pre-condition: the location is a legal move for the player, and it is their turn, and they have the resources & buildings.
- * Post-condition: a road will be placed there (async!)
+ * Post-condition: a road will be placed there
  * </pre>
  * @method placeRoad
  * @param {integer} playerIndex Player index
- * @param {EdgeLocation} Location of edge on hex to place road on
- * @param {boolean} isFree is it free?
+ * @param {object} location {x: int, y: int, direction: str}
  * @return {void}
  */
-Map.prototype.placeRoad = function(playerIndex, edgeLocation, isFree) {
-
-};
+Map.prototype.placeRoad = function (playerIndex, loc) {
+  if (this.hex.edgeIsOccupied(loc.x, loc.y, loc.direction)) {
+    throw new Error('Cannot place road -- edge is already occupied');
+  }
+  this.hex.setEdge(loc.x, loc.y, loc.direction, playerIndex);
+}
 
 /**
  * <pre>
  * Pre-condition: the location is a legal move for the player, and it is their turn, and they have the resources & buildings.
- * Post-condition: a settlement will be placed there (async!)
+ * Post-condition: a settlement will be placed there
  * </pre>
  * @method placeSettlement
  * @param {integer} playerIndex Player index
- * @param {VertexLocation} Location of vertex on hex to place settlement on
- * @param {boolean} isFree is it free?
+ * @param {object} Location {x: int, y: int, direction: str}
  * @return {void}
  */
-Map.prototype.placeSettlement = function(playerIndex, vertexLocation, isFree) {
-
+Map.prototype.placeSettlement = function(playerIndex, loc) {
+  if (this.hex.vertexIsOccupied(loc.x, loc.y, loc.direction)) {
+    throw new Error('Cannot place settlement -- vertex is already occupied');
+  }
+  this.hex.setVertex(loc.x, loc.y, loc.direction, playerIndex, 1);
 };
 
 /**
  * <pre>
  * Pre-condition: the location is a legal move for the player, and it is their turn, and they have the resources & buildings.
- * Post-condition: a city will replace the settlement at that location (async!)
+ * Post-condition: a city will replace the settlement at that location
  * </pre>
  * @method placeCity
  * @param {integer} playerIndex Player index
@@ -75,24 +90,9 @@ Map.prototype.placeSettlement = function(playerIndex, vertexLocation, isFree) {
  * @return {void}
  */
 Map.prototype.placeCity = function(playerIndex, vertexLocation) {
-
+  if (!this.hex.vertexHasMySettlement(loc.x, loc.y, loc.direction, playerIndex)) {
+    throw new Error('A city can only be placed to replace your own settlement');
+  }
+  this.hex.setVertex(loc.x, loc.y, loc.direction, playerIndex, 2);
 };
 
-/**
- * <pre>
- * Pre-condition: the player has a road-building card, and enough roads left,
- * and it is their turn.
- * Post-condition: roads will be placed at the given locations (async!)
- * </pre>
- * @method placeRoads
- * @param {integer} playerIndex
- * @param {List<EdgeLocation>} locations
- * @return {void}
- */
-Map.prototype.playRoadBuilding = function(playerIndex, locations) {
-  
-};
-
-Map.prototype.playSoldier = function(playerIndex, victimIndex, location) {
-
-};
