@@ -6,6 +6,7 @@ module.exports = Player;
 util.inherits(Player, BaseModel);
 
 function Player(input, index){
+  BaseModel.call(this, input);
 	var required = ['name','playerID','color'];
 	if(!input)
 		throw new CatanError('Must have at least this properties: '+required.join(','));

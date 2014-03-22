@@ -26,7 +26,7 @@ GameCtrl.prototype.assignRoutes = function(app, h) {
 }
 
 GameCtrl.prototype.getModel = function(q, r) {
-	r.json(sampleJson.model);
+	r.json(q.gameRoom.getGameModel(q.gameID).toJSON());
 }
 
 GameCtrl.prototype.listCommands = function(q, r) {
