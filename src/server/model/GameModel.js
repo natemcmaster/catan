@@ -80,7 +80,7 @@ GameModel.prototype.addPlayer = function(playerID,username,color) {
 	return p;
 }
 
-GameModel.prototype.rollDice = function(playerIndex, number) {
+GameModel.prototype.rollNumber = function(playerIndex, number) {
 	//Map
 	//Players
 	//Bank
@@ -103,7 +103,7 @@ GameModel.prototype.finishTurn = function(playerIndex) {
 GameModel.prototype.buyDevCard = function(playerIndex) {
 	var card = this.deck.drawRandomCard();
 	this.players[playerIndex].buyDevCard(card);
-	this.bank.devCardWasBought();
+	this.bank.receivePaymentForDevCard();
 };
 
 GameModel.prototype.playYearOfPlenty = function(playerIndex, resource1, resource2) {
@@ -241,7 +241,7 @@ GameModel.prototype.buildSettlement = function(playerIndex, vertexLocation, free
 
 GameModel.prototype.buildCity = function(playerIndex, vertexLocation, free) {
 	if (!free)
-		this.bank.cityWasBuilt();
+		this.bank.receivePaymentForCity();
 
 	this.players[playerIndex].buildCity(free);
 

@@ -10,37 +10,65 @@ function Bank(data) {
 					     'sheep' : 19,
 						 'wheat' : 19,
 						 'ore' : 19};
-};
+}
 
-Bank.prototype.withdraw = function(resource, amount){
+Bank.prototype.receivePaymentForRoad = function() {
+	this.deposit('brick', 1);
+	this.deposit('wood', 1);
+}
+
+Bank.prototype.receivePaymentForSettlement = function() {
+	this.deposit('brick', 1);
+	this.deposit('wood', 1);
+	this.deposit('sheep', 1);
+	this.deposit('wheat', 1);
+}
+
+Bank.prototype.receivePaymentForCity = function() {
+	this.deposit('wheat', 2);
+	this.deposit('ore', 3);
+}
+
+Bank.prototype.receivePaymentForDevCard = function() {
+	this.deposit('sheep', 1);
+	this.deposit('wheat', 1);
+	this.deposit('ore', 1);
+}
+
+Bank.prototype.canWithdraw = function(resource, amount) {
+	if (this.data[resource] < amount)
+		return false;
+	else
+		return true;
+}
+
+Bank.prototype.withdraw = function(resource, amount) {
 	var a = amount || 1;
-	this.data[resource] -= a;
-};
 
-Bank.prototype.deposit = function(resource, amount){
+	if (this.canWithdraw(resource, a)) {
+		this.data[resource] -= a;
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+Bank.prototype.canDeposit = function(resource, amount) {
+	if (this.data[resource] + amount > 19)
+		return false;
+	else
+		return true;
+}
+
+Bank.prototype.deposit = function(resource, amount) {
 	var a = amount || 1;
-	this.data[resource] += a;
-};
 
-Bank.prototype.roadWasBuilt = function(){
-	this.data['brick']++;
-	this.data['wood']++;
-};
-
-Bank.prototype.settlementWasBuilt = function(){
-	this.data['brick']++;
-	this.data['wood']++;
-	this.data['sheep']++;
-	this.data['wheat']++;
-};
-
-Bank.prototype.cityWasBuilt = function(){
-	this.data['wheat'] += 2;
-	this.data['ore'] += 3;
-};
-
-Bank.prototype.devCardWasBought = function(){
-	this.data['sheep']++;
-	this.data['wheat']++;
-	this.data['ore']++;
-};
+	if (this.canDeposit(resource, a)) {
+		this.data[resource] += a;
+		return true;
+	}
+	else {
+		return false;
+	}
+}
