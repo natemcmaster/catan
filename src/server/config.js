@@ -16,7 +16,6 @@ function flatten(obj, d) {
 exports.runtime = flatten(model);
 
 exports.runtime.SmokeTest = require('./resources').EchoTest;
-exports.runtime.Logger = require('./resources').ConsoleLogger;
 
 var repo = require('./repo');
 exports.repo = {

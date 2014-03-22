@@ -10,7 +10,7 @@ var InjectorError = require('./Errors').InjectorError,
  * @param {boolean} singleton Singleton. Default = false
  * @property dependencies List of the IDs of the dependencies
  */
-function Dependency(obj,singleton) {
+function Dependency(obj, singleton) {
   this.initializer = obj;
   this.dependencies = dpFromArgs(obj);
   this.variables = variablesFromArgs(obj);
@@ -38,6 +38,7 @@ function Injector() {
  * @return {Injector.Dependency}      the generated dependency
  */
 Injector.prototype.register = function(id, obj) {
+  checkExisting.call(this,id);
   return this.dependencies[id] = new Dependency(obj);
 }
 
@@ -52,6 +53,20 @@ Injector.prototype.register = function(id, obj) {
 Injector.prototype.map = function(mp) {
   for (var id in mp) {
     this.register(id, mp[id]);
+  }
+}
+
+/**
+ * Utility function. Maps an object of key:value pairs
+ * Example: inj.map({'Bank':MockBank})
+ * is the same as inj.singleton('Bank',MockBank)
+ * @method map
+ * @param  {object} mapping key value pairs of id an constructors
+ * @return {void}
+ */
+Injector.prototype.mapSingleton = function(mp) {
+  for (var id in mp) {
+    this.singleton(id, mp[id]);
   }
 }
 
@@ -126,8 +141,9 @@ Injector.prototype.inject = function(func) {
  * @param  {constructor} obj  Constructor of the object
  * @return {Injector.Dependency}      the generated dependency
  */
-Injector.prototype.singleton = function(name,dep){
-  return this.dependencies[name] = new Dependency(dep,true);
+Injector.prototype.singleton = function(name, dep) {
+  checkExisting.call(this, name);
+  return this.dependencies[name] = new Dependency(dep, true);
 }
 
 // #Private 
@@ -149,11 +165,16 @@ var namedFactory = function(name, stack) {
 
 var dynamicConstructor = function(dep, dependents) {
 
-  if(dep.singleton && dep.instance != null){
-    return function(){ return dep.instance; }; 
+  if (dep.singleton && dep.instance != null) {
+    return function() {
+      return dep.instance;
+    };
   }
 
   var construct = function() {
+    if (dep.singleton && dep.instance != null) {
+      return dep.instance;
+    }
     var args = _(arguments).toArray();
     //Aligh data arguments with the constructor
     var dataArgs = args.splice(0, dep.variables.length);
@@ -169,13 +190,15 @@ var dynamicConstructor = function(dep, dependents) {
     fakeConstructor.prototype = Object.create(dep.initializer.prototype)
     obj = new fakeConstructor();
     obj.constructor = dep.initializer.constructor;
+    if(dep.initializer.name)
+      obj.name = dep.initializer.name;
 
     instance = dep.initializer.apply(obj, a);
 
     if (instance !== null && (typeof instance === "object" || typeof instance === "function")) {
       obj = instance;
     }
-    if(dep.singleton){
+    if (dep.singleton) {
       dep.instance = obj;
     }
     return obj;
@@ -241,4 +264,17 @@ var argList = function(func) {
     args[i] = args[i].trim();
   };
   return args;
+}
+
+/**
+ * Checks if dependency alreayd exists
+ */
+var checkExisting = function(id) {
+  var d = this.dependencies[id];
+  if (d) {
+    if (d.singleton) {
+      throw new InjectorError('Cannot overwrite a singleton registration');
+    }
+    console.warn('Overwriting previous defined dependency: ' + id);
+  }
 }

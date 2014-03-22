@@ -1,6 +1,6 @@
 module.exports = MemoryUserProvider;
 
-function MemoryUserProvider($User,$UserIDGenerator){
+function MemoryUserProvider($User){
 	this.users=[
 	 	$User('Sam','sam',0),
 	 	$User('Brooke','brooke',1),
@@ -13,14 +13,14 @@ function MemoryUserProvider($User,$UserIDGenerator){
 	 	$User('Chris','chris',42),
 	 	$User('chuck','norris',9999999999),
 	];
-	this.idGen = $UserIDGenerator();
-	this.userConstruct = $User;
+	this.nextId = 101;
+	this.constructUser = $User;
 }
 
 MemoryUserProvider.prototype.create = function(u,p){
-	var newUser=this.userConstruct(u,p,this.idGen.next());
+	var newUser=this.constructUser(u,p,this.nextId++);
 	this.users.push(newUser);
-	return newUser();
+	return newUser;
 }
 
 MemoryUserProvider.prototype.getAll = function(){

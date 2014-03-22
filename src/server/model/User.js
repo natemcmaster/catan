@@ -1,6 +1,4 @@
 /**
- * This module contains functionality for the user
- *
  * @module catan.server.model
  * @namespace servermodel
  */
@@ -14,10 +12,8 @@ module.exports = User;
  * @class User
  * @constructor
  */
-//var id = 0;
 
 function User(username, password,playerID){
-	//this.userID = id++;
   this.username = username;
   this.password = password;
   this.playerID = playerID;
