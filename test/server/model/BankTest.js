@@ -52,7 +52,7 @@ describe('Server Bank Tests', function() {
 		expect(bank.deposit('wood', 2)).to.be.true;
 		expect(bank.deposit('sheep', 1)).to.be.true;
 		expect(bank.deposit('ore', 3)).to.be.true;
-		expect(bank.deposit('ore', 17)).to.be.false;
+		expect(bank.deposit('ore', 16)).to.be.true;
 
 		expect(bank.data['brick']).to.equal(0);
 		expect(bank.data['wood']).to.equal(2);
