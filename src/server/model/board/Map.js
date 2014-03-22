@@ -29,19 +29,15 @@ util.inherits(Map, BaseModel);
  */
 
 function Map(data){
-	this.data = data;
-
-  this.hexGrid = HexGrid.getRegular(data.hexGrid.radius, Hex, data.hexGrid.hexes);
-
-	this.ports = [];
-	for (var i=0; i<data.ports.length; i++) {
-		this.ports.push(new Port(proxy, data.ports[i]));
-	}
-	this.robber = data.robber && new HexLocation(data.robber.x, data.robber.y);
-	this.numberTiles = new NumberTiles(data.numbers);
+  BaseModel.call(this, data);
 }
 
 /*********** MUTATION FUNCTIONS **************/
+Map.prototype.moveRobber = function (from, to) {
+}
+
+Map.prototype.buildRoad = function (playerIndex, roadLocation) {
+}
 
 Map.prototype.robPlayer = function(playerIndex, victimIndex, location) {
 

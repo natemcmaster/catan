@@ -61,7 +61,10 @@ Game.prototype.playMonument = function(playerIndex) {
 };
 
 Game.prototype.buildRoad = function(playerIndex, roadLocation, free) {
-
+  if (!free) {
+    this.getPlayer().payForRoad();
+  }
+  this.map.buildRoad(playerIndex, roadLocation);
 };
 
 Game.prototype.buildSettlement = function(playerIndex, vertexLocation, free) {
