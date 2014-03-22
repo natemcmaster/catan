@@ -33,10 +33,33 @@ function GameModel(data, $Log, $Chat, $Bank, $Deck, $Map, $Player, $TurnTracker)
 	}.bind(this));
 
 	this.playerConstruct = $Player;
+}
 
+GameModel.prototype.toJSON = function () {
+  return {
+    chat: this.chat.getData(),
+    bank: this.bank.getData(),
+    deck: this.deck.getData(),
+    map: this.map.getData(),
+    log: this.log.getData(),
+    turnTracker: this.turnTracker.getData(),
+    players: this.players.map(function (player) {
+      return player.getData()
+    }),
 
+    longestRoad: this.data.longestRoad,
+    biggestArmy: this.data.biggestArmy,
+    winner: this.data.winner,
+    revision: this.data.revision
+  }
+  return this.data;
+}
 
+GameModel.prototype.sendChat = function (playerIndex, message) {
+  var playerName = this.players[playerIndex].name;
+  this.chat.sendChat(playerName, message);
 };
+
 GameModel.prototype.updateColor = function(playerID, color) {
 	var p = _(this.players).find(function(s) {
 		return s.playerID == playerID
@@ -55,10 +78,6 @@ GameModel.prototype.addPlayer = function(playerID,username,color) {
 	this.players.push(p);
 	return p;
 }
-
-GameModel.prototype.sendChat = function(playerIndex, message) {
-	this.chat.sendChat(playerIndex, message);
-};
 
 GameModel.prototype.rollNumber = function(playerIndex, number) {
 	//Map
@@ -125,12 +144,12 @@ GameModel.prototype.playSoldier = function(playerIndex, victimIndex, location) {
 	var stolenCard = this.players[victimIndex].loseCard();
 	this.players[playerIndex].playSoldier(stolenCard);
 
-	var playerWithLargestArmy = this.data.largestArmy;
+	var playerWithLargestArmy = this.data.biggestArmy;
 
 	//If no one has the longest road and the player who just built has 5 or more roads,
 	//that player claims the longest road
 	if (playerWithLargestArmy == -1 && this.players[playerIndex].getSizeOfArmy() >= 3) {
-		this.data.largestArmy = playerIndex;
+		this.data.biggestArmy = playerIndex;
 		this.players[playerIndex].setLargestArmy(true);
 	}
 
@@ -138,7 +157,7 @@ GameModel.prototype.playSoldier = function(playerIndex, victimIndex, location) {
 	//owner of the longest road, that player now claims the longest road
 	else if (playerIndex != playerWithLargestArmy && 
 			this.players[playerIndex].getSizeOfArmy() > this.players[playerWithLargestArmy].getSizeOfArmy()) {
-		this.data.largestArmy = playerIndex;
+		this.data.biggestArmy = playerIndex;
 		this.players[playerWithLargestArmy].setLargestArmy(false);
 		this.players[playerIndex].setLargestArmy(true);
 	}

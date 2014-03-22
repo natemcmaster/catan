@@ -16,22 +16,44 @@ function MoveCtrl(app, inj) {
 }
 util.inherits(MoveCtrl, BaseCtrl);
 
+var cmdMap = {
+  sendChat: 'SendChatCommand',
+
+  robPlayer: 'RobPlayerCommand',
+  rollNumber: 'RollNumberCommand',
+  finishTurn: 'FinishTurnCommand',
+  buyDevCard: 'BuyDevCardCommand',
+
+  Soldier: 'SoldierCommand',
+  Monopoly: 'MonopolyCommand',
+  Monument: 'MonumentCommand',
+  Road_Building: 'RoadBuildingCommand',
+  Year_of_Plenty: 'YearOfPlentyCommand',
+
+  buildRoad: 'BuildRoadCommand',
+  buildCity: 'BuildCityCommand',
+  buildSettlement: 'BuildSettlementCommand',
+
+  offerTrade: 'OfferTradeCommand',
+  acceptTrade: 'AcceptTradeCommand',
+  maritimeTrade: 'MaritimeTradeCommand',
+  discardCards: 'DiscardCardsCommand',
+}
+
 MoveCtrl.prototype.assignRoutes = function(app, h) {
 	//replace all actions with their dependency injected version
-	for(var a in actions){
-		actions[a] = h(actions[a]);
-	}
-	app.post('/moves/:action', this.route);
-}
-
-MoveCtrl.prototype.route = function(q, r) {
-	if ('function' === typeof actions[q.param('action')]) {
-		this[q.param('action')](q, r);
-	} else {
-		throw new HttpError(404);
+	for(var routeName in cmdMap){
+    app.post('/moves/' + routeName, this.commandRoute.bind(this, cmdMap[routeName]));
 	}
 }
 
+/*
+var commands = {}
+for (var name in cmdMap) {
+  commands['/moves/' + name] = require('../model/commands/' + cmdMap[name]);
+}
+
+MoveCtrl.prototype.commands = commands;
 var actions = {
 	sendChat: function(q, r, $SendChatCommand) {
 		r.json(sampleJson);
@@ -85,3 +107,4 @@ var actions = {
 		r.json(sampleJson);
 	},
 };
+*/

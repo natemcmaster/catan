@@ -72,7 +72,7 @@ Injector.prototype.mapSingleton = function(mp) {
 
 /**
  * Returns the dependendey matchin that name.
- * Throws an InjectorError if the name is now matched
+ * Throws an InjectorError if the name is not matched
  * @method find
  * @param  {string} name Name of dependency
  * @return {Injector.Dependency} the parsed dependency
@@ -81,6 +81,16 @@ Injector.prototype.find = function(name) {
   if (!this.dependencies[name])
     throw new InjectorError('Could not find: $' + name);
   return this.dependencies[name];
+}
+
+/**
+ * Returns the dependendey matching that name or null if there is none
+ * @method find
+ * @param  {string} name Name of dependency
+ * @return {Injector.Dependency} the parsed dependency
+ */
+Injector.prototype.maybeFind = function (name) {
+  return this.dependencies[name] || null;
 }
 
 /**
@@ -205,7 +215,7 @@ var dynamicConstructor = function(dep, dependents) {
   }
   // add static methods for nested dependencies
   for (var x in dep.initializer) {
-    if ('function' === typeof dep.initializer[x] && x !== 'constructor')
+    if (('function' === typeof dep.initializer[x] || dep.initializer.hasOwnProperty(x)) && x !== 'constructor')
       construct[x] = dep.initializer[x];
   }
   return construct;

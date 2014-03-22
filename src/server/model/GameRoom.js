@@ -106,7 +106,7 @@ GameRoom.prototype.joinGame = function(playerID, color, gameID) {
 };
 
 GameRoom.prototype.getGameModel = function(gameID) {
-
+  return this.getGameByID(gameID).model;
 };
 
 GameRoom.prototype.resetGame = function(gameID) {
