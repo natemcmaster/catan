@@ -80,7 +80,7 @@ GameModel.prototype.addPlayer = function(playerID,username,color) {
 	return p;
 }
 
-GameModel.prototype.rollNumber = function(playerIndex, number) {
+GameModel.prototype.rollDice = function(playerIndex, number) {
 	//Map
 	//Players
 	//Bank
