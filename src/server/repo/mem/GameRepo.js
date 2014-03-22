@@ -1,7 +1,7 @@
 module.exports = MemoryGameRepo;
 var CatanError = require('../../../common').Errors.CatanError;
 var _ = require('underscore');
-var sampledata = require('./_sampledata.json');
+var data = require('./_initialdata.json');
 
 function MemoryGameRepo($GameModel) {
 	this.constructGame = $GameModel;
@@ -9,13 +9,13 @@ function MemoryGameRepo($GameModel) {
 	this.games[0] = {
 		id: 0,
 		title: 'Sample Game',
-		model: $GameModel(sampledata.model)
+		model: $GameModel(data.sample)
 	};
 	this.nextId = 1;
 }
 
 MemoryGameRepo.prototype.create = function(title, randomTiles, randomNumber, randomPorts) {
-	var model = this.constructGame(sampledata.blank);
+	var model = this.constructGame(data.blank);
 	var game = {
 		id: (this.nextId++),
 		title: title,

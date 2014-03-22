@@ -5,7 +5,6 @@ module.exports = GameCtrl;
 var fs = require('fs'),
 	path = require('path'),
 	util = require('util');
-var sampleJson = JSON.parse(fs.readFileSync(path.join(__dirname, './_sampledata.json')));
 
 
 var BaseCtrl = require('./BaseCtrl');
@@ -39,11 +38,11 @@ GameCtrl.prototype.listAi = function(q, r) {
 }
 
 GameCtrl.prototype.reset = function(q, r) {
-	r.json(sampleJson.model);
+	//game model
 }
 
 GameCtrl.prototype.executeCommands = function(q, r) {
-	r.json(sampleJson.model);
+	//game model
 }
 
 GameCtrl.prototype.addAi = function(q, r) {

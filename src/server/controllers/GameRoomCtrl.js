@@ -5,8 +5,6 @@ module.exports = GameRoomCtrl;
 var fs = require('fs');
 var path = require('path'),
 	util = require('util');
-var sampleJson = JSON.parse(fs.readFileSync(path.join(__dirname, './_sampledata.json')));
-
 
 var BaseCtrl = require('./BaseCtrl');
 
