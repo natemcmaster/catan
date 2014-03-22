@@ -1,7 +1,7 @@
 var AbstractMoveCommand = require('./AbstractMoveCommand')
   , util = require('util')
 
-moduel.exports = RollDiceCommand
+module.exports = RollDiceCommand
 
 
 util.inherits(RollDiceCommand, AbstractMoveCommand);

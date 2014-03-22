@@ -35,14 +35,48 @@ describe('Injector', function() {
 		expect(inst.two.num).to.equal(10);
 	})
 
+	it('#static methods', function() {
+		function One() {}
+		One.staticMethod = function() {
+			return 3
+		}
+		inj.register('One', One);
+		var inst = inj.resolve('One');
+		expect(inst.staticMethod).to.be.a('function')
+		expect(inst.staticMethod()).to.equal(3);
+	})
+
+	it('#hexgrid static method', function() {
+		var h = require('byu-catan').models.hexgrid.HexGrid;
+		inj.register('HexGrid', h);
+		var inst = inj.resolve('HexGrid');
+		expect(inst.getRegular).to.be.a('function');
+	})
+
+	it('#hexgrid nested static method', function() {
+		var h = require('byu-catan').models.hexgrid.HexGrid;
+		inj.register('HexGrid', h);
+		var run=false;
+		function Two($HexGrid){
+			expect($HexGrid.getRegular).to.be.a('function');
+			run=true;
+		}
+		inj.register('Two',Two);
+		var t = inj.create('Two');
+		expect(run).to.be.ok;
+	})
+
 	it('#recursive injection', function() {
 		function One(num, $One) {
 			if (num > 0) this.child = $One(num - 1);
 			else this.child = null;
 		}
 		inj.register('One', One);
-		var inst = function(){inj.create('One', 2)};
-		expect(inst).to.throw(InjectorError);
+		var inst = function() {
+			inj.create('One', 2)
+		};
+		expect(inst).to.
+		throw (InjectorError);
 	})
 
 	it('#circular injection', function() {
@@ -55,8 +89,38 @@ describe('Injector', function() {
 		}
 		inj.register('One', One);
 		inj.register('Two', Two);
-		var inst = function(){inj.create('One', 2)};
-		expect(inst).to.throw(InjectorError);
+		var inst = function() {
+			inj.create('One', 2)
+		};
+		expect(inst).to.
+		throw (InjectorError);
+	})
+
+	it('#singleton',function(){
+		function Norris(){this.data='Chuck Norris';}
+		inj.singleton('Norris',Norris);
+		var inst1 = inj.create('Norris');
+		inst1.data+=' has 7 singletons';
+		var inst2 = inj.create('Norris');
+		expect(inst2.data).to.equal('Chuck Norris has 7 singletons');
+	})
+
+	it('#nested singleton',function(){
+		function Parent($Singleton){
+			var n = $Singleton();
+			n.data++;
+			this.count=n.data;
+			this.sgl=n;
+		}
+		function Singleton(){this.data=0;}
+		inj.singleton('Singleton',Singleton);
+		inj.register('Parent',Parent);
+
+		var inst1 = inj.create('Parent');
+		var inst2 = inj.create('Parent');
+		expect(inst2.count).to.equal(2);
+		expect(inst1.sgl.data).to.equal(2);
+
 	})
 
 	it('#multi injection', function() {
@@ -73,5 +137,16 @@ describe('Injector', function() {
 		var inst = inj.create('One', 1, 2, 3);
 		expect(inst.two.a).to.equal(1);
 		expect(inst.three.d).to.equal(6);
+	})
+
+	it('#injects anonymous functions', function() {
+		inj.register('Taco', function(a) {
+			this.b = a;
+		});
+		var func = inj.inject(function(num, $Taco) {
+			return $Taco(num + 4);
+		});
+		var dyn = func(7);
+		expect(dyn.b).to.equal(11);
 	})
 })

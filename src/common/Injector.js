@@ -1,68 +1,191 @@
 module.exports = Injector;
-var InjectorError = require('./Errors').InjectorError;
+var InjectorError = require('./Errors').InjectorError,
+  util = require('util'),
+  _ = require('underscore');
 
+/**
+ * @class Injector.Dependency
+ * @constructor
+ * @param {Function} construct       Constructor the the object
+ * @param {boolean} singleton Singleton. Default = false
+ * @property dependencies List of the IDs of the dependencies
+ */
+function Dependency(obj,singleton) {
+  this.initializer = obj;
+  this.dependencies = dpFromArgs(obj);
+  this.variables = variablesFromArgs(obj);
+  this.singleton = singleton || false;
+  this.instance = null;
+}
+
+Injector.Dependency = Dependency;
+
+/**
+ * Creates a new instance of injector
+ * @constructor Injector
+ * @class Injector
+ */
 function Injector() {
   this.dependencies = {};
   return this;
 }
 
-Injector.prototype.register = function(name, obj) {
-  this.dependencies[name] = {
-    initializer: obj,
-    dependencies: dpFromArgs(obj),
-    variables: variablesFromArgs(obj)
-  };
+/**
+ * Creates a new Dependency
+ * @method register
+ * @param  {string} id Unique Id for dependency
+ * @param  {constructor} obj  Constructor of the object
+ * @return {Injector.Dependency}      the generated dependency
+ */
+Injector.prototype.register = function(id, obj) {
+  return this.dependencies[id] = new Dependency(obj);
 }
 
-Injector.prototype.resolve = function(name) {
+/**
+ * Utility function. Maps an object of key:value pairs
+ * Example: inj.map({'Bank':MockBank})
+ * is the same as inj.register('Bank',MockBank)
+ * @method map
+ * @param  {object} mapping key value pairs of id an constructors
+ * @return {void}
+ */
+Injector.prototype.map = function(mp) {
+  for (var id in mp) {
+    this.register(id, mp[id]);
+  }
+}
+
+/**
+ * Returns the dependendey matchin that name.
+ * Throws an InjectorError if the name is now matched
+ * @method find
+ * @param  {string} name Name of dependency
+ * @return {Injector.Dependency} the parsed dependency
+ */
+Injector.prototype.find = function(name) {
   if (!this.dependencies[name])
-    throw new InjectorError('Could not resolve: $' + name);
+    throw new InjectorError('Could not find: $' + name);
   return this.dependencies[name];
 }
 
 /**
  * Creates an instance of the requested module, and
  * injects all dependencies with a new instance of that dependency
+ * If dependency was registered as a singleton, it does not recreate a new object
+ * @method create
  * @param  {string} name Name of the module to create
  * @param {arguments...} arguments All arguments index > 0 are passed to the constructor
  * @return {Object}      An instance of the module
  */
 Injector.prototype.create = function(name) {
-  var initer = factory.call(this, name);
-  return initer.apply(initer,Array.prototype.slice.call(arguments, 1));
+  var initer = this.resolve(name);
+  return initer.apply(initer, _(arguments).toArray().slice(1));
+}
+
+/**
+ * Returns the injected, dyanmic constructor for an object
+ * @method resolve
+ * @param  {string} name Name of the module to create
+ * @return {Function}      A dynamic constructor
+ */
+Injector.prototype.resolve = function(name) {
+  try {
+    var initer = namedFactory.call(this, name);
+  } catch (e) {
+    if (e instanceof InjectorError) {
+      e.message += ': Could not create ' + name;
+    }
+    throw e;
+  }
+  return initer;
+}
+
+/**
+ * Injects an anonymous function with dependencies. This produces a function
+ * @method inject
+ * @param  {Function} func Function to inject
+ * @return {Function}      Function with matched dependencies
+ */
+Injector.prototype.inject = function(func) {
+  var dep = new Dependency(func);
+  var args = [];
+  for (var x in dep.dependencies) {
+    args.push(namedFactory.call(this, dep.dependencies[x]));
+  };
+
+  return function() {
+    var a = _(arguments).toArray().concat(args);
+    return func.apply(this, a);
+  };
+}
+
+/**
+ * Same as register, except there can only be on instance of this object
+ * @method singleton
+ * @param  {string} id Unique Id for dependency
+ * @param  {constructor} obj  Constructor of the object
+ * @return {Injector.Dependency}      the generated dependency
+ */
+Injector.prototype.singleton = function(name,dep){
+  return this.dependencies[name] = new Dependency(dep,true);
 }
 
 // #Private 
 
-var factory = function(name,stack) {
+var namedFactory = function(name, stack) {
   stack = stack || [];
-  if(~stack.indexOf(name))
+  if (~stack.indexOf(name))
     throw new InjectorError('Circular references');
-  var dep = this.resolve(name);
+  var dep = this.find(name);
   var dependents = [];
   stack.push(name);
   stack.concat(dep.dependencies);
   for (var i = 0; i < dep.dependencies.length; i++) {
-    dependents.push(factory.call(this,dep.dependencies[i],stack));
+    dependents.push(namedFactory.call(this, dep.dependencies[i], stack));
   };
 
-  return function() {
-    var dataArgs = Array.prototype.slice.call(arguments, 0, dep.variables.length);
-    var args = dataArgs.concat(dependents);
+  return dynamicConstructor(dep, dependents);
+}
+
+var dynamicConstructor = function(dep, dependents) {
+
+  if(dep.singleton && dep.instance != null){
+    return function(){ return dep.instance; }; 
+  }
+
+  var construct = function() {
+    var args = _(arguments).toArray();
+    //Aligh data arguments with the constructor
+    var dataArgs = args.splice(0, dep.variables.length);
+    if (dataArgs.length < dep.variables.length) {
+      dataArgs = dataArgs.concat(new Array(dep.variables.length - dataArgs.length));
+    }
+    var a = dataArgs.concat(dependents);
+    // apply eny left over args
+    a = a.concat(args);
     var obj, instance;
 
-    function fakeConstructor(){}
+    function fakeConstructor() {}
     fakeConstructor.prototype = Object.create(dep.initializer.prototype)
     obj = new fakeConstructor();
     obj.constructor = dep.initializer.constructor;
 
-    instance = dep.initializer.apply(obj,args);
+    instance = dep.initializer.apply(obj, a);
 
     if (instance !== null && (typeof instance === "object" || typeof instance === "function")) {
       obj = instance;
     }
+    if(dep.singleton){
+      dep.instance = obj;
+    }
     return obj;
   }
+  // add static methods for nested dependencies
+  for (var x in dep.initializer) {
+    if ('function' === typeof dep.initializer[x] && x !== 'constructor')
+      construct[x] = dep.initializer[x];
+  }
+  return construct;
 }
 
 /**
@@ -95,7 +218,7 @@ var variablesFromArgs = function(func) {
   for (var i = 0; i < args.length; i++) {
     var t = args[i];
     if (t[0] != '$') {
-      dep.push(t.substr(1));
+      dep.push(t);
     }
   }
   return dep;
@@ -110,10 +233,10 @@ var variablesFromArgs = function(func) {
 var argList = function(func) {
   var desc = func.toString();
   var fn_r = /^function\s*[^\(]*\(\s*([^\)]*)\)/m;
-  var m = desc.match(fn_r)[1];
+  var m = desc.match(fn_r);
   if (!m)
-    return dep;
-  var args = m.split(',');
+    return [];
+  var args = m[1].split(',');
   for (var i = args.length - 1; i >= 0; i--) {
     args[i] = args[i].trim();
   };

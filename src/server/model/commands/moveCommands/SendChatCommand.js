@@ -1,7 +1,7 @@
 var AbstractMoveCommand = require('./AbstractMoveCommand')
   , util = require('util')
 
-moduel.exports = SendChatCommand
+module.exports = SendChatCommand
 
 
 util.inherits(SendChatCommand, AbstractMoveCommand);

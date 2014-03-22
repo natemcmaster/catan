@@ -1,7 +1,7 @@
-var AbstractMoveCommand = require('../AbstractCommand')
+var AbstractCommand = require('../AbstractCommand')
   , util = require('util')
 
-moduel.exports = GetGameModelCommand
+module.exports = GetGameModelCommand
 
 util.inherits(GetGameModelCommand, AbstractCommand);
 

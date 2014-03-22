@@ -1,7 +1,7 @@
 var AbstractMoveCommand = require('./AbstractMoveCommand')
   , util = require('util')
 
-moduel.exports = FinishTurnCommand
+module.exports = FinishTurnCommand
 
 
 util.inherits(FinishTurnCommand, AbstractMoveCommand);

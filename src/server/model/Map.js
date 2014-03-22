@@ -1,4 +1,4 @@
-var BaseModel = require('../BaseModel');
+var BaseModel = require('./BaseModel');
 var util = require('util');
 
 /**
@@ -7,15 +7,6 @@ var util = require('util');
  * @module catan.model.board.map
  * @namespace model
  */
-
-var hexgrid = require('./hexgrid')
-  , HexGrid = hexgrid.HexGrid
-  , HexLocation = hexgrid.HexLocation
-  , VertexLocation = hexgrid.VertexLocation
-  , VertexDirection = hexgrid.VertexDirection
-  , Hex = require('./Hex')
-  , NumberTiles = require('./NumberTiles')
-  , Port = require('./Port')
 
 module.exports = Map;
 util.inherits(Map, BaseModel);

@@ -2,47 +2,50 @@
 
 module.exports = UserCtrl;
 
-var BaseCtrl = require('./BaseCtrl');
-  , util = require('util')
+var BaseCtrl = require('./BaseCtrl'),
+	util = require('util');
 
-util.inherits(UserCtrl, BaseCtrl);
 function UserCtrl(app, model) {
 	BaseCtrl.call(this, app, model);
+
+}
+util.inherits(UserCtrl, BaseCtrl);
+
+UserCtrl.prototype.assignRoutes = function(app, h) {
+	app.post('/user/login', h(this.login));
+	app.post('/user/register', h(this.register));
 }
 
-UserCtrl.prototype.assignRoutes = function(app) {
-	app.post('/user/login', this.login.bind(this));
-	app.post('/user/register', this.register.bind(this));
+var setCookie = function(res, username, password, id) {
+	var data = {
+		username: username,
+		password: password,
+		playerID: id
+	};
+	var raw = JSON.stringify(data);
+	res.cookie('catan.user', raw, {
+		path: '/'
+	});
 }
 
-UserCtrl.prototype.cookieData = function (name, password, id) {
-  return {
-    name: name,
-    password: password,
-    playerID: id
-  }
+UserCtrl.prototype.login = function(q, r, $UserLoginCommand) {
+	$UserLoginCommand(q.param('username'), q.param('password'))
+		.execute(q.gameRoom, function(err, data) {
+			if (err) {
+				throw new HttpError(401, 'Bad username or password');
+			}
+			setCookie(r, data.username, data.password, data.playerID);
+			r.send(200);
+		});
 }
 
-UserCtrl.prototype.setCookie = function (res, username, password, id) {
-  var data = this.cookieData(username, password, id)
-    , raw = encodeURIComponent(JSON.stringify(data));
-	r.cookie('catan.user', raw, {path:'/'});
+UserCtrl.prototype.register = function(q, r, $RegisterUserCommand) {
+	$RegisterUserCommand(q.param('username'), q.param('password'))
+		.execute(q.gameRoom, function(err, data) {
+			if (err) {
+				throw new HttpError(400, err);
+			}
+			setCookie(r, data.username, data.password, data.playerID);
+			r.send(200);
+		});
 }
-
-UserCtrl.prototype.login = function(q, r) {
-  var username = q.param('username')
-    , password = q.param('password');
-  var id = q.gameRoom.checkLogin(username, password);
-  if (!id) return r.send(401, 'Invlalid login');
-  this.setCookie(r, username, password, id);
-	r.send(200);
-}
-
-UserCtrl.prototype.register = function(q, r){
-  var username = q.param('username')
-    , password = q.param('password');
-  var id = q.gameRoom.registerUser(username, password);
-  this.setCookie(r, username, password, id);
-	r.send(200);
-}
-

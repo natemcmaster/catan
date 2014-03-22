@@ -1,7 +1,7 @@
 var AbstractMoveCommand = require('./AbstractMoveCommand')
   , util = require('util')
 
-moduel.exports = PlayMonopolyCommand
+module.exports = PlayMonopolyCommand
 
 
 util.inherits(PlayMonopolyCommand, AbstractMoveCommand);

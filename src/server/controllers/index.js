@@ -1,7 +1,2 @@
-module.exports={
-	GameCtrl:require('./GameCtrl'),
-	GameRoomCtrl:require('./GameRoomCtrl'),
-	MoveCtrl:require('./MoveCtrl'),
-	UserCtrl:require('./UserCtrl'),
-	UtilCtrl:require('./UtilCtrl'),
-}
+var exportDir = require('export-dir');
+module.exports = exportDir(__dirname,{excludeJSON:true});

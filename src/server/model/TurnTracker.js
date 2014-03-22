@@ -1,20 +1,19 @@
-var BaseModel = require('../BaseModel');
+var BaseModel = require('./BaseModel');
 var util = require('util');
 
 module.exports = TurnTracker;
 util.inherits(TurnTracker, BaseModel);
 
 function TurnTracker(data) {
-	this.data = data. || {'status':'FirstRound','currentTurn':0};
+	this.data = data || {'status':'FirstRound',
+						  'currentTurn':0};
 };
 
 TurnTracker.prototype.setStatus = function(status){
-
 	this.status = status;
-
 };
 
-TurnTracker.prototype.nextTurn = function(){
+TurnTracker.prototype.finishTurn = function(){
 
 	this.currentTurn++;
 
@@ -22,4 +21,5 @@ TurnTracker.prototype.nextTurn = function(){
 		this.currentTurn = 0;
 	}
 
+	this.setStatus('Rolling');
 };

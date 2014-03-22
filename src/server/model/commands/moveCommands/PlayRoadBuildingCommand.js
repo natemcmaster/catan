@@ -1,7 +1,7 @@
 var AbstractMoveCommand = require('./AbstractMoveCommand')
   , util = require('util')
 
-moduel.exports = PLayRoadBuildingCommand
+module.exports = PLayRoadBuildingCommand
 
 
 util.inherits(PLayRoadBuildingCommand, AbstractMoveCommand);

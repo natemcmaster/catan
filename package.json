@@ -1,8 +1,8 @@
 {
   "name": "Catan",
   "description": "Package for the Catan client and server",
-  "version": "0.2.1",
-  "private":true,
+  "version": "0.3.0",
+  "private": true,
   "scripts": {
     "start": "node src/server/app.js",
     "test": "grunt test"
@@ -15,8 +15,12 @@
     }
   },
   "dependencies": {
-    "express": "3.4.8",
-    "byu-catan": ">=1.1.4"
+    "express": "~3.4.8",
+    "byu-catan": ">=1.1.4",
+    "underscore": "~1.6.0",
+    "lodash": "2.4.0",
+    "body-parser":"~1.0.1",
+    "export-dir": "*"
   },
   "devDependencies": {
     "grunt": "~0.4.2",

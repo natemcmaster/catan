@@ -1,7 +1,7 @@
 var AbstractMoveCommand = require('./AbstractMoveCommand')
   , util = require('util')
 
-moduel.exports = AcceptTradeCommand
+module.exports = AcceptTradeCommand
 
 
 util.inherits(AcceptTradeCommand, AbstractMoveCommand);

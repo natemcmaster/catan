@@ -1,7 +1,7 @@
 var AbstractMoveCommand = require('./AbstractMoveCommand')
   , util = require('util')
 
-moduel.exports = RobPlayerCommand
+module.exports = RobPlayerCommand
 
 
 util.inherits(RobPlayerCommand, AbstractMoveCommand);
