@@ -4,7 +4,7 @@ var _ = require('underscore');
 var sampledata = require('./_sampledata.json');
 
 function MemoryGameRepo($GameModel) {
-	this.gameConstruct = $GameModel;
+	this.constructGame = $GameModel;
 	this.games = {};
 	this.games[0] = {
 		id: 0,
@@ -15,7 +15,7 @@ function MemoryGameRepo($GameModel) {
 }
 
 MemoryGameRepo.prototype.create = function(title, randomTiles, randomNumber, randomPorts) {
-	var model = this.gameConstruct(sampledata.blank);
+	var model = this.constructGame(sampledata.blank);
 	var game = {
 		id: (this.nextId++),
 		title: title,

@@ -30,9 +30,13 @@ app.use(express.methodOverride());
 app.use(bodyParser());
 
 var config = require('./config');
-var injector = new Injector();
+var inj = new Injector();
+inj.singleton('injector',Injector);
+global.injector = inj.create('injector');
+
 injector.map(config.runtime);
-injector.map(config.repo.memory); // store everything in memory
+injector.mapSingleton(config.repo.memory); // store everything in memory
+injector.singleton('Logger',require('./resources').ConsoleLogger);
 
 // making the game room
 var gameRoom = injector.create('GameRoom');

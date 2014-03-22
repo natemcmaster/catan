@@ -12,14 +12,12 @@ util.inherits(UtilCtrl,BaseCtrl);
 
 UtilCtrl.prototype.assignRoutes = function(app,h){
 	app.post('/util/changeLogLevel',h(this.changeLogLevel));
-	app.get('/smoke',h(this.smokeTest));
 }
 
-UtilCtrl.prototype.changeLogLevel = function(q,r){
-	r.send('Success');
-}
-
-UtilCtrl.prototype.smokeTest = function(q,r,$SmokeTest){
-	var t = $SmokeTest(q.query);
-	r.json(t);
+UtilCtrl.prototype.changeLogLevel = function(q,r,$Logger){
+	$Logger().setLogLevel(q.param('logLevel'),function(err,data){
+		if(err)
+			throw new BaseCtrl.HttpError(400,data);
+		r.send(200,'Log set to '+data);
+	});
 }
