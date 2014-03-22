@@ -33,6 +33,8 @@ GameRoomCtrl.prototype.create = function(q, r, $CreateGameCommand) {
 	var name = q.param('name');
 	if (!name)
 		throw new BaseCtrl.HttpError(400, 'Missing name');
+	else if (name.toLowerCase() ==='chuck norris')
+		throw new BaseCtrl.HttpError(500,'Give up now. You cannot beat Chuck Norris.');
 
 	$CreateGameCommand(name, !! q.param('randomHexes'), !! q.param('randomTiles'), !! q.param('randomtile'))
 		.execute(q.gameRoom, function(err, data) {

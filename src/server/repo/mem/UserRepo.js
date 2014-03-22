@@ -10,7 +10,7 @@ function MemoryUserProvider($User){
 	 	$User('Jared','jared',40),
 	 	$User('Spence','spence',41),
 	 	$User('Alan','alan',42),
-	 	$User('Chris','chris',42),
+	 	$User('Chris','chris',43),
 	 	$User('chuck','norris',9999999999),
 	];
 	this.nextId = 101;

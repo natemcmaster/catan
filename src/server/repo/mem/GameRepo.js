@@ -8,15 +8,20 @@ function MemoryGameRepo($GameModel) {
 	this.games = {};
 	this.games[0] = {
 		id: 0,
-		title: 'Sample Game',
+		title: 'New game (Sorry Spencer)',
 		model: $GameModel(data.sample)
 	};
-  this.games[1] = {
-    id: 1,
-    title: 'Populated Game',
-    model: $GameModel(data.populated_sample)
-  };
-	this.nextId = 2;
+	this.games[1] = {
+		id: 1,
+		title: 'Populated Game',
+		model: $GameModel(data.populated_sample)
+	};
+	this.games[2] = {
+		id: 2,
+		title: 'Ongoing game',
+		model: $GameModel(data.booyah)
+	};
+	this.nextId = 3;
 }
 
 MemoryGameRepo.prototype.create = function(title, randomTiles, randomNumber, randomPorts) {

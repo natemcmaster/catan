@@ -16,14 +16,20 @@ BaseCtrl.prototype.assignRoutes = function(app, handler) {}
 BaseCtrl.prototype.dynamicCall = function(func){
   var op = this.injector.inject(func);
   // Wrap the operation in error catching
-  return function handler(request,response) {
+  return function handler(request, response) {
     try {
       op(request, response);
     } catch (e) {
-      if (e instanceof HttpError) {
-        response.send(e.code, e.message);
+      var code = (e instanceof HttpError) ? e.code : 500;
+      var message = e.message;
+      if (request.xhr) {
+        message = {
+          msg: message,
+          trace: e.stack
+        };
+        response.json(code, message);
       } else {
-        response.send(500, 'Server Error: ' + e.message + '\n'+e.stack);
+        response.send(code, message);
       }
     }
   };
