@@ -20,7 +20,7 @@ var buildRoot = path.join(__dirname,'..','..','build');
 app.set('port', process.env.PORT || 8081);
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.favicon());
-app.use(express.logger('dev'));
+// app.use(express.logger('dev'));
 app.use(express.cookieParser());
 app.use(authMiddleware);
 app.use(gameMiddleware);

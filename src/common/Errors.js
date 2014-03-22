@@ -11,7 +11,11 @@ util.inherits(CatanError,Error);
 CatanError.prototype.toString = function() {
 	return this.constructor.name + ': ' + this.message;
 }
-
+/**
+ * @class InjectorError
+ * @constructor
+ * @param {string} message Message about this error
+ */
 function InjectorError(m) {
 	CatanError.call(this, m);
 }

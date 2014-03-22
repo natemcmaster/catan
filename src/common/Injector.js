@@ -1,25 +1,41 @@
 module.exports = Injector;
 var InjectorError = require('./Errors').InjectorError,
-  util = require('util');
+  util = require('util'),
+  _ = require('underscore');
 
-function Injector() {
-  this.dependencies = {};
-  return this;
-}
-
-function Dependency(obj) {
+/**
+ * @class Injector.Dependency
+ * @constructor
+ * @param {Function} construct       Constructor the the object
+ * @param {boolean} singleton Singleton. Default = false
+ * @property dependencies List of the IDs of the dependencies
+ */
+function Dependency(obj,singleton) {
   this.initializer = obj;
   this.dependencies = dpFromArgs(obj);
   this.variables = variablesFromArgs(obj);
+  this.singleton = singleton || false;
+  this.instance = null;
 }
 
 Injector.Dependency = Dependency;
 
 /**
+ * Creates a new instance of injector
+ * @constructor Injector
+ * @class Injector
+ */
+function Injector() {
+  this.dependencies = {};
+  return this;
+}
+
+/**
  * Creates a new Dependency
+ * @method register
  * @param  {string} id Unique Id for dependency
  * @param  {constructor} obj  Constructor of the object
- * @return {Injector.Dependency}      [description]
+ * @return {Injector.Dependency}      the generated dependency
  */
 Injector.prototype.register = function(id, obj) {
   return this.dependencies[id] = new Dependency(obj);
@@ -29,6 +45,7 @@ Injector.prototype.register = function(id, obj) {
  * Utility function. Maps an object of key:value pairs
  * Example: inj.map({'Bank':MockBank})
  * is the same as inj.register('Bank',MockBank)
+ * @method map
  * @param  {object} mapping key value pairs of id an constructors
  * @return {void}
  */
@@ -41,8 +58,9 @@ Injector.prototype.map = function(mp) {
 /**
  * Returns the dependendey matchin that name.
  * Throws an InjectorError if the name is now matched
+ * @method find
  * @param  {string} name Name of dependency
- * @return {object} the parsed dependency
+ * @return {Injector.Dependency} the parsed dependency
  */
 Injector.prototype.find = function(name) {
   if (!this.dependencies[name])
@@ -53,17 +71,20 @@ Injector.prototype.find = function(name) {
 /**
  * Creates an instance of the requested module, and
  * injects all dependencies with a new instance of that dependency
+ * If dependency was registered as a singleton, it does not recreate a new object
+ * @method create
  * @param  {string} name Name of the module to create
  * @param {arguments...} arguments All arguments index > 0 are passed to the constructor
  * @return {Object}      An instance of the module
  */
 Injector.prototype.create = function(name) {
   var initer = this.resolve(name);
-  return initer.apply(initer, Array.prototype.slice.call(arguments, 1));
+  return initer.apply(initer, _(arguments).toArray().slice(1));
 }
 
 /**
  * Returns the injected, dyanmic constructor for an object
+ * @method resolve
  * @param  {string} name Name of the module to create
  * @return {Function}      A dynamic constructor
  */
@@ -81,6 +102,7 @@ Injector.prototype.resolve = function(name) {
 
 /**
  * Injects an anonymous function with dependencies. This produces a function
+ * @method inject
  * @param  {Function} func Function to inject
  * @return {Function}      Function with matched dependencies
  */
@@ -92,9 +114,20 @@ Injector.prototype.inject = function(func) {
   };
 
   return function() {
-    var a = Array.prototype.slice.call(arguments, 0).concat(args);
+    var a = _(arguments).toArray().concat(args);
     return func.apply(this, a);
   };
+}
+
+/**
+ * Same as register, except there can only be on instance of this object
+ * @method singleton
+ * @param  {string} id Unique Id for dependency
+ * @param  {constructor} obj  Constructor of the object
+ * @return {Injector.Dependency}      the generated dependency
+ */
+Injector.prototype.singleton = function(name,dep){
+  return this.dependencies[name] = new Dependency(dep,true);
 }
 
 // #Private 
@@ -111,16 +144,21 @@ var namedFactory = function(name, stack) {
     dependents.push(namedFactory.call(this, dep.dependencies[i], stack));
   };
 
-  return dynamicConstructor(dep.initializer, dependents, dep.variables);
+  return dynamicConstructor(dep, dependents);
 }
 
-var dynamicConstructor = function(initializer, dependents, variables) {
+var dynamicConstructor = function(dep, dependents) {
+
+  if(dep.singleton && dep.instance != null){
+    return function(){ return dep.instance; }; 
+  }
+
   var construct = function() {
-    var args = Array.prototype.slice.call(arguments, 0);
+    var args = _(arguments).toArray();
     //Aligh data arguments with the constructor
-    var dataArgs = args.splice(0, variables.length);
-    if (dataArgs.length < variables.length) {
-      dataArgs = dataArgs.concat(new Array(variables.length - dataArgs.length));
+    var dataArgs = args.splice(0, dep.variables.length);
+    if (dataArgs.length < dep.variables.length) {
+      dataArgs = dataArgs.concat(new Array(dep.variables.length - dataArgs.length));
     }
     var a = dataArgs.concat(dependents);
     // apply eny left over args
@@ -128,22 +166,24 @@ var dynamicConstructor = function(initializer, dependents, variables) {
     var obj, instance;
 
     function fakeConstructor() {}
-    fakeConstructor.prototype = Object.create(initializer.prototype)
+    fakeConstructor.prototype = Object.create(dep.initializer.prototype)
     obj = new fakeConstructor();
-    obj.constructor = initializer.constructor;
+    obj.constructor = dep.initializer.constructor;
 
-    instance = initializer.apply(obj, a);
+    instance = dep.initializer.apply(obj, a);
 
     if (instance !== null && (typeof instance === "object" || typeof instance === "function")) {
       obj = instance;
     }
-
+    if(dep.singleton){
+      dep.instance = obj;
+    }
     return obj;
   }
   // add static methods for nested dependencies
-  for (var x in initializer) {
-    if ('function' === typeof initializer[x] && x !== 'constructor')
-      construct[x] = initializer[x];
+  for (var x in dep.initializer) {
+    if ('function' === typeof dep.initializer[x] && x !== 'constructor')
+      construct[x] = dep.initializer[x];
   }
   return construct;
 }

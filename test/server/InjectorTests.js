@@ -96,6 +96,15 @@ describe('Injector', function() {
 		throw (InjectorError);
 	})
 
+	it('#singleton',function(){
+		function Norris(){this.data='Chuck Norris';}
+		inj.singleton('Norris',Norris);
+		var inst1 = inj.create('Norris');
+		inst1.data+=' has 7 singletons';
+		var inst2 = inj.create('Norris');
+		expect(inst2.data).to.equal('Chuck Norris has 7 singletons');
+	})
+
 	it('#multi injection', function() {
 		inj.register('One', function(a, b, c, $Two, $Three) {
 			this.two = $Two(a);
