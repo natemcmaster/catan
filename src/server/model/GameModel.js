@@ -18,8 +18,8 @@ function GameModel(data, $Log, $Chat, $Bank, $Deck, $Map, $Player, $TurnTracker)
 	if(!data)
 		throw new CatanError('Cannot instantiate without data');
 
-	this.data = data
-  this.data.revision = 1;
+	this.data = data;
+    this.data.revision = 1;
 
 	this.bank = $Bank(data.bank);
 	this.deck = $Deck(data.deck);
@@ -214,7 +214,7 @@ GameModel.prototype.recalculateLongestRoad = function (playerIndex) {
 
 GameModel.prototype.buildRoad = function(playerIndex, roadLocation, free) {
 	if (!free)
-		this.bank.roadWasBuilt();
+		this.bank.receivePaymentForCity();
 	
 	this.players[playerIndex].buildRoad(free);
   this.recalculateLongestRoad(playerIndex);
@@ -228,7 +228,7 @@ GameModel.prototype.buildRoad = function(playerIndex, roadLocation, free) {
 
 GameModel.prototype.buildSettlement = function(playerIndex, vertexLocation, free) {
 	if (!free)
-		this.bank.settlementWasBuilt();
+		this.bank.receivePaymentForSettlement();
 	
 	this.players[playerIndex].buildSettlement(free);
 
