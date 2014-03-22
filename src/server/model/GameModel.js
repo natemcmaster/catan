@@ -188,31 +188,36 @@ GameModel.prototype.playMonument = function(playerIndex) {
 		this.data.winner = playerIndex;
 };
 
+GameModel.prototype.recalculateLongestRoad = function (playerIndex) {
+	var playerWithLongestRoad = this.data.longestRoad;
+  if (this.players[playerIndex].getNumberOfRoadsBuilt() < 5) return;
+  if (playerWithLongestRoad === playerIndex) return;
+
+	//If no one has the longest road and the player who just built has 5 or more roads,
+	//that player claims the longest road
+	if (playerWithLongestRoad == -1) {
+		this.data.longestRoad = playerIndex;
+		this.players[playerIndex].setLongestRoad(true);
+    return
+	}
+
+	//If the player who built did not have the longest road, but has now beaten the current
+	//owner of the longest road, that player now claims the longest road
+  var myRoads = this.players[playerIndex].getNumberOfRoadsBuilt();
+  var yourRoads = this.players[playerWithLongestRoad].getNumberOfRoadsBuilt();
+	if (myRoads > yourRoads) {
+		this.data.longestRoad = playerIndex;
+		this.players[playerWithLongestRoad].setLongestRoad(false);
+		this.players[playerIndex].setLongestRoad(true);
+	}
+}
+
 GameModel.prototype.buildRoad = function(playerIndex, roadLocation, free) {
 	if (!free)
 		this.bank.roadWasBuilt();
 	
 	this.players[playerIndex].buildRoad(free);
-
-  /*
-	var playerWithLongestRoad = this.data.longestRoad;
-
-	//If no one has the longest road and the player who just built has 5 or more roads,
-	//that player claims the longest road
-	if (playerWithLongestRoad == -1 && this.players[playerIndex].getNumberOfRoadsBuilt() >= 5) {
-		this.data.longestRoad = playerIndex;
-		this.players[playerIndex].setLongestRoad(true);
-	}
-
-	//If the player who built did not have the longest road, but has now beaten the current
-	//owner of the longest road, that player now claims the longest road
-	else if (playerIndex != playerWithLongestRoad && 
-			this.players[playerIndex].getNumberOfRoadsBuilt() > this.players[playerWithLongestRoad].getNumberOfRoadsBuilt()) {
-		this.data.longestRoad = playerIndex;
-		this.players[playerWithLongestRoad].setLongestRoad(false);
-		this.players[playerIndex].setLongestRoad(true);
-	}
-  */
+  this.recalculateLongestRoad(playerIndex);
 
 	//Check if the player who built has won
 	if (this.players[playerIndex].hasWon())

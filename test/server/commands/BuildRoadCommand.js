@@ -25,6 +25,28 @@ describe.only('buildRoadCommand', function () {
             done();
           });
       });
+
+      function buildThem(agent, left, done) {
+        agent.post('/moves/buildRoad')
+          .send({roadLocation:{x:-3 + left, y:1, direction: 'N'},free:true,playerIndex:0})
+          .expect(200)
+          .end(function (err, res) {
+            if (err) return done(err)
+            if (left < 1) return done();
+            buildThem(agent, left - 1, done);
+          });
+      }
+
+      it.only('should set longest road', function (done) {
+        var app = this.app
+          , game = app.gameRoom.getGameModel(0);
+        expect(game.data.longestRoad).to.eql(-1);
+        buildThem(this.agent, 5, function () {
+          var game = app.gameRoom.getGameModel(0);
+          expect(game.data.longestRoad).to.eql(0);
+          done();
+        });
+      });
     });
   });
 });
