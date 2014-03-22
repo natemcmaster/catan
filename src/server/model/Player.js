@@ -61,6 +61,23 @@ Player.prototype.buyDevCard = function(cardType){
 	this.newDevCards[cardType]++;
 }
 
+Player.prototype.acceptTrade = function(offer, initiatedTrade) {
+	if (initiatedTrade) {
+		this.resources['brick'] += offer['brick'];
+		this.resources['wood'] += offer['wood'];
+		this.resources['sheep'] += offer['sheep'];
+		this.resources['wheat'] += offer['wheat'];
+		this.resources['ore'] += offer['ore'];
+	}
+	else {
+		this.resources['brick'] -= offer['brick'];
+		this.resources['wood'] -= offer['wood'];
+		this.resources['sheep'] -= offer['sheep'];
+		this.resources['wheat'] -= offer['wheat'];
+		this.resources['ore'] -= offer['ore'];
+	}
+}
+
 Player.prototype.buildRoad = function(free) {
 	if (!free) {
 		this.resources['brick']--;

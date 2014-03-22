@@ -245,11 +245,19 @@ GameModel.prototype.buildCity = function(playerIndex, vertexLocation, free) {
 };
 
 GameModel.prototype.offerTrade = function(playerIndex, offer, receiver) {
-	//ASK NATE
+	this.data.tradeOffer = {
+		sender: playerIndex,
+		receiver: receiver,
+		offer: offer
+	};
 };
 
 GameModel.prototype.acceptTrade = function(playerIndex, willAccept) {
-	//ASK NATE
+	if (!willAccept)
+		return;
+
+	this.players[this.data.tradeOffer.sender].acceptTrade(this.data.tradeOffer.offer, true);
+	this.players[this.data.tradeOffer.receiver].acceptTrade(this.data.tradeOffer.offer, false);
 };
 
 GameModel.prototype.maritimeTrade = function(playerIndex, ratio, inputResource, outputResource) {
