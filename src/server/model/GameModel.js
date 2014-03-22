@@ -18,14 +18,14 @@ function GameModel(data, $Log, $Chat, $Bank, $Deck, $Map, $Player, $TurnTracker)
 	if(!data)
 		throw new CatanError('Cannot instantiate without data');
 
-	this.data = data
+	this.data = data;
 
-	this.bank = $Bank(this.data.bank);
-	this.deck = $Deck(this.data.deck);
-	this.map = $Map(this.data.map);
+	this.bank = $Bank(data.bank);
+	this.deck = $Deck(data.deck);
+	this.map = $Map(data.map);
 	this.log = $Log(data.log);
 	this.chat = $Chat(data.chat);
-	this.turnTracker = $TurnTracker(this.data.turnTracker);
+	this.turnTracker = $TurnTracker(data.turnTracker);
 
 	this.players = [];
 	this.data.players.forEach(function(p,i){
@@ -177,7 +177,7 @@ GameModel.prototype.playMonopoly = function(playerIndex, resource) {
 		player.setResource(resource, 0);
 	});
 
-	this.players[playerIndex].setResource(resource, totalNumberOfResource);
+	this.players[playerIndex].playMonopoly(resource, totalNumberOfResource);
 };
 
 GameModel.prototype.playMonument = function(playerIndex) {

@@ -53,13 +53,37 @@ function Player(input, index){
 	this.orderNumber = input.orderNumber || index;
 }
 
-Player.prototype.buyDevCard = function(cardType){
-	this.resources['sheep']--;
-	this.resources['wheat']--;
-	this.resources['ore']--;
 
-	this.newDevCards[cardType]++;
+Player.prototype.getNumberOfRoadsBuilt = function() {
+	return 15 - this.roads;
 }
+
+Player.prototype.hasLongestRoad = function() {
+	return this.longestRoad;
+}
+
+Player.prototype.hasLargestArmy = function() {
+	return this.largestArmy;
+}
+
+Player.prototype.hasDiscarded = function() {
+	return this.discarded;
+}
+
+Player.prototype.getResource = function(resource) {
+	return this.resources[resource];
+}
+
+Player.prototype.hasWon = function() {
+	if (this.victoryPoints >= this.MAX_GAME_POINTS)
+		return true;
+	else
+		return false;
+}
+
+//---------------------------------------------------------------
+// Mutating functions
+//---------------------------------------------------------------
 
 Player.prototype.acceptTrade = function(offer, initiatedTrade) {
 	if (initiatedTrade) {
@@ -87,27 +111,6 @@ Player.prototype.buildRoad = function(free) {
 	this.roads--;
 }
 
-Player.prototype.getNumberOfRoadsBuilt = function() {
-	return 15 - this.roads;
-}
-
-Player.prototype.hasLongestRoad = function() {
-	return this.longestRoad;
-}
-
-Player.prototype.setLongestRoad = function(longestRoad) {
-	this.longestRoad = longestRoad;
-
-	if (this.longestRoad)
-		this.victoryPoints += 2;
-	else
-		this.victoryPoints -= 2;
-}
-
-Player.prototype.hasLargestArmy = function() {
-	return this.largestArmy;
-}
-
 Player.prototype.buildSettlement = function(free) {
 	if (!free) {
 		this.resources['brick']--;
@@ -131,6 +134,14 @@ Player.prototype.buildCity = function(free) {
 	this.victoryPoints++;
 }
 
+Player.prototype.buyDevCard = function(cardType){
+	this.resources['sheep']--;
+	this.resources['wheat']--;
+	this.resources['ore']--;
+
+	this.newDevCards[cardType]++;
+}
+
 Player.prototype.playYearOfPlenty = function(resource1, resource2){
 	this.resources[resource1]++;
 	this.resources[resource2]++;
@@ -142,18 +153,8 @@ Player.prototype.playRoadBuilding = function(){
 	this.oldDevCards['roadBuilding']--;
 }
 
-Player.prototype.finishTurn = function() {
-	this.updateDevCards();
-	this.playedDevCard = false;
-	this.discarded = false;
-}
-
-Player.prototype.getResource = function(resource) {
-	return this.resources[resource];
-}
-
-Player.prototype.setResource = function(resource, amount) {
-	this.resources[resource] = amount;
+Player.prototype.playMonopoly = function(resource, amount) {
+	this.resources[resources] = amount;
 }
 
 Player.prototype.playMonument = function() {
@@ -176,6 +177,25 @@ Player.prototype.playSoldier = function(stolenCard) {
 	this.soldiers++;
 }
 
+Player.prototype.setLongestRoad = function(longestRoad) {
+	this.longestRoad = longestRoad;
+
+	if (this.longestRoad)
+		this.victoryPoints += 2;
+	else
+		this.victoryPoints -= 2;
+}
+
+Player.prototype.finishTurn = function() {
+	this.updateDevCards();
+	this.playedDevCard = false;
+	this.discarded = false;
+}
+
+Player.prototype.setResource = function(resource, amount) {
+	this.resources[resource] = amount;
+}
+
 Player.prototype.loseCard = function() {
 	var type = getRandomInt(0, 4);
 
@@ -187,13 +207,6 @@ Player.prototype.loseCard = function() {
 	this.resources[type]--;
 	
 	return this.resources[type].name;
-}
-
-Player.prototype.hasWon = function() {
-	if (this.victoryPoints >= this.MAX_GAME_POINTS)
-		return true;
-	else
-		return false;
 }
 
 Player.prototype.updateDevCards = function(){
@@ -213,12 +226,12 @@ Player.prototype.updateDevCards = function(){
 }
 
 Player.prototype.addResource = function(resource, amount){
-	var a = amount || 1
+	var a = amount || 1;
 	this.resources[resource] += a;
 }
 
 Player.prototype.discardResource = function(resource, amount){
-	var a = amount || 1
+	var a = amount || 1;
 	this.resources[resource] -= a;
 }
 
@@ -230,10 +243,6 @@ Player.prototype.discardCards = function(cardsToDiscard){
 	this.resources['ore'] = this.resources['ore'] - cardsToDiscard['ore'];
 
 	this.discarded = true;
-}
-
-Player.prototype.hasDiscarded = function() {
-	return this.discarded;
 }
 
 Player.prototype.setLargestArmy = function(largestArmy) {
@@ -288,6 +297,5 @@ Player.prototype.toJSON = function(){
 			'orderNumber': this.orderNumber,
 			'name': this.name,
 			'color': this.color
-			};
-
+		};
 }
