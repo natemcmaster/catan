@@ -19,7 +19,7 @@ var cmdMap = {
   sendChat: 'SendChatCommand',
 
   robPlayer: 'RobPlayerCommand',
-  rollNumber: 'RollNumberCommand',
+  rollNumber: 'RollDiceCommand',
   finishTurn: 'FinishTurnCommand',
   buyDevCard: 'BuyDevCardCommand',
 

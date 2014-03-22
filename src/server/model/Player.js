@@ -291,3 +291,4 @@ Player.prototype.toJSON = function(){
 			};
 
 }
+

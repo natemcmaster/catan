@@ -1,6 +1,7 @@
 module.exports = GameRoom;
 var _ = require('underscore');
 var CatanError = require('../../common').Errors.CatanError;
+
 /**
   This module contains the game room
   

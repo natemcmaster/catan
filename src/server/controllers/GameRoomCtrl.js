@@ -59,3 +59,4 @@ GameRoomCtrl.prototype.join = function(q, r, $JoinGameCommand) {
 			r.send(200);
 		})
 }
+

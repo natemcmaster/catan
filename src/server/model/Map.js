@@ -25,6 +25,10 @@ function Map(data){
   this.hex = new Hexgrid(data);
 }
 
+Map.prototype.getRoadOwner = function (x, y, dir) {
+  return this.hex.getEdge(x, y, dir).value.ownerID;
+}
+
 /**
  * <pre>
  * Pre-condition: The robber is not currently at the location desired

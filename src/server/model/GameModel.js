@@ -19,6 +19,7 @@ function GameModel(data, $Log, $Chat, $Bank, $Deck, $Map, $Player, $TurnTracker)
 		throw new CatanError('Cannot instantiate without data');
 
 	this.data = data
+  this.data.revision = 1;
 
 	this.bank = $Bank(this.data.bank);
 	this.deck = $Deck(this.data.deck);
@@ -37,14 +38,14 @@ function GameModel(data, $Log, $Chat, $Bank, $Deck, $Map, $Player, $TurnTracker)
 
 GameModel.prototype.toJSON = function () {
   return {
-    chat: this.chat.getData(),
-    bank: this.bank.getData(),
-    deck: this.deck.getData(),
-    map: this.map.getData(),
-    log: this.log.getData(),
-    turnTracker: this.turnTracker.getData(),
+    chat: this.chat.toJSON(),
+    bank: this.bank.toJSON(),
+    deck: this.deck.toJSON(),
+    map: this.map.toJSON(),
+    log: this.log.toJSON(),
+    turnTracker: this.turnTracker.toJSON(),
     players: this.players.map(function (player) {
-      return player.getData()
+      return player.toJSON()
     }),
 
     longestRoad: this.data.longestRoad,
@@ -79,7 +80,7 @@ GameModel.prototype.addPlayer = function(playerID,username,color) {
 	return p;
 }
 
-GameModel.prototype.rollNumber = function(playerIndex, number) {
+GameModel.prototype.rollDice = function(playerIndex, number) {
 	//Map
 	//Players
 	//Bank
@@ -193,6 +194,7 @@ GameModel.prototype.buildRoad = function(playerIndex, roadLocation, free) {
 	
 	this.players[playerIndex].buildRoad(free);
 
+  /*
 	var playerWithLongestRoad = this.data.longestRoad;
 
 	//If no one has the longest road and the player who just built has 5 or more roads,
@@ -210,12 +212,13 @@ GameModel.prototype.buildRoad = function(playerIndex, roadLocation, free) {
 		this.players[playerWithLongestRoad].setLongestRoad(false);
 		this.players[playerIndex].setLongestRoad(true);
 	}
+  */
 
 	//Check if the player who built has won
 	if (this.players[playerIndex].hasWon())
 		this.data.winner = playerIndex;
 		
-	//STILL NEED TO CHANGE THE MAP
+  this.map.placeRoad(playerIndex, roadLocation);
 };
 
 GameModel.prototype.buildSettlement = function(playerIndex, vertexLocation, free) {

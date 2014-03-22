@@ -16,6 +16,9 @@ function BuildRoadCommand(gameID, playerIndex, roadLocation, isFree){
 
 }
 
+BuildRoadCommand.params = ['playerIndex', 'roadLocation', 'free'];
+BuildRoadCommand.optional = ['type'];
+
 BuildRoadCommand.prototype.executeOnGame = function(game){
 
 	game.buildRoad(this.playerIndex, this.roadLocation, this.isFree);

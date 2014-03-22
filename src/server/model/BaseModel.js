@@ -5,7 +5,7 @@ function BaseModel(data) {
   this.data = data;
 }
 
-BaseModel.prototype.getData = function () {
+BaseModel.prototype.toJSON = function () {
   return this.data
 }
 

@@ -10,16 +10,25 @@ function TurnTracker(data) {
 };
 
 TurnTracker.prototype.setStatus = function(status){
-	this.status = status;
+	this.data.status = status;
 };
+
+TurnTracker.prototype.getStatus = function () {
+  return this.data.status
+};
+
+TurnTracker.prototype.getCurrentPlayerIndex = function () {
+  return this.data.currentTurn;
+}
 
 TurnTracker.prototype.finishTurn = function(){
 
-	this.currentTurn++;
+	this.data.currentTurn++;
 
-	if(this.currentTurn > 3){
-		this.currentTurn = 0;
+	if(this.data.currentTurn > 3){
+		this.data.currentTurn = 0;
 	}
 
 	this.setStatus('Rolling');
 };
+
