@@ -81,16 +81,57 @@ GameModel.prototype.addPlayer = function(playerID,username,color) {
 }
 
 GameModel.prototype.rollDice = function(playerIndex, number) {
-	//Map
-	//Players
-	//Bank
-	//TurnTracker
+
+	//Gets the Locations that have the number that was rolled
+	var hexes = this.map.getNumberLocation(number);
+	for (var i = 0 ; i < hexes.length ; i++){
+
+		//Gets the actuall hex that has the number that has been rolled
+		var hex = this.map.hex.getHex(hex.x, hex.y);
+
+		//Should iterate through the vertexes and see if they are owned by a player
+		//and give the player the resources and withdraw them from the bank
+		for(var j = 0 ; j < hex.length; j++){
+			if(hex[j].value.ownerID != -1){
+
+				var playerIndex = getPlayerIndexById(hex[j].ownerID);
+				this.players[playerIndex].addResource(hex.landtype.toLowerCase(), hex.worth);
+				this.bank.withdraw(hex.landtype.toLowerCase(), hex.worth);
+
+			};
+		};
+
+
+	};
+
+	//This checks to see if anyone needs to discard cards and sets the status on 
+	//the turnTracker appropriatly
+	this.players.forEach(function(player){
+		if(player.totalResources() > 7){
+			this.turnTracker.setStatus("Discarding");
+			return;
+		}
+	});
+
+	this.turnTracker.setStatus("Playing");
+
+	
 };
 
 GameModel.prototype.robPlayer = function(playerIndex, victimIndex, location) {
 	//TurnTracker
 	//Players
 	//Map
+};
+
+GameModel.prototype.getPlayerIndexByID = function(playerID){
+
+	for(var i =0; i < this.players.length; i++){
+		if(this.players[i].playerID == playerID){
+			return i;
+		}
+	}
+	throw new Error("BAD PLAYER ID");
 };
 
 GameModel.prototype.finishTurn = function(playerIndex) {

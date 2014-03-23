@@ -81,6 +81,11 @@ Player.prototype.hasWon = function() {
 		return false;
 }
 
+Player.prototype.totalResources = function(){
+	return (this.resources.brick + this.resources.ore + this.resources.sheep +
+				this.resources.wood + this.resources.wheat);
+}
+
 //---------------------------------------------------------------
 // Mutating functions
 //---------------------------------------------------------------

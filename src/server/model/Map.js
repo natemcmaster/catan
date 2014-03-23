@@ -100,3 +100,10 @@ Map.prototype.placeCity = function(playerIndex, vertexLocation) {
   this.hex.setVertex(loc.x, loc.y, loc.direction, playerIndex, 2);
 };
 
+Map.prototype.getNumberLocation = function(number){
+
+    return this.data.numbers[String(number)];  
+};
+
+
+
