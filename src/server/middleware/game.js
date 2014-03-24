@@ -4,24 +4,7 @@
 var debug = require('debug')('catan:middleware:game');
 
 module.exports = function(req, res, next){
-<<<<<<< HEAD
-  var catanGameNumber = req.cookies['catan.game'];
 
-  if(catanGameNumber) {
-    req.gameId = catanGameNumber;
-
-    var game = _.find(req.gameRoom.listGames(), function(game){
-      return game.id == req.gameId;
-    });
-
-    // sets corresponding local playerIndex using global req.playerID set in the 'auth.js' middleware
-    req.userIndex = game.indexOf(req.playerID);
-
-    next();
-  } else {
-    res.send(400);
-  }
-=======
   var catanGameCookie = req.cookies['catan.game'];
   debug('Cookies: ', req.cookies);
 
@@ -31,9 +14,8 @@ module.exports = function(req, res, next){
       req.gameID = gameID;
       debug('Got game ID: ', req.gameID);
     }
-    //req.userIndex = TODO: calculate game-specific userIndex based on global playerId in cookie
 
-  } 
+
+  }
   next();
->>>>>>> 3b3f757ac5fe74a09e5c9a71ad17743128f6d634
 }
