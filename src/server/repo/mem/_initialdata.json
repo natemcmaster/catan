@@ -3285,9 +3285,9 @@
         "largestArmy": false,
         "playedDevCard": false,
         "discarded": false,
-        "playerID": 10,
+        "playerID": 41,
         "orderNumber": 2,
-        "name": "Pete",
+        "name": "Spence",
         "color": "red"
       },
       {
@@ -3323,7 +3323,7 @@
         "largestArmy": false,
         "playedDevCard": false,
         "discarded": false,
-        "playerID": 11,
+        "playerID": 5,
         "orderNumber": 3,
         "name": "Mark",
         "color": "green"
