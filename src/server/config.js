@@ -6,7 +6,7 @@ function flatten(obj, d) {
 	for (var x in obj) {
 		if (typeof obj[x] === 'object') {
 			flatten(obj[x], d);
-		} else {
+		} else if(typeof obj[x] === 'function'){
 			d[x] = obj[x];
 		}
 	}

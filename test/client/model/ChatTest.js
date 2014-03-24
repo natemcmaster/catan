@@ -1,5 +1,5 @@
 var MockProxy = require('../MockProxy.js'),
-	Chat = require('../../../src/common/model/Chat.js'),
+	Chat = require('../../../src/client/model/Chat.js'),
 	assert = require('chai').assert;
 
 suite('ChatTest', function() {

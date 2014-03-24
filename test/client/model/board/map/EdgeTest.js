@@ -1,4 +1,4 @@
-var Edge = require('../../../../../src/common/model/board/map/Edge'),
+var Edge = require('../../../../../src/client/model/board/map/Edge'),
  consts = require('../../../TestConsts').DIR,
  assert = require('chai').assert;
 
