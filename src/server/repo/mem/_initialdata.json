@@ -3555,7 +3555,8 @@
     },
     "biggestArmy": 2,
     "longestRoad": 0,
-    "winner": -1
+    "winner": -1,
+    "revision": 10
   },
   "sample": {
     "deck": {

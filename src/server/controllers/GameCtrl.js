@@ -4,6 +4,7 @@ module.exports = GameCtrl;
 
 var fs = require('fs'),
 	path = require('path'),
+  debug = require('debug')('catan:ctrl:game'),
 	util = require('util');
 
 
@@ -25,7 +26,10 @@ GameCtrl.prototype.assignRoutes = function(app, h) {
 }
 
 GameCtrl.prototype.getModel = function(q, r) {
-	r.json(q.gameRoom.getGameModel(q.gameID).toJSON());
+	debug('Getting model for game', q.gameID);
+	var game = q.gameRoom.getGameModel(q.gameID);
+	var data = game.toJSON()
+	r.json(data);
 }
 
 GameCtrl.prototype.listCommands = function(q, r) {

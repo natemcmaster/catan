@@ -35,6 +35,14 @@ Bank.prototype.receivePaymentForDevCard = function() {
 	this.deposit('ore', 1);
 }
 
+Bank.prototype.withdrawAsMuchAsYouCan = function(resource, amount) {
+  if (amount > this.data[resource]) {
+    amount = this.data[resource]
+  }
+  this.data[resource] -= amount
+  return amount
+}
+
 Bank.prototype.canWithdraw = function(resource, amount) {
 	if (this.data[resource] < amount)
 		return false;
