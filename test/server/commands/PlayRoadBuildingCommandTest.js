@@ -4,7 +4,7 @@ var expect = require('chai').expect
   , h = require('./helpers')
   ;
 
-describe('buildRoadCommand', function () {
+describe('Play Road Building Command', function () {
   h.loggedInAs('Nate', 'nate', function () {
     h.inGame(0, function () {
       it('should work', function (done) {
