@@ -2,6 +2,7 @@ var BaseModel = require('./BaseModel');
 var util = require('util');
 var CatanError = require('../../common').Errors.CatanError;
 var _ = require('underscore');
+var debug = require('debug')('catan:model:game');
 
 module.exports = GameModel;
 util.inherits(GameModel, BaseModel);
@@ -301,6 +302,7 @@ GameModel.prototype.acceptTrade = function(playerIndex, willAccept) {
 };
 
 GameModel.prototype.maritimeTrade = function(playerIndex, ratio, inputResource, outputResource) {
+  debug('maritime', playerIndex, ratio);
 	this.players[playerIndex].maritimeTrade(inputResource, ratio, outputResource);
 	this.bank.deposit(inputResource, ratio);
 	this.bank.withdraw(outputResource, 1);
