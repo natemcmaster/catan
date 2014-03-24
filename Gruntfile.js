@@ -228,9 +228,11 @@ module.exports = function(grunt) {
 			grunt.config('mochaTest.testServer.options.grep', grep);
 		}
 
-		var reporter = grunt.option('reporter') || 'spec';
-		grunt.config('mochaTest.test.options.reporter', reporter);
-		grunt.config('mochaTest.testServer.options.reporter', reporter);
+		var reporter = grunt.option('reporter') || '';
+		if (reporter) {
+			grunt.config('mochaTest.test.options.reporter', reporter);
+			grunt.config('mochaTest.testServer.options.reporter', reporter);
+		}
 
 		grunt.task.run(['mochaTest']);
 	});
