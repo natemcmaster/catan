@@ -1,22 +1,26 @@
 var AbstractMoveCommand = require('./AbstractMoveCommand')
   , util = require('util')
 
-module.exports = PLayRoadBuildingCommand
+module.exports = PlayRoadBuildingCommand
 
 
-util.inherits(PLayRoadBuildingCommand, AbstractMoveCommand);
+util.inherits(RoadBuildingCommand, AbstractMoveCommand);
 
-function PLayRoadBuildingCommand(gameID, playerIndex, location1, location2){
+function PlayRoadBuildingCommand(gameID, playerIndex, location1, location2){
 	AbstractMoveCommand.call(this,gameID);	
 
 	this.playerIndex = playerIndex;
+	console.log("PlayerIndex: " + this.playerIndex);
 	this.location1 = location1;
 	this.location2 = location2;
 
 }
 
-PLayRoadBuildingCommand.prototype.executeOnGame = function(game){
+PlayRoadBuildingCommand.params = ['playerIndex', 'location1', 'location2'];
+PlayRoadBuildingCommand.optional = ['type'];
 
-	game.playRoadBuildin(this.playerIndex, this.location1, this.location2);
+PlayRoadBuildingCommand.prototype.executeOnGame = function(game){
+
+	game.playRoadBuilding(this.playerIndex, this.location1, this.location2);
 
 }
