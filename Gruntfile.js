@@ -177,7 +177,7 @@ module.exports = function(grunt) {
 				},
 				src: ['test/client/**/*.js', 'test/common/**/*.js']
 			},
-      testServer: {
+			testServer: {
 				options: {
 					reporter: 'spec',
 					run: true,
@@ -187,7 +187,7 @@ module.exports = function(grunt) {
 					log: true
 				},
 				src: ['test/server/**/*.js']
-      }
+			}
 		},
 		yuidoc: {
 			compile: {
@@ -229,7 +229,20 @@ module.exports = function(grunt) {
 
 		grunt.task.run(['mochaTest:test']);
 	});
-	grunt.registerTask('testServer', ['mochaTest:testServer']);
+	grunt.registerTask('testServer', function(){
+		var toFile = grunt.option('output') || '';
+		if (toFile)
+			grunt.config('mochaTest.testServer.options.captureFile', toFile);
+
+		var grep = grunt.option('grep') || '';
+		if (grep)
+			grunt.config('mochaTest.testServer.options.grep', grep);
+
+		var reporter = grunt.option('reporter') || 'spec';
+		grunt.config('mochaTest.testServer.options.reporter', reporter);
+
+		grunt.task.run(['mochaTest:testServer']);	
+	});
 	grunt.registerTask('coverage', ['mochacov']);
 	grunt.registerTask('serve', ['shell:serve']);
 	grunt.registerTask('docs', ['copy', 'yuidoc:compile']);
