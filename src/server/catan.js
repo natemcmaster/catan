@@ -11,8 +11,8 @@ var express = require('express'),
 
 global.HttpError = require('../common/Errors').HttpError;
 
-module.exports = function () {
-
+module.exports = function (logger) {
+  logger = logger || require('./resources').ConsoleLogger;
   var app = express();
 
   var buildRoot = path.join(__dirname,'..','..','build');
@@ -35,7 +35,7 @@ module.exports = function () {
 
   inj.map(config.runtime);
   inj.mapSingleton(config.repo.memory); // store everything in memory
-  inj.singleton('Logger',require('./resources').ConsoleLogger);
+  inj.singleton('Logger',logger);
 
   // making the game room
   var gameRoom = inj.create('GameRoom');

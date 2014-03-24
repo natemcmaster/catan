@@ -87,7 +87,7 @@ GameModel.prototype.rollDice = function(playerIndex, number) {
 	for (var i = 0 ; i < hexes.length ; i++){
 
 		//Gets the actuall hex that has the number that has been rolled
-		var hex = this.map.hex.getHex(hex.x, hex.y);
+		var hex = this.map.hex.getHex(hexes[i].x, hexes[i].y);
 
 		//Should iterate through the vertexes and see if they are owned by a player
 		//and give the player the resources and withdraw them from the bank
