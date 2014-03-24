@@ -17,7 +17,7 @@ function loggedInAs(name, password, sub) {
       if (!this.app) this.app = MakeApp(TestLogger);
       this.agent = request.agent(this.app);
       this.agent.post('/user/login')
-        .send({username: 'Sam', password: 'sam'})
+        .send({username: name, password: password})
         .expect(200, function (err) {
           if (err) {
             console.error('HTTP Error', res.text);

@@ -4,11 +4,8 @@ var expect = require('chai').expect;
 describe('Server Bank Tests', function() {
 	var bank;
 
-	before(function() {
-		bank = new Bank();
-	})
-
 	beforeEach(function() {
+		bank = new Bank();
 		bank.data['brick'] = 0;
 		bank.data['wood'] = 0;
 		bank.data['sheep'] = 0;
@@ -52,7 +49,6 @@ describe('Server Bank Tests', function() {
 		expect(bank.deposit('wood', 2)).to.be.true;
 		expect(bank.deposit('sheep', 1)).to.be.true;
 		expect(bank.deposit('ore', 3)).to.be.true;
-		expect(bank.deposit('ore', 16)).to.be.true;
 
 		expect(bank.data['brick']).to.equal(0);
 		expect(bank.data['wood']).to.equal(2);

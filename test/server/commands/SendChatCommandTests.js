@@ -6,7 +6,7 @@ var expect = require('chai').expect
   ;
 
 describe('sendChatCommand', function () {
-  h.asSam(function () {
+  h.loggedInAs('Nate', 'nate', function () {
     h.inGame(0, function () {
       it('should work', function (done) {
         var app = this.app;
@@ -15,11 +15,11 @@ describe('sendChatCommand', function () {
           .expect(200)
           .end(function (err, res) {
             if (err) {
-              console.log(res.text);
+              console.error('HTTP Error:', res.text);
               return done(err);
             }
             expect(app.gameRoom.getGameModel(0).chat.data).to.eql({
-              lines: [{source: 'Sam', message: 'hello'}]
+              lines: [{source: 'Nate', message: 'hello'}]
             });
             done();
           });
