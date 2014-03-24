@@ -1,5 +1,5 @@
 var MockProxy = require('../../MockProxy.js');
-var Deck = require('../../../../src/common/model/board/Deck.js');
+var Deck = require('../../../../src/client/model/board/Deck.js');
 var assert = require('chai').assert;
 
 suite('DeckTests', function() {

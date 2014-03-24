@@ -1,5 +1,5 @@
 
-var commands = require('../../common/model/commands')
+var commands = require('../../client/model/commands')
 
 module.exports = {
   roll: roll,

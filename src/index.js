@@ -1,3 +1,3 @@
 module.exports={
-	models: require('./common/model')
+	models: require('./client/model')
 }
