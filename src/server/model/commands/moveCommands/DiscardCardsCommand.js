@@ -19,6 +19,8 @@ function DiscardCardsCommand(gameID, playerIndex, brick, ore, sheep, wheat, wood
 
 
 }
+DiscardCardsCommand.params = ['playerIndex', 'brick', 'ore', 'sheep', 'wheat', 'wood'];
+DiscardCardsCommand.optional = ['type'];
 
 DiscardCardsCommand.prototype.executeOnGame = function(game){
 
