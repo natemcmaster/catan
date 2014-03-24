@@ -267,27 +267,9 @@ Player.prototype.maritimeTrade = function(resourceToGive, ratio, resourceToGet) 
 Player.prototype.toJSON = function(){
 
 	return {'MAX_GAME_POINTS': this.MAX_GAME_POINTS,
-			'resources': {
-				'brick': this.brick,
-				'wood': this.wood,
-				'sheep': this.sheep,
-				'wheat': this.wheat,
-				'ore': this.ore
-			},
-			'oldDevCards': {
-				'yearOfPlenty': this.yearOfPlenty,
-				'monopoly': this.monopoly,
-				'soldier': this.soldier,
-				'roadBuilding': this.roadBuilding,
-				'monument': this.monument
-			},
-			'newDevCards': {
-				'yearOfPlenty': this.yearOfPlenty,
-				'monopoly': this.monopoly,
-				'soldier': this.soldier,
-				'roadBuilding': this.roadBuilding,
-				'monument': this.monument
-			},
+			'resources': this.resources,
+			'oldDevCards': this.oldDevCards,
+			'newDevCards': this.newDevCards,
 			'roads': this.roads,
 			'cities': this.cities,
 			'settlements': this.settlements,

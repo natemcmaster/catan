@@ -38,6 +38,9 @@ GameRoomCtrl.prototype.create = function(q, r, $CreateGameCommand) {
 
 	$CreateGameCommand(name, !! q.param('randomHexes'), !! q.param('randomTiles'), !! q.param('randomtile'))
 		.execute(q.gameRoom, function(err, data) {
+			if (err instanceof Error) {
+				return r.send(400, err.message);
+			}
 			if (err)
 				throw new BaseCtrl.HttpError(500, data);
 			r.json(data);
@@ -53,6 +56,9 @@ GameRoomCtrl.prototype.join = function(q, r, $JoinGameCommand) {
 
 	$JoinGameCommand(q.playerID, q.param('color'), gameID)
 		.execute(q.gameRoom, function(err, data) {
+			if (err instanceof Error) {
+				return r.send(400, err.message);
+			}
 			if (err)
 				throw new BaseCtrl.HttpError(500, data);
 			r.cookie('catan.game', gameID, {

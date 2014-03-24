@@ -47,13 +47,11 @@ GameModel.prototype.toJSON = function () {
     players: this.players.map(function (player) {
       return player.toJSON()
     }),
-
     longestRoad: this.data.longestRoad,
     biggestArmy: this.data.biggestArmy,
     winner: this.data.winner,
     revision: this.data.revision
   }
-  return this.data;
 }
 
 GameModel.prototype.sendChat = function (playerIndex, message) {
