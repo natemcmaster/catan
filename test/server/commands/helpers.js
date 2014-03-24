@@ -14,7 +14,7 @@ module.exports = {
 function loggedInAs(name, password, sub) {
   describe('logged in as ' + name, function () {
     beforeEach(function (done) {
-      if (!this.app) this.app = MakeApp(TestLogger);
+      this.app = MakeApp(TestLogger);
       this.agent = request.agent(this.app);
       this.agent.post('/user/login')
         .send({username: name, password: password})

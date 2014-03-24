@@ -19,6 +19,6 @@ MartimeTradeCommand.params = ['playerIndex', 'ratio', 'inputResource', 'outputRe
 MartimeTradeCommand.optional = ['type'];
 
 MartimeTradeCommand.prototype.executeOnGame = function(game){
-	game.martimeTrade(this.playerIndex, this.ratio, this.inputResource, this.outputResource);
+	game.maritimeTrade(this.playerIndex, this.ratio, this.inputResource, this.outputResource);
 }
 

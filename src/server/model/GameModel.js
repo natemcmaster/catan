@@ -1,7 +1,7 @@
 var BaseModel = require('./BaseModel');
 var util = require('util');
 var CatanError = require('../../common').Errors.CatanError;
-var _ = require('underscore');
+var _ = require('lodash');
 var debug = require('debug')('catan:model:game');
 
 module.exports = GameModel;
@@ -19,7 +19,7 @@ function GameModel(data, $Log, $Chat, $Bank, $Deck, $Map, $Player, $TurnTracker)
 	if(!data)
 		throw new CatanError('Cannot instantiate without data');
 
-	this.data = data;
+	this.data = _.cloneDeep(data);
     this.data.revision = 1;
 
 	this.bank = $Bank(data.bank);

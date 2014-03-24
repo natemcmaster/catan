@@ -35,7 +35,7 @@ var cmdMap = {
 
   offerTrade: 'OfferTradeCommand',
   acceptTrade: 'AcceptTradeCommand',
-  maritimeTrade: 'MaritimeTradeCommand',
+  maritimeTrade: 'MartimeTradeCommand',
   discardCards: 'DiscardCardsCommand',
 }
 
