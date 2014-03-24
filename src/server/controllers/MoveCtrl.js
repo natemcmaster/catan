@@ -23,11 +23,11 @@ var cmdMap = {
   finishTurn: 'FinishTurnCommand',
   buyDevCard: 'BuyDevCardCommand',
 
-  Soldier: 'SoldierCommand',
-  Monopoly: 'MonopolyCommand',
-  Monument: 'MonumentCommand',
-  Road_Building: 'RoadBuildingCommand',
-  Year_of_Plenty: 'YearOfPlentyCommand',
+  Soldier: 'PlaySoldierCommand',
+  Monopoly: 'PlayMonopolyCommand',
+  Monument: 'PlayMonumentCommand',
+  Road_Building: 'PlayRoadBuildingCommand',
+  Year_of_Plenty: 'PlayYearOfPlentyCommand',
 
   buildRoad: 'BuildRoadCommand',
   buildCity: 'BuildCityCommand',
