@@ -14,8 +14,9 @@ function FinishTurnCommand(gameID, playerIndex){
 
 }
 
+FinishTurnCommand.params = ['playerIndex']
+FinishTurnCommand.optional = ['type']
+
 FinishTurnCommand.prototype.executeOnGame = function(game){
-
 	game.finishTurn(this.playerIndex);
-
 }

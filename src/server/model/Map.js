@@ -25,6 +25,28 @@ function Map(data){
   this.hex = new Hexgrid(data);
 }
 
+Map.prototype.getCardsRolled = function (number) {
+  var that = this
+    , cards = {};
+  this.data.numbers[number].forEach(function (location) {
+    var hex = that.hex.getHex(location.x, location.y)
+    if (!hex.isLand) return;
+    var land = hex.landtype.toLowerCase();
+    hex.vertexes.forEach(function (vx) {
+      var owner = vx.value.ownerID
+      if (owner === -1) return;
+      if (!cards[owner]) {
+        cards[owner] = {}
+      }
+      if (!cards[owner][land]) {
+        cards[owner][land] = 0;
+      }
+      cards[owner][land] += vx.value.worth;
+    });
+  });
+  return cards;
+}
+
 Map.prototype.getRoadOwner = function (x, y, dir) {
   return this.hex.getEdge(x, y, dir).value.ownerID;
 }

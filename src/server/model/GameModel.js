@@ -82,40 +82,35 @@ GameModel.prototype.addPlayer = function(playerID,username,color) {
 
 GameModel.prototype.rollDice = function(playerIndex, number) {
 
-	//Gets the Locations that have the number that was rolled
-	var hexes = this.map.getNumberLocation(number);
-	for (var i = 0 ; i < hexes.length ; i++){
+  if (number === 7) {
+    //This checks to see if anyone needs to discard cards and sets the status on 
+    //the turnTracker appropriatly
+    this.players.forEach(function(player){
+      if(player.totalResources() > 7){
+        this.turnTracker.setStatus("Discarding");
+        return;
+      }
+    });
 
-		//Gets the actuall hex that has the number that has been rolled
-		var hex = this.map.hex.getHex(hex.x, hex.y);
+    return this.turnTracker.setStatus("Robbing");
+  }
 
-		//Should iterate through the vertexes and see if they are owned by a player
-		//and give the player the resources and withdraw them from the bank
-		for(var j = 0 ; j < hex.length; j++){
-			if(hex[j].value.ownerID != -1){
+  var cards = this.map.getCardsRolled(number)
+    , withdrew
+    , player
+  console.log(cards);
 
-				var playerIndex = getPlayerIndexById(hex[j].ownerID);
-				this.players[playerIndex].addResource(hex.landtype.toLowerCase(), hex.worth);
-				this.bank.withdraw(hex.landtype.toLowerCase(), hex.worth);
+  for (var pIndex in cards) {
+    player = this.players[pIndex]
+    console.log(pIndex, player);
+    for (var resource in cards[pIndex]) {
+      resource = resource.toLowerCase()
+      withdrew = this.bank.withdrawAsMuchAsYouCan(resource, cards[pIndex][resource]);
+      player.addResource(resource, withdrew);
+    }
+  }
 
-			};
-		};
-
-
-	};
-
-	//This checks to see if anyone needs to discard cards and sets the status on 
-	//the turnTracker appropriatly
-	this.players.forEach(function(player){
-		if(player.totalResources() > 7){
-			this.turnTracker.setStatus("Discarding");
-			return;
-		}
-	});
-
-	this.turnTracker.setStatus("Playing");
-
-	
+  this.turnTracker.setStatus("Playing");
 };
 
 GameModel.prototype.robPlayer = function(playerIndex, victimIndex, location) {
@@ -137,7 +132,6 @@ GameModel.prototype.getPlayerIndexByID = function(playerID){
 GameModel.prototype.finishTurn = function(playerIndex) {
 	this.turnTracker.finishTurn();
 	this.players[playerIndex].finishTurn();
-
 	//Resources at the end of setup?
 };
 
