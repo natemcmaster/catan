@@ -4,7 +4,7 @@ var AbstractMoveCommand = require('./AbstractMoveCommand')
 module.exports = PlayRoadBuildingCommand
 
 
-util.inherits(RoadBuildingCommand, AbstractMoveCommand);
+util.inherits(PlayRoadBuildingCommand, AbstractMoveCommand);
 
 function PlayRoadBuildingCommand(gameID, playerIndex, location1, location2){
 	AbstractMoveCommand.call(this,gameID);	
