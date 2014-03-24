@@ -18,5 +18,14 @@ function Deck(data) {
 	Card drawn so player object can be updated
 **/
 Deck.prototype.drawRandomCard = function() {
+	var type = getRandomInt(0, 4);
 
+	while (this.data[type] == 0)
+	{
+		type = getRandomInt(0, 4);
+	}
+
+	this.data[type]--;
+	
+	return this.data[type].name;
 };

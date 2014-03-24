@@ -2,7 +2,7 @@
 var AbstractMoveCommand = require('./AbstractMoveCommand')
   , util = require('util')
 
-moduel.exports = ResetGameCommand
+module.exports = ResetGameCommand
 
 util.inherits(ResetGameCommand, AbstractMoveCommand);
 

@@ -1,134 +1,331 @@
 var BaseModel = require('./BaseModel');
 var util = require('util');
+var CatanError = require('../../common').Errors.CatanError;
+var _ = require('underscore');
 
 module.exports = GameModel;
-util.inherits(Game, BaseModel);
+util.inherits(GameModel, BaseModel);
 
 /** 
-* This is the server model class
+ * This is the server model class
+ 
+ * @class GameModel
+ * @constructor
+ * @param {data} playerID The id of the local player, extracted from the cookie
+ */
+function GameModel(data, $Log, $Chat, $Bank, $Deck, $Map, $Player, $TurnTracker) {
 
-* @class Game
-* @constructor
-* @param {data} playerID The id of the local player, extracted from the cookie
-*/
-function Game(data, $Log, $Chat, $Bank, $Deck, $Map, $Player, $TurnTracker){
+	if(!data)
+		throw new CatanError('Cannot instantiate without data');
+
+	this.data = data;
+    this.data.revision = 1;
+
+	this.bank = $Bank(data.bank);
+	this.deck = $Deck(data.deck);
+	this.map = $Map(data.map);
+	this.log = $Log(data.log);
+	this.chat = $Chat(data.chat);
+	this.turnTracker = $TurnTracker(data.turnTracker);
+
+	this.players = [];
+	this.data.players.forEach(function(p,i){
+		this.players.push($Player(p, i));
+	}.bind(this));
+
+	this.playerConstruct = $Player;
+}
+
+GameModel.prototype.toJSON = function () {
+  return {
+    chat: this.chat.toJSON(),
+    bank: this.bank.toJSON(),
+    deck: this.deck.toJSON(),
+    map: this.map.toJSON(),
+    log: this.log.toJSON(),
+    turnTracker: this.turnTracker.toJSON(),
+    players: this.players.map(function (player) {
+      return player.toJSON()
+    }),
+
+    longestRoad: this.data.longestRoad,
+    biggestArmy: this.data.biggestArmy,
+    winner: this.data.winner,
+    revision: this.data.revision
+  }
+  return this.data;
+}
+
+GameModel.prototype.sendChat = function (playerIndex, message) {
+  var playerName = this.players[playerIndex].name;
+  this.chat.sendChat(playerName, message);
+};
+
+GameModel.prototype.updateColor = function(playerID, color) {
+	var p = _(this.players).find(function(s) {
+		return s.playerID == playerID
+	});
+	if (!p) return false;
+	p.color = color;
+	return true;
+}
+
+GameModel.prototype.addPlayer = function(playerID,username,color) {
+	var p = this.playerConstruct({
+		name: username,
+		color: color,
+		playerID: playerID
+	}, this.players.length);
+	this.players.push(p);
+	return p;
+}
+
+GameModel.prototype.rollDice = function(playerIndex, number) {
+
+	//Gets the Locations that have the number that was rolled
+	var hexes = this.map.getNumberLocation(number);
+	for (var i = 0 ; i < hexes.length ; i++){
+
+		//Gets the actuall hex that has the number that has been rolled
+		var hex = this.map.hex.getHex(hex.x, hex.y);
+
+		//Should iterate through the vertexes and see if they are owned by a player
+		//and give the player the resources and withdraw them from the bank
+		for(var j = 0 ; j < hex.length; j++){
+			if(hex[j].value.ownerID != -1){
+
+				var playerIndex = getPlayerIndexById(hex[j].ownerID);
+				this.players[playerIndex].addResource(hex.landtype.toLowerCase(), hex.worth);
+				this.bank.withdraw(hex.landtype.toLowerCase(), hex.worth);
+
+			};
+		};
 
 
-if(!data){
-		this.bank = $Bank();
-		this.deck = $Deck();
-		this.map = $Map();
-		this.turnTracker = $TurnTracker();
-		this.players = [];
-		this.chat = $Chat();
-		this.log = $Log();
-		for(var i = 0; i < 4; i++){
-			this.players.push($Player(undefined, i));
+	};
+
+	//This checks to see if anyone needs to discard cards and sets the status on 
+	//the turnTracker appropriatly
+	this.players.forEach(function(player){
+		if(player.totalResources() > 7){
+			this.turnTracker.setStatus("Discarding");
+			return;
 		}
+	});
 
-		this.data = {'bank' : this.bank,
-					 'deck' : this.deck,
-					 'map' : this.map,
-					 'turnTracker' : this.turnTracker,
-					 'players' :  this.players,
-					 'log' : this.log,
-					 'chat' : this.chat,
-					 'biggestArmy' : -1,
-					 'longestRoad' : -1,
-					 'winner' : -1;
-					 'revision' : 0};
+	this.turnTracker.setStatus("Playing");
 
-	}
+	
+};
 
-	else{
-		this.data = data 
+GameModel.prototype.robPlayer = function(playerIndex, victimIndex, location) {
+	//TurnTracker
+	//Players
+	//Map
+};
 
-		this.bank = $Bank(this.data.bank);
-		this.deck = $Deck(this.data.deck);
-		this.map = $Map(this.data.map);
-		this.log = $Log(data.log);
-  		this.chat = $Chat(data.chat);
-		this.turnTracker = $TurnTracker(this.data.turnTracker);
+GameModel.prototype.getPlayerIndexByID = function(playerID){
 
-		this.players = [];
-		for(var i = 0; i < 4; i++){
-			this.players.push($Player(this.data.players[i], i));
+	for(var i =0; i < this.players.length; i++){
+		if(this.players[i].playerID == playerID){
+			return i;
 		}
-
 	}
-
-
-
-  this.gameboard = $GameBoard(data);
+	throw new Error("BAD PLAYER ID");
 };
 
-Game.prototype.sendChat = function(playerIndex, message) {
+GameModel.prototype.finishTurn = function(playerIndex) {
+	this.turnTracker.finishTurn();
+	this.players[playerIndex].finishTurn();
 
+	//Resources at the end of setup?
 };
 
-Game.prototype.rollNumber = function(playerIndex, number) {
-
+GameModel.prototype.buyDevCard = function(playerIndex) {
+	var card = this.deck.drawRandomCard();
+	this.players[playerIndex].buyDevCard(card);
+	this.bank.receivePaymentForDevCard();
 };
 
-Game.prototype.robPlayer = function(playerIndex, victimIndex, location) {
-
-};
-
-Game.prototype.finishTurn = function(playerIndex) {
-
-};
-
-Game.prototype.buyDevCard = function(playerIndex) {
-	this.players[playerIndex].buyDevCard(this.deck.drawRandomCard());
-};
-
-Game.prototype.playYearOfPlenty = function(playerIndex, resource1, resource2) {
+GameModel.prototype.playYearOfPlenty = function(playerIndex, resource1, resource2) {
 	this.bank.withdraw(resource1);
 	this.bank.withdraw(resource2);
 
 	players[playerIndex].playYearOfPlenty(resource1, resource2);
 };
 
-Game.prototype.playRoadBuilding = function(playerIndex, spot1, spot2) {
+GameModel.prototype.playRoadBuilding = function(playerIndex, spot1, spot2) {
+	this.players[playerIndex].playRoadBuilding();
+	
+	var playerWithLongestRoad = this.data.longestRoad;
 
+	//If no one has the longest road and the player who just built has 5 or more roads,
+	//that player claims the longest road
+	if (playerWithLongestRoad == -1 && this.players[playerIndex].getNumberOfRoadsBuilt() >= 5) {
+		this.data.longestRoad = playerIndex;
+		this.players[playerIndex].setLongestRoad(true);
+	}
+
+	//If the player who built did not have the longest road, but has now beaten the current
+	//owner of the longest road, that player now claims the longest road
+	else if (playerIndex != playerWithLongestRoad && 
+			this.players[playerIndex].getNumberOfRoadsBuilt() > this.players[playerWithLongestRoad].getNumberOfRoadsBuilt()) {
+		this.data.longestRoad = playerIndex;
+		this.players[playerWithLongestRoad].setLongestRoad(false);
+		this.players[playerIndex].setLongestRoad(true);
+	}
+
+	//Check if the player who built has won
+	if (this.players[playerIndex].hasWon())
+		this.data.winner = playerIndex;
+
+	//STILL NEED TO CHANGE THE MAP
 };
 
-Game.prototype.playSoldier = function(playerIndex, victimIndex, location) {
+GameModel.prototype.playSoldier = function(playerIndex, victimIndex, location) {
+	var stolenCard = this.players[victimIndex].loseCard();
+	this.players[playerIndex].playSoldier(stolenCard);
 
+	var playerWithLargestArmy = this.data.biggestArmy;
+
+	//If no one has the longest road and the player who just built has 5 or more roads,
+	//that player claims the longest road
+	if (playerWithLargestArmy == -1 && this.players[playerIndex].getSizeOfArmy() >= 3) {
+		this.data.biggestArmy = playerIndex;
+		this.players[playerIndex].setLargestArmy(true);
+	}
+
+	//If the player who built did not have the longest road, but has now beaten the current
+	//owner of the longest road, that player now claims the longest road
+	else if (playerIndex != playerWithLargestArmy && 
+			this.players[playerIndex].getSizeOfArmy() > this.players[playerWithLargestArmy].getSizeOfArmy()) {
+		this.data.biggestArmy = playerIndex;
+		this.players[playerWithLargestArmy].setLargestArmy(false);
+		this.players[playerIndex].setLargestArmy(true);
+	}
+
+	//Check if the player who built has won
+	if (this.players[playerIndex].hasWon())
+		this.data.winner = playerIndex;
+
+	//STILL NEED TO CHANGE THE MAP
 };
 
-Game.prototype.playMonopoly = function(playerIndex, resource) {
+GameModel.prototype.playMonopoly = function(playerIndex, resource) {
+	var totalNumberOfResource = 0;
 
+	this.players.forEach(function(player) {
+		totalNumberOfResource += player.getResource(resource);
+		player.setResource(resource, 0);
+	});
+
+	this.players[playerIndex].playMonopoly(resource, totalNumberOfResource);
 };
 
-Game.prototype.playMonument = function(playerIndex) {
+GameModel.prototype.playMonument = function(playerIndex) {
+	this.players[playerIndex].playMonument();
 
+	if (this.players[playerIndex].hasWon())
+		this.data.winner = playerIndex;
 };
 
-Game.prototype.buildRoad = function(playerIndex, roadLocation, free) {
+GameModel.prototype.recalculateLongestRoad = function (playerIndex) {
+	var playerWithLongestRoad = this.data.longestRoad;
+  if (this.players[playerIndex].getNumberOfRoadsBuilt() < 5) return;
+  if (playerWithLongestRoad === playerIndex) return;
 
+	//If no one has the longest road and the player who just built has 5 or more roads,
+	//that player claims the longest road
+	if (playerWithLongestRoad == -1) {
+		this.data.longestRoad = playerIndex;
+		this.players[playerIndex].setLongestRoad(true);
+    return
+	}
+
+	//If the player who built did not have the longest road, but has now beaten the current
+	//owner of the longest road, that player now claims the longest road
+  var myRoads = this.players[playerIndex].getNumberOfRoadsBuilt();
+  var yourRoads = this.players[playerWithLongestRoad].getNumberOfRoadsBuilt();
+	if (myRoads > yourRoads) {
+		this.data.longestRoad = playerIndex;
+		this.players[playerWithLongestRoad].setLongestRoad(false);
+		this.players[playerIndex].setLongestRoad(true);
+	}
+}
+
+GameModel.prototype.buildRoad = function(playerIndex, roadLocation, free) {
+	if (!free)
+		this.bank.receivePaymentForCity();
+	
+	this.players[playerIndex].buildRoad(free);
+  this.recalculateLongestRoad(playerIndex);
+
+	//Check if the player who built has won
+	if (this.players[playerIndex].hasWon())
+		this.data.winner = playerIndex;
+		
+  this.map.placeRoad(playerIndex, roadLocation);
 };
 
-Game.prototype.buildSettlement = function(playerIndex, vertexLocation, free) {
+GameModel.prototype.buildSettlement = function(playerIndex, vertexLocation, free) {
+	if (!free)
+		this.bank.receivePaymentForSettlement();
+	
+	this.players[playerIndex].buildSettlement(free);
 
+	//Check if the player who built has won
+	if (this.players[playerIndex].hasWon())
+		this.data.winner = playerIndex;
+
+	//STILL NEED TO CHANGE THE MAP
 };
 
-Game.prototype.buildCity = function(playerIndex, vertexLocation, free) {
+GameModel.prototype.buildCity = function(playerIndex, vertexLocation, free) {
+	if (!free)
+		this.bank.receivePaymentForCity();
 
+	this.players[playerIndex].buildCity(free);
+
+	//Check if the player who built has won
+	if (this.players[playerIndex].hasWon())
+		this.data.winner = playerIndex;
+
+	//STILL NEED TO CHANGE THE MAP
 };
 
-Game.prototype.offerTrade = function(playerIndex, offer, receiver) {
-
+GameModel.prototype.offerTrade = function(playerIndex, offer, receiver) {
+	this.data.tradeOffer = {
+		sender: playerIndex,
+		receiver: receiver,
+		offer: offer
+	};
 };
 
-Game.prototype.acceptTrade = function(playerIndex, willAccept) {
+GameModel.prototype.acceptTrade = function(playerIndex, willAccept) {
+	if (!willAccept)
+		return;
 
+	this.players[this.data.tradeOffer.sender].acceptTrade(this.data.tradeOffer.offer, true);
+	this.players[this.data.tradeOffer.receiver].acceptTrade(this.data.tradeOffer.offer, false);
 };
 
-Game.prototype.maritimeTrade = function(playerIndex, ratio, inputResource, outputResource) {
-
+GameModel.prototype.maritimeTrade = function(playerIndex, ratio, inputResource, outputResource) {
+	this.players[playerIndex].maritimeTrade(inputResource, ratio, outputResource);
+	this.bank.deposit(inputResource, ratio);
+	this.bank.withdraw(outputResource, 1);
 };
 
-Game.prototype.discardCards = function(playerIndex, cardsToDiscard) {
+GameModel.prototype.discardCards = function(playerIndex, cardsToDiscard) {
+	this.players[playerIndex].discardCards(cardsToDiscard);
+	this.bank.depositResources(cardsToDiscard);
 
+	var changeStatus = true;
+
+	this.players.forEach(function(player) {
+		if (!player.hasDiscarded())
+			changeStatus = false;
+	});
+
+	if (changeStatus)
+		this.turnTracker.setStatus('Playing');
 };

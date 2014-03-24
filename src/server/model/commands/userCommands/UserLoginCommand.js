@@ -1,21 +1,26 @@
-var AbstractMoveCommand = require('../AbstractCommand')
-  , util = require('util')
+var AbstractCommand = require('../AbstractCommand'),
+	util = require('util');
 
-moduel.exports = LoginCommand
+module.exports = LoginCommand;
+
+function LoginCommand(username, password, $Logger) {
+	AbstractCommand.call(this,$Logger);
+	this.username = username;
+	this.password = password;
+}
 
 util.inherits(LoginCommand, AbstractCommand);
 
-
-function LoginCommand(username, password){
-
-	this.username = username;
-	this.password = password;
-
-}
-
-
-LoginCommand.prototype.execute = function(gameRoom){
-
-	gameRoom.userLogin(this.username, this.password);
-
+LoginCommand.prototype.execute = function(gameRoom, callback) {
+	var d = gameRoom.login(this.username, this.password);
+	if (!d){
+		callback(true, null);
+		return;
+	}
+	callback(null, {
+		playerID: d.playerID,
+		username: d.username,
+		password: d.password,
+	});
+	this.logger.log('User logged in: ' + this.username);
 }

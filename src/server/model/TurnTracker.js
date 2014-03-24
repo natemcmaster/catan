@@ -1,4 +1,4 @@
-var BaseModel = require('../BaseModel');
+var BaseModel = require('./BaseModel');
 var util = require('util');
 
 module.exports = TurnTracker;
@@ -10,17 +10,25 @@ function TurnTracker(data) {
 };
 
 TurnTracker.prototype.setStatus = function(status){
-
-	this.status = status;
-
+	this.data.status = status;
 };
 
-TurnTracker.prototype.nextTurn = function(){
+TurnTracker.prototype.getStatus = function () {
+  return this.data.status
+};
 
-	this.currentTurn++;
+TurnTracker.prototype.getCurrentPlayerIndex = function () {
+  return this.data.currentTurn;
+}
 
-	if(this.currentTurn > 3){
-		this.currentTurn = 0;
+TurnTracker.prototype.finishTurn = function(){
+
+	this.data.currentTurn++;
+
+	if(this.data.currentTurn > 3){
+		this.data.currentTurn = 0;
 	}
 
+	this.setStatus('Rolling');
 };
+

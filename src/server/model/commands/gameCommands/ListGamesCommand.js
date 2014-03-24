@@ -1,18 +1,15 @@
-var AbstractMoveCommand = require('../AbstractCommand')
-  , util = require('util')
+var AbstractCommand = require('../AbstractCommand'),
+	util = require('util');
 
-moduel.exports = ListGamesCommand
+module.exports = ListGamesCommand
 
+function ListGamesCommand($Logger) {
+	AbstractCommand.call(this, $Logger);
+}
 util.inherits(ListGamesCommand, AbstractCommand);
 
-
-function ListGamesCommand(){
-
-
-}
-
-
-ListGamesCommand.prototype.execute = function(gameRoom){
-
-	gameRoom.listGames();
+ListGamesCommand.prototype.execute = function(gameRoom, callback) {
+	var games = gameRoom.listGames();
+	callback(null, games);
+	this.logger.info('list all games. Count = ' + games.length);
 }

@@ -1,43 +1,68 @@
 'use strict';
 
-module.exports = BaseCtrl;
+var HttpError = require('../../common/').Errors.HttpError
+  , AbstractGameCommand = require('../model/commands/AbstractGameCommand');
 
-function BaseCtrl(app) {
-	this.assignRoutes(app);
+module.exports = BaseCtrl;
+module.exports.HttpError = HttpError;
+
+function BaseCtrl(app, inj) {
+  this.injector = inj;
+  this.assignRoutes(app, this.dynamicCall.bind(this));
 }
 
-BaseCtrl.prototype.commands = {};
-BaseCtrl.prototype.getters = {};
+BaseCtrl.prototype.assignRoutes = function(app, handler) {}
 
-BaseCtrl.prototype.assignRoutes = function(app) {
-  for (var path in this.getters) {
-    app.get(path, this.getters[path].bind(this));
+BaseCtrl.prototype.dynamicCall = function(func){
+  var op = this.injector.inject(func);
+  // Wrap the operation in error catching
+  return function handler(request, response) {
+    try {
+      op(request, response);
+    } catch (e) {
+      var code = (e instanceof HttpError) ? e.code : 500;
+      var message = e.message;
+      if (request.xhr) {
+        message = {
+          msg: message,
+          trace: e.stack
+        };
+        response.json(code, message);
+      } else {
+        response.send(code, message);
+      }
+    }
+  };
+}
+
+function issubclass(A, B) {
+  while (A.super_) {
+    if (B === A.super_) return true;
+    A = A.super_
   }
-  for (var path in this.commands) {
-    app.post(path, this.commandRoute.bind(this, path));
-  }
+  return false;
 }
 
 // Constructs a command from the argument body
-BaseCtrl.prototype.getCommand = function (path, req) {
-  if ('function' === typeof this.commands[path]) {
-    return this.commands[path].call(this, req);
-  }
-  var cmd = this.commands[path];
+BaseCtrl.prototype.getCommand = function (Cmd, req) {
   var args = []
   var data = req.body
-  if (cmd instanceof AbstractGameCommand) {
+  if (issubclass(Cmd, AbstractGameCommand)) {
     args.push(req.gameID);
   }
-  args = args.concat(getArgs(cmd, data);
-  return applyToConstructor(cmd, args)
+  var got = getArgs(Cmd, data);
+  if (got instanceof Error) {
+    return got
+  }
+  args = args.concat(got);
+  return applyToConstructor(Cmd, args)
 }
 
 function getArgs(cmd, data) {
   var args = []
   if (!data || !cmd.params) return args
   for (var key in data) {
-    if (cmd.params.indexOf(key) === -1) {
+    if (cmd.params.indexOf(key) === -1 && cmd.optional.indexOf(key) === -1) {
       return new Error('Unexpected parameter: ' + key);
     }
   }
@@ -58,17 +83,24 @@ function getArgs(cmd, data) {
 
 function applyToConstructor(constructor, argArray) {
   var args = [null].concat(argArray);
-  var factoryFunction = constructor.bind.apply(constructor, args);
-  return new factoryFunction();
+  var FactoryFunction = constructor.bind.apply(constructor, args);
+  return new FactoryFunction();
 }
 
-BaseCtrl.prototype.commandRoute = function (path, req, res) {
+BaseCtrl.prototype.commandRoute = function (cmdName, req, res) {
   // req.params
-  var command = this.getCommand(path, req);
+  var Cmd = this.injector.resolve(cmdName);
+  if (!Cmd) {
+    return res.send(500, 'Unknown command: ' + cmdName);
+  }
+  var command = this.getCommand(Cmd, req);
   if (command instanceof Error) {
     return res.send(500, 'Error: ' + command.message);
   }
-  command.execute(req.gameRoom);
+  var err = command.execute(req.gameRoom);
+  if (err) {
+    return res.send(500, 'Error: ' + err.message);
+  }
   var response = command.response(req.gameRoom);
   if (response instanceof Error) {
     return res.send(400, 'Error: ' + response.message);

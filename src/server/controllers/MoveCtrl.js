@@ -1,27 +1,25 @@
 'use strict';
+var HttpError = require('../../common/').Errors.HttpError;
 
 module.exports = MoveCtrl;
 
 var fs = require('fs');
-var path = require('path');
-var util = require('util')
-var sampleJson = JSON.parse(fs.readFileSync(path.join(__dirname, './_sampledata.json'))).model;
+var path = require('path'),
+	util = require('util');
 
 var BaseCtrl = require('./BaseCtrl');
 
-util.inherits(MoveCtrl, BaseCtrl);
-function MoveCtrl(app) {
-	BaseCtrl.call(this, app);
-}
+function MoveCtrl(app, inj) {
+	BaseCtrl.call(this, app, inj);
 
-MoveCtrl.prototype = Object.create(BaseCtrl);
-MoveCtrl.constructor = MoveCtrl;
+}
+util.inherits(MoveCtrl, BaseCtrl);
 
 var cmdMap = {
   sendChat: 'SendChatCommand',
 
   robPlayer: 'RobPlayerCommand',
-  rollNumber: 'RollNumberCommand',
+  rollNumber: 'RollDiceCommand',
   finishTurn: 'FinishTurnCommand',
   buyDevCard: 'BuyDevCardCommand',
 
@@ -40,11 +38,10 @@ var cmdMap = {
   maritimeTrade: 'MaritimeTradeCommand',
   discardCards: 'DiscardCardsCommand',
 }
-var commands = {}
-for (var name in cmdMap) {
-  commands['/moves/' + name] = require('../model/commands/' + cmdMap[name]);
+
+MoveCtrl.prototype.assignRoutes = function(app, h) {
+	//replace all actions with their dependency injected version
+	for(var routeName in cmdMap){
+    app.post('/moves/' + routeName, this.commandRoute.bind(this, cmdMap[routeName]));
+	}
 }
-
-MoveCtrl.prototype.commands = commands;
-
-

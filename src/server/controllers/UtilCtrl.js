@@ -2,19 +2,22 @@
 
 module.exports = UtilCtrl;
 
-var BaseCtrl = require('./BaseCtrl');
+var BaseCtrl = require('./BaseCtrl'),
+	util = require('util');
 
 function UtilCtrl (app,model) {
 	BaseCtrl.call(this,app,model);
 }
+util.inherits(UtilCtrl,BaseCtrl);
 
-UtilCtrl.prototype = Object.create(BaseCtrl);
-UtilCtrl.constructor = UtilCtrl;
-
-UtilCtrl.prototype.assignRoutes = function(app){
-	app.post('/util/changeLogLevel',this.changeLogLevel.bind(this));
+UtilCtrl.prototype.assignRoutes = function(app,h){
+	app.post('/util/changeLogLevel',h(this.changeLogLevel));
 }
 
-UtilCtrl.prototype.changeLogLevel = function(q,r){
-	r.send('Success');
+UtilCtrl.prototype.changeLogLevel = function(q,r,$Logger){
+	$Logger().setLogLevel(q.param('logLevel'),function(err,data){
+		if(err)
+			throw new BaseCtrl.HttpError(400,data);
+		r.send(200,'Log set to '+data);
+	});
 }

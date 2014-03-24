@@ -32,8 +32,10 @@ module.exports = function(grunt) {
 		shell: {
 			serve: {
 				command: 'node src/server/app.js',
-				stdout: true,
-				stderr: true
+				options:{
+					stdout: true,
+					stderr: true
+				}
 			}
 		},
 		jshint: {
