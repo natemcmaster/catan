@@ -96,11 +96,9 @@ GameModel.prototype.rollDice = function(playerIndex, number) {
   var cards = this.map.getCardsRolled(number)
     , withdrew
     , player
-  console.log(cards);
 
   for (var pIndex in cards) {
     player = this.players[pIndex]
-    console.log(pIndex, player);
     for (var resource in cards[pIndex]) {
       resource = resource.toLowerCase()
       withdrew = this.bank.withdrawAsMuchAsYouCan(resource, cards[pIndex][resource]);
