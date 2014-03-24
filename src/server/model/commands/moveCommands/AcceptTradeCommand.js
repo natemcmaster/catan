@@ -12,6 +12,8 @@ function AcceptTradeCommand(gameID, playerIndex, willAccept){
 	this.playerIndex = playerIndex;
 	this.willAccept = willAccept;
 }
+AcceptTradeCommand.params = ['playerIndex', 'willAccept'];
+AcceptTradeCommand.optional = ['type'];
 
 AcceptTradeCommand.prototype.executeOnGame = function(game){
 

@@ -14,6 +14,8 @@ function BuildSettlementCommand(gameID, playerIndex, settlementLocation, isFree)
 	this.isFree = !!isFree;
 
 }
+BuildSettlementCommand.params = ['playerIndex', 'vertexLocation', 'isFree'];
+BuildSettlementCommand.optional = ['type'];
 
 BuildSettlementCommand.prototype.executeOnGame = function(game){
 

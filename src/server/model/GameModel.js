@@ -6,9 +6,9 @@ var _ = require('underscore');
 module.exports = GameModel;
 util.inherits(GameModel, BaseModel);
 
-/** 
+/**
  * This is the server model class
- 
+
  * @class GameModel
  * @constructor
  * @param {data} playerID The id of the local player, extracted from the cookie
@@ -81,7 +81,7 @@ GameModel.prototype.addPlayer = function(playerID,username,color) {
 GameModel.prototype.rollDice = function(playerIndex, number) {
 
   if (number === 7) {
-    //This checks to see if anyone needs to discard cards and sets the status on 
+    //This checks to see if anyone needs to discard cards and sets the status on
     //the turnTracker appropriatly
     this.players.forEach(function(player){
       if(player.totalResources() > 7){
@@ -173,7 +173,7 @@ GameModel.prototype.playSoldier = function(playerIndex, victimIndex, location) {
 
 	//If the player who built did not have the longest road, but has now beaten the current
 	//owner of the longest road, that player now claims the longest road
-	else if (playerIndex != playerWithLargestArmy && 
+	else if (playerIndex != playerWithLargestArmy &&
 			this.players[playerIndex].getSizeOfArmy() > this.players[playerWithLargestArmy].getSizeOfArmy()) {
 		this.data.biggestArmy = playerIndex;
 		this.players[playerWithLargestArmy].setLargestArmy(false);
@@ -232,28 +232,27 @@ GameModel.prototype.recalculateLongestRoad = function (playerIndex) {
 GameModel.prototype.buildRoad = function(playerIndex, roadLocation, free) {
 	if (!free)
 		this.bank.receivePaymentForCity();
-	
+
 	this.players[playerIndex].buildRoad(free);
   this.recalculateLongestRoad(playerIndex);
 
 	//Check if the player who built has won
 	if (this.players[playerIndex].hasWon())
 		this.data.winner = playerIndex;
-		
+
   this.map.placeRoad(playerIndex, roadLocation);
 };
 
 GameModel.prototype.buildSettlement = function(playerIndex, vertexLocation, free) {
 	if (!free)
 		this.bank.receivePaymentForSettlement();
-	
-	this.players[playerIndex].buildSettlement(free);
 
+	this.players[playerIndex].buildSettlement(free);
 	//Check if the player who built has won
 	if (this.players[playerIndex].hasWon())
 		this.data.winner = playerIndex;
 
-	//STILL NEED TO CHANGE THE MAP
+  this.map.placeSettlement(playerIndex, vertexLocation);
 };
 
 GameModel.prototype.buildCity = function(playerIndex, vertexLocation, free) {
@@ -266,7 +265,7 @@ GameModel.prototype.buildCity = function(playerIndex, vertexLocation, free) {
 	if (this.players[playerIndex].hasWon())
 		this.data.winner = playerIndex;
 
-	//STILL NEED TO CHANGE THE MAP
+  this.map.placeCity(playerIndex, vertexLocation);
 };
 
 GameModel.prototype.offerTrade = function(playerIndex, offer, receiver) {
@@ -278,8 +277,10 @@ GameModel.prototype.offerTrade = function(playerIndex, offer, receiver) {
 };
 
 GameModel.prototype.acceptTrade = function(playerIndex, willAccept) {
-	if (!willAccept)
-		return;
+	if (!willAccept) {
+    delete this.data.tradeOffer;
+    return;
+  }
 
 	this.players[this.data.tradeOffer.sender].acceptTrade(this.data.tradeOffer.offer, true);
 	this.players[this.data.tradeOffer.receiver].acceptTrade(this.data.tradeOffer.offer, false);
