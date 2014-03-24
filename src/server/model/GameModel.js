@@ -267,7 +267,7 @@ GameModel.prototype.buildSettlement = function(playerIndex, vertexLocation, free
 	if (this.players[playerIndex].hasWon())
 		this.data.winner = playerIndex;
 
-	//STILL NEED TO CHANGE THE MAP
+  this.map.placeSettlement(playerIndex, vertexLocation);
 };
 
 GameModel.prototype.buildCity = function(playerIndex, vertexLocation, free) {
@@ -280,7 +280,7 @@ GameModel.prototype.buildCity = function(playerIndex, vertexLocation, free) {
 	if (this.players[playerIndex].hasWon())
 		this.data.winner = playerIndex;
 
-	//STILL NEED TO CHANGE THE MAP
+  this.map.placeCity(playerIndex, vertexLocation);
 };
 
 GameModel.prototype.offerTrade = function(playerIndex, offer, receiver) {
