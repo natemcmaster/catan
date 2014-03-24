@@ -1,5 +1,5 @@
 module.exports = MemoryGameRepo;
-var CatanError = require('../../../common').Errors.CatanError;
+var CatanError = require('../../../common/Errors').CatanError;
 var _ = require('underscore');
 var data = require('./_initialdata.json');
 

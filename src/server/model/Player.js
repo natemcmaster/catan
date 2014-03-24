@@ -1,6 +1,6 @@
 var BaseModel = require('./BaseModel');
 var util = require('util');
-var CatanError = require('../../common').Errors.CatanError;
+var CatanError = require('../../common/Errors').CatanError;
 var debug = require('debug')('catan:model:player');
 
 module.exports = Player;

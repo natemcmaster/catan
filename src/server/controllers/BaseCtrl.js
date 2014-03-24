@@ -1,6 +1,6 @@
 'use strict';
 
-var HttpError = require('../../common/').Errors.HttpError
+var HttpError = require('../../common/Errors').HttpError
   , AbstractGameCommand = require('../model/commands/AbstractGameCommand');
 
 module.exports = BaseCtrl;
