@@ -39,6 +39,7 @@ TestLogger.prototype.setLogLevel = function(levelName,cb) {
 		cb(true,'Unknown level '+levelName);
 		return;
 	}
+  console.log(this.filepath, 'path');
 	fs.writeFile(this.filepath,'Changing to log level ['+levelName+']');
 	for(var i in LEVEL){
 		if(LEVEL[i] <= l)
@@ -50,6 +51,7 @@ TestLogger.prototype.setLogLevel = function(levelName,cb) {
 TestLogger.prototype.log = function(message,level) {
 	level = (level || 'INFO').toUpperCase();
 	var l = LEVEL[level];
+  console.log(this, this.filepath);
 	if(l & this._lvl)
 		fs.writeFile(this.filepath,'['+level+'] ' + message);
 }

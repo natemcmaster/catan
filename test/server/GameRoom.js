@@ -2,7 +2,7 @@
 var expect = require('chai').expect
   , request = require('supertest')
   , MakeApp = require('../../src/server/catan')
-  , TestLogger = require('../../src/server/resources').FileLogger
+  , TestLogger = require('../../src/server/resources').ConsoleLogger
   , h = require('./commands/helpers')
   ;
 
@@ -121,6 +121,35 @@ describe('GameRoom endpoints', function () {
       agent.post('/games/join')
         .send({id: 1, color: 'red'})
         .expect(400, done);
+    });
+  });
+
+  describe('get game model', function () {
+    beforeEach(function (done) {
+      agent.post('/user/login')
+        .send({username: 'Jared', password: 'jared'})
+        .expect(200, function (err, res) {
+          agent.saveCookies(res)
+          agent.post('/games/join')
+            .send({id: 0, color: 'red'})
+            .expect(200, function (err, res) {
+              agent.saveCookies(res)
+              done(err)
+            });
+        });
+    });
+
+    it('should work', function (done) {
+      agent.get('/game/model')
+        .expect(200, done);
+    });
+  });
+
+  describe('change log level', function () {
+    it('should work', function (done) {
+      agent.post('/util/changeLogLevel')
+        .send({logLevel: 'ALL'})
+        .expect(200, done);
     });
   });
 
