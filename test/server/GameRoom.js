@@ -2,7 +2,7 @@
 var expect = require('chai').expect
   , request = require('supertest')
   , MakeApp = require('../../src/server/catan')
-  , TestLogger = require('../../src/server/resources').ConsoleLogger
+  , TestLogger = require('../../src/server/resources').FileLogger
   , h = require('./commands/helpers')
   ;
 
