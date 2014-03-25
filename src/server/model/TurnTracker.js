@@ -9,6 +9,39 @@ function TurnTracker(data) {
 						  'currentTurn':0};
 };
 
+var finishTurnHandlers = {
+	FirstRound: function(){
+		if(this.data.currentTurn >= 3){
+			return 'SecondRound';
+		}
+		this.data.currentTurn++;
+		return 'FirstRound';
+	},
+	SecondRound: function(){
+		if(this.data.currentTurn <=0){
+			return 'Rolling';
+		}
+		this.data.currentTurn--;
+		return 'SecondRound';
+	},
+	Rolling: function() {
+		return 'Playing';
+	},
+	Robbing: function() {
+		return 'Playing';
+	},
+	Playing: function() {
+		this.data.currentTurn++;
+		if(this.data.currentTurn > 3){
+			this.data.currentTurn = 0;
+		}
+		return 'Rolling';
+	},
+	Discarding: function() {
+		return 'Discarding';
+	}
+}
+
 TurnTracker.prototype.setStatus = function(status){
 	this.data.status = status;
 };
@@ -22,13 +55,6 @@ TurnTracker.prototype.getCurrentPlayerIndex = function () {
 }
 
 TurnTracker.prototype.finishTurn = function(){
-
-	this.data.currentTurn++;
-
-	if(this.data.currentTurn > 3){
-		this.data.currentTurn = 0;
-	}
-
-	this.setStatus('Rolling');
+	this.data.status = finishTurnHandlers[this.data.status].call(this)
 };
 

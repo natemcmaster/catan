@@ -89,7 +89,7 @@ GameModel.prototype.rollDice = function(playerIndex, number) {
         this.turnTracker.setStatus("Discarding");
         return;
       }
-    });
+    }.bind(this));
 
     return this.turnTracker.setStatus("Robbing");
   }
