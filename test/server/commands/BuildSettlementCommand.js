@@ -70,6 +70,41 @@ describe('buildSettlementCommand', function () {
           });
       });
 
+      it('should set a winning player', function (done) {
+        var app = this.app
+            , game = app.gameRoom.getGameModel(1)
+            , sam = game.players[0];
+
+            // Artificially set Sam's points to 9, then build a settlement
+            sam.victoryPoints = 9;
+
+            expect(game.data.winner).to.equal(-1);
+
+        this.agent.post('/moves/buildSettlement')
+          .send({
+            "playerIndex": 0,
+            "vertexLocation": {
+                "x": 0,
+                "y": -2,
+                "direction": "E"
+            },
+            "free": false
+          })
+          .expect(200)
+          .end(function (err, res) {
+            if (err) {
+              console.error(res.text);
+              return done(err);
+            }
+
+            // Now that Sam has built a settlment and he had 9 points, this should make him the winner
+            expect(game.data.winner).to.equal(0);
+
+            done();
+          });
+      });
+
+
 
 
 
