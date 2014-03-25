@@ -116,16 +116,6 @@ GameModel.prototype.robPlayer = function(playerIndex, victimIndex, location) {
 	//Map
 };
 
-GameModel.prototype.getPlayerIndexByID = function(playerID){
-
-	for(var i =0; i < this.players.length; i++){
-		if(this.players[i].playerID == playerID){
-			return i;
-		}
-	}
-	throw new Error("BAD PLAYER ID");
-};
-
 GameModel.prototype.finishTurn = function(playerIndex) {
 	this.turnTracker.finishTurn();
 	this.players[playerIndex].finishTurn();
