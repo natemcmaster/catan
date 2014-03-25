@@ -152,16 +152,19 @@ Player.prototype.playYearOfPlenty = function(resource1, resource2){
 	this.resources[resource1]++;
 	this.resources[resource2]++;
 	this.oldDevCards['yearOfPlenty']--;
+	this.playedDevCard = true;
 }
 
 Player.prototype.playRoadBuilding = function(){
 	this.roads -= 2;
 	this.oldDevCards['roadBuilding']--;
+	this.playedDevCard = true;
 }
 
 Player.prototype.playMonopoly = function(resource, amount) {
 	this.resources[resource] = amount;
 	this.oldDevCards['monopoly']--;
+	this.playedDevCard = true;
 }
 
 Player.prototype.playMonument = function() {
@@ -182,6 +185,7 @@ Player.prototype.playSoldier = function(stolenCard) {
 	this.resources[stolenCard]++;
 	this.oldDevCards['soldier']--;
 	this.soldiers++;
+	this.playedDevCard = true;
 }
 
 Player.prototype.setLongestRoad = function(longestRoad) {
