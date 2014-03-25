@@ -1,9 +1,12 @@
 module.exports = MemoryGameRepo;
 var CatanError = require('../../../common/Errors').CatanError;
 var _ = require('underscore');
-var data = require('./_initialdata.json');
+var fs = require('fs'),
+	path = require('path');
 
 function MemoryGameRepo($GameModel) {
+	var data = JSON.parse(fs.readFileSync(path.join(__dirname,'/_initialdata.json')));
+	this.blank = data.blank;
 	this.constructGame = $GameModel;
 	this.games = {};
 	this.games[0] = {
@@ -25,7 +28,7 @@ function MemoryGameRepo($GameModel) {
 }
 
 MemoryGameRepo.prototype.create = function(title, randomTiles, randomNumber, randomPorts) {
-	var model = this.constructGame(data.blank);
+	var model = this.constructGame(this.blank);
 	var game = {
 		id: (this.nextId++),
 		title: title,

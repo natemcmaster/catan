@@ -19,10 +19,10 @@ describe('Play Road Building Command', function () {
             }
             var game = app.gameRoom.getGameModel(0);
             //spot 1
-            expect(game.map.getRoadOwner(0, 0, 'N')).to.eql(0);
-            expect(game.map.getRoadOwner(0, -1, 'S')).to.eql(0);
+            expect(game.map.getRoadOwner(-2, 2, 'N')).to.eql(0);
+            expect(game.map.getRoadOwner(-2, 1, 'S')).to.eql(0);
             //spot 2
-            expect(game.map.getRoadOwner(0, 1, 'N')).to.eql(0);
+            expect(game.map.getRoadOwner(2, 0, 'N')).to.eql(0);
             done();
           });
       });

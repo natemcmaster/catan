@@ -111,9 +111,24 @@ GameModel.prototype.rollDice = function(playerIndex, number) {
 };
 
 GameModel.prototype.robPlayer = function(playerIndex, victimIndex, location) {
-	//TurnTracker
-	//Players
-	//Map
+	this.map.moveRobber(location.x,location.y);
+	this.turnTracker.nextState();
+	if(victimIndex > 3 || victimIndex <0)
+		return;
+	var thief = this.players[playerIndex];
+	var victim = this.players[victimIndex];
+	var randomType = _.chain(victim.resources).reduce(function(r, val, key) {
+		if (val > 0)
+			r.push(key)
+		return r;
+	}, [])
+		.shuffle()
+		.first()
+		.value();
+	if (!randomType)
+		return;
+	victim.resources[randomType]--;
+	thief.resources[randomType]++;
 };
 
 GameModel.prototype.finishTurn = function(playerIndex) {

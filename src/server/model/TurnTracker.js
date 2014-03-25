@@ -38,7 +38,7 @@ var finishTurnHandlers = {
 		return 'Rolling';
 	},
 	Discarding: function() {
-		return 'Discarding';
+		return 'Playing';
 	}
 }
 
@@ -55,6 +55,10 @@ TurnTracker.prototype.getCurrentPlayerIndex = function () {
 }
 
 TurnTracker.prototype.finishTurn = function(){
+	this.nextState();
+}
+
+TurnTracker.prototype.nextState = function(){
 	this.data.status = finishTurnHandlers[this.data.status].call(this)
 };
 
