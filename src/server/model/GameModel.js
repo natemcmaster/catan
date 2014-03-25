@@ -159,8 +159,8 @@ GameModel.prototype.playRoadBuilding = function(playerIndex, spot1, spot2) {
 	this.recalculateLongestRoad(playerIndex);
 
 	//Check if the player who built has won
-	if (this.players[playerIndex].hasWon())
-		this.data.winner = playerIndex;
+	this.seeIfWon(playerIndex);
+	
 
 };
 
@@ -187,8 +187,7 @@ GameModel.prototype.playSoldier = function(playerIndex, victimIndex, location) {
 	}
 
 	//Check if the player who built has won
-	if (this.players[playerIndex].hasWon())
-		this.data.winner = playerIndex;
+	this.seeIfWon(playerIndex);
 
 	//STILL NEED TO CHANGE THE MAP
 };
@@ -207,8 +206,8 @@ GameModel.prototype.playMonopoly = function(playerIndex, resource) {
 GameModel.prototype.playMonument = function(playerIndex) {
 	this.players[playerIndex].playMonument();
 
-	if (this.players[playerIndex].hasWon())
-		this.data.winner = playerIndex;
+	this.seeIfWon(playerIndex);
+
 };
 
 GameModel.prototype.recalculateLongestRoad = function (playerIndex) {
@@ -243,9 +242,8 @@ GameModel.prototype.buildRoad = function(playerIndex, roadLocation, free) {
   this.recalculateLongestRoad(playerIndex);
 
 	//Check if the player who built has won
-	if (this.players[playerIndex].hasWon())
-		this.data.winner = playerIndex;
-
+	this.seeIfWon(playerIndex);
+	
   this.map.placeRoad(playerIndex, roadLocation);
 };
 
@@ -254,9 +252,8 @@ GameModel.prototype.buildSettlement = function(playerIndex, vertexLocation, free
 		this.bank.receivePaymentForSettlement();
 
 	this.players[playerIndex].buildSettlement(free);
-	//Check if the player who built has won
-	if (this.players[playerIndex].hasWon())
-		this.data.winner = playerIndex;
+
+	this.seeIfWon(playerIndex);
 
   this.map.placeSettlement(playerIndex, vertexLocation);
 };
@@ -268,8 +265,7 @@ GameModel.prototype.buildCity = function(playerIndex, vertexLocation, free) {
 	this.players[playerIndex].buildCity(free);
 
 	//Check if the player who built has won
-	if (this.players[playerIndex].hasWon())
-		this.data.winner = playerIndex;
+	this.seeIfWon(playerIndex);
 
   this.map.placeCity(playerIndex, vertexLocation);
 };
@@ -313,3 +309,9 @@ GameModel.prototype.discardCards = function(playerIndex, cardsToDiscard) {
 	if (changeStatus)
 		this.turnTracker.setStatus('Playing');
 };
+
+GameModel.prototype.seeIfWon = function(playerIndex){
+	if(this.players[playerIndex].hasWon()){
+		this.data.winner = playerIndex;
+	}
+}
