@@ -278,13 +278,12 @@ GameModel.prototype.offerTrade = function(playerIndex, offer, receiver) {
 };
 
 GameModel.prototype.acceptTrade = function(playerIndex, willAccept) {
-	if (!willAccept) {
-    delete this.data.tradeOffer;
-    return;
-  }
+	if (willAccept) {
+    	this.players[this.data.tradeOffer.playerIndex].acceptTrade(this.data.tradeOffer.offer, true);
+		this.players[this.data.tradeOffer.receiver].acceptTrade(this.data.tradeOffer.offer, false);
+  	}
 
-	this.players[this.data.tradeOffer.sender].acceptTrade(this.data.tradeOffer.offer, true);
-	this.players[this.data.tradeOffer.receiver].acceptTrade(this.data.tradeOffer.offer, false);
+	delete this.data.tradeOffer;
 };
 
 GameModel.prototype.maritimeTrade = function(playerIndex, ratio, inputResource, outputResource) {
