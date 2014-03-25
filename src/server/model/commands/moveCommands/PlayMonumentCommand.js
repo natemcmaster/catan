@@ -13,6 +13,8 @@ function PlayMonumentCommand(gameID, playerIndex){
 
 }
 
+
+
 PlayMonumentCommand.prototype.executeOnGame = function(game){
 
 	game.playMonument(this.playerIndex);

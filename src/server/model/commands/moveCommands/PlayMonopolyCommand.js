@@ -14,6 +14,9 @@ function PlayMonopolyCommand(gameID, playerIndex, resource){
 
 }
 
+PlayMonopolyCommand.params = ['playerIndex', 'resource'];
+PlayMonopolyCommand.optional = ['type'];
+
 PlayMonopolyCommand.prototype.executeOnGame = function(game){
 
 	game.playMonopoly(this.playerIndex, this.resource);

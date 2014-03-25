@@ -160,7 +160,7 @@ Player.prototype.playRoadBuilding = function(){
 }
 
 Player.prototype.playMonopoly = function(resource, amount) {
-	this.resources[resources] = amount;
+	this.resources[resource] = amount;
 }
 
 Player.prototype.playMonument = function() {
