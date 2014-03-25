@@ -115,6 +115,7 @@ GameModel.prototype.robPlayer = function(playerIndex, victimIndex, location) {
 	this.turnTracker.nextState();
 	if(victimIndex > 3 || victimIndex <0)
 		return;
+
 	var thief = this.players[playerIndex];
 	var victim = this.players[victimIndex];
 	var randomType = _.chain(victim.resources).reduce(function(r, val, key) {
@@ -165,8 +166,9 @@ GameModel.prototype.playRoadBuilding = function(playerIndex, spot1, spot2) {
 };
 
 GameModel.prototype.playSoldier = function(playerIndex, victimIndex, location) {
-	var stolenCard = this.players[victimIndex].loseCard();
-	this.players[playerIndex].playSoldier(stolenCard);
+
+	this.robPlayer(playerIndex, victimIndex, location);
+	this.players[playerIndex].playSoldier();
 
 	var playerWithLargestArmy = this.data.biggestArmy;
 
@@ -187,7 +189,6 @@ GameModel.prototype.playSoldier = function(playerIndex, victimIndex, location) {
 
 	this.seeIfWon(playerIndex);
 
-	//STILL NEED TO CHANGE THE MAP
 };
 
 GameModel.prototype.playMonopoly = function(playerIndex, resource) {
