@@ -8,22 +8,17 @@ util.inherits(DiscardCardsCommand, AbstractMoveCommand);
 
 
 
-function DiscardCardsCommand(gameID, playerIndex, brick, ore, sheep, wheat, wood){
+function DiscardCardsCommand(gameID, playerIndex, cardsToDiscard){
 	AbstractMoveCommand.call(this,gameID);
 	this.playerIndex = playerIndex;
-	this.brick = brick;
-	this.ore = ore;
-	this.sheep = sheep;
-	this.wheat = wheat;
-	this.wood = wood;
-
+	this.cardsToDiscard = cardsToDiscard;
 
 }
-DiscardCardsCommand.params = ['playerIndex', 'brick', 'ore', 'sheep', 'wheat', 'wood'];
+DiscardCardsCommand.params = ['playerIndex', 'discardedCards'];
 DiscardCardsCommand.optional = ['type'];
 
 DiscardCardsCommand.prototype.executeOnGame = function(game){
 
-	game.discardCards(this.playerIndex, this.brick, this.ore, this.sheep, this.wheat, this.wood);
+	game.discardCards(this.playerIndex, this.cardsToDiscard);
 }
 
