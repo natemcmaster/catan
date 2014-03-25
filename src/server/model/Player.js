@@ -161,6 +161,7 @@ Player.prototype.playRoadBuilding = function(){
 
 Player.prototype.playMonopoly = function(resource, amount) {
 	this.resources[resource] = amount;
+	this.oldDevCards['monopoly']--;
 }
 
 Player.prototype.playMonument = function() {

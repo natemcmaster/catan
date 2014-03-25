@@ -15,6 +15,9 @@ function PlaySoldierCommand(gameID, playerIndex, victimIndex, robberSpot){
 
 }
 
+PlaySoldierCommand.params = ['playerIndex', 'victimIndex', 'robberSpot'];
+PlaySoldierCommand.optional = ['type'];
+
 PlaySoldierCommand.prototype.executeOnGame = function(game){
 
 	game.playSoldier(this.playerIndex, this.victimIndex, this.robberSpot);
