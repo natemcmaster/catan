@@ -75,6 +75,14 @@ Player.prototype.getResource = function(resource) {
 	return this.resources[resource];
 }
 
+Player.prototype.getResources = function() {
+	return this.resources;
+}
+
+Player.prototype.setResources = function(resources) {
+	this.resources = resources;
+}
+
 Player.prototype.hasWon = function() {
 	if (this.victoryPoints >= this.MAX_GAME_POINTS)
 		return true;

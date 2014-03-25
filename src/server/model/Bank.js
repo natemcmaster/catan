@@ -81,12 +81,17 @@ Bank.prototype.deposit = function(resource, amount) {
 	}
 }
 
-Bank.prototype.depositResources = function(cardsToDiscard){
+Bank.prototype.depositResources = function(resources) {
+	for (var i in resources) {
+		if (resources[i] > 0)
+			this.deposit(i, resources[i]);
+	}
+}
 
-	this.deposit('brick', cardsToDiscard['brick']);
-	this.deposit('wheat', cardsToDiscard['wheat']);
-	this.deposit('ore', cardsToDiscard['ore']);
-	this.deposit('sheep', cardsToDiscard['sheep']);
-	this.deposit('wood', cardsToDiscard['wood']);
+Bank.prototype.getResources = function() {
+	return this.data;
+}
 
+Bank.prototype.setResources = function(resources) {
+	this.data = resources;
 }
