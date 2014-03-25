@@ -149,4 +149,74 @@ describe('Injector', function() {
 		var dyn = func(7);
 		expect(dyn.b).to.equal(11);
 	})
+
+	describe('#maybeFind',function(){
+		it('returns null',function(){
+			expect(inj.maybeFind('test')).to.not.be.ok;
+		});
+		it('finds the dependency',function(){
+			inj.register('test',function Test(){})
+			expect(inj.maybeFind('test')).to.be.ok;
+		})
+	})
+
+	it('#create works on constructors that return "this"',function(){
+		function Two(){
+			this.testCount=4;
+			return this;
+		}
+		inj.register('Two',Two);
+		var d = inj.resolve('Two').call(null);
+		expect(d.testCount).to.equal(4);
+	})
+
+	it('#allows re-registration of non-singletons',function(){
+		function A(){this.name='first';}
+		function B(){this.name='second';}
+		inj.register('test',A);
+		inj.register('test',B);
+		var d = inj.create('test');
+		expect(d.name).to.equal('second');
+	})
+
+	describe('#produces errors', function() {
+			it('for registration', function() {
+				var err = function() {
+					inj.register('blah', null)
+				};
+				expect(err).to.throw(InjectorError);
+			});
+			it('for singleton', function() {
+				var err = function() {
+					inj.singleton('blah', null)
+				};
+				expect(err).to.throw(InjectorError);
+			});
+			it('for functions', function() {
+				var err = function() {
+					inj.inject( null)
+				};
+				expect(err).to.throw(InjectorError);
+			});
+			it('for finding', function() {
+				var err = function() {
+					inj.find('blah', null)
+				};
+				expect(err).to.throw(InjectorError);
+			});
+			it('for attempting to reregister a singleton',function(){
+				function Single(){}
+				inj.singleton('Single',Single);
+				var err = function() {
+					inj.register('Single', Single)
+				};
+				expect(err).to.throw(InjectorError);
+			});
+			it('for registering plain objects',function(){
+				var err = function() {
+					inj.register('test', {test:true})
+				};
+				expect(err).to.throw(InjectorError);
+			})
+	})
 })

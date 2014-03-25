@@ -105,7 +105,7 @@ module.exports = function(grunt) {
 				reporter: 'html-cov',
 				output: 'coverage.html'
 			},
-			all: ['test/server/**/*.js']
+			all: ['test/server/**/*.js','test/common/**/*.js']
 		},
 		browserify: {
 			src: {

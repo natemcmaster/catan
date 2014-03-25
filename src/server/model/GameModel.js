@@ -1,7 +1,8 @@
 var BaseModel = require('./BaseModel');
 var util = require('util');
-var CatanError = require('../../common').Errors.CatanError;
-var _ = require('underscore');
+var CatanError = require('../../common/Errors').CatanError;
+var _ = require('lodash');
+var debug = require('debug')('catan:model:game');
 
 module.exports = GameModel;
 util.inherits(GameModel, BaseModel);
@@ -18,8 +19,8 @@ function GameModel(data, $Log, $Chat, $Bank, $Deck, $Map, $Player, $TurnTracker)
 	if(!data)
 		throw new CatanError('Cannot instantiate without data');
 
-	this.data = data;
-    this.data.revision = 1;
+  this.data = _.cloneDeep(data);
+	this.data.revision = 1;
 
 	this.bank = $Bank(data.bank);
 	this.deck = $Deck(data.deck);
@@ -141,7 +142,7 @@ GameModel.prototype.playYearOfPlenty = function(playerIndex, resource1, resource
 	this.bank.withdraw(resource1);
 	this.bank.withdraw(resource2);
 
-	players[playerIndex].playYearOfPlenty(resource1, resource2);
+	this.players[playerIndex].playYearOfPlenty(resource1, resource2);
 };
 
 GameModel.prototype.playRoadBuilding = function(playerIndex, spot1, spot2) {
@@ -287,6 +288,7 @@ GameModel.prototype.acceptTrade = function(playerIndex, willAccept) {
 };
 
 GameModel.prototype.maritimeTrade = function(playerIndex, ratio, inputResource, outputResource) {
+  debug('maritime', playerIndex, ratio);
 	this.players[playerIndex].maritimeTrade(inputResource, ratio, outputResource);
 	this.bank.deposit(inputResource, ratio);
 	this.bank.withdraw(outputResource, 1);

@@ -1,6 +1,6 @@
 'use strict';
 
-var HttpError = require('../../common/').Errors.HttpError
+var HttpError = require('../../common/Errors').HttpError
   , AbstractGameCommand = require('../model/commands/AbstractGameCommand');
 
 module.exports = BaseCtrl;
@@ -20,6 +20,9 @@ BaseCtrl.prototype.dynamicCall = function(func){
     try {
       op(request, response);
     } catch (e) {
+      console.error('SERVER ERROR:', e.message);
+      console.error('STACK TRACE:', e.stack);
+      // throw e;
       var code = (e instanceof HttpError) ? e.code : 500;
       var message = e.message;
       if (request.xhr) {

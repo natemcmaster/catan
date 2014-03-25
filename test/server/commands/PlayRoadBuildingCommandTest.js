@@ -1,6 +1,5 @@
 var expect = require('chai').expect
   , request = require('supertest')
-  , MakeApp = require('../../../src/server/catan')
   , h = require('./helpers')
   ;
 

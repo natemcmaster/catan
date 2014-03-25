@@ -6,10 +6,10 @@ var express = require('express'),
     path = require('path'),
     authMiddleware = require('./middleware/auth'),
     gameMiddleware = require('./middleware/game'),
-    Injector = require('../common').Injector
+    Injector = require('../common/Injector')
     ;
 
-global.HttpError = require('../common/Errors').HttpError;
+// global.HttpError = require('../common/Errors').HttpError;
 
 module.exports = function (logger) {
   logger = logger || require('./resources').ConsoleLogger;

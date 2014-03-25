@@ -11,6 +11,10 @@ var InjectorError = require('./Errors').InjectorError,
  * @property dependencies List of the IDs of the dependencies
  */
 function Dependency(obj, singleton) {
+  if(!obj)
+    throw new InjectorError('Cannot inject an undefined object');
+  if(typeof obj !== 'function')
+    throw new InjectorError('Can only register functions');
   this.initializer = obj;
   this.dependencies = dpFromArgs(obj);
   this.variables = variablesFromArgs(obj);
@@ -39,8 +43,6 @@ function Injector() {
  */
 Injector.prototype.register = function(id, obj) {
   checkExisting.call(this,id);
-  if(!obj)
-    throw new InjectorError('Cannot register ('+id+') with an undefined object');
   return this.dependencies[id] = new Dependency(obj);
 }
 
@@ -134,9 +136,6 @@ Injector.prototype.resolve = function(name) {
  * @return {Function}      Function with matched dependencies
  */
 Injector.prototype.inject = function(func) {
-  if (!func)
-    throw new InjectorError('Cannot inject undefined function')
- 
   var dep = new Dependency(func);
   var args = [];
   for (var x in dep.dependencies) {
@@ -158,8 +157,6 @@ Injector.prototype.inject = function(func) {
  */
 Injector.prototype.singleton = function(id, dep) {
   checkExisting.call(this, id);
-  if(!dep)
-    throw new InjectorError('Cannot register singleton ('+id+') with an undefined object')
   return this.dependencies[id] = new Dependency(dep, true);
 }
 
@@ -271,13 +268,9 @@ var variablesFromArgs = function(func) {
  * @return {Array}      list of the named arguments
  */
 var argList = function(func) {
-  if(!func)
-    throw new InjectorError('Cannot inject an undefined object');
   var desc = func.toString();
   var fn_r = /^function\s*[^\(]*\(\s*([^\)]*)\)/m;
   var m = desc.match(fn_r);
-  if (!m)
-    return [];
   var args = m[1].split(',');
   for (var i = args.length - 1; i >= 0; i--) {
     args[i] = args[i].trim();

@@ -1,4 +1,4 @@
-module.exports = TestLogger;
+module.exports = FileLogger;
 var tmp = require('tmp'),
 fs=require('fs');
 
@@ -14,24 +14,25 @@ var LEVEL = {
 	OFF: 0
 };
 
-function TestLogger(path) {
+function FileLogger(path) {
 	this._lvl = LEVEL.INFO;
-	if(!path){
-		tmp.file({prefix: 'mocha-', postfix: '.log', keep:true },function _tempFileCreated(err, path, fd) {
+	path = path || './server.log';
+	try{
+		fs.openSync(path,'a');
+	} catch(e){
+		tmp.file({prefix: 'mocha-', postfix: '.log', keep:true },function _tempFileCreated(err, p, fd) {
 		  if (err) throw err;
-		  this.file = fd;
-		  this.filepath = path;
-		  console.log('[logger] Log output found in ' + path);
-		}.bind(this));
-	}
-	else{
+		  path = p;
+		  console.log('Created log file in ' + p);
+		});
+	} finally{
 		this.filepath = path;
 	}
 }
 
-TestLogger.LEVEL = LEVEL;
+FileLogger.LEVEL = LEVEL;
 
-TestLogger.prototype.setLogLevel = function(levelName,cb) {
+FileLogger.prototype.setLogLevel = function(levelName,cb) {
 	this._lvl = 0;
 	levelName = levelName.toUpperCase()
 	var l = LEVEL[levelName];
@@ -39,7 +40,7 @@ TestLogger.prototype.setLogLevel = function(levelName,cb) {
 		cb(true,'Unknown level '+levelName);
 		return;
 	}
-	fs.writeFile(this.filepath,'Changing to log level ['+levelName+']');
+	fs.appendFile(this.filepath,'Changing to log level ['+levelName+']\n');
 	for(var i in LEVEL){
 		if(LEVEL[i] <= l)
 			this._lvl |= LEVEL[i];
@@ -47,21 +48,21 @@ TestLogger.prototype.setLogLevel = function(levelName,cb) {
 	cb(null,levelName);
 }
 
-TestLogger.prototype.log = function(message,level) {
+FileLogger.prototype.log = function(message,level) {
 	level = (level || 'INFO').toUpperCase();
 	var l = LEVEL[level];
 	if(l & this._lvl)
-		fs.writeFile(this.filepath,'['+level+'] ' + message);
+		fs.appendFile(this.filepath,new Date().toString() + ' ['+level+'] ' + message + '\n');
 }
 
-TestLogger.prototype.info = function(message) {
+FileLogger.prototype.info = function(message) {
 	this.log(message,'INFO');
 }
 
-TestLogger.prototype.warn = function(message) {
+FileLogger.prototype.warn = function(message) {
 	this.log(message,'WARNING');
 }
 
-TestLogger.prototype.error = function(message) {
+FileLogger.prototype.error = function(message) {
 	this.log(message,'SEVERE');
 }

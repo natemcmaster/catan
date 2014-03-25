@@ -1,6 +1,7 @@
 var BaseModel = require('./BaseModel');
 var util = require('util');
-var CatanError = require('../../common').Errors.CatanError;
+var CatanError = require('../../common/Errors').CatanError;
+var debug = require('debug')('catan:model:player');
 
 module.exports = Player;
 util.inherits(Player, BaseModel);
@@ -159,7 +160,7 @@ Player.prototype.playRoadBuilding = function(){
 }
 
 Player.prototype.playMonopoly = function(resource, amount) {
-	this.resources[resources] = amount;
+	this.resources[resource] = amount;
 }
 
 Player.prototype.playMonument = function() {
@@ -262,6 +263,7 @@ Player.prototype.setLargestArmy = function(largestArmy) {
 Player.prototype.maritimeTrade = function(resourceToGive, ratio, resourceToGet) {
 	this.resources[resourceToGive] = this.resources[resourceToGive] - ratio;
 	this.resources[resourceToGet]++;
+  debug(this.resources);
 }
 
 Player.prototype.toJSON = function(){
