@@ -23,6 +23,12 @@ describe('Buy Dev Card Command', function () {
                                          game.players[0].newDevCards['roadBuilding'] +
                                          game.players[0].newDevCards['monument']; 
 
+          game.players[0].resources['ore'] = 1;
+          game.players[0].resources['sheep'] = 1;
+          game.players[0].resources['wheat'] = 1;
+          game.bank.data['ore'] =0;
+          game.bank.data['sheep'] =0;
+          game.bank.data['wheat']=0;
 
         this.agent.post('/moves/buyDevCard')
           .send({playerIndex:0})
@@ -51,6 +57,14 @@ describe('Buy Dev Card Command', function () {
 
             expect(NumOfDevCardsEndDeck).to.eql(NumOfDevCardsStartDeck -1);
             expect(NumOfDevCardsEndPlayer).to.eql(NumOfDevCardsStartPlayer +1);
+
+            expect(game.players[0].resources['ore']).to.eql(0);
+            expect(game.players[0].resources['sheep']).to.eql(0);
+            expect(game.players[0].resources['wheat']).to.eql(0);
+
+            expect(game.bank.data['ore']).to.eql(1);
+            expect(game.bank.data['sheep']).to.eql(1);
+            expect(game.bank.data['wheat']).to.eql(1);
             
             done();
           });
