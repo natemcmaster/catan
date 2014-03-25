@@ -1,27 +1,20 @@
 var AbstractMoveCommand = require('./AbstractMoveCommand')
-  , util = require('util')
+  , util = require('util');
 
-module.exports = OfferTradeCommand
-
-
+module.exports = OfferTradeCommand;
 util.inherits(OfferTradeCommand, AbstractMoveCommand);
 
-function OfferTradeCommand(gameID, playerIndex, receiverIndex, brick, ore, sheep, wheat, wood){
+function OfferTradeCommand(gameID, playerIndex, offer, receiver) {
 	AbstractMoveCommand.call(this,gameID);	
 
 	this.playerIndex = playerIndex;
-	this.receiverIndex = receiverIndex;
-	this.brick = brick;
-	this.ore = ore;
-	this.sheep = sheep;
-	this.wheat = wheat;
-	this.wood = wood;
-
+	this.offer = offer;
+	this.receiver = receiver;
 }
 
-OfferTradeCommand.prototype.executeOnGame = function(game){
+OfferTradeCommand.params = ['playerIndex', 'offer', 'receiver'];
+OfferTradeCommand.optional = ['type'];
 
-	game.offerTrade(this.playerIndex, this.receiverIndex, this.brick, 
-						this.ore, this.sheep, this.wheat, this.wood);
-
+OfferTradeCommand.prototype.executeOnGame = function(game) {
+	game.offerTrade(this.playerIndex, this.offer, this.receiver);
 }

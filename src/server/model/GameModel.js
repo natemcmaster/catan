@@ -271,9 +271,9 @@ GameModel.prototype.buildCity = function(playerIndex, vertexLocation, free) {
 
 GameModel.prototype.offerTrade = function(playerIndex, offer, receiver) {
 	this.data.tradeOffer = {
-		sender: playerIndex,
-		receiver: receiver,
-		offer: offer
+		'playerIndex': playerIndex,
+		'offer': offer,
+		'receiver': receiver
 	};
 };
 
