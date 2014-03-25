@@ -15,8 +15,6 @@ function flatten(obj, d) {
 
 exports.runtime = flatten(model);
 
-exports.runtime.SmokeTest = require('./resources').EchoTest;
-
 var repo = require('./repo');
 exports.repo = {
 	memory: flatten(repo.mem)

@@ -8,6 +8,11 @@ module.exports.HttpError = HttpError;
 
 function BaseCtrl(app, inj) {
   this.injector = inj;
+  try {
+    this.logger = inj.create('Logger');
+  } catch (e){
+    this.logger = console;
+  }
   this.assignRoutes(app, this.dynamicCall.bind(this));
 }
 
@@ -20,8 +25,8 @@ BaseCtrl.prototype.dynamicCall = function(func){
     try {
       op(request, response);
     } catch (e) {
-      console.error('SERVER ERROR:', e.message);
-      console.error('STACK TRACE:', e.stack);
+      this.logger.error('SERVER ERROR:', e.message);
+      this.logger.error('STACK TRACE:', e.stack);
       // throw e;
       var code = (e instanceof HttpError) ? e.code : 500;
       var message = e.message;
