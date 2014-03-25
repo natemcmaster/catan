@@ -142,7 +142,7 @@ GameModel.prototype.playYearOfPlenty = function(playerIndex, resource1, resource
 	this.bank.withdraw(resource1);
 	this.bank.withdraw(resource2);
 
-	players[playerIndex].playYearOfPlenty(resource1, resource2);
+	this.players[playerIndex].playYearOfPlenty(resource1, resource2);
 };
 
 GameModel.prototype.playRoadBuilding = function(playerIndex, spot1, spot2) {

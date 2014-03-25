@@ -15,6 +15,9 @@ function PlayYearOfPlentyCommand(gameID, playerIndex, resource1, resource2){
 
 }
 
+PlayYearOfPlentyCommand.params = ['playerIndex', 'resource1', 'resource2'];
+PlayYearOfPlentyCommand.optional = ['type'];
+
 PlayYearOfPlentyCommand.prototype.executeOnGame = function(game){
 
 	game.playYearOfPlenty(this.playerIndex, this.resource1, this.resource2);
