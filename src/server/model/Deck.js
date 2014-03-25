@@ -18,14 +18,36 @@ function Deck(data) {
 	Card drawn so player object can be updated
 **/
 Deck.prototype.drawRandomCard = function() {
-	var type = getRandomInt(0, 4);
-
+	var randomInt = Math.floor(Math.random()*5);
+	var type = this.getType(randomInt);
 	while (this.data[type] == 0)
 	{
-		type = getRandomInt(0, 4);
+		randomInt = Math.floor(Math.random()*5);
 	}
 
 	this.data[type]--;
-	
-	return this.data[type].name;
+
+	return type;
 };
+
+Deck.prototype.getType = function(index){
+	if(index == 0){
+		return 'yearOfPlenty';
+	}
+	else if(index == 1){
+		return 'soldier';
+	}
+	else if(index == 2){
+		return 'monument';
+	}
+	else if(index == 3){
+		return 'monopoly';
+	}
+	else if(index ==4){
+		return 'roadBuilding';
+	}
+	else{
+		return undefined;
+	}
+}
+
