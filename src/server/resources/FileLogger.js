@@ -40,7 +40,7 @@ TestLogger.prototype.setLogLevel = function(levelName,cb) {
 		return;
 	}
   console.log(this.filepath, 'path');
-	fs.writeFile(this.filepath,'Changing to log level ['+levelName+']');
+	fs.appendFile(this.filepath,'Changing to log level ['+levelName+']');
 	for(var i in LEVEL){
 		if(LEVEL[i] <= l)
 			this._lvl |= LEVEL[i];
