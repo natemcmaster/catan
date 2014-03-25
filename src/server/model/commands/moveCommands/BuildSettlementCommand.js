@@ -7,14 +7,14 @@ module.exports = BuildSettlementCommand
 util.inherits(BuildSettlementCommand, AbstractMoveCommand);
 
 function BuildSettlementCommand(gameID, playerIndex, settlementLocation, isFree){
-	AbstractMoveCommand.call(this,gameID);	
+	AbstractMoveCommand.call(this,gameID);
 
 	this.playerIndex = playerIndex;
 	this.settlementLocation = settlementLocation;
 	this.isFree = !!isFree;
 
 }
-BuildSettlementCommand.params = ['playerIndex', 'vertexLocation', 'isFree'];
+BuildSettlementCommand.params = ['playerIndex', 'vertexLocation', 'free'];
 BuildSettlementCommand.optional = ['type'];
 
 BuildSettlementCommand.prototype.executeOnGame = function(game){

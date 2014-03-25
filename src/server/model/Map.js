@@ -51,6 +51,10 @@ Map.prototype.getRoadOwner = function (x, y, dir) {
   return this.hex.getEdge(x, y, dir).value.ownerID;
 }
 
+Map.prototype.getSettlementOwner = function (x, y, dir) {
+  return this.hex.getVertex(x, y, dir).value.ownerID;
+}
+
 /**
  * <pre>
  * Pre-condition: The robber is not currently at the location desired
@@ -124,8 +128,5 @@ Map.prototype.placeCity = function(playerIndex, vertexLocation) {
 
 Map.prototype.getNumberLocation = function(number){
 
-    return this.data.numbers[String(number)];  
+    return this.data.numbers[String(number)];
 };
-
-
-
