@@ -170,15 +170,13 @@ GameModel.prototype.playSoldier = function(playerIndex, victimIndex, location) {
 
 	var playerWithLargestArmy = this.data.biggestArmy;
 
-	//If no one has the longest road and the player who just built has 5 or more roads,
-	//that player claims the longest road
+
 	if (playerWithLargestArmy == -1 && this.players[playerIndex].getSizeOfArmy() >= 3) {
 		this.data.biggestArmy = playerIndex;
 		this.players[playerIndex].setLargestArmy(true);
 	}
 
-	//If the player who built did not have the longest road, but has now beaten the current
-	//owner of the longest road, that player now claims the longest road
+
 	else if (playerIndex != playerWithLargestArmy &&
 			this.players[playerIndex].getSizeOfArmy() > this.players[playerWithLargestArmy].getSizeOfArmy()) {
 		this.data.biggestArmy = playerIndex;
@@ -186,7 +184,7 @@ GameModel.prototype.playSoldier = function(playerIndex, victimIndex, location) {
 		this.players[playerIndex].setLargestArmy(true);
 	}
 
-	//Check if the player who built has won
+
 	this.seeIfWon(playerIndex);
 
 	//STILL NEED TO CHANGE THE MAP

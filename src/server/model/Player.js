@@ -182,7 +182,10 @@ Player.prototype.playMonument = function() {
 }
 
 Player.prototype.playSoldier = function(stolenCard) {
-	this.resources[stolenCard]++;
+	if(stolenCard != 'NO_CARDS'){
+		this.resources[stolenCard]++;
+	}
+	
 	this.oldDevCards['soldier']--;
 	this.soldiers++;
 	this.playedDevCard = true;
@@ -208,16 +211,31 @@ Player.prototype.setResource = function(resource, amount) {
 }
 
 Player.prototype.loseCard = function() {
-	var type = getRandomInt(0, 4);
+	var numOfCards = this.resources['brick'] + 
+					 this.resources['ore'] +
+					 this.resources['sheep'] +
+					 this.resources['wheat'] +
+					 this.resources['wood'];
+	if(numOfCards == 0){
+		return 'NO_CARDS';
+	}
 
-	while (this.resources[type] == 0)
+	var types = ['brick','wood','sheep', 'wheat', 'ore'];
+	var randomInt;
+	var type;
+	var amount = 0;
+
+	while (amount == 0)
 	{
-		type = getRandomInt(0, 4);
+
+		randomInt = Math.floor(Math.random()*5);
+		type = types[randomInt];
+		amount = this.resources[type];
 	}
 
 	this.resources[type]--;
 	
-	return this.resources[type].name;
+	return type;
 }
 
 Player.prototype.updateDevCards = function(){
