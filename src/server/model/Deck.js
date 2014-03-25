@@ -31,23 +31,7 @@ Deck.prototype.drawRandomCard = function() {
 };
 
 Deck.prototype.getType = function(index){
-	if(index == 0){
-		return 'yearOfPlenty';
-	}
-	else if(index == 1){
-		return 'soldier';
-	}
-	else if(index == 2){
-		return 'monument';
-	}
-	else if(index == 3){
-		return 'monopoly';
-	}
-	else if(index ==4){
-		return 'roadBuilding';
-	}
-	else{
-		return undefined;
-	}
+	var types = ['yearOfPlenty','soldier','monument', 'monopoly', 'roadBuilding'];
+	return types[index];
 }
 
