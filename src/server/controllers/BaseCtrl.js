@@ -94,7 +94,11 @@ function getArgs(cmd, data) {
 function applyToConstructor(constructor, argArray) {
   var args = [null].concat(argArray);
   var FactoryFunction = constructor.bind.apply(constructor, args);
-  return new FactoryFunction();
+  var cmd = new FactoryFunction();
+  if(constructor.logMessage){
+    cmd.logMessage = constructor.logMessage;
+  }
+  return cmd;
 }
 
 BaseCtrl.prototype.commandRoute = function (cmdName, req, res) {

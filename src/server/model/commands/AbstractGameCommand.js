@@ -14,7 +14,22 @@ AbstractGameCommand.prototype.execute = function (gameRoom) {
   if (!game) return new Error('Game not found: ' + this._gameid);
   this.executeOnGame(game);
   game.data.revision += 1;
-  return game;
+  this.logAction(game);
+}
+
+AbstractGameCommand.prototype.logAction = function(game){
+	if(!this.logMessage)
+		return;
+	if(!this.playerIndex && this.playerIndex !== 0){
+		return;
+	}
+	var name = game.getNameByIndex(this.playerIndex);
+	var msg = this.logMessage.replace('{{name}}',name);
+	if(this.vicitimIndex && this.vicitimIndex > 0){
+		var victimName = game.getNameByIndex(this.vicitimIndex);
+		msg = msg.replace('{{victim}}',victimName)
+	}
+	game.log.addEntry(name,msg);
 }
 
 AbstractGameCommand.prototype.executeOnGame = function (game) {
@@ -24,3 +39,4 @@ AbstractGameCommand.prototype.executeOnGame = function (game) {
 AbstractGameCommand.prototype.response = function (room) {
   return room.getGameModel(this._gameid).toJSON()
 }
+
