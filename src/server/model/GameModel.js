@@ -38,7 +38,7 @@ function GameModel(data, $Log, $Chat, $Bank, $Deck, $Map, $Player, $TurnTracker)
 }
 
 GameModel.prototype.toJSON = function () {
-  return {
+  var d = {
     chat: this.chat.toJSON(),
     bank: this.bank.toJSON(),
     deck: this.deck.toJSON(),
@@ -53,6 +53,9 @@ GameModel.prototype.toJSON = function () {
     winner: this.data.winner,
     revision: this.data.revision
   }
+  if(this.data.tradeOffer)
+  	d.tradeOffer = this.data.tradeOffer;
+  return d;
 }
 
 GameModel.prototype.sendChat = function (playerIndex, message) {
