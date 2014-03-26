@@ -19,6 +19,7 @@ describe('discardCardsCommand', function () {
           , initialBankResources = {brick:4, wood:9, sheep:1, wheat:7, ore:2}
           , expectedBankResources = {brick:14, wood:9, sheep:1, wheat:16, ore:8};
 
+        game.turnTracker.setStatus('Discarding');
         game.players[playerIndex].setResources(currentHand);
         game.bank.setResources(initialBankResources);
 
@@ -33,7 +34,9 @@ describe('discardCardsCommand', function () {
 
             var game = app.gameRoom.getGameModel(1);
             expect(game.players[playerIndex].getResources()).to.deep.equal(expectedHand);
+            expect(game.players[playerIndex].hasDiscarded()).to.be.true;
             expect(game.bank.getResources()).to.deep.equal(expectedBankResources);
+            expect(game.turnTracker.getStatus()).to.equal('Discarding');
 
             done();
           });

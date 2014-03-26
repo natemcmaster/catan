@@ -271,15 +271,15 @@ GameModel.prototype.buildCity = function(playerIndex, vertexLocation, free) {
 
 GameModel.prototype.offerTrade = function(playerIndex, offer, receiver) {
 	this.data.tradeOffer = {
-		'playerIndex': playerIndex,
-		'offer': offer,
-		'receiver': receiver
+		'sender': playerIndex,
+		'receiver': receiver,
+		'offer': offer
 	};
 };
 
 GameModel.prototype.acceptTrade = function(playerIndex, willAccept) {
 	if (willAccept) {
-    	this.players[this.data.tradeOffer.playerIndex].acceptTrade(this.data.tradeOffer.offer, true);
+    	this.players[this.data.tradeOffer.sender].acceptTrade(this.data.tradeOffer.offer, true);
 		this.players[this.data.tradeOffer.receiver].acceptTrade(this.data.tradeOffer.offer, false);
   	}
 
@@ -300,7 +300,7 @@ GameModel.prototype.discardCards = function(playerIndex, cardsToDiscard) {
 	var changeStatus = true;
 
 	this.players.forEach(function(player) {
-		if (!player.hasDiscarded())
+		if (player.hasToDiscard())
 			changeStatus = false;
 	});
 

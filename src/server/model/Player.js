@@ -71,6 +71,19 @@ Player.prototype.hasDiscarded = function() {
 	return this.discarded;
 }
 
+Player.prototype.hasToDiscard = function() {
+	var totalResources = 0;
+
+	for (var resource in this.resources) {
+		totalResources += this.resources[resource];
+	}
+
+	if (!this.discarded && totalResources > 7)
+		return true;
+	else
+		return false;
+}
+
 Player.prototype.getResource = function(resource) {
 	return this.resources[resource];
 }

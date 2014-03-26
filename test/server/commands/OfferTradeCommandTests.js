@@ -14,7 +14,8 @@ describe('Offer Trade Command', function () {
           , offererIndex = 0
           , offer = {brick:-2, wood:1, sheep:-1, wheat:0, ore:0}
           , receiverIndex = 3
-          , tradeOffer = {'playerIndex':offererIndex, 'offer':offer, 'receiver':receiverIndex};
+          , tradeOffer = {'playerIndex':offererIndex, 'offer':offer, 'receiver':receiverIndex}
+          , modelOffer = {'sender':offererIndex, 'receiver':receiverIndex, 'offer':offer}
 
         this.agent.post('/moves/offerTrade')
           .send(tradeOffer)
@@ -26,7 +27,7 @@ describe('Offer Trade Command', function () {
             }
 
             var game = app.gameRoom.getGameModel(1);
-            expect(tradeOffer).to.deep.equal(game.data.tradeOffer);
+            expect(modelOffer).to.deep.equal(game.data.tradeOffer);
 
             done();
           });

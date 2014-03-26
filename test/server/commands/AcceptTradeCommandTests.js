@@ -16,7 +16,7 @@ describe('Accept Trade Command', function () {
           , receiverIndex = 3
           , receiverCurrentHand = {brick:0, wood:1, sheep:1, wheat:0, ore:2}
           , offer = {brick:-2, wood:1, sheep:-1, wheat:0, ore:0}
-          , tradeOffer = {'playerIndex':offererIndex, 'offer':offer, 'receiver':receiverIndex}
+          , tradeOffer = {'sender':offererIndex, 'receiver':receiverIndex, 'offer':offer}
           , willAccept = true
           , offererExpectedHand = {brick:12, wood:14, sheep:14, wheat:10, ore:8}
           , receiverExpectedHand = {brick:2, wood:0, sheep:2, wheat:0, ore:2};
