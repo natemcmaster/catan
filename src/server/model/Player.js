@@ -114,18 +114,18 @@ Player.prototype.totalResources = function(){
 
 Player.prototype.acceptTrade = function(offer, initiatedTrade) {
 	if (initiatedTrade) {
-		this.resources['brick'] += offer['brick'];
-		this.resources['wood'] += offer['wood'];
-		this.resources['sheep'] += offer['sheep'];
-		this.resources['wheat'] += offer['wheat'];
-		this.resources['ore'] += offer['ore'];
-	}
-	else {
 		this.resources['brick'] -= offer['brick'];
 		this.resources['wood'] -= offer['wood'];
 		this.resources['sheep'] -= offer['sheep'];
 		this.resources['wheat'] -= offer['wheat'];
 		this.resources['ore'] -= offer['ore'];
+	}
+	else {
+		this.resources['brick'] += offer['brick'];
+		this.resources['wood'] += offer['wood'];
+		this.resources['sheep'] += offer['sheep'];
+		this.resources['wheat'] += offer['wheat'];
+		this.resources['ore'] += offer['ore'];
 	}
 }
 
