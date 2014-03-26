@@ -9,6 +9,7 @@ function AcceptTradeCommand(gameID, playerIndex, willAccept){
 
 	this.playerIndex = playerIndex;
 	this.willAccept = willAccept;
+	this.logMessage = (willAccept) ? '{{name}} accepted the trade' : '{{name}} rejected the trade';
 }
 
 AcceptTradeCommand.params = ['playerIndex', 'willAccept'];

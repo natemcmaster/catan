@@ -15,6 +15,7 @@ function PlayMonumentCommand(gameID, playerIndex){
 
 PlayMonumentCommand.params = ['playerIndex'];
 PlayMonumentCommand.optional = ['type'];
+PlayMonumentCommand.logMessage = '{{name}} played a monument card';
 
 PlayMonumentCommand.prototype.executeOnGame = function(game){
 

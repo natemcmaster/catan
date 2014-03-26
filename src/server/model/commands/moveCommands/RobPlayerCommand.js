@@ -12,7 +12,10 @@ function RobPlayerCommand(gameID, playerIndex, victimIndex, location){
 	this.playerIndex = playerIndex;
 	this.victimIndex = victimIndex;
 	this.location = location;
-
+	if(victimIndex < 0)
+		this.logMessage = '{{name}} moved the robber';
+	else
+		this.logMessage = '{{name}} robbed {{victim}}';
 }
 
 RobPlayerCommand.params = ['playerIndex','victimIndex','location'];

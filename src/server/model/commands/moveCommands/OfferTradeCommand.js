@@ -14,6 +14,7 @@ function OfferTradeCommand(gameID, playerIndex, offer, receiver) {
 
 OfferTradeCommand.params = ['playerIndex', 'offer', 'receiver'];
 OfferTradeCommand.optional = ['type'];
+OfferTradeCommand.logMessage = '{{name}} offered a trade to {{receiver}}';
 
 OfferTradeCommand.prototype.executeOnGame = function(game) {
 	game.offerTrade(this.playerIndex, this.offer, this.receiver);

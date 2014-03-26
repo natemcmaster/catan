@@ -16,6 +16,7 @@ function FinishTurnCommand(gameID, playerIndex){
 
 FinishTurnCommand.params = ['playerIndex']
 FinishTurnCommand.optional = ['type']
+FinishTurnCommand.logMessage = '{{name}} finished their turn'
 
 FinishTurnCommand.prototype.executeOnGame = function(game){
 	game.finishTurn(this.playerIndex);

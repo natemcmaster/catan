@@ -10,6 +10,7 @@ function RollDiceCommand(gameID, playerIndex, number){
 
 	this.playerIndex = playerIndex;
 	this.number = number;
+	this.logMessage = '{{name}} rolled a ' + number;
 }
 
 RollDiceCommand.params = ['playerIndex', 'number'];

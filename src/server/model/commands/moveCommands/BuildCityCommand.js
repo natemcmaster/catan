@@ -12,6 +12,7 @@ function BuildCityCommand(gameId, playerIndex, cityLocation, isFree) {
 }
 BuildCityCommand.params = ['playerIndex', 'vertexLocation', 'free'];
 BuildCityCommand.optional = ['type'];
+BuildCityCommand.logMessage = '{{name}} built a city';
 
 BuildCityCommand.prototype.executeOnGame = function (game) {
 
