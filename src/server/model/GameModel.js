@@ -92,30 +92,37 @@ GameModel.prototype.rollDice = function(playerIndex, number) {
   if (number === 7) {
     //This checks to see if anyone needs to discard cards and sets the status on
     //the turnTracker appropriatly
-    this.players.forEach(function(player){
+    var discarding = this.players.some(function(player){
+
       if(player.totalResources() > 7){
+      	
         this.turnTracker.setStatus("Discarding");
-        return;
+        return true;
       }
     }.bind(this));
-
-    return this.turnTracker.setStatus("Robbing");
-  }
-
-  var cards = this.map.getCardsRolled(number)
-    , withdrew
-    , player
-
-  for (var pIndex in cards) {
-    player = this.players[pIndex]
-    for (var resource in cards[pIndex]) {
-      resource = resource.toLowerCase()
-      withdrew = this.bank.withdrawAsMuchAsYouCan(resource, cards[pIndex][resource]);
-      player.addResource(resource, withdrew);
+    if(!discarding){
+    	
+    	this.turnTracker.setStatus("Robbing");
     }
+   
+  }
+  else{
+	  	var cards = this.map.getCardsRolled(number)
+	    , withdrew
+	    , player
+
+	  for (var pIndex in cards) {
+	    player = this.players[pIndex]
+	    for (var resource in cards[pIndex]) {
+	      resource = resource.toLowerCase()
+	      withdrew = this.bank.withdrawAsMuchAsYouCan(resource, cards[pIndex][resource]);
+	      player.addResource(resource, withdrew);
+	    }
+	  }
+
+	  this.turnTracker.setStatus("Playing");
   }
 
-  this.turnTracker.setStatus("Playing");
 };
 
 GameModel.prototype.robPlayer = function(playerIndex, victimIndex, location) {
@@ -321,3 +328,5 @@ GameModel.prototype.seeIfWon = function(playerIndex){
 		this.data.winner = playerIndex;
 	}
 }
+
+
