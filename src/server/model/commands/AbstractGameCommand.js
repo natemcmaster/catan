@@ -25,8 +25,8 @@ AbstractGameCommand.prototype.logAction = function(game){
 	}
 	var name = game.getNameByIndex(this.playerIndex);
 	var msg = this.logMessage.replace('{{name}}',name);
-	if(this.vicitimIndex && this.vicitimIndex > 0){
-		var victimName = game.getNameByIndex(this.vicitimIndex);
+	if(this.victimIndex && this.victimIndex > 0){
+		var victimName = game.getNameByIndex(this.victimIndex);
 		msg = msg.replace('{{victim}}',victimName)
 	}
 	game.log.addEntry(name,msg);
