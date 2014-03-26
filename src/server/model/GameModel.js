@@ -37,6 +37,11 @@ function GameModel(data, $Log, $Chat, $Bank, $Deck, $Map, $Player, $TurnTracker)
 	this.playerConstruct = $Player;
 }
 
+GameModel.prototype.getNameByIndex(index) {
+  return this.players[index].name;
+}
+
+
 GameModel.prototype.toJSON = function () {
   return {
     chat: this.chat.toJSON(),
@@ -153,7 +158,7 @@ GameModel.prototype.playYearOfPlenty = function(playerIndex, resource1, resource
 
 GameModel.prototype.playRoadBuilding = function(playerIndex, spot1, spot2) {
 	this.players[playerIndex].playRoadBuilding();
-	
+
 	this.map.placeRoad(playerIndex, spot1);
 	this.map.placeRoad(playerIndex, spot2);
 
@@ -161,7 +166,7 @@ GameModel.prototype.playRoadBuilding = function(playerIndex, spot1, spot2) {
 
 	//Check if the player who built has won
 	this.seeIfWon(playerIndex);
-	
+
 
 };
 
@@ -242,7 +247,7 @@ GameModel.prototype.buildRoad = function(playerIndex, roadLocation, free) {
 
 	//Check if the player who built has won
 	this.seeIfWon(playerIndex);
-	
+
   this.map.placeRoad(playerIndex, roadLocation);
 };
 

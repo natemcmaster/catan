@@ -5,7 +5,7 @@ module.exports = AcceptTradeCommand;
 util.inherits(AcceptTradeCommand, AbstractMoveCommand);
 
 function AcceptTradeCommand(gameID, playerIndex, willAccept){
-	AbstractMoveCommand.call(this,gameID);	
+	AbstractMoveCommand.call(this,gameID);
 
 	this.playerIndex = playerIndex;
 	this.willAccept = willAccept;

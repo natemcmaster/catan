@@ -14,6 +14,7 @@ AbstractGameCommand.prototype.execute = function (gameRoom) {
   if (!game) return new Error('Game not found: ' + this._gameid);
   this.executeOnGame(game);
   game.data.revision += 1;
+  return game;
 }
 
 AbstractGameCommand.prototype.executeOnGame = function (game) {
@@ -23,4 +24,3 @@ AbstractGameCommand.prototype.executeOnGame = function (game) {
 AbstractGameCommand.prototype.response = function (room) {
   return room.getGameModel(this._gameid).toJSON()
 }
-
