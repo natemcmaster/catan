@@ -37,7 +37,7 @@ function GameModel(data, $Log, $Chat, $Bank, $Deck, $Map, $Player, $TurnTracker)
 	this.playerConstruct = $Player;
 }
 
-GameModel.prototype.getNameByIndex(index) {
+GameModel.prototype.getNameByIndex = function(index) {
   return this.players[index].name;
 }
 
