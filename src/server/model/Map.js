@@ -119,7 +119,7 @@ Map.prototype.placeSettlement = function(playerIndex, loc) {
  * @param {VertexLocation} Location of vertex on hex to place city on
  * @return {void}
  */
-Map.prototype.placeCity = function(playerIndex, vertexLocation) {
+Map.prototype.placeCity = function(playerIndex, loc) {
   if (!this.hex.vertexHasMySettlement(loc.x, loc.y, loc.direction, playerIndex)) {
     throw new Error('A city can only be placed to replace your own settlement');
   }
