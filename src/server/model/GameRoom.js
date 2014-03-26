@@ -30,12 +30,6 @@ GameRoom.prototype.getGameByID = function(gameID) {
 	});
 };
 
-GameRoom.prototype.getUserByID = function(playerID) {
-	return _(this.users).find(function(s){
-		return s.playerID == playerID;
-	});
-};
-
 //--------------------------------------------------------------
 // Commands
 //--------------------------------------------------------------

@@ -1,6 +1,7 @@
 
 var expect = require('chai').expect
   , request = require('supertest')
+  , debug = require('debug')('catan:tests:long')
   , MakeApp = require('../../src/server/catan')
   , h = require('./commands/helpers')
   ;
@@ -82,7 +83,28 @@ describe('buildCityCommand', function () {
               console.log('second');
               expect(game.turnTracker.getStatus()).to.equal('Rolling');
             }
-          }
+          },
+          {
+            name: 'finishTurn',
+            data: { playerIndex: 0 },
+          },
+          {
+            name: 'finishTurn',
+            data: { playerIndex: 1 }
+          },
+          {
+            name: 'finishTurn',
+            data: { playerIndex: 2 }
+          },
+          {
+            name: 'finishTurn',
+            data: { playerIndex: 3 },
+            check: function (game) {
+              console.log('second');
+              expect(game.turnTracker.getStatus()).to.equal('Rolling');
+              expect(game.turnTracker.getCurrentPlayerIndex()).to.equal(0);
+            }
+          },
         ]);
 
       });
@@ -130,7 +152,7 @@ function runCommands(agent, game, done, moves) {
       return done()
     }
     var cmd = moves.shift();
-    console.log('command', cmd.name);
+    debug('command', cmd.name);
     agent.post('/moves/' + cmd.name)
       .send(cmd.data)
       .expect(200)
