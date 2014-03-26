@@ -16,6 +16,7 @@ function BuildSettlementCommand(gameID, playerIndex, settlementLocation, free){
 }
 BuildSettlementCommand.params = ['playerIndex', 'vertexLocation', 'free'];
 BuildSettlementCommand.optional = ['type'];
+BuildSettlementCommand.logMessage = '{{name}} built a settlement';
 
 BuildSettlementCommand.prototype.executeOnGame = function(game){
 

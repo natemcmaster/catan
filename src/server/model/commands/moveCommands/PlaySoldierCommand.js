@@ -17,6 +17,7 @@ function PlaySoldierCommand(gameID, playerIndex, victimIndex, robberSpot){
 
 PlaySoldierCommand.params = ['playerIndex', 'victimIndex', 'robberSpot'];
 PlaySoldierCommand.optional = ['type'];
+PlaySoldierCommand.logMessage = '{{name}} played the soldier card';
 
 PlaySoldierCommand.prototype.executeOnGame = function(game){
 

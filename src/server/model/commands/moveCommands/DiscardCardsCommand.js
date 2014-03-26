@@ -13,6 +13,7 @@ function DiscardCardsCommand(gameID, playerIndex, discardedCards){
 
 DiscardCardsCommand.params = ['playerIndex', 'discardedCards'];
 DiscardCardsCommand.optional = ['type'];
+DiscardCardsCommand.logMessage = '{{name}} discarded cards';
 
 DiscardCardsCommand.prototype.executeOnGame = function(game){
 	game.discardCards(this.playerIndex, this.discardedCards);

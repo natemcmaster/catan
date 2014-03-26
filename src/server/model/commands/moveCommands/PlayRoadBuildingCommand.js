@@ -17,6 +17,7 @@ function PlayRoadBuildingCommand(gameID, playerIndex, location1, location2){
 
 PlayRoadBuildingCommand.params = ['playerIndex', 'spot1', 'spot2'];
 PlayRoadBuildingCommand.optional = ['type'];
+PlayRoadBuildingCommand.logMessage = '{{name}} build two roads';
 
 PlayRoadBuildingCommand.prototype.executeOnGame = function(game){
 

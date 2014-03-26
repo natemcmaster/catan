@@ -18,6 +18,7 @@ function BuildRoadCommand(gameID, playerIndex, roadLocation, isFree){
 
 BuildRoadCommand.params = ['playerIndex', 'roadLocation', 'free'];
 BuildRoadCommand.optional = ['type'];
+BuildRoadCommand.logMessage = '{{name}} built a road'
 
 BuildRoadCommand.prototype.executeOnGame = function(game){
 
