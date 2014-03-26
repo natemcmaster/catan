@@ -54,6 +54,19 @@ function Player(input, index){
 	this.orderNumber = input.orderNumber || index;
 }
 
+Player.prototype.getSizeOfArmy = function() {
+  return this.soldiers;
+}
+
+Player.prototype.getNumResources = function() {
+  var numResources = 0;
+  for(var res in this.resources) {
+    numResources += this.resources[res];
+  }
+
+  return numResources;
+}
+
 
 Player.prototype.getNumberOfRoadsBuilt = function() {
 	return 15 - this.roads;
@@ -203,7 +216,7 @@ Player.prototype.playMonument = function() {
 }
 
 Player.prototype.playSoldier = function(stolenCard) {
-	
+
 	this.oldDevCards['soldier']--;
 	this.soldiers++;
 	this.playedDevCard = true;
@@ -302,4 +315,3 @@ Player.prototype.toJSON = function(){
 			'color': this.color
 		};
 }
-
