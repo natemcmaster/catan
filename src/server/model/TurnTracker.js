@@ -27,18 +27,12 @@ var finishTurnHandlers = {
 	Rolling: function() {
 		return 'Playing';
 	},
-	Robbing: function() {
-		return 'Playing';
-	},
 	Playing: function() {
 		this.data.currentTurn++;
 		if(this.data.currentTurn > 3){
 			this.data.currentTurn = 0;
 		}
 		return 'Rolling';
-	},
-	Discarding: function() {
-		return 'Playing';
 	}
 }
 

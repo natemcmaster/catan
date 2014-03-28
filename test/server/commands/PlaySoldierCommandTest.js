@@ -28,7 +28,7 @@ describe('Play Soldier Command', function () {
           .send({
                  'playerIndex' : 0,
                  'victimIndex' : 1,
-                 'robberSpot' : {
+                 'location' : {
                         'x' : -2,
                         'y' : 2
                   }
