@@ -138,6 +138,12 @@ Hexgrid.prototype = {
       value.worth = worth;
     }.bind(this));
   },
+  hexesForVertex: function (x, y, dir) {
+    var getHex = this.getHex.bind(this);
+    return equivalentVertexLocs(x, y, dir).map(function (loc) {
+      return getHex(loc.x, loc.y);
+    });
+  },
   edgeIsOccupied: function (x, y, dir) {
     return this.getEdge(x, y, dir).value.ownerID !== -1
   },

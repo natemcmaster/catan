@@ -27,6 +27,7 @@ function Map(data){
 
 Map.prototype.getCardsRolled = function (number) {
   var that = this
+    , robber = this.data.robber
     , cards = {};
   this.data.numbers[number].forEach(function (location) {
     if (location.x === robber.x && location.y === robber.y) {
@@ -47,6 +48,16 @@ Map.prototype.getCardsRolled = function (number) {
       cards[owner][land] += vx.value.worth;
     });
   });
+  return cards;
+}
+
+Map.prototype.getResourcesForVertexLocation = function (x, y, dir) {
+  var cards = {}
+  this.hex.hexesForVertex(x, y, dir).forEach(function (hex) {
+    if (!hex) return;
+    if (!hex.isLand) return;
+    cards[hex.landtype.toLowerCase()] = 1
+  })
   return cards;
 }
 
