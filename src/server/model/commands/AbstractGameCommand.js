@@ -39,4 +39,3 @@ AbstractGameCommand.prototype.executeOnGame = function (game) {
 AbstractGameCommand.prototype.response = function (room) {
   return room.getGameModel(this._gameid).toJSON()
 }
-

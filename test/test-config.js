@@ -1,6 +1,6 @@
-var model = require('./model');
-var logger = require('./resources').ConsoleLogger;
-var repo = require('./repo');
+var model = require('../src/server/model');
+var logger = require('../src/server/resources').FileLogger;
+var repo = require('../src/server/repo');
 
 function flatten(obj, d) {
 	d = d || {};

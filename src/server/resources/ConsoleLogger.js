@@ -12,8 +12,9 @@ var LEVEL = {
 	OFF: 0
 };
 
-function ConsoleLogger() {
-	this._lvl = LEVEL.INFO;
+function ConsoleLogger(cnsl) {
+	this.console = cnsl || console;
+	this._lvl = 16;
 }
 
 ConsoleLogger.LEVEL = LEVEL;
@@ -26,19 +27,15 @@ ConsoleLogger.prototype.setLogLevel = function(levelName,cb) {
 		cb(true,'Unknown level '+levelName);
 		return;
 	}
-	console.info('Changing to log level ['+levelName+']');
-	for(var i in LEVEL){
-		if(LEVEL[i] <= l)
-			this._lvl |= LEVEL[i];
-	}
+	this._lvl = l;
 	cb(null,levelName);
 }
 
 ConsoleLogger.prototype.log = function(message,level) {
 	level = (level || 'INFO').toUpperCase();
 	var l = LEVEL[level];
-	if(l & this._lvl)
-		console.log('['+level+'] ' + message);
+	if(l && l >= this._lvl)
+		this.console.log('['+level+'] ' + message);
 }
 
 ConsoleLogger.prototype.info = function(message) {
