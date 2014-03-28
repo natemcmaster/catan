@@ -114,24 +114,11 @@ Hexgrid.prototype = {
     return hex.vertexes[ix];
   },
   setEdge: function (x, y, dir, owner) {
-    if (arguments.length === 1) {
-      owner = y;
-      dir = x.dir;
-      y = x.y;
-      x = x.x;
-    }
     equivalentEdgeLocs(x, y, dir).forEach(function (loc) {
       this.getEdge(loc).value.ownerID = owner;
     }.bind(this));
   },
   setVertex: function (x, y, dir, owner, worth) {
-    if (arguments.length === 1) {
-      worth = dir;
-      owner = y;
-      dir = x.dir;
-      y = x.y;
-      x = x.x;
-    }
     equivalentVertexLocs(x, y, dir).forEach(function (loc) {
       var value = this.getVertex(loc).value
       value.ownerID = owner;

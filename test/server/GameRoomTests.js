@@ -45,6 +45,18 @@ describe('GameRoom endpoints', function () {
         .expect(200, done)
     });
 
+    it('should reject creating a user that already exists', function (done) {
+      agent.post('/user/register')
+        .send({username: 'Sam', password: 'moose'})
+        .expect(400, done)
+    });
+
+    it.only('should reject creating a user without a username', function (done) {
+      agent.post('/user/register')
+        .send({password: 'moose'})
+        .expect(400, done)
+    });
+
     describe('with a newly registerd user', function (done) {
       beforeEach(function (done) {
         agent.post('/user/register')
@@ -146,6 +158,11 @@ describe('GameRoom endpoints', function () {
   });
 
   describe('change log level', function () {
+    it('should fail to change to an invalid log level', function (done) {
+      agent.post('/util/changeLogLevel')
+        .send({logLevel: 'BadLevel'})
+        .expect(400, done);
+    });
     it('should work', function (done) {
       agent.post('/util/changeLogLevel')
         .send({logLevel: 'ALL'})
