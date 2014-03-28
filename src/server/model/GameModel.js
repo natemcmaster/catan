@@ -269,7 +269,12 @@ GameModel.prototype.buildSettlement = function(playerIndex, vertexLocation, free
 
 	this.seeIfWon(playerIndex);
 
-  this.map.placeSettlement(playerIndex, vertexLocation);
+  	this.map.placeSettlement(playerIndex, vertexLocation);
+
+  	if (this.turnTracker.getStatus() == 'SecondRound') {
+  		var resourcesToGet = this.map.getResourcesForVertexLocation(vertexLocation);
+  		this.players[playerIndex].resources = resourcesToGet;
+  	}
 };
 
 GameModel.prototype.buildCity = function(playerIndex, vertexLocation, free) {

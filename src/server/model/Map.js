@@ -52,11 +52,17 @@ Map.prototype.getCardsRolled = function (number) {
 }
 
 Map.prototype.getResourcesForVertexLocation = function (loc) {
-  var cards = {}
+  var cards = {
+    brick: 0,
+    wheat: 0,
+    sheep: 0,
+    wood: 0,
+    ore: 0
+  }
   this.hex.hexesForVertex(loc.x, loc.y, loc.direction).forEach(function (hex) {
     if (!hex) return;
     if (!hex.isLand) return;
-    cards[hex.landtype.toLowerCase()] = 1
+    cards[hex.landtype.toLowerCase()] += 1
   })
   return cards;
 }
