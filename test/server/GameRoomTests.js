@@ -110,6 +110,16 @@ describe('GameRoom endpoints', function () {
         .expect(200, done);
     });
 
+    it('should make random', function (done) {
+      agent.post('/games/create')
+        .send({
+          name: 'TheRandomGame',
+          randomTiles: true,
+          randomHexes: true
+        })
+        .expect(200, done);
+    });
+
   });
 
   describe('join game', function () {
