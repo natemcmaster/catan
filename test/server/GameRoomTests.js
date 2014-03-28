@@ -51,7 +51,7 @@ describe('GameRoom endpoints', function () {
         .expect(400, done)
     });
 
-    it.only('should reject creating a user without a username', function (done) {
+    it('should reject creating a user without a username', function (done) {
       agent.post('/user/register')
         .send({password: 'moose'})
         .expect(400, done)
