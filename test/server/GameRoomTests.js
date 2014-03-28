@@ -2,14 +2,14 @@
 var expect = require('chai').expect
   , request = require('supertest')
   , MakeApp = require('../../src/server/catan')
-  , TestLogger = require('../../src/server/resources').FileLogger
+  , testConfig = require('../test-config')
   , h = require('./commands/helpers')
   ;
 
 describe('GameRoom endpoints', function () {
   var app, agent;
   beforeEach(function () {
-    app = MakeApp(TestLogger);
+    app = MakeApp(testConfig);
     agent = request.agent(app)
   });
 
