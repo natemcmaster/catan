@@ -38,7 +38,7 @@ var finishTurnHandlers = {
 		return 'Rolling';
 	},
 	Discarding: function() {
-		return 'Playing';
+		return 'Robbing';
 	}
 }
 

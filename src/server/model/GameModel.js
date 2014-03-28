@@ -127,7 +127,7 @@ GameModel.prototype.rollDice = function(playerIndex, number) {
 
 GameModel.prototype.robPlayer = function(playerIndex, victimIndex, location) {
 	this.map.moveRobber(location.x,location.y);
-	this.turnTracker.nextState();
+	this.turnTracker.setStatus('Playing');//changed so I could use this code for play soldier as well
 	if(victimIndex > 3 || victimIndex <0)
 		return;
 
@@ -320,7 +320,7 @@ GameModel.prototype.discardCards = function(playerIndex, cardsToDiscard) {
 	});
 
 	if (changeStatus)
-		this.turnTracker.setStatus('Playing');
+		this.turnTracker.setStatus('Robbing');
 };
 
 GameModel.prototype.seeIfWon = function(playerIndex){
