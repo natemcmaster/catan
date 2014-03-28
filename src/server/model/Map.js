@@ -51,9 +51,9 @@ Map.prototype.getCardsRolled = function (number) {
   return cards;
 }
 
-Map.prototype.getResourcesForVertexLocation = function (x, y, dir) {
+Map.prototype.getResourcesForVertexLocation = function (loc) {
   var cards = {}
-  this.hex.hexesForVertex(x, y, dir).forEach(function (hex) {
+  this.hex.hexesForVertex(loc.x, loc.y, loc.direction).forEach(function (hex) {
     if (!hex) return;
     if (!hex.isLand) return;
     cards[hex.landtype.toLowerCase()] = 1
