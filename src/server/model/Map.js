@@ -29,6 +29,9 @@ Map.prototype.getCardsRolled = function (number) {
   var that = this
     , cards = {};
   this.data.numbers[number].forEach(function (location) {
+    if (location.x === robber.x && location.y === robber.y) {
+      return // robbed
+    }
     var hex = that.hex.getHex(location.x, location.y)
     if (!hex.isLand) return;
     var land = hex.landtype.toLowerCase();
