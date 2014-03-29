@@ -1,6 +1,6 @@
 module.exports = MemoryGameRepo;
 var CatanError = require('../../../common/Errors').CatanError;
-var _ = require('underscore');
+var _ = require('lodash');
 var fs = require('fs'),
 	path = require('path');
 
@@ -28,7 +28,66 @@ function MemoryGameRepo($GameModel) {
 }
 
 MemoryGameRepo.prototype.create = function(title, randomTiles, randomNumber, randomPorts) {
-	var model = this.constructGame(this.blank);
+	var blank = _.cloneDeep(this.blank);
+	if(randomTiles){
+		var types = _.shuffle(['Desert', 'Wood', 'Wood', 'Wood', 'Wood', 'Ore', 'Ore', 'Ore', 'Sheep', 'Sheep', 'Sheep', 'Sheep', 'Wheat', 'Wheat', 'Wheat', 'Wheat', 'Brick', 'Brick', 'Brick']);
+		var newDesertLocation, prevDesertLocation;
+		blank.map.hexGrid.hexes = _(blank.map.hexGrid.hexes).map(function(s) {
+			return _(s).map(function(t) {
+				if (!t.isLand)
+					return t;
+				if (!t.landtype) {
+					prevDesertLocation = t.location;
+				}
+				var nexttype = types.pop();
+				t.landtype = (nexttype == 'Desert') ? null : nexttype;
+				if (!t.landtype) {
+					newDesertLocation = t.location;
+				}
+				return t;
+			}).value();
+		}).value();
+
+		// make sure the number is not on the desert tile
+		_(blank.map.numbers).forIn(function(v,k,o) {
+			o[k]=_(v).map(function(t) {
+				if (t.x == newDesertLocation.x && t.y == newDesertLocation.y) {
+					return prevDesertLocation;
+				}
+				return t;
+			}).value();
+		});
+
+	}
+	if(randomPorts){
+		var types=_.shuffle(['Any','Any','Any','Any','Wood','Brick','Ore','Sheep','Wheat']);
+		_(blank.map.ports).forIn(function(v,k,o){
+			var nexttype = types.shift();
+			if(nexttype == 'Any'){
+				o[k].inputResource = undefined;
+				o[k].ratio = 3;
+			} else{
+				o[k].inputResource = nexttype;
+				o[k].ratio = 2;
+			}
+		});
+	}
+	if(randomNumber){
+		var places = _.chain(blank.map.numbers).reduce(function(a,b){
+			return a.concat(b);
+		},[])
+		.shuffle()
+		.value();
+		_(blank.map.numbers).forIn(function(v,k,o){
+			var p = [places.shift()];
+			if(k!=2 && k!=12){
+				p.push(places.shift());
+			}
+			o[k]=p;
+		});
+	}
+
+	var model = this.constructGame(blank);
 	var game = {
 		id: (this.nextId++),
 		title: title,
@@ -55,5 +114,5 @@ MemoryGameRepo.prototype.delete = function(key) {
 }
 
 MemoryGameRepo.prototype.getAll = function() {
-	return _(this.games).toArray();
+	return _.toArray(this.games);
 }
