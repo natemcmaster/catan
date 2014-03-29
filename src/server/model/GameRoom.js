@@ -30,6 +30,12 @@ GameRoom.prototype.getGameByID = function(gameID) {
 	});
 };
 
+GameRoom.prototype.getUserByID = function(playerID) {
+	return _(this.users).find(function(s){
+		return s.playerID == playerID;
+	});
+};
+
 //--------------------------------------------------------------
 // Commands
 //--------------------------------------------------------------
@@ -90,14 +96,14 @@ GameRoom.prototype.createGame = function(title, randomTiles, randomNumbers, rand
 
 GameRoom.prototype.joinGame = function(playerID, color, gameID) {
 	var game = this.getGameByID(gameID);
-  debug('Joining game', gameID);
-	if(!game) return new CatanError('Could not find game');
-	if(!game.model.updateColor(playerID,color)){
-    if (game.model.players.length >= 4) {
-      return new Error('Game is full');
-    }
+	debug('Joining game', gameID);
+	if (!game) return new CatanError('Could not find game');
+	if (!game.model.updateColor(playerID, color)) {
+		if (game.model.players.length >= 4) {
+			return new Error('Game is full');
+		}
 		var user = this.getUserByID(playerID);
-		game.model.addPlayer(user.playerID,user.username,color)
+		game.model.addPlayer(user.playerID, user.username, color)
 	}
 	process.nextTick(function() {
 		this.gameRepo.update(gameID, game, 'players');
