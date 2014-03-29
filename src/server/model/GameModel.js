@@ -333,8 +333,13 @@ GameModel.prototype.discardCards = function(playerIndex, cardsToDiscard) {
 			changeStatus = false;
 	});
 
-	if (changeStatus)
+	if (changeStatus) {
 		this.turnTracker.setStatus('Robbing');
+
+		this.players.forEach(function(player) {
+			player.discarded = false;
+		});
+	}
 };
 
 GameModel.prototype.seeIfWon = function(playerIndex){
