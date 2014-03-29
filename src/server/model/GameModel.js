@@ -187,7 +187,7 @@ GameModel.prototype.playSoldier = function(playerIndex, victimIndex, location) {
 };
 
 GameModel.prototype.recalculateLargestArmy = function (playerIndex) {
-	
+
 	//Check if the player who just played a soldier has at least 3
 	//soldiers and is not already the current holder of the largest army.
 	var playerWithLargestArmy = this.data.biggestArmy;
@@ -211,6 +211,7 @@ GameModel.prototype.recalculateLargestArmy = function (playerIndex) {
 		this.data.biggestArmy = playerIndex;
 		this.players[playerWithLargestArmy].setLargestArmy(false);
 		this.players[playerIndex].setLargestArmy(true);
+		return;
 	}
 }
 
