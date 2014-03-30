@@ -21,4 +21,5 @@ module.exports = function _setup_injection(inj){
   inj.map(runtime);
   inj.mapSingleton(memory); // store everything in memory
   inj.singleton('Logger',logger);
+  // inj.register('Hexgrid', require('./model/hexgrid.js'));
 }

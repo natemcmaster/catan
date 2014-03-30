@@ -20,9 +20,9 @@ util.inherits(Map, BaseModel);
  * @constructor
  */
 
-function Map(data){
+function Map(data, $hexgrid){
   BaseModel.call(this, data);
-  this.hex = new Hexgrid(data);
+  this.hex = $hexgrid(data);
 }
 
 Map.prototype.getCardsRolled = function (number) {
