@@ -4,7 +4,7 @@ var expect = require('chai').expect
   , h = require('./helpers')
   ;
 
-describe.only('buildRoadCommand', function () {
+describe('buildRoadCommand', function () {
   h.asSam(function () {
     h.inGame(1, function () {
       var model;
