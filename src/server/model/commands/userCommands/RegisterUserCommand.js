@@ -7,12 +7,12 @@ function RegisterCommand(username, password, $Logger) {
 	AbstractCommand.call(this, $Logger);
 	this.username = username;
 	this.password = password;
-	if (!username || username.length == 0)
-		throw new Error('Bad data');
 }
 util.inherits(RegisterCommand, AbstractCommand);
 
 RegisterCommand.prototype.execute = function(gameRoom, callback) {
+	if (!this.username || this.username.length == 0)
+		return callback('Invalid parameters')
 	var d = gameRoom.registerUser(this.username, this.password);
 	if (!d) {
 		callback('Username already in use', null);

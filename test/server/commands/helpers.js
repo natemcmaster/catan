@@ -2,7 +2,7 @@
 var expect = require('chai').expect
   , request = require('supertest')
   , MakeApp = require('../../../src/server/catan')
-  , TestLogger = require('../../../src/server/').resources.FileLogger
+  , testConfig = require('../../test-config')
   ;
 
 module.exports = {
@@ -14,10 +14,10 @@ module.exports = {
 function loggedInAs(name, password, sub) {
   describe('logged in as ' + name, function () {
     beforeEach(function (done) {
-      if (!this.app) this.app = MakeApp(TestLogger);
+      this.app = MakeApp(testConfig);
       this.agent = request.agent(this.app);
       this.agent.post('/user/login')
-        .send({username: 'Sam', password: 'sam'})
+        .send({username: name, password: password})
         .expect(200, function (err) {
           if (err) {
             console.error('HTTP Error', res.text);

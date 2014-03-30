@@ -1,11 +1,10 @@
 
 var expect = require('chai').expect
   , request = require('supertest')
-  , MakeApp = require('../../../src/server/catan')
   , h = require('./helpers')
   ;
 
-describe.only('rollDiceCommand', function () {
+describe('rollDiceCommand', function () {
   h.asSam(function () {
     h.inGame(1, function () {
       beforeEach(function () {
@@ -21,7 +20,7 @@ describe.only('rollDiceCommand', function () {
           .expect(200)
           .end(function (err, res) {
             if (err) {
-              console.log(res.text);
+              console.error('HTTP Error:', res.text);
               return done(err);
             }
             var game = app.gameRoom.getGameModel(1);

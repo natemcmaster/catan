@@ -12,6 +12,9 @@ function BuyDevCardCommand(gameID, playerIndex){
 	this.playerIndex = playerIndex;
 
 }
+BuyDevCardCommand.params = ['playerIndex'];
+BuyDevCardCommand.optional = ['type'];
+BuyDevCardCommand.logMessage = '{{name}} bought a dev card';
 
 BuyDevCardCommand.prototype.executeOnGame = function(game){
 

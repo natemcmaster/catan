@@ -80,3 +80,18 @@ Bank.prototype.deposit = function(resource, amount) {
 		return false;
 	}
 }
+
+Bank.prototype.depositResources = function(resources) {
+	for (var i in resources) {
+		if (resources[i] > 0)
+			this.deposit(i, resources[i]);
+	}
+}
+
+Bank.prototype.getResources = function() {
+	return this.data;
+}
+
+Bank.prototype.setResources = function(resources) {
+	this.data = resources;
+}

@@ -3285,9 +3285,9 @@
         "largestArmy": false,
         "playedDevCard": false,
         "discarded": false,
-        "playerID": 10,
+        "playerID": 41,
         "orderNumber": 2,
-        "name": "Pete",
+        "name": "Spence",
         "color": "red"
       },
       {
@@ -3323,7 +3323,7 @@
         "largestArmy": false,
         "playedDevCard": false,
         "discarded": false,
-        "playerID": 11,
+        "playerID": 5,
         "orderNumber": 3,
         "name": "Mark",
         "color": "green"
@@ -3356,28 +3356,16 @@
           "message": "Brooke's turn just ended"
         },
         {
-          "source": "Pete",
-          "message": "Pete built a road"
+          "source": "Spence",
+          "message": "Spence built a road"
         },
         {
-          "source": "Pete",
-          "message": "Pete built a settlement"
+          "source": "Spence",
+          "message": "Spence built a settlement"
         },
         {
-          "source": "Pete",
-          "message": "Pete's turn just ended"
-        },
-        {
-          "source": "Mark",
-          "message": "Mark built a road"
-        },
-        {
-          "source": "Mark",
-          "message": "Mark built a settlement"
-        },
-        {
-          "source": "Mark",
-          "message": "Mark's turn just ended"
+          "source": "Spence",
+          "message": "Spence's turn just ended"
         },
         {
           "source": "Mark",
@@ -3392,16 +3380,28 @@
           "message": "Mark's turn just ended"
         },
         {
-          "source": "Pete",
-          "message": "Pete built a road"
+          "source": "Mark",
+          "message": "Mark built a road"
         },
         {
-          "source": "Pete",
-          "message": "Pete built a settlement"
+          "source": "Mark",
+          "message": "Mark built a settlement"
         },
         {
-          "source": "Pete",
-          "message": "Pete's turn just ended"
+          "source": "Mark",
+          "message": "Mark's turn just ended"
+        },
+        {
+          "source": "Spence",
+          "message": "Spence built a road"
+        },
+        {
+          "source": "Spence",
+          "message": "Spence built a settlement"
+        },
+        {
+          "source": "Spence",
+          "message": "Spence's turn just ended"
         },
         {
           "source": "Brooke",
@@ -3492,12 +3492,12 @@
           "message": "Brooke's turn just ended"
         },
         {
-          "source": "Pete",
-          "message": "Pete rolled a 5."
+          "source": "Spence",
+          "message": "Spence rolled a 5."
         },
         {
-          "source": "Pete",
-          "message": "Pete's turn just ended"
+          "source": "Spence",
+          "message": "Spence's turn just ended"
         },
         {
           "source": "Mark",
@@ -3533,7 +3533,7 @@
         },
         {
           "source": "Sam",
-          "message": "Sam moved the robber and robbed Pete."
+          "message": "Sam moved the robber and robbed Spence."
         }
       ]
     },
@@ -6269,9 +6269,9 @@
       "largestArmy": false,
       "playedDevCard": false,
       "discarded": false,
-      "playerID": -2,
+      "playerID": 43,
       "orderNumber": 3,
-      "name": "Hannah",
+      "name": "Chris",
       "color": "puce"
     }],
     "log": {

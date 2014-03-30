@@ -32,7 +32,7 @@ UserCtrl.prototype.login = function(q, r, $UserLoginCommand) {
 	$UserLoginCommand(q.param('username'), q.param('password'))
 		.execute(q.gameRoom, function(err, data) {
 			if (err) {
-				throw new HttpError(401, 'Bad username or password');
+				return r.send(401, 'Bad username or password');
 			}
 			setCookie(r, data.username, data.password, data.playerID);
 			r.send(200);
@@ -43,7 +43,7 @@ UserCtrl.prototype.register = function(q, r, $RegisterUserCommand) {
 	$RegisterUserCommand(q.param('username'), q.param('password'))
 		.execute(q.gameRoom, function(err, data) {
 			if (err) {
-				throw new HttpError(400, err);
+				return r.send(400, err);
 			}
 			setCookie(r, data.username, data.password, data.playerID);
 			r.send(200);

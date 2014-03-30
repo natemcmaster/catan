@@ -8,4 +8,3 @@ util.inherits(AbstractMoveCommand, AbstractGameCommand)
 function AbstractMoveCommand(gameid) {
   AbstractGameCommand.call(this, gameid);
 }
-

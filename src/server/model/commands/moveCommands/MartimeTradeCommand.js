@@ -13,11 +13,13 @@ function MartimeTradeCommand(gameID, playerIndex, ratio, inputResource, outputRe
 	this.ratio = ratio;
 	this.inputResource = inputResource;
 	this.outputResource = outputResource;
-
 }
+
+MartimeTradeCommand.params = ['playerIndex', 'ratio', 'inputResource', 'outputResource'];
+MartimeTradeCommand.optional = ['type'];
+MartimeTradeCommand.logMessage = '{{name}} made a maritime trade';
 
 MartimeTradeCommand.prototype.executeOnGame = function(game){
-
-	game.martimeTrade(this.playerIndex, this.ratio, this.inputResource, this.outputResource);
-
+	game.maritimeTrade(this.playerIndex, this.ratio, this.inputResource, this.outputResource);
 }
+

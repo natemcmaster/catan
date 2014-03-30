@@ -1,6 +1,7 @@
 var BaseModel = require('./BaseModel');
 var util = require('util');
-var CatanError = require('../../common').Errors.CatanError;
+var CatanError = require('../../common/Errors').CatanError;
+var debug = require('debug')('catan:model:player');
 
 module.exports = Player;
 util.inherits(Player, BaseModel);
@@ -53,6 +54,19 @@ function Player(input, index){
 	this.orderNumber = input.orderNumber || index;
 }
 
+Player.prototype.getSizeOfArmy = function() {
+  return this.soldiers;
+}
+
+Player.prototype.getNumResources = function() {
+  var numResources = 0;
+  for(var res in this.resources) {
+    numResources += this.resources[res];
+  }
+
+  return numResources;
+}
+
 
 Player.prototype.getNumberOfRoadsBuilt = function() {
 	return 15 - this.roads;
@@ -70,8 +84,29 @@ Player.prototype.hasDiscarded = function() {
 	return this.discarded;
 }
 
+Player.prototype.hasToDiscard = function() {
+	var totalResources = 0;
+
+	for (var resource in this.resources) {
+		totalResources += this.resources[resource];
+	}
+
+	if (!this.discarded && totalResources > 7)
+		return true;
+	else
+		return false;
+}
+
 Player.prototype.getResource = function(resource) {
 	return this.resources[resource];
+}
+
+Player.prototype.getResources = function() {
+	return this.resources;
+}
+
+Player.prototype.setResources = function(resources) {
+	this.resources = resources;
 }
 
 Player.prototype.hasWon = function() {
@@ -92,18 +127,18 @@ Player.prototype.totalResources = function(){
 
 Player.prototype.acceptTrade = function(offer, initiatedTrade) {
 	if (initiatedTrade) {
-		this.resources['brick'] += offer['brick'];
-		this.resources['wood'] += offer['wood'];
-		this.resources['sheep'] += offer['sheep'];
-		this.resources['wheat'] += offer['wheat'];
-		this.resources['ore'] += offer['ore'];
-	}
-	else {
 		this.resources['brick'] -= offer['brick'];
 		this.resources['wood'] -= offer['wood'];
 		this.resources['sheep'] -= offer['sheep'];
 		this.resources['wheat'] -= offer['wheat'];
 		this.resources['ore'] -= offer['ore'];
+	}
+	else {
+		this.resources['brick'] += offer['brick'];
+		this.resources['wood'] += offer['wood'];
+		this.resources['sheep'] += offer['sheep'];
+		this.resources['wheat'] += offer['wheat'];
+		this.resources['ore'] += offer['ore'];
 	}
 }
 
@@ -151,15 +186,19 @@ Player.prototype.playYearOfPlenty = function(resource1, resource2){
 	this.resources[resource1]++;
 	this.resources[resource2]++;
 	this.oldDevCards['yearOfPlenty']--;
+	this.playedDevCard = true;
 }
 
 Player.prototype.playRoadBuilding = function(){
 	this.roads -= 2;
 	this.oldDevCards['roadBuilding']--;
+	this.playedDevCard = true;
 }
 
 Player.prototype.playMonopoly = function(resource, amount) {
-	this.resources[resources] = amount;
+	this.resources[resource] = amount;
+	this.oldDevCards['monopoly']--;
+	this.playedDevCard = true;
 }
 
 Player.prototype.playMonument = function() {
@@ -177,9 +216,10 @@ Player.prototype.playMonument = function() {
 }
 
 Player.prototype.playSoldier = function(stolenCard) {
-	this.resources[stolenCard]++;
+
 	this.oldDevCards['soldier']--;
 	this.soldiers++;
+	this.playedDevCard = true;
 }
 
 Player.prototype.setLongestRoad = function(longestRoad) {
@@ -201,18 +241,6 @@ Player.prototype.setResource = function(resource, amount) {
 	this.resources[resource] = amount;
 }
 
-Player.prototype.loseCard = function() {
-	var type = getRandomInt(0, 4);
-
-	while (this.resources[type] == 0)
-	{
-		type = getRandomInt(0, 4);
-	}
-
-	this.resources[type]--;
-	
-	return this.resources[type].name;
-}
 
 Player.prototype.updateDevCards = function(){
 
@@ -262,6 +290,7 @@ Player.prototype.setLargestArmy = function(largestArmy) {
 Player.prototype.maritimeTrade = function(resourceToGive, ratio, resourceToGet) {
 	this.resources[resourceToGive] = this.resources[resourceToGive] - ratio;
 	this.resources[resourceToGet]++;
+  debug(this.resources);
 }
 
 Player.prototype.toJSON = function(){
@@ -286,4 +315,3 @@ Player.prototype.toJSON = function(){
 			'color': this.color
 		};
 }
-

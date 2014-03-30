@@ -1,12 +1,11 @@
 
 var expect = require('chai').expect
   , request = require('supertest')
-  , MakeApp = require('../../../src/server/catan')
   , h = require('./helpers')
   ;
 
-describe.only('buildRoadCommand', function () {
-  h.asSam(function () {
+describe('buildRoadCommand', function () {
+  h.loggedInAs('Nate', 'nate', function () {
     h.inGame(0, function () {
       it('should work', function (done) {
         var app = this.app
@@ -37,7 +36,7 @@ describe.only('buildRoadCommand', function () {
           });
       }
 
-      it.only('should set longest road', function (done) {
+      it('should set longest road', function (done) {
         var app = this.app
           , game = app.gameRoom.getGameModel(0);
         expect(game.data.longestRoad).to.eql(-1);
@@ -50,4 +49,3 @@ describe.only('buildRoadCommand', function () {
     });
   });
 });
-

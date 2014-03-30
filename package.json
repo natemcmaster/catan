@@ -20,8 +20,8 @@
     "underscore": "~1.6.0",
     "lodash": "2.4.0",
     "body-parser": "~1.0.1",
-    "export-dir": "*",
-    "tmp": "~0.0.23"
+    "export-dir": "natemcmaster/export-dir",
+    "tmp": "0.0.23"
   },
   "devDependencies": {
     "grunt": "~0.4.2",

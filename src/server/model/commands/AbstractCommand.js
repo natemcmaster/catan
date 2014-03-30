@@ -5,18 +5,13 @@ function AbstractCommand($Logger){
 }
 
 AbstractCommand.fromJSON = function(){
-
 	throw new Error("fromJSON unimplimented");
 }
 
 AbstractCommand.prototype.toJSON = function(){
-
 	throw new Error("toJSon unimplimented");
-
 }
 
 AbstractCommand.prototype.execute = function(GameRoom){
-
-	console.err("EXECUTE FUNCTION NOT OVERRIDEN");
-
+	throw new Error("EXECUTE FUNCTION NOT OVERRIDEN");
 }

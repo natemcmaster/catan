@@ -6,16 +6,16 @@ var express = require('express'),
     path = require('path'),
     authMiddleware = require('./middleware/auth'),
     gameMiddleware = require('./middleware/game'),
-    Injector = require('../common').Injector
+    Injector = require('../common/Injector')
     ;
 
-global.HttpError = require('../common/Errors').HttpError;
+module.exports = function (setup) {
+  setup = setup || require('./config');
+  var inj = new Injector();
+  setup(inj);
 
-module.exports = function (logger) {
-  logger = logger || require('./resources').ConsoleLogger;
   var app = express();
-
-  var buildRoot = path.join(__dirname,'..','..','build');
+  var documentRoot = path.join(__dirname,'..','..','build');
 
   // all environments
   app.set('port', process.env.PORT || 8081);
@@ -30,13 +30,6 @@ module.exports = function (logger) {
   app.use(express.methodOverride());
   app.use(bodyParser());
 
-  var config = require('./config');
-  var inj = new Injector();
-
-  inj.map(config.runtime);
-  inj.mapSingleton(config.repo.memory); // store everything in memory
-  inj.singleton('Logger',logger);
-
   // making the game room
   var gameRoom = inj.create('GameRoom');
   app.gameRoom = gameRoom;
@@ -48,8 +41,8 @@ module.exports = function (logger) {
   });
 
   app.use(app.router);
-  app.use('/',express.static(path.join(buildRoot, 'gameplay')));
-  app.use('/docs/',express.static(path.join(buildRoot, 'docs')));
+  app.use('/',express.static(path.join(documentRoot, 'gameplay')));
+  app.use('/docs/',express.static(path.join(documentRoot, 'docs')));
 
   // controller instantiation
   var controllers = require('./controllers');

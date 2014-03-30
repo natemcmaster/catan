@@ -1,5 +1,4 @@
 'use strict';
-var HttpError = require('../../common/').Errors.HttpError;
 
 module.exports = MoveCtrl;
 
@@ -23,11 +22,11 @@ var cmdMap = {
   finishTurn: 'FinishTurnCommand',
   buyDevCard: 'BuyDevCardCommand',
 
-  Soldier: 'SoldierCommand',
-  Monopoly: 'MonopolyCommand',
-  Monument: 'MonumentCommand',
-  Road_Building: 'RoadBuildingCommand',
-  Year_of_Plenty: 'YearOfPlentyCommand',
+  Soldier: 'PlaySoldierCommand',
+  Monopoly: 'PlayMonopolyCommand',
+  Monument: 'PlayMonumentCommand',
+  Road_Building: 'PlayRoadBuildingCommand',
+  Year_of_Plenty: 'PlayYearOfPlentyCommand',
 
   buildRoad: 'BuildRoadCommand',
   buildCity: 'BuildCityCommand',
@@ -35,7 +34,7 @@ var cmdMap = {
 
   offerTrade: 'OfferTradeCommand',
   acceptTrade: 'AcceptTradeCommand',
-  maritimeTrade: 'MaritimeTradeCommand',
+  maritimeTrade: 'MartimeTradeCommand',
   discardCards: 'DiscardCardsCommand',
 }
 
