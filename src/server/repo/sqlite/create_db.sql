@@ -17,3 +17,10 @@ CREATE TABLE "users" (
 "username" VARCHAR NOT NULL  DEFAULT (null) ,
 "password" VARCHAR NOT NULL  DEFAULT (null) 
 );
+
+CREATE TABLE "players" (
+"user_id" INTEGER NOT NULL ,
+"game_id" INTEGER NOT NULL ,
+foreign key(user_id) REFERENCES users(id) on delete cascade,
+foreign key(game_id) REFERENCES games(id) on delete cascade
+);
