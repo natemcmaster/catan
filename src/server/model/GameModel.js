@@ -176,35 +176,44 @@ GameModel.prototype.playRoadBuilding = function(playerIndex, spot1, spot2) {
 
 	//Check if the player who built has won
 	this.seeIfWon(playerIndex);
-
-
 };
 
 GameModel.prototype.playSoldier = function(playerIndex, victimIndex, location) {
-
 	this.robPlayer(playerIndex, victimIndex, location);
 	this.players[playerIndex].playSoldier();
 
+	this.recalculateLargestArmy(playerIndex);
+	this.seeIfWon(playerIndex);
+};
+
+GameModel.prototype.recalculateLargestArmy = function (playerIndex) {
+
+	//Check if the player who just played a soldier has at least 3
+	//soldiers and is not already the current holder of the largest army.
 	var playerWithLargestArmy = this.data.biggestArmy;
+	if (this.players[playerIndex].soldiers < 3) return;
+	if (playerWithLargestArmy === playerIndex) return;
 
-
-	if (playerWithLargestArmy == -1 && this.players[playerIndex].getSizeOfArmy() >= 3) {
+	//If no one has the largest army and the player who just played a
+	//soldier has 3 or more soldiers, that player claims the largest army.
+	if (playerWithLargestArmy == -1) {
 		this.data.biggestArmy = playerIndex;
 		this.players[playerIndex].setLargestArmy(true);
+		return;
 	}
 
+	//Otherwise, check if the player who just played a soldier now has
+	//a larger army than the player who currently has the largest army.
+	var currentSizeOfLargestArmy = this.players[playerWithLargestArmy].getSizeOfArmy();
+	var sizeOfContenderArmy = this.players[playerIndex].getSizeOfArmy();
 
-	else if (playerIndex != playerWithLargestArmy &&
-			this.players[playerIndex].getSizeOfArmy() > this.players[playerWithLargestArmy].getSizeOfArmy()) {
+	if (sizeOfContenderArmy > currentSizeOfLargestArmy) {
 		this.data.biggestArmy = playerIndex;
 		this.players[playerWithLargestArmy].setLargestArmy(false);
 		this.players[playerIndex].setLargestArmy(true);
+		return;
 	}
-
-
-	this.seeIfWon(playerIndex);
-
-};
+}
 
 GameModel.prototype.playMonopoly = function(playerIndex, resource) {
 	var totalNumberOfResource = 0;
@@ -324,8 +333,13 @@ GameModel.prototype.discardCards = function(playerIndex, cardsToDiscard) {
 			changeStatus = false;
 	});
 
-	if (changeStatus)
+	if (changeStatus) {
 		this.turnTracker.setStatus('Robbing');
+
+		this.players.forEach(function(player) {
+			player.discarded = false;
+		});
+	}
 };
 
 GameModel.prototype.seeIfWon = function(playerIndex){
