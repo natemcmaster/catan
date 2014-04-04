@@ -40,11 +40,11 @@ FilePL.prototype.createUser(data){};
  * Pre-condition: NONE
  * Post-Condition: A command is added and the new id is returned
  * </pre>
- * @method createCommand
+ * @method persistCommand
  * @param {object} data the command data
  * @return {int} commandId
  */
-FilePL.prototype.createCommand(data){};
+FilePL.prototype.persistCommand(data){};
 
 /**
  * <pre>

@@ -40,11 +40,11 @@ BasePL.prototype.createUser(data){};
  * Pre-condition: NONE
  * Post-Condition: A command is added and the new id is returned
  * </pre>
- * @method createCommand
+ * @method persistCommand
  * @param {object} data the command data
  * @return {int} commandId
  */
-BasePL.prototype.createCommand(data){};
+BasePL.prototype.persistCommand(data){};
 
 /**
  * <pre>
