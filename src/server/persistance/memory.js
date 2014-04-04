@@ -7,7 +7,7 @@
 module.exports = MemoryPL;
 
 /**
- * @class FilePL
+ * @class MemoryPL
  * @constructor
  */
 function MemoryPL() {

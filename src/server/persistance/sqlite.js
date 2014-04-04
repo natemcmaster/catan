@@ -7,7 +7,7 @@
 module.exports = SqulitePL;
 
 /**
- * @class FilePL
+ * @class SqlitePL
  * @constructor
  */
 function SqulitePL() {

@@ -7,7 +7,7 @@
 module.exports = BasePL;
 
 /**
- * @class FilePL
+ * @class BasePL
  * @constructor
  */
 function BasePL() {
