@@ -3,14 +3,14 @@ YUI.add("yuidoc-meta", function(Y) {
     "classes": [
         "board.Bank",
         "board.Player",
+        "catan.DAO",
         "comm.BaseCommController",
         "comm.BaseCommView",
-        "comm.ChatController",
         "comm.ChatView",
-        "comm.LogController",
         "comm.LogView",
         "core.Core",
         "devCards.BuyCardView",
+        "devCards.ChatController",
         "devCards.DevCardController",
         "devCards.DevCardView",
         "discard.DiscardController",
@@ -42,24 +42,44 @@ YUI.add("yuidoc-meta", function(Y) {
         "misc.BaseOverlay",
         "misc.GameFinishedView",
         "misc.WaitOverlay",
+        "model.AcceptTradeCommand",
+        "model.BuildCityCommand",
+        "model.BuildRoadCommand",
+        "model.BuildSettlementCommand",
+        "model.BuyDevCardCommand",
         "model.Chat",
         "model.Deck",
+        "model.DiscardCardsCommand",
         "model.Edge",
+        "model.FinishTurnCommand",
         "model.GameBoard",
-        "model.GameRoom",
-        "model.GameTable",
+        "model.GameModel",
         "model.Hex",
+        "model.Injector",
+        "model.Injector.Dependency",
+        "model.InjectorError",
         "model.Log",
         "model.Map",
+        "model.MaritimeTradeCommand",
         "model.NumberTiles",
-        "model.Numbers",
+        "model.OfferTradeCommand",
+        "model.PlayMonopolyCommand",
+        "model.PlayMonumentCommand",
+        "model.PlayRoadBuildingCommand",
+        "model.PlaySoldierCommand",
+        "model.PlayYearOfPlentyCommand",
         "model.Port",
         "model.Proxy",
+        "model.RobPlayerCommand",
+        "model.RollDiceCommand",
+        "model.SendChatCommand",
         "model.TurnTracker",
         "model.Vertex",
-        "models.CatanEdge",
-        "models.CatanVertex",
         "models.ClientModel",
+        "persistance.BasePL",
+        "persistance.FilePL",
+        "persistance.MemoryPL",
+        "persistance.SqlitePL",
         "points.PointController",
         "points.PointView",
         "resources.ResourceBarController",
@@ -67,11 +87,17 @@ YUI.add("yuidoc-meta", function(Y) {
         "roll.RollController",
         "roll.RollResultView",
         "roll.RollView",
+        "servermodel.GameRoom",
+        "servermodel.Log",
+        "servermodel.Messager",
+        "servermodel.User",
         "setup.SetupRoundController",
+        "setup.StatefulController",
         "turntracker.TurnTrackerController",
         "turntracker.TurnTrackerView"
     ],
     "modules": [
+        "catan",
         "catan.comm",
         "catan.devCards",
         "catan.discard",
@@ -80,11 +106,14 @@ YUI.add("yuidoc-meta", function(Y) {
         "catan.model",
         "catan.model.board",
         "catan.model.board.map",
+        "catan.model.commands",
         "catan.models",
         "catan.models.hexgrid",
+        "catan.persistance",
         "catan.points",
         "catan.resources",
         "catan.roll",
+        "catan.server.model",
         "catan.setup",
         "catan.trade",
         "catan.trade.domestic",
@@ -93,6 +122,10 @@ YUI.add("yuidoc-meta", function(Y) {
         "core"
     ],
     "allModules": [
+        {
+            "displayName": "catan",
+            "name": "catan"
+        },
         {
             "displayName": "catan.comm",
             "name": "catan.comm",
@@ -129,7 +162,11 @@ YUI.add("yuidoc-meta", function(Y) {
         {
             "displayName": "catan.model.board.map",
             "name": "catan.model.board.map",
-            "description": "Hex edge class"
+            "description": "This module containts functionality for the map"
+        },
+        {
+            "displayName": "catan.model.commands",
+            "name": "catan.model.commands"
         },
         {
             "displayName": "catan.models",
@@ -140,6 +177,10 @@ YUI.add("yuidoc-meta", function(Y) {
             "displayName": "catan.models.hexgrid",
             "name": "catan.models.hexgrid",
             "description": "This is the namespace for what abstracts the hex grid interface:\n\tlocations, the hex grid, directions and a basic hex class"
+        },
+        {
+            "displayName": "catan.persistance",
+            "name": "catan.persistance"
         },
         {
             "displayName": "catan.points",
@@ -155,6 +196,10 @@ YUI.add("yuidoc-meta", function(Y) {
             "displayName": "catan.roll",
             "name": "catan.roll",
             "description": "This is the namespace the rolling interface"
+        },
+        {
+            "displayName": "catan.server.model",
+            "name": "catan.server.model"
         },
         {
             "displayName": "catan.setup",
