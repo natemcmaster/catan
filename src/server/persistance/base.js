@@ -16,24 +16,24 @@ function BasePL() {
 /**
  * <pre>
  * Pre-condition: NONE
- * Post-Condition: A game is created, and the ID is returned
+ * Post-Condition: The game is persisted, and the ID is returned
  * </pre>
- * @method createGame
+ * @method persistGame
  * @param {object} data the game data
  * @return {int} gameId
  */
-BasePL.prototype.createGame(data){};
+BasePL.prototype.persistGame(data){};
 
 /**
  * <pre>
  * Pre-condition: NONE
- * Post-Condition: A new user is created, and the ID is returned
+ * Post-Condition: The new user is persisted, and the ID is returned
  * </pre>
- * @method createUser
+ * @method persistUser
  * @param {object} data the user data
  * @return {int} userId
  */
-BasePL.prototype.createUser(data){};
+BasePL.prototype.persistUser(data){};
 
 /**
  * <pre>

@@ -16,24 +16,24 @@ function FilePL() {
 /**
  * <pre>
  * Pre-condition: NONE
- * Post-Condition: A game is created, and the ID is returned
+ * Post-Condition: A game is persisted, and the ID is returned
  * </pre>
- * @method createGame
+ * @method persistGame
  * @param {object} data the game data
  * @return {int} gameId
  */
-FilePL.prototype.createGame(data){};
+FilePL.prototype.persistGame(data){};
 
 /**
  * <pre>
  * Pre-condition: NONE
- * Post-Condition: A new user is created, and the ID is returned
+ * Post-Condition: A new user is persisted, and the ID is returned
  * </pre>
- * @method createUser
+ * @method persistUser
  * @param {object} data the user data
  * @return {int} userId
  */
-FilePL.prototype.createUser(data){};
+FilePL.prototype.persistUser(data){};
 
 /**
  * <pre>
