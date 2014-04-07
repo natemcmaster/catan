@@ -12,8 +12,11 @@ module.exports = SQLitePL;
 /**
  * @class SQLitePL
  * @constructor
+ * @param {string} rootPath absolute filepath to the directory where data is stored
  */
-function SQLitePL() {}
+function SQLitePL(rootPath) {
+	this.db = new sqlite3.Database(path.join(rootPath, 'catandb.sqlite3'));
+}
 
 /**
  * <pre>
@@ -43,6 +46,9 @@ SQLitePL.prototype.persistGame = function(data, callback) {
 SQLitePL.prototype.persistUser = function(username, password, callback) {
 
 	this.db.run('INSERT INTO users (username,password) VALUES(?,?)', [username, password], function(err, lastId, rowsChanged) {
+		if(!callback)
+			return;
+
 		if (err) {
 			callback(err);
 		} else if (rowsChanged === 0) {
