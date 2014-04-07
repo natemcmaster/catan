@@ -86,8 +86,7 @@ BasePL.prototype.getRecentGameCommands(gameid, id){};
  * Post-Condition: NONE
  * </pre>
  * @method getAllGameInfo
- * @param {int} gameid the game id
  * @return {object[]} list of json game objects
  */
-BasePL.prototype.getAllGameInfo(id){};
+BasePL.prototype.getAllGameInfo(){};
 
