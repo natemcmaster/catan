@@ -31,11 +31,12 @@ BasePL.prototype.persistGame(data, callback){};
  * Post-Condition: The new user is persisted, and the ID is returned
  * </pre>
  * @method persistUser
- * @param {object} data the user data
+ * @param {string} username
+ * @param {string} password
  * @param {Function} callback callback(error,userId)
  * @return {void}
  */
-BasePL.prototype.persistUser(data, callback){};
+BasePL.prototype.persistUser(username, password, callback){};
 
 /**
  * <pre>
