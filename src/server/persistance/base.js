@@ -8,8 +8,9 @@ module.exports = BasePL;
 /**
  * @class BasePL
  * @constructor
+ * @param {string} rootPath absolute filepath to the directory where data is stored
  */
-function BasePL() {}
+function BasePL(rootPath) {}
 
 /**
  * <pre>
