@@ -20,9 +20,10 @@ function BasePL() {
  * </pre>
  * @method persistGame
  * @param {object} data the game data
- * @return {int} gameId
+ * @param {Function} callback callback(error,gameId)
+ * @return {void}
  */
-BasePL.prototype.persistGame(data){};
+BasePL.prototype.persistGame(data, callback){};
 
 /**
  * <pre>
@@ -31,9 +32,10 @@ BasePL.prototype.persistGame(data){};
  * </pre>
  * @method persistUser
  * @param {object} data the user data
- * @return {int} userId
+ * @param {Function} callback callback(error,userId)
+ * @return {void}
  */
-BasePL.prototype.persistUser(data){};
+BasePL.prototype.persistUser(data, callback){};
 
 /**
  * <pre>
@@ -42,9 +44,10 @@ BasePL.prototype.persistUser(data){};
  * </pre>
  * @method persistCommand
  * @param {object} data the command data
- * @return {int} commandId
+ * @param {Function} callback callback(error,commandId)
+ * @return {void}
  */
-BasePL.prototype.persistCommand(data){};
+BasePL.prototype.persistCommand(data, callback){};
 
 /**
  * <pre>
@@ -54,9 +57,10 @@ BasePL.prototype.persistCommand(data){};
  * @method updateGame
  * @param {int} gameid the game id
  * @param {object} data the game data
+ * @param {Function} callback callback(error) 
  * @return {void}
  */
-BasePL.prototype.updateGame(id, data){};
+BasePL.prototype.updateGame(id, data, callback){};
 
 /**
  * <pre>
@@ -64,9 +68,15 @@ BasePL.prototype.updateGame(id, data){};
  * Post-Condition: NONE
  * </pre>
  * @method readAllUsers
- * @return {object[]} list of json user objects
+ * @param {Function} callback callback(error,users) where users is a list of user objects
+ *  {
+ *      id:<id>,
+ *      username:<username>,
+ *      password:<password>
+ *  }
+ * @return {void}
  */
-BasePL.prototype.readAllUsers(){};
+BasePL.prototype.readAllUsers(callback){};
 
 /**
  * <pre>
@@ -76,9 +86,10 @@ BasePL.prototype.readAllUsers(){};
  * @method getRecentGameCommands
  * @param {int} gameid the game id
  * @param {int} id the id of the last command executed
- * @return {object[]} list of json command objects
+ * @param {Function} callback callback(error,commands) where users is a list of command objects
+ * @return {void}
  */
-BasePL.prototype.getRecentGameCommands(gameid, id){};
+BasePL.prototype.getRecentGameCommands(gameid, id, callback){};
 
 /**
  * <pre>
@@ -87,7 +98,8 @@ BasePL.prototype.getRecentGameCommands(gameid, id){};
  * </pre>
  * @method getAllGameInfo
  * @param {int} gameid the game id
- * @return {object[]} list of json game objects
+ * @param {Function} callback callback(error,games) where users is a list of game objects
+ * @return {void}
  */
-BasePL.prototype.getAllGameInfo(id){};
+BasePL.prototype.getAllGameInfo(id, callback){};
 
