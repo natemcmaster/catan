@@ -13,8 +13,7 @@ module.exports = SQLitePL;
  * @class SQLitePL
  * @constructor
  */
-function SQLitePL() {
-}
+function SQLitePL() {}
 
 /**
  * <pre>
@@ -26,7 +25,9 @@ function SQLitePL() {
  * @param {Function} callback callback(error,gameId)
  * @return {void}
  */
-SQLitePL.prototype.persistGame(data, callback){};
+SQLitePL.prototype.persistGame = function(data, callback) {
+
+};
 
 /**
  * <pre>
@@ -39,17 +40,15 @@ SQLitePL.prototype.persistGame(data, callback){};
  * @param {Function} callback callback(error,userId)
  * @return {void}
  */
-SQLitePL.prototype.persistUser(username, password, callback){
+SQLitePL.prototype.persistUser = function(username, password, callback) {
 
-	this.db.run('INSERT INTO users (username,password) VALUES(?,?)',[username,password],function(err,lastId,rowsChanged){
-		if(err){
+	this.db.run('INSERT INTO users (username,password) VALUES(?,?)', [username, password], function(err, lastId, rowsChanged) {
+		if (err) {
 			callback(err);
-		}
-		else if(rowsChanged === 0){
+		} else if (rowsChanged === 0) {
 			callback('User not created');
-		}
-		else{
-			callback(null,lastId);
+		} else {
+			callback(null, lastId);
 		}
 	});
 
@@ -65,7 +64,7 @@ SQLitePL.prototype.persistUser(username, password, callback){
  * @param {Function} callback callback(error,commandId)
  * @return {void}
  */
-SQLitePL.prototype.persistCommand(data, callback){};
+SQLitePL.prototype.persistCommand = function(data, callback) {};
 
 /**
  * <pre>
@@ -75,10 +74,10 @@ SQLitePL.prototype.persistCommand(data, callback){};
  * @method updateGame
  * @param {int} gameid the game id
  * @param {object} data the game data
- * @param {Function} callback callback(error) 
+ * @param {Function} callback callback(error)
  * @return {void}
  */
-SQLitePL.prototype.updateGame(id, data, callback){};
+SQLitePL.prototype.updateGame = function(id, data, callback) {};
 
 /**
  * <pre>
@@ -94,7 +93,7 @@ SQLitePL.prototype.updateGame(id, data, callback){};
  *  }
  * @return {void}
  */
-SQLitePL.prototype.readAllUsers(callback){};
+SQLitePL.prototype.readAllUsers = function(callback) {};
 
 /**
  * <pre>
@@ -107,7 +106,7 @@ SQLitePL.prototype.readAllUsers(callback){};
  * @param {Function} callback callback(error,commands) where users is a list of command objects
  * @return {void}
  */
-SQLitePL.prototype.getRecentGameCommands(gameid, id, callback){};
+SQLitePL.prototype.getRecentGameCommands = function(gameid, id, callback) {};
 
 /**
  * <pre>
@@ -119,5 +118,4 @@ SQLitePL.prototype.getRecentGameCommands(gameid, id, callback){};
  * @param {Function} callback callback(error,games) where users is a list of game objects
  * @return {void}
  */
-SQLitePL.prototype.getAllGameInfo(id, callback){};
-
+SQLitePL.prototype.getAllGameInfo = function(id, callback) {};

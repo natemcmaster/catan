@@ -1,4 +1,3 @@
-
 /**
  * @module catan.persistance
  * @namespace persistance
@@ -10,8 +9,7 @@ module.exports = BasePL;
  * @class BasePL
  * @constructor
  */
-function BasePL() {
-}
+function BasePL() {}
 
 /**
  * <pre>
@@ -23,7 +21,7 @@ function BasePL() {
  * @param {Function} callback callback(error,gameId)
  * @return {void}
  */
-BasePL.prototype.persistGame(data, callback){};
+BasePL.prototype.persistGame = function(data, callback) {};
 
 /**
  * <pre>
@@ -36,7 +34,7 @@ BasePL.prototype.persistGame(data, callback){};
  * @param {Function} callback callback(error,userId)
  * @return {void}
  */
-BasePL.prototype.persistUser(username, password, callback){};
+BasePL.prototype.persistUser = function(username, password, callback) {};
 
 /**
  * <pre>
@@ -48,7 +46,7 @@ BasePL.prototype.persistUser(username, password, callback){};
  * @param {Function} callback callback(error,commandId)
  * @return {void}
  */
-BasePL.prototype.persistCommand(data, callback){};
+BasePL.prototype.persistCommand = function(data, callback) {};
 
 /**
  * <pre>
@@ -58,10 +56,10 @@ BasePL.prototype.persistCommand(data, callback){};
  * @method updateGame
  * @param {int} gameid the game id
  * @param {object} data the game data
- * @param {Function} callback callback(error) 
+ * @param {Function} callback callback(error)
  * @return {void}
  */
-BasePL.prototype.updateGame(id, data, callback){};
+BasePL.prototype.updateGame = function(id, data, callback) {};
 
 /**
  * <pre>
@@ -77,7 +75,7 @@ BasePL.prototype.updateGame(id, data, callback){};
  *  }
  * @return {void}
  */
-BasePL.prototype.readAllUsers(callback){};
+BasePL.prototype.readAllUsers = function(callback) {};
 
 /**
  * <pre>
@@ -90,7 +88,7 @@ BasePL.prototype.readAllUsers(callback){};
  * @param {Function} callback callback(error,commands) where users is a list of command objects
  * @return {void}
  */
-BasePL.prototype.getRecentGameCommands(gameid, id, callback){};
+BasePL.prototype.getRecentGameCommands = function(gameid, id, callback) {};
 
 /**
  * <pre>
@@ -102,5 +100,4 @@ BasePL.prototype.getRecentGameCommands(gameid, id, callback){};
  * @param {Function} callback callback(error,games) where users is a list of game objects
  * @return {void}
  */
-BasePL.prototype.getAllGameInfo(id, callback){};
-
+BasePL.prototype.getAllGameInfo = function(id, callback) {};
