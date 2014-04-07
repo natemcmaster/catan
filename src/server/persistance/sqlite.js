@@ -4,13 +4,13 @@
  * @namespace persistance
  */
 
-module.exports = SqulitePL;
+module.exports = SqlitePL;
 
 /**
  * @class SqlitePL
  * @constructor
  */
-function SqulitePL() {
+function SqlitePL() {
 }
 
 /**
@@ -22,7 +22,7 @@ function SqulitePL() {
  * @param {object} data the game data
  * @return {int} gameId
  */
-SqulitePL.prototype.persistGame(data){};
+SqlitePL.prototype.persistGame(data){};
 
 /**
  * <pre>
@@ -33,7 +33,7 @@ SqulitePL.prototype.persistGame(data){};
  * @param {object} data the user data
  * @return {int} userId
  */
-SqulitePL.prototype.persistUser(data){};
+SqlitePL.prototype.persistUser(data){};
 
 /**
  * <pre>
@@ -44,7 +44,7 @@ SqulitePL.prototype.persistUser(data){};
  * @param {object} data the command data
  * @return {int} commandId
  */
-SqulitePL.prototype.persistCommand(data){};
+SqlitePL.prototype.persistCommand(data){};
 
 /**
  * <pre>
@@ -56,7 +56,7 @@ SqulitePL.prototype.persistCommand(data){};
  * @param {object} data the game data
  * @return {void}
  */
-SqulitePL.prototype.updateGame(id, data){};
+SqlitePL.prototype.updateGame(id, data){};
 
 /**
  * <pre>
@@ -66,7 +66,7 @@ SqulitePL.prototype.updateGame(id, data){};
  * @method readAllUsers
  * @return {object[]} list of json user objects
  */
-SqulitePL.prototype.readAllUsers(){};
+SqlitePL.prototype.readAllUsers(){};
 
 /**
  * <pre>
@@ -78,7 +78,7 @@ SqulitePL.prototype.readAllUsers(){};
  * @param {int} id the id of the last command executed
  * @return {object[]} list of json command objects
  */
-SqulitePL.prototype.getRecentGameCommands(gameid, id){};
+SqlitePL.prototype.getRecentGameCommands(gameid, id){};
 
 /**
  * <pre>
@@ -89,5 +89,5 @@ SqulitePL.prototype.getRecentGameCommands(gameid, id){};
  * @param {int} gameid the game id
  * @return {object[]} list of json game objects
  */
-SqulitePL.prototype.getAllGameInfo(id){};
+SqlitePL.prototype.getAllGameInfo(id){};
 
