@@ -86,10 +86,7 @@ DAO.prototype.persistCommand = function (gameID, command) {
  */
 DAO.prototype.createUser = function (user, password) {
 
-	var data = {'user' : user,
-				'password' : password};
-
-	this.pl.createUser(data);
+	this.pl.persistUser(data);
 
 	//get call back function and add the user to the this.gr.users with id
 }
@@ -168,13 +165,14 @@ DAO.prototype.createGame = function (gameinfo) {
 		model: model
 	};
 
-	var gameID = this.pl.persistGame(game);
+	this.pl.persistGame(game, function(error, data){
 
-	//DO IN CALL BACK////
-	game.id = gameID;
+		game.id = data;
+		this.gr.games[game.id] = game;
 
-	this.gr.games.append(game);
-	////////
+	}.bind(this));
+
+	
 }
 
 /**
