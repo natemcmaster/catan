@@ -90,4 +90,3 @@ MemoryPL.prototype.getRecentGameCommands(gameid, id){};
  * @return {object[]} list of json game objects
  */
 MemoryPL.prototype.getAllGameInfo(id){};
-

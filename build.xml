@@ -7,6 +7,11 @@
 			<fileset dir="node_modules/byu-catan/" />
 		</copy>
 	</target>
+  <target name="reset-persistence">
+    <copy todir="${out.dir}/data">
+      <fileset dir="src/server/initial_data"/>
+    </copy>
+  </target>
 	<target name="java-server" depends="copy">
 	 	<ant inheritAll="false" antfile="${out.dir}/build.xml" target="server"/>
 	 </target>
@@ -25,4 +30,3 @@
 		<delete dir="${out.dir}" includeemptydirs="true"/>
 	</target>
 </project>
-

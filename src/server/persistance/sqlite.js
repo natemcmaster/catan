@@ -1,39 +1,64 @@
+var sqlite3 = require('sqlite3').verbose(),
+	path = require('path'),
+	CatanError = require('../../common/Errors').CatanError;
 
 /**
  * @module catan.persistance
  * @namespace persistance
  */
 
-module.exports = SqulitePL;
+module.exports = SQLitePL;
 
 /**
- * @class SqlitePL
+ * @class SQLitePL
  * @constructor
+ * @param {string} rootPath absolute filepath to the directory where data is stored
  */
-function SqulitePL() {
+function SQLitePL(rootPath) {
+	this.db = new sqlite3.Database(path.join(rootPath, 'catandb.sqlite3'));
 }
 
 /**
  * <pre>
  * Pre-condition: NONE
- * Post-Condition: A game is persisted, and the ID is returned
+ * Post-Condition: The game is persisted, and the ID is returned
  * </pre>
  * @method persistGame
  * @param {object} data the game data
- * @return {int} gameId
+ * @param {Function} callback callback(error,gameId)
+ * @return {void}
  */
-SqulitePL.prototype.persistGame(data){};
+SQLitePL.prototype.persistGame = function(data, callback) {
+
+};
 
 /**
  * <pre>
  * Pre-condition: NONE
- * Post-Condition: A new user is persisted, and the ID is returned
+ * Post-Condition: The new user is persisted, and the ID is returned
  * </pre>
  * @method persistUser
- * @param {object} data the user data
- * @return {int} userId
+ * @param {string} username
+ * @param {string} password
+ * @param {Function} callback callback(error,userId)
+ * @return {void}
  */
-SqulitePL.prototype.persistUser(data){};
+SQLitePL.prototype.persistUser = function(username, password, callback) {
+
+	this.db.run('INSERT INTO users (username,password) VALUES(?,?)', [username, password], function(err, lastId, rowsChanged) {
+		if(!callback)
+			return;
+
+		if (err) {
+			callback(err);
+		} else if (rowsChanged === 0) {
+			callback('User not created');
+		} else {
+			callback(null, lastId);
+		}
+	});
+
+};
 
 /**
  * <pre>
@@ -42,9 +67,10 @@ SqulitePL.prototype.persistUser(data){};
  * </pre>
  * @method persistCommand
  * @param {object} data the command data
- * @return {int} commandId
+ * @param {Function} callback callback(error,commandId)
+ * @return {void}
  */
-SqulitePL.prototype.persistCommand(data){};
+SQLitePL.prototype.persistCommand = function(data, callback) {};
 
 /**
  * <pre>
@@ -54,9 +80,10 @@ SqulitePL.prototype.persistCommand(data){};
  * @method updateGame
  * @param {int} gameid the game id
  * @param {object} data the game data
+ * @param {Function} callback callback(error)
  * @return {void}
  */
-SqulitePL.prototype.updateGame(id, data){};
+SQLitePL.prototype.updateGame = function(id, data, callback) {};
 
 /**
  * <pre>
@@ -64,9 +91,15 @@ SqulitePL.prototype.updateGame(id, data){};
  * Post-Condition: NONE
  * </pre>
  * @method readAllUsers
- * @return {object[]} list of json user objects
+ * @param {Function} callback callback(error,users) where users is a list of user objects
+ *  {
+ *      id:<id>,
+ *      username:<username>,
+ *      password:<password>
+ *  }
+ * @return {void}
  */
-SqulitePL.prototype.readAllUsers(){};
+SQLitePL.prototype.readAllUsers = function(callback) {};
 
 /**
  * <pre>
@@ -76,9 +109,10 @@ SqulitePL.prototype.readAllUsers(){};
  * @method getRecentGameCommands
  * @param {int} gameid the game id
  * @param {int} id the id of the last command executed
- * @return {object[]} list of json command objects
+ * @param {Function} callback callback(error,commands) where users is a list of command objects
+ * @return {void}
  */
-SqulitePL.prototype.getRecentGameCommands(gameid, id){};
+SQLitePL.prototype.getRecentGameCommands = function(gameid, id, callback) {};
 
 /**
  * <pre>
@@ -87,7 +121,7 @@ SqulitePL.prototype.getRecentGameCommands(gameid, id){};
  * </pre>
  * @method getAllGameInfo
  * @param {int} gameid the game id
- * @return {object[]} list of json game objects
+ * @param {Function} callback callback(error,games) where users is a list of game objects
+ * @return {void}
  */
-SqulitePL.prototype.getAllGameInfo(id){};
-
+SQLitePL.prototype.getAllGameInfo = function(id, callback) {};
