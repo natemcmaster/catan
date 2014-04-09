@@ -3,6 +3,9 @@ var expect = require('chai').expect
   , request = require('supertest')
   , MakeApp = require('../../../src/server/catan')
   , testConfig = require('../../test-config')
+  , SqlitePL = require('../../../src/server/persistance/sqlite.js')
+  // , FilePL = require('../../../src/server/persistance/file.js')
+  , MemPL = require('../../../src/server/persistance/memory.js')
   ;
 
 module.exports = {
@@ -14,16 +17,19 @@ module.exports = {
 function loggedInAs(name, password, sub) {
   describe('logged in as ' + name, function () {
     beforeEach(function (done) {
-      this.app = MakeApp(testConfig);
-      this.agent = request.agent(this.app);
-      this.agent.post('/user/login')
-        .send({username: name, password: password})
-        .expect(200, function (err) {
-          if (err) {
-            console.error('HTTP Error', res.text);
-          }
-          done(err);
-        })
+      var PlClass = MemPL
+        , deltaNumber = 10
+      MakeApp(function (app) {
+        this.agent = request.agent(this.app);
+        this.agent.post('/user/login')
+          .send({username: name, password: password})
+          .expect(200, function (err) {
+            if (err) {
+              console.error('HTTP Error', res.text);
+            }
+            done(err);
+          })
+      }.bind(this), PlClass, deltaNumber, testConfig);
     });
     sub();
   });

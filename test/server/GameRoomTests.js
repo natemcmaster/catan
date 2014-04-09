@@ -4,16 +4,19 @@ var expect = require('chai').expect
   , MakeApp = require('../../src/server/catan')
   , testConfig = require('../test-config')
   , h = require('./commands/helpers')
+  , MemPL = require('../../src/server/persistance/memory.js')
   ;
 
 describe('GameRoom endpoints', function () {
   var app, agent;
-  beforeEach(function () {
-    app = MakeApp(testConfig);
-    agent = request.agent(app)
+  beforeEach(function (done) {
+    MakeApp(function (app) {
+      app = app
+      agent = request.agent(app)
+    }, MemPL, 10, testConfig);
   });
 
-  describe('login', function () {
+  describe.only('login', function () {
 
     it('should login', function (done) {
       agent.post('/user/login')
