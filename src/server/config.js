@@ -1,6 +1,5 @@
 var model = require('./model');
 var logger = require('./resources').ConsoleLogger;
-var repo = require('./repo');
 
 function flatten(obj, d) {
     d = d || {};
@@ -15,17 +14,8 @@ function flatten(obj, d) {
 }
 
 var runtime = flatten(model);
-var repoPlugins = {
-    memory: flatten(repo.mem),
-    sqlite: flatten(repo.sqlite),
-    file: flatten(repo.file),
-};
 
-module.exports = function _setup_injection(inj, pl) {
-    pl = pl || 'memory';
-    if (!repoPlugins[pl])
-        throw new TypeError('Invalid persistence option: ' + pl);
+module.exports = function _setup_injection(inj) {
     inj.map(runtime);
-    inj.mapSingleton(repoPlugins[pl]);
     inj.singleton('Logger', logger);
 }
