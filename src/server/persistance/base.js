@@ -47,7 +47,7 @@ BasePL.prototype.persistUser = function(username, password, callback) {};
  * @param {Function} callback callback(error,commandId)
  * @return {void}
  */
-BasePL.prototype.persistCommand = function(data, callback) {};
+BasePL.prototype.persistCommand = function(gameID, data, callback) {};
 
 /**
  * <pre>
