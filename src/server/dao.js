@@ -71,8 +71,12 @@ DAO.prototype.persistCommand = function (gameID, command) {
   		}
   	}
 
-  	this.pl.updateGame(gameID, gameData, function(error){});
-  	this.currentDelta = 0;
+  	this.pl.updateGame(gameID, gameData, function(error){
+
+  		this.currentDelta = 0;
+
+  	}.bind(this));
+  	
 
   }
 
