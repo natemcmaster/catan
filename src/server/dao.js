@@ -33,18 +33,15 @@ function DAO(deltaNumber, dataPath, $PersistanceLayer, $GameRoom, $GameModel) {
  * @method createGameRoom
  * @return {GameRoom} the created game room
  */
-DAO.prototype.createGameRoom = function () {
+DAO.prototype.createGameRoom = function (callback) {
 
 	this.pl.readAllUsers(function(error, users){
 		this.gr.users = users;
+		this.pl.getAllGameInfo(function(error, games){
+			this.gr.games = games;
+			callback(this.gr)
+		}.bind(this));
 	}.bind(this));
-
-
-	this.pl.getAllGameInfo(function(error, games){
-		this.gr.games = games;
-	}.bind(this));
-
-	return this.gr;
 
 }
 
@@ -57,8 +54,7 @@ DAO.prototype.createGameRoom = function () {
  * @return {int} command id
  */
 DAO.prototype.persistCommand = function (gameID, command) {
-  // check the number of commmands that have been executed, should I serialize
-  // the game?
+
   this.pl.persistCommand(gameID, command, function(error){});
   if(this.currentDelta >= this.deltaNumber){
 
