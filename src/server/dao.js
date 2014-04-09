@@ -12,8 +12,8 @@ module.exports = DAO;
  * @class DAO
  * @constructor
  */
-function DAO(deltaNumber, $PersistanceLayer, $GameRoom, $GameModel) {
-  this.pl = $PersistanceLayer();
+function DAO(deltaNumber, dataPath, $PersistanceLayer, $GameRoom, $GameModel) {
+  this.pl = $PersistanceLayer(dataPath);
   this.gr = $GameRoom();
   this.constructGame = $GameModel;
   this.deltaNumber = deltaNumber;
@@ -35,8 +35,14 @@ function DAO(deltaNumber, $PersistanceLayer, $GameRoom, $GameModel) {
  */
 DAO.prototype.createGameRoom = function () {
 
-	this.gr.users = this.pl.readAllUsers();
-	this.gr.games = this.pl.getAllGameInfo();
+	this.pl.readAllUsers(function(error, users){
+		this.gr.users = users;
+	}.bind(this));
+
+
+	this.pl.getAllGameInfo(function(error, games){
+		this.gr.games = games;
+	}.bind(this));
 
 	return this.gr;
 
@@ -53,7 +59,7 @@ DAO.prototype.createGameRoom = function () {
 DAO.prototype.persistCommand = function (gameID, command) {
   // check the number of commmands that have been executed, should I serialize
   // the game?
-  this.pl.persistCommand()
+  this.pl.persistCommand(gameID, command, function(error){});
   if(this.currentDelta >= this.deltaNumber){
 
   	var gameData;
@@ -65,8 +71,8 @@ DAO.prototype.persistCommand = function (gameID, command) {
   		}
   	}
 
-  	this.pl.updateGame(gameID, gameData);
-  	this.currentDelta = ;0
+  	this.pl.updateGame(gameID, gameData, function(error){});
+  	this.currentDelta = 0;
 
   }
 
@@ -86,9 +92,13 @@ DAO.prototype.persistCommand = function (gameID, command) {
  */
 DAO.prototype.createUser = function (user, password) {
 
-	this.pl.persistUser(data);
+	this.pl.persistUser(user, password, function(error, userID){
 
-	//get call back function and add the user to the this.gr.users with id
+		this.gr.users[userID] = {'id' : userID,
+								 'username' : user,
+								 'password' : password};
+
+	}.bind(this));
 }
 
 /**
@@ -165,9 +175,9 @@ DAO.prototype.createGame = function (gameinfo) {
 		model: model
 	};
 
-	this.pl.persistGame(game, function(error, data){
+	this.pl.persistGame(game, function(error, gameID){
 
-		game.id = data;
+		game.id = gameID;
 		this.gr.games[game.id] = game;
 
 	}.bind(this));
@@ -185,6 +195,6 @@ DAO.prototype.createGame = function (gameinfo) {
  * @return {void}
  */
 DAO.prototype.updateGame = function (id, gameinfo) {
-	this.pl.updateGame(id, gameinfo);
+	this.pl.updateGame(id, gameinfo, function(error){});
 }
 
