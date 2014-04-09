@@ -16,6 +16,9 @@ module.exports = SQLitePL;
  */
 function SQLitePL(rootPath) {
 	this.db = new sqlite3.Database(path.join(rootPath, 'catandb.sqlite3'));
+	this.db.run('PRAGMA FOREIGN_KEYS=on;',function(err){
+		console.log(err);
+	});
 }
 
 /**
@@ -29,7 +32,20 @@ function SQLitePL(rootPath) {
  * @return {void}
  */
 SQLitePL.prototype.persistGame = function(data, callback) {
+	var blob = JSON.stringify(data);
+	this.db.run('INSERT INTO games (original_state,current_state) VALUEs (?,?)', [blob, blob], function(err) {
+		if (!callback) {
+			return;
+		}
 
+		if (err) {
+			callback(err);
+		} else if (!this.lastID && this.lastID !== 0) {
+			callback('Game not created');
+		} else {
+			callback(null, this.lastID);
+		}
+	});
 };
 
 /**
@@ -45,16 +61,17 @@ SQLitePL.prototype.persistGame = function(data, callback) {
  */
 SQLitePL.prototype.persistUser = function(username, password, callback) {
 
-	this.db.run('INSERT INTO users (username,password) VALUES(?,?)', [username, password], function(err, lastId, rowsChanged) {
-		if(!callback)
+	this.db.run('INSERT INTO users (username,password) VALUES(?,?)', [username, password], function(err) {
+		if (!callback) {
 			return;
+		}
 
 		if (err) {
 			callback(err);
-		} else if (rowsChanged === 0) {
+		} else if (!this.lastID && this.lastID !== 0) {
 			callback('User not created');
 		} else {
-			callback(null, lastId);
+			callback(null, this.lastID);
 		}
 	});
 
@@ -66,11 +83,28 @@ SQLitePL.prototype.persistUser = function(username, password, callback) {
  * Post-Condition: A command is added and the new id is returned
  * </pre>
  * @method persistCommand
+ * @param {int} gameId the game id
  * @param {object} data the command data
  * @param {Function} callback callback(error,commandId)
  * @return {void}
  */
-SQLitePL.prototype.persistCommand = function(data, callback) {};
+SQLitePL.prototype.persistCommand = function(gameId, data, callback) {
+	var blob = JSON.stringify(data);
+	this.db.run('INSERT INTO commands (game_id,json_blob) VALUES (?,?)', [gameId, blob], function(err) {
+		if (!callback) {
+			return;
+		}
+
+		if (err) {
+			callback(err);
+		} else if (!this.lastID && this.lastID !== 0) {
+			callback('Command not created');
+		} else {
+			callback(null, this.lastID);
+		}
+	});
+
+};
 
 /**
  * <pre>
@@ -83,11 +117,25 @@ SQLitePL.prototype.persistCommand = function(data, callback) {};
  * @param {Function} callback callback(error)
  * @return {void}
  */
-SQLitePL.prototype.updateGame = function(id, data, callback) {};
+SQLitePL.prototype.updateGame = function(id, data, callback) {
+	var blob = JSON.stringify(data);
+	this.db.run('UPDATE games set current_state = ? where id = ?', [data, id], function(err) {
+		if (!callback) {
+			return;
+		}
+		if(err){
+			callback(err)
+		} else if(!this.changes) {
+			callback('Could not update');
+		} else{
+			callback(null);
+		}
+	});
+};
 
 /**
  * <pre>
- * Pre-condition: NONE
+ * Pre-condition: Callback is a function
  * Post-Condition: NONE
  * </pre>
  * @method readAllUsers
@@ -99,7 +147,9 @@ SQLitePL.prototype.updateGame = function(id, data, callback) {};
  *  }
  * @return {void}
  */
-SQLitePL.prototype.readAllUsers = function(callback) {};
+SQLitePL.prototype.readAllUsers = function(callback) {
+	this.db.all('select id,username,password from users',callback);
+};
 
 /**
  * <pre>
@@ -112,11 +162,24 @@ SQLitePL.prototype.readAllUsers = function(callback) {};
  * @param {Function} callback callback(error,commands) where users is a list of command objects
  * @return {void}
  */
-SQLitePL.prototype.getRecentGameCommands = function(gameid, id, callback) {};
+SQLitePL.prototype.getRecentGameCommands = function(gameid, id, callback) {
+	this.db.all('select * from commands where game_id = ? and id > ?',[gameid,id],function(err,rows){
+		if(err ){
+			callback(err)
+		} else{
+			rows = rows.map(function(r){
+				r.data = JSON.parse(r.json_blob);
+				delete r.json_blob;
+				return r;
+			})
+			callback(null,rows);
+		}
+	})
+};
 
 /**
  * <pre>
- * Pre-condition: NONE
+ * Pre-condition: gameId is a number
  * Post-Condition: NONE
  * </pre>
  * @method getAllGameInfo
@@ -124,4 +187,16 @@ SQLitePL.prototype.getRecentGameCommands = function(gameid, id, callback) {};
  * @param {Function} callback callback(error,games) where users is a list of game objects
  * @return {void}
  */
-SQLitePL.prototype.getAllGameInfo = function(id, callback) {};
+SQLitePL.prototype.getAllGameInfo = function(id, callback) {
+	this.db.get('select * from games where id = ?',[id],function(err,row){
+		if(err || !row){
+			callback(err || 'No game found');
+		} else {
+			row.original = JSON.parse(row.original_state);
+			row.current = JSON.parse(row.current_state);
+			delete row.original_state;
+			delete row.current_state;
+			callback(null,row);
+		}
+	});
+};
