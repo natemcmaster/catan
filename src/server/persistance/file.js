@@ -17,8 +17,8 @@ util.inherits(FilePL, BasePL);
  */
 function FilePL(rootPath) {
 	this.rootPath = rootPath;
-	this.nextGameID = 0;
-	this.nextUserID = 0;
+	this.nextGameID = 3;
+	this.nextUserID = 101;
 	this.nextCommandID = [];
 	this.users = [];
 };
@@ -29,13 +29,14 @@ function FilePL(rootPath) {
  * Post-Condition: The game is persisted, and the ID is returned
  * </pre>
  * @method persistGame
+ * @param {object} title the title of the game
  * @param {object} data the game data
  * @param {Function} callback callback(error,gameId)
  * @return {void}
  */
-FilePL.prototype.persistGame = function(data, callback){
+FilePL.prototype.persistGame = function(title, data, callback){
 	var id = this.nextGameID++;
-	var gameInfo = {'id':id, 'currentGame':data, 'originalGame':data, 'lastCommand':0};
+	var gameInfo = {'id':id, 'title':title, 'currentGame':data, 'originalGame':data, 'lastCommand':0};
 	
 	try {
 		fs.writeFile(this.rootPath + 'game' + id + '.json', JSON.stringify(gameInfo), null, function(error){

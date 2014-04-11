@@ -18,11 +18,12 @@ function BasePL(rootPath) {}
  * Post-Condition: The game is persisted, and the ID is returned
  * </pre>
  * @method persistGame
+ * @param {object} title the title of the game
  * @param {object} data the game data
  * @param {Function} callback callback(error,gameId)
  * @return {void}
  */
-BasePL.prototype.persistGame = function(data, callback) {};
+BasePL.prototype.persistGame = function(title, data, callback) {};
 
 /**
  * <pre>
