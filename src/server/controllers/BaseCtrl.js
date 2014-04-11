@@ -113,19 +113,11 @@ BaseCtrl.prototype.commandRoute = function (cmdName, req, res) {
     return res.send(500, 'Error: ' + command.message);
   }
   debug('executing')
-  var err;
-  try {
-    err = command.execute(req.gameRoom);
-  } catch (e) {
-    err = e
-  }
-  if (err) {
-    return res.send(500, 'Error: ' + err.message);
-  }
-  var response = command.response(req.gameRoom);
-  if (response instanceof Error) {
-    return res.send(400, 'Error: ' + response.message);
-  }
-  res.json(response);
+  req.gameRoom.executeCommand(command, function (err, response) {
+    if (err) {
+      return res.send(500, 'Error: ' + err.message + '\n' + err.stack)
+    }
+    res.json(response);
+  })
 }
 

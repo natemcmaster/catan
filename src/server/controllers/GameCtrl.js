@@ -27,9 +27,11 @@ GameCtrl.prototype.assignRoutes = function(app, h) {
 
 GameCtrl.prototype.getModel = function(q, r) {
 	debug('Getting model for game', q.gameID);
-	var game = q.gameRoom.getGameModel(q.gameID);
-	var data = game.toJSON()
-	r.json(data);
+	q.gameRoom.getGameModel(q.gameID, function (err, game) {
+    if (err) return r.send(500, err.message + '\n' + err.stack)
+    var data = game.toJSON()
+    r.json(data);
+  });
 }
 
 GameCtrl.prototype.listCommands = function(q, r) {
@@ -42,7 +44,10 @@ GameCtrl.prototype.listAi = function(q, r) {
 }
 
 GameCtrl.prototype.reset = function(q, r) {
-	//game model
+  q.gameRoom.resetGame(q.gameID, function (err, game) {
+    if (err) return r.send(500, err.message + '\n' + err.stack)
+    r.json(game.toJSON())
+  })
 }
 
 GameCtrl.prototype.executeCommands = function(q, r) {
@@ -50,5 +55,6 @@ GameCtrl.prototype.executeCommands = function(q, r) {
 }
 
 GameCtrl.prototype.addAi = function(q, r) {
-	r.send(200);
+	r.send(418);
 }
+

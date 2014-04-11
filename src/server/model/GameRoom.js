@@ -36,13 +36,26 @@ GameRoom.prototype.getUserByID = function(playerID) {
 
 /**
  * Executes a command
- * @param  {int}   gameId  id of game
  * @param  {AbstractCommand}   command  
  * @param  {Function} callback callback(err)
  * @return {void}            
  */
-GameRoom.prototype.executeCommand = function(gameId,command,callback){
-	callback('Not implemented');
+GameRoom.prototype.executeCommand = function (command, callback) {
+  try {
+    err = command.execute(this);
+  } catch (e) {
+    err = e
+  }
+  if (err) {
+    return callback(err)
+  }
+  var response = command.response(req.gameRoom);
+  if (response instanceof Error) {
+    return callback(response)
+  }
+
+  // TODO persist
+  callback(null, response);
 }
 
 //--------------------------------------------------------------
