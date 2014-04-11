@@ -12,48 +12,48 @@ module.exports = DAO;
  * @class DAO
  * @constructor
  */
-function DAO(deltaNumber, dataPath, $PersistanceLayer, $GameRoom, $GameModel) {
+function DAO(maxDelta, dataPath, $PersistanceLayer, $GameModel) {
 	this.pl = $PersistanceLayer(dataPath);
-	this.gr = $GameRoom();
 	this.constructGame = $GameModel;
-	this.deltaNumber = deltaNumber;
-	this.currentDelta = 0;
-
-	var data = JSON.parse(fs.readFileSync(path.join(__dirname, '/initial_data/_initialdata.json')));
+	var data = JSON.parse(fs.readFileSync(path.join(__dirname, 'initial_data', '_initialdata.json')));
 	this.blank = data.blank;
-	this.constructGame = $GameModel;
 
+	var gamesDeltas = {};
+	this.updateDelta = function(gameId) {
+		if (!gameDeltas[gameId]) { //intentionally tricky: this is true for new games and games that have reached zero deltas
+			gameDeltas[gameId] = maxDelta;
+			return true;
+		}
+		gameDeltas[gameId] -= 1;
+		return false;
+	}
 }
 
 /**
  * <pre>
  * Post-condition: the command is persisted
  * </pre>
- * @method persistCommand
+ * @method saveCommand
  * @param {object} command
  * @param {fn(err, commandID)} callback
  * @return {void}
  */
-DAO.prototype.persistCommand = function(gameID, command) {
+DAO.prototype.saveCommand = function(command, game, doneSaving) {
 
-	this.pl.persistCommand(gameID, command, function(error) {});
-	if (this.currentDelta >= this.deltaNumber) {
-
-		var gameData;
-
-		for (i = 0; i < this.gr.games.length; i++) {
-			if (this.gr.games[i].id == gameID) {
-				gameData = this.gr.games[i];
-				break;
-			}
+	this.pl.persistCommand(game.id, command, function(error, commandId) {
+		if (error) {
+			doneSaving(error);
+			return;
 		}
 
-		this.pl.updateGame(gameID, gameData, function(error) {
-
-			this.currentDelta = 0;
-
-  	}.bind(this));
-  }
+		if (this.updateDelta(gameId)) {
+			this.pl.updateGame(game.id, commandId, game, function(err) {
+				doneSaving(err);
+			});
+		} else {
+			doneSaving(null);
+		}
+	}.bind(this));
 }
 
 /**
@@ -161,23 +161,11 @@ DAO.prototype.createGame = function(title, randomTiles, randomNumbers, randomPor
 	};
 
 	this.pl.persistGame(game, function(error, gameID) {
-		if (error) return done(error)
+		if (error) {
+			return done(error);
+		}
 		game.id = gameID;
-		this.gr.games[game.id] = game;
+		this.updateDelta(gameID);
 		done(null, game)
 	}.bind(this));
-}
-
-/**
- * <pre>
- * Post-condition: the game is updated
- * </pre>
- * @method updateGame
- * @param {int} id
- * @param {object} gameinfo
- * @param {fn(err)} callback
- * @return {void}
- */
-DAO.prototype.updateGame = function(id, gameinfo) {
-	this.pl.updateGame(id, gameinfo, function(error) {});
 }
