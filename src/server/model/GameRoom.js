@@ -34,6 +34,17 @@ GameRoom.prototype.getUserByID = function(playerID) {
 	});
 };
 
+/**
+ * Executes a command
+ * @param  {int}   gameId  id of game
+ * @param  {AbstractCommand}   command  
+ * @param  {Function} callback callback(err)
+ * @return {void}            
+ */
+GameRoom.prototype.executeCommand = function(gameId,command,callback){
+	callback('Not implemented');
+}
+
 //--------------------------------------------------------------
 // Commands
 //--------------------------------------------------------------
