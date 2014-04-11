@@ -14,11 +14,13 @@ function CreateGameCommand(title, randomTiles, randomNumber, randomPorts, $Logge
 }
 
 CreateGameCommand.prototype.execute = function(gameRoom, callback) {
-	var data = gameRoom.createGame(this.title, this.randomTiles, this.randomNumber, this.randomPorts);
-	if (!data) {
-		callback('Could not create game', data);
-	} else {
-		callback(null,data);
-		this.logger.log('Created game: id = ' + data.id);
-	}
+	gameRoom.createGame(this.title, this.randomTiles, this.randomNumber, this.randomPorts, function (err, data) {
+    if (err) return callback(err)
+    if (!data) {
+      callback('Could not create game', data);
+    } else {
+      callback(null,data);
+      this.logger.log('Created game: id = ' + data.id);
+    }
+  });
 }

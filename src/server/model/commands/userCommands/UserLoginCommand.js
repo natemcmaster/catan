@@ -12,15 +12,17 @@ function LoginCommand(username, password, $Logger) {
 util.inherits(LoginCommand, AbstractCommand);
 
 LoginCommand.prototype.execute = function(gameRoom, callback) {
-	var d = gameRoom.login(this.username, this.password);
-	if (!d){
-		callback(true, null);
-		return;
-	}
-	callback(null, {
-		playerID: d.playerID,
-		username: d.username,
-		password: d.password,
-	});
-	this.logger.log('User logged in: ' + this.username);
+	gameRoom.login(this.username, this.password, function (err, data) {
+    if (err) return callback(err)
+    if (!data){
+      callback(true, null);
+      return;
+    }
+    callback(null, {
+      playerID: data.playerID,
+      username: data.username,
+      password: data.password,
+    });
+    this.logger.log('User logged in: ' + this.username);
+  });
 }
