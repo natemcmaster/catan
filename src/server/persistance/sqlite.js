@@ -1,64 +1,39 @@
-var sqlite3 = require('sqlite3').verbose(),
-	path = require('path'),
-	CatanError = require('../../common/Errors').CatanError;
 
 /**
  * @module catan.persistance
  * @namespace persistance
  */
 
-module.exports = SQLitePL;
+module.exports = SqlitePL;
 
 /**
- * @class SQLitePL
+ * @class SqlitePL
  * @constructor
- * @param {string} rootPath absolute filepath to the directory where data is stored
  */
-function SQLitePL(rootPath) {
-	this.db = new sqlite3.Database(path.join(rootPath, 'catandb.sqlite3'));
+function SqlitePL() {
 }
 
 /**
  * <pre>
  * Pre-condition: NONE
- * Post-Condition: The game is persisted, and the ID is returned
+ * Post-Condition: A game is persisted, and the ID is returned
  * </pre>
  * @method persistGame
  * @param {object} data the game data
- * @param {Function} callback callback(error,gameId)
- * @return {void}
+ * @return {int} gameId
  */
-SQLitePL.prototype.persistGame = function(data, callback) {
-
-};
+SqlitePL.prototype.persistGame(data){};
 
 /**
  * <pre>
  * Pre-condition: NONE
- * Post-Condition: The new user is persisted, and the ID is returned
+ * Post-Condition: A new user is persisted, and the ID is returned
  * </pre>
  * @method persistUser
- * @param {string} username
- * @param {string} password
- * @param {Function} callback callback(error,userId)
- * @return {void}
+ * @param {object} data the user data
+ * @return {int} userId
  */
-SQLitePL.prototype.persistUser = function(username, password, callback) {
-
-	this.db.run('INSERT INTO users (username,password) VALUES(?,?)', [username, password], function(err, lastId, rowsChanged) {
-		if(!callback)
-			return;
-
-		if (err) {
-			callback(err);
-		} else if (rowsChanged === 0) {
-			callback('User not created');
-		} else {
-			callback(null, lastId);
-		}
-	});
-
-};
+SqlitePL.prototype.persistUser(data){};
 
 /**
  * <pre>
@@ -67,10 +42,9 @@ SQLitePL.prototype.persistUser = function(username, password, callback) {
  * </pre>
  * @method persistCommand
  * @param {object} data the command data
- * @param {Function} callback callback(error,commandId)
- * @return {void}
+ * @return {int} commandId
  */
-SQLitePL.prototype.persistCommand = function(data, callback) {};
+SqlitePL.prototype.persistCommand(data){};
 
 /**
  * <pre>
@@ -80,10 +54,9 @@ SQLitePL.prototype.persistCommand = function(data, callback) {};
  * @method updateGame
  * @param {int} gameid the game id
  * @param {object} data the game data
- * @param {Function} callback callback(error)
  * @return {void}
  */
-SQLitePL.prototype.updateGame = function(id, data, callback) {};
+SqlitePL.prototype.updateGame(id, data){};
 
 /**
  * <pre>
@@ -91,15 +64,9 @@ SQLitePL.prototype.updateGame = function(id, data, callback) {};
  * Post-Condition: NONE
  * </pre>
  * @method readAllUsers
- * @param {Function} callback callback(error,users) where users is a list of user objects
- *  {
- *      id:<id>,
- *      username:<username>,
- *      password:<password>
- *  }
- * @return {void}
+ * @return {object[]} list of json user objects
  */
-SQLitePL.prototype.readAllUsers = function(callback) {};
+SqlitePL.prototype.readAllUsers(){};
 
 /**
  * <pre>
@@ -109,10 +76,9 @@ SQLitePL.prototype.readAllUsers = function(callback) {};
  * @method getRecentGameCommands
  * @param {int} gameid the game id
  * @param {int} id the id of the last command executed
- * @param {Function} callback callback(error,commands) where users is a list of command objects
- * @return {void}
+ * @return {object[]} list of json command objects
  */
-SQLitePL.prototype.getRecentGameCommands = function(gameid, id, callback) {};
+SqlitePL.prototype.getRecentGameCommands(gameid, id){};
 
 /**
  * <pre>
@@ -121,7 +87,6 @@ SQLitePL.prototype.getRecentGameCommands = function(gameid, id, callback) {};
  * </pre>
  * @method getAllGameInfo
  * @param {int} gameid the game id
- * @param {Function} callback callback(error,games) where users is a list of game objects
- * @return {void}
+ * @return {object[]} list of json game objects
  */
-SQLitePL.prototype.getAllGameInfo = function(id, callback) {};
+SqlitePL.prototype.getAllGameInfo(id){};

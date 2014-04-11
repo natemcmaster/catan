@@ -36,6 +36,13 @@ module.exports = function(grunt) {
 					stdout: true,
 					stderr: true
 				}
+			},
+			resetPersistence: {
+				command: 'ant reset-persistence',
+				options:{
+					stdout: true,
+					stderr: true
+				}
 			}
 		},
 		jshint: {
@@ -204,7 +211,7 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('default', ['copy', 'browserify', 'concat', 'jshint', 'test']);
 	grunt.registerTask('all', ['copy', 'browserify', 'concat', 'yuidoc:compile', 'jshint', 'test']);
-	grunt.registerTask('build', ['copy', 'browserify', 'concat', 'yuidoc:compile']);
+	grunt.registerTask('build', ['copy', 'browserify', 'concat', 'shell:resetPersistence','yuidoc:compile']);
 
 	grunt.registerTask('clean', 'Delete build folder', function() {
 		grunt.file.delete(buildDir + '/');
@@ -248,7 +255,7 @@ module.exports = function(grunt) {
 		var reporter = grunt.option('reporter') || 'spec';
 		grunt.config('mochaTest.testServer.options.reporter', reporter);
 
-		grunt.task.run(['mochaTest:testServer']);	
+		grunt.task.run(['mochaTest:testServer']);
 	});
 	grunt.registerTask('coverage', ['mochacov']);
 	grunt.registerTask('serve', ['shell:serve']);
