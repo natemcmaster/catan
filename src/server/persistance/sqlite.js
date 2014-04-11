@@ -183,20 +183,20 @@ SQLitePL.prototype.getRecentGameCommands = function(gameid, id, callback) {
  * Post-Condition: NONE
  * </pre>
  * @method getAllGameInfo
- * @param {int} gameid the game id
- * @param {Function} callback callback(error,games) where users is a list of game objects
+ * @param {Function} callback callback(error,games) where games is a list of game objects
  * @return {void}
  */
-SQLitePL.prototype.getAllGameInfo = function(id, callback) {
-	this.db.get('select * from games where id = ?',[id],function(err,row){
-		if(err || !row){
-			callback(err || 'No game found');
-		} else {
-			row.original = JSON.parse(row.original_state);
-			row.current = JSON.parse(row.current_state);
-			delete row.original_state;
-			delete row.current_state;
-			callback(null,row);
-		}
+SQLitePL.prototype.getAllGameInfo = function(callback) {
+	this.db.all('select * from games',function(err,rows){
+    if(err || !rows || !rows.length) {
+      return callback(err || 'No game found');
+    }
+    callback(null, rows.map(function (row) {
+      row.original = JSON.parse(row.original_state);
+      row.current = JSON.parse(row.current_state);
+      delete row.original_state;
+      delete row.current_state;
+      return row
+    }))
 	});
 };

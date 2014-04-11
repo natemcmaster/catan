@@ -88,17 +88,50 @@ DAO.prototype.persistCommand = function (gameID, command) {
  * @method createUser
  * @param {str} user
  * @param {str} password
+ * @param {fn} done
  * @return {int} the userid
  */
-DAO.prototype.createUser = function (user, password) {
+DAO.prototype.createUser = function (user, password, done) {
 
 	this.pl.persistUser(user, password, function(error, userID){
+    if (error) return done(error)
 
 		this.gr.users[userID] = {'id' : userID,
 								 'username' : user,
 								 'password' : password};
+    done(null, this.gr.users[userID])
 
 	}.bind(this));
+}
+
+function randomTilify (game) {
+  var types = _.shuffle(['Desert', 'Wood', 'Wood', 'Wood', 'Wood', 'Ore', 'Ore', 'Ore', 'Sheep', 'Sheep', 'Sheep', 'Sheep', 'Wheat', 'Wheat', 'Wheat', 'Wheat', 'Brick', 'Brick', 'Brick']);
+  var newDesertLocation, prevDesertLocation;
+  game.map.hexGrid.hexes = _(game.map.hexGrid.hexes).map(function(s) {
+    return _(s).map(function(t) {
+      if (!t.isLand)
+        return t;
+      if (!t.landtype) {
+        prevDesertLocation = t.location;
+      }
+      var nexttype = types.pop();
+      t.landtype = (nexttype == 'Desert') ? null : nexttype;
+      if (!t.landtype) {
+        newDesertLocation = t.location;
+      }
+      return t;
+    }).value();
+  }).value();
+
+  // make sure the number is not on the desert tile
+  _(game.map.numbers).forIn(function(v,k,o) {
+    o[k]=_(v).map(function(t) {
+      if (t.x == newDesertLocation.x && t.y == newDesertLocation.y) {
+        return prevDesertLocation;
+      }
+      return t;
+    }).value();
+  });
 }
 
 /**
@@ -107,38 +140,13 @@ DAO.prototype.createUser = function (user, password) {
  * </pre>
  * @method createGame
  * @param {object} gameinfo
+ * @param {fn} done
  * @return {int} gameId
  */
-DAO.prototype.createGame = function (gameinfo) {
+DAO.prototype.createGame = function (title, randomTiles, randomNumbers, randomPorts, done) {
 	var blank = _.cloneDeep(this.blank);
 	if(randomTiles){
-		var types = _.shuffle(['Desert', 'Wood', 'Wood', 'Wood', 'Wood', 'Ore', 'Ore', 'Ore', 'Sheep', 'Sheep', 'Sheep', 'Sheep', 'Wheat', 'Wheat', 'Wheat', 'Wheat', 'Brick', 'Brick', 'Brick']);
-		var newDesertLocation, prevDesertLocation;
-		blank.map.hexGrid.hexes = _(blank.map.hexGrid.hexes).map(function(s) {
-			return _(s).map(function(t) {
-				if (!t.isLand)
-					return t;
-				if (!t.landtype) {
-					prevDesertLocation = t.location;
-				}
-				var nexttype = types.pop();
-				t.landtype = (nexttype == 'Desert') ? null : nexttype;
-				if (!t.landtype) {
-					newDesertLocation = t.location;
-				}
-				return t;
-			}).value();
-		}).value();
-
-		// make sure the number is not on the desert tile
-		_(blank.map.numbers).forIn(function(v,k,o) {
-			o[k]=_(v).map(function(t) {
-				if (t.x == newDesertLocation.x && t.y == newDesertLocation.y) {
-					return prevDesertLocation;
-				}
-				return t;
-			}).value();
-		});
+    randomTilify(blank)
 	}
 	if(randomPorts){
 		var types=_.shuffle(['Any','Any','Any','Any','Wood','Brick','Ore','Sheep','Wheat']);
@@ -176,13 +184,11 @@ DAO.prototype.createGame = function (gameinfo) {
 	};
 
 	this.pl.persistGame(game, function(error, gameID){
-
+    if (error) return done(error)
 		game.id = gameID;
 		this.gr.games[game.id] = game;
-
+    done(null, game)
 	}.bind(this));
-
-	
 }
 
 /**
