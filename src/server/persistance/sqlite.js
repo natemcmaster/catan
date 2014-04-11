@@ -27,11 +27,12 @@ function SQLitePL(rootPath) {
  * Post-Condition: The game is persisted, and the ID is returned
  * </pre>
  * @method persistGame
+ * @param {object} title the title of the game
  * @param {object} data the game data
  * @param {Function} callback callback(error,gameId)
  * @return {void}
  */
-SQLitePL.prototype.persistGame = function(data, callback) {
+SQLitePL.prototype.persistGame = function(title, data, callback) {
 	var blob = JSON.stringify(data);
 	this.db.run('INSERT INTO games (original_state,current_state) VALUEs (?,?)', [blob, blob], function(err) {
 		if (!callback) {

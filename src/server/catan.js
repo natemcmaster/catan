@@ -2,16 +2,12 @@
  * Module dependencies.
  */
 var express = require('express'),
-    bodyParser = require('body-parser'),
-    path = require('path'),
-    authMiddleware = require('./middleware/auth'),
-    gameMiddleware = require('./middleware/game'),
-    Injector = require('../common/Injector'),
-    DAO = require('./dao.js'),
-    path = require('path')
-    ;
-
-var DATA_DIR = path.join(__dirname, '../../build/data')
+  bodyParser = require('body-parser'),
+  path = require('path'),
+  authMiddleware = require('./middleware/auth'),
+  gameMiddleware = require('./middleware/game'),
+  Injector = require('../common/Injector'),
+  path = require('path');
 
 function middleWarez(app) {
   app.use(express.favicon());
@@ -25,13 +21,15 @@ function middleWarez(app) {
   app.use(bodyParser());
 }
 
-module.exports = function (callback, PlClass, deltaNumber, setup) {
+module.exports = function(callback, PlClass, deltaNumber, setup) {
   if (arguments.length < 3) {
     throw new Error('Usage: (callback, PlClass, deltaNumber)')
   }
 
   var app = express();
-  var documentRoot = path.join(__dirname,'..','..','build');
+  var documentRoot = path.join(__dirname, '..', '..', 'build');
+  var dataRoot = path.join(documentRoot,'data');
+  var commandsToPersist = 30;
 
   // all environments
   app.set('port', process.env.PORT || 8081);
@@ -44,26 +42,24 @@ module.exports = function (callback, PlClass, deltaNumber, setup) {
   // set it up
   setup = setup || require('./config');
   setup(inj)
-  inj.register('PersistanceLayer', PlClass)
-  inj.register('DAO', DAO);
-  var dao = inj.create('DAO', deltaNumber, DATA_DIR);
+  inj.singleton('PersistanceLayer', PlClass)
 
-  dao.createGameRoom(function (gameRoom) {
+  inj.create('GameRoom', dataRoot, commandsToPersist, function(error, gameRoom) {
     app.gameRoom = gameRoom;
     app.injector = inj;
 
-    app.use(function (req, res, next) {
+    app.use(function(req, res, next) {
       req.gameRoom = gameRoom;
       next();
     });
 
     app.use(app.router);
-    app.use('/',express.static(path.join(documentRoot, 'gameplay')));
-    app.use('/docs/',express.static(path.join(documentRoot, 'docs')));
+    app.use('/', express.static(path.join(documentRoot, 'gameplay')));
+    app.use('/docs/', express.static(path.join(documentRoot, 'docs')));
 
     // controller instantiation
     var controllers = require('./controllers');
-    for(var c in controllers){
+    for (var c in controllers) {
       var d = new controllers[c](app, inj);
     }
 
@@ -73,7 +69,6 @@ module.exports = function (callback, PlClass, deltaNumber, setup) {
     }
 
     callback(app);
+  });
 
-  })
 }
-

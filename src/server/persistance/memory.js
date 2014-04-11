@@ -25,11 +25,12 @@ function MemoryPL() {
  * Post-Condition: A game is persisted, and the ID is returned
  * </pre>
  * @method persistGame
+ * @param {object} title the title of the game
  * @param {object} data the game data
  * @param {Function} callback
  * @return {int} gameId
  */
-MemoryPL.prototype.persistGame = function(data, callback) {
+MemoryPL.prototype.persistGame = function(title, data, callback) {
 	++this.gameId;
 	this.games[this.gameId] = {
 		id: this.gameId,

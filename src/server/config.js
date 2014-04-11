@@ -1,5 +1,6 @@
-var model = require('./model');
-var logger = require('./resources').ConsoleLogger;
+var model = require('./model'),
+    logger = require('./resources').ConsoleLogger,
+    DAO = require('./dao.js');
 
 function flatten(obj, d) {
     d = d || {};
@@ -18,4 +19,5 @@ var runtime = flatten(model);
 module.exports = function _setup_injection(inj) {
     inj.map(runtime);
     inj.singleton('Logger', logger);
+    inj.singleton('DAO', DAO);
 }
