@@ -104,7 +104,7 @@ MemoryPL.prototype.updateGame = function(id, lastCommandId, data, callback) {
  * @return {object[]} list of json user objects
  */
 MemoryPL.prototype.readAllUsers = function(callback) {
-	callback(null, this.users);
+	callback(null, _(this.users).toArray() );
 };
 
 /**
@@ -133,5 +133,5 @@ MemoryPL.prototype.getRecentGameCommands = function(gameid, id, callback) {
  * @return {object[]} list of json game objects
  */
 MemoryPL.prototype.getAllGameInfo = function(callback) {
-	callback(null, this.games);
+	callback(null, _(this.games).toArray() );
 };
