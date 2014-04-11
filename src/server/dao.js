@@ -1,6 +1,7 @@
 var _ = require('lodash');
 var fs = require('fs'),
-	path = require('path');
+	path = require('path'),
+	Sync = require('sync');
 /**
  * @module catan
  * @namespace catan
@@ -27,6 +28,31 @@ function DAO(maxDelta, dataPath, $PersistanceLayer, $GameModel) {
 		gameDeltas[gameId] -= 1;
 		return false;
 	}
+}
+
+DAO.prototype.getUsers = function(callback){
+	this.pl.readAllUsers(callback);
+}
+
+
+DAO.prototype.getGames = function(callback){
+	Sync(function(){
+		var data = this.pl.getAllGameInfo.sync();
+		var games = [];
+		for (var i = data.length - 1; i >= 0; i--) {
+			var game = this.constructGame(data[i].current);
+			var commands = this.pl.getRecentGameCommands.sync(null,game.id,data.last_command_id);
+			for(var j = 0; j < commands.length; j++){
+				var data = command[j].data;
+				var command;
+				//TODO: @jaredly how do we resurrect game from data?
+				command.executeOnGame(game);
+			}
+			games.push(game);
+		}
+
+		callback(null,games);
+	})
 }
 
 /**
