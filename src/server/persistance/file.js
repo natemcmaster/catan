@@ -21,7 +21,7 @@ function FilePL(rootPath) {
 	this.nextUserID = 0;
 	this.users = [];
 	this.nextCommandID = [];
-}
+};
 
 /**
  * <pre>
@@ -34,8 +34,21 @@ function FilePL(rootPath) {
  * @return {void}
  */
 FilePL.prototype.persistGame = function(data, callback){
+	var id = this.nextGameID++;
+	var gameInfo = {'id':id, 'currentGame':data, 'originalGame':data, 'lastCommand':0};
+	
+	try {
+		fs.writeFile(this.rootPath + '/game' + id + '.json', JSON.stringify(gameInfo), null, function(error){
+			if (error) throw error;
+		});
 
-	//persist data, assign a UID, return the ID of the new game
+		return callback(null, id);
+	}
+
+	catch (error) {
+		this.nextGameID--;
+		return callback(error, -1);
+	}
 };
 
 /**
@@ -67,27 +80,6 @@ FilePL.prototype.persistUser = function(username, password, callback){
 		this.users.pop();
 		return callback(error, -1);
 	}
-
-	/*try {
-		if (ID == 0) {
-			fs.appendFile('data/users.json', JSON.stringify(user), null, function(err){
-				if (err) throw err;
-			});
-		}
-
-		else {
-			fs.appendFile('data/users.json', ',' + JSON.stringify(user), null, function(err){
-				if (err) throw err;
-			});
-		}
-		
-		return callback(null, ID);
-	}
-
-	catch (err) {
-		this.nextUserID--;
-		return callback(err, -1);
-	}*/
 };
 
 /**
@@ -116,7 +108,22 @@ FilePL.prototype.persistCommand = function(gameID, data, callback){
  * @return {void}
  */
 FilePL.prototype.updateGame = function(gameid, lastCommand, data, callback){
-	//Overwrites the data for the game specified by the ID
+	try {
+		var gameInfo;
+		fs.readFile(this.rootPath + '/game' + gameid + '.json', function(error, data){
+			if (error) throw error;
+			gameInfo = JSON.parse(data);
+		});
+
+		gameInfo.currentGame = data;
+		gameInfo.lastCommand = lastCommand;
+
+		return callback(null);
+	}
+
+	catch (error) {
+		return callback(error);
+	}
 };
 
 /**
@@ -145,7 +152,7 @@ FilePL.prototype.readAllUsers = function(callback){
 	}
 
 	catch (error) {
-		return callback(error, hull);
+		return callback(error, null);
 	}
 };
 
@@ -161,7 +168,26 @@ FilePL.prototype.readAllUsers = function(callback){
  * @return {void}
  */
 FilePL.prototype.getRecentGameCommands = function(gameid, id, callback){
-	//From the commands file, get the commands executed from the last checkpoint
+	try {
+		var commands;
+		fs.readFile(this.rootPath + '/commands' + gameid + '.json', function(error, data){
+  			if (error) throw error;
+  			commands = JSON.parse(data);
+		});
+
+		var recentCommands = [];
+
+		commands.forEach(function(command){
+			if (command.id > id)
+				recentCommands.push(command);
+		});
+
+		return callback(null, recentCommands);
+	}
+
+	catch (error) {
+		return callback(error, null);
+	}
 };
 
 /**

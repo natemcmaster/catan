@@ -6,8 +6,12 @@ var express = require('express'),
     path = require('path'),
     authMiddleware = require('./middleware/auth'),
     gameMiddleware = require('./middleware/game'),
-    Injector = require('../common/Injector')
+    Injector = require('../common/Injector'),
+    DAO = require('./dao.js'),
+    path = require('path')
     ;
+
+var DATA_DIR = path.join(__dirname, '../../build/data')
 
 function middleWarez(app) {
   app.use(express.favicon());
@@ -21,9 +25,10 @@ function middleWarez(app) {
   app.use(bodyParser());
 }
 
-module.exports = function (callback, setup) {
-  /// var inj = new Injector();
-  /// setup(inj);
+module.exports = function (callback, PlClass, deltaNumber, setup) {
+  if (arguments.length < 3) {
+    throw new Error('Usage: (callback, PlClass, deltaNumber)')
+  }
 
   var app = express();
   var documentRoot = path.join(__dirname,'..','..','build');
@@ -34,20 +39,14 @@ module.exports = function (callback, setup) {
   middleWarez(app)
 
   // making the game room
-  
+
   var inj = new Injector();
   // set it up
   setup = setup || require('./config');
   setup(inj)
-  try {
-    var PlClass = require(process.argv[1]);
-    var deltaNumber = parseInt(process.argv[2], 10);
-  } catch (e) {
-    console.error('Usage: node app.js path/to/pl-plugin.js deltaNumber')
-    process.exit(2)
-  }
   inj.register('PersistanceLayer', PlClass)
-  var dao = inj.create('DAO', deltaNumber);
+  inj.register('DAO', DAO);
+  var dao = inj.create('DAO', deltaNumber, DATA_DIR);
 
   dao.createGameRoom(function (gameRoom) {
     app.gameRoom = gameRoom;

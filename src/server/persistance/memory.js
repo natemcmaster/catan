@@ -22,7 +22,7 @@ function MemoryPL() {
  * @param {object} data the game data
  * @return {int} gameId
  */
-MemoryPL.prototype.persistGame(data){};
+MemoryPL.prototype.persistGame = function(data){};
 
 /**
  * <pre>
@@ -33,7 +33,7 @@ MemoryPL.prototype.persistGame(data){};
  * @param {object} data the user data
  * @return {int} userId
  */
-MemoryPL.prototype.persistUser(data){};
+MemoryPL.prototype.persistUser = function(data){};
 
 /**
  * <pre>
@@ -44,7 +44,7 @@ MemoryPL.prototype.persistUser(data){};
  * @param {object} data the command data
  * @return {int} commandId
  */
-MemoryPL.prototype.persistCommand(data){};
+MemoryPL.prototype.persistCommand = function(data){};
 
 /**
  * <pre>
@@ -56,7 +56,7 @@ MemoryPL.prototype.persistCommand(data){};
  * @param {object} data the game data
  * @return {void}
  */
-MemoryPL.prototype.updateGame(id, data){};
+MemoryPL.prototype.updateGame = function(id, data){};
 
 /**
  * <pre>
@@ -66,7 +66,7 @@ MemoryPL.prototype.updateGame(id, data){};
  * @method readAllUsers
  * @return {object[]} list of json user objects
  */
-MemoryPL.prototype.readAllUsers(){};
+MemoryPL.prototype.readAllUsers = function(){};
 
 /**
  * <pre>
@@ -78,7 +78,7 @@ MemoryPL.prototype.readAllUsers(){};
  * @param {int} id the id of the last command executed
  * @return {object[]} list of json command objects
  */
-MemoryPL.prototype.getRecentGameCommands(gameid, id){};
+MemoryPL.prototype.getRecentGameCommands = function(gameid, id){};
 
 /**
  * <pre>
@@ -89,4 +89,4 @@ MemoryPL.prototype.getRecentGameCommands(gameid, id){};
  * @param {int} gameid the game id
  * @return {object[]} list of json game objects
  */
-MemoryPL.prototype.getAllGameInfo(id){};
+MemoryPL.prototype.getAllGameInfo = function(id){};

@@ -19,7 +19,7 @@ function DAO(deltaNumber, dataPath, $PersistanceLayer, $GameRoom, $GameModel) {
   this.deltaNumber = deltaNumber;
   this.currentDelta = 0;
 
-  var data = JSON.parse(fs.readFileSync(path.join(__dirname,'/_initialdata.json')));
+  var data = JSON.parse(fs.readFileSync(path.join(__dirname,'/initial_data/_initialdata.json')));
 	this.blank = data.blank;
 	this.constructGame = $GameModel;
 

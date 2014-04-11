@@ -17,11 +17,9 @@ var debug = require('debug')('catan:models:gameroom');
 * @constructor
 * @param {integer} playerID The id of the local player, extracted from the cookie
 */
-function GameRoom(users, games, $UserRepo,$GameRepo){
-  this.userRepo =  $UserRepo();
-  this.gameRepo =  $GameRepo();
-  this.users = users || this.userRepo.getAll();
-  this.games = games || this.gameRepo.getAll();
+function GameRoom(users, games) {
+  this.users = []
+  this.games = []
 };
 
 GameRoom.prototype.getGameByID = function(gameID) {
