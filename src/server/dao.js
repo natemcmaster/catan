@@ -28,10 +28,11 @@ function DAO(deltaNumber, dataPath, $PersistanceLayer, $GameRoom, $GameModel) {
 /**
  * <pre>
  * Post-Condition: the created game room object has all of the previously
- * persisted data in it
+ * persisted data in it, 
  * </pre>
  * @method createGameRoom
- * @return {GameRoom} the created game room
+ * @param {fn(err, gameRoom)} callback
+ * @return {void}
  */
 DAO.prototype.createGameRoom = function (callback) {
 
@@ -51,7 +52,8 @@ DAO.prototype.createGameRoom = function (callback) {
  * </pre>
  * @method persistCommand
  * @param {object} command
- * @return {int} command id
+ * @param {fn(err, commandID)} callback
+ * @return {void}
  */
 DAO.prototype.persistCommand = function (gameID, command) {
 
@@ -72,12 +74,7 @@ DAO.prototype.persistCommand = function (gameID, command) {
   		this.currentDelta = 0;
 
   	}.bind(this));
-  	
-
   }
-
-
-
 }
 
 /**
@@ -88,8 +85,8 @@ DAO.prototype.persistCommand = function (gameID, command) {
  * @method createUser
  * @param {str} user
  * @param {str} password
- * @param {fn} done
- * @return {int} the userid
+ * @param {fn(err, userData} done
+ * @return {void}
  */
 DAO.prototype.createUser = function (user, password, done) {
 
@@ -140,8 +137,8 @@ function randomTilify (game) {
  * </pre>
  * @method createGame
  * @param {object} gameinfo
- * @param {fn} done
- * @return {int} gameId
+ * @param {fn(err, game)} callback
+ * @return {void}
  */
 DAO.prototype.createGame = function (title, randomTiles, randomNumbers, randomPorts, done) {
 	var blank = _.cloneDeep(this.blank);
@@ -198,6 +195,7 @@ DAO.prototype.createGame = function (title, randomTiles, randomNumbers, randomPo
  * @method updateGame
  * @param {int} id
  * @param {object} gameinfo
+ * @param {fn(err)} callback
  * @return {void}
  */
 DAO.prototype.updateGame = function (id, gameinfo) {
