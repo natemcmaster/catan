@@ -19,8 +19,8 @@ function FilePL(rootPath) {
 	this.rootPath = rootPath;
 	this.nextGameID = 0;
 	this.nextUserID = 0;
-	this.users = [];
 	this.nextCommandID = [];
+	this.users = [];
 };
 
 /**
@@ -38,7 +38,7 @@ FilePL.prototype.persistGame = function(data, callback){
 	var gameInfo = {'id':id, 'currentGame':data, 'originalGame':data, 'lastCommand':0};
 	
 	try {
-		fs.writeFile(this.rootPath + '/game' + id + '.json', JSON.stringify(gameInfo), null, function(error){
+		fs.writeFile(this.rootPath + 'game' + id + '.json', JSON.stringify(gameInfo), null, function(error){
 			if (error) throw error;
 		});
 
@@ -68,7 +68,7 @@ FilePL.prototype.persistUser = function(username, password, callback){
 	this.users.push(user);
 	
 	try {
-		fs.writeFile(this.rootPath + '/users.json', JSON.stringify(this.users), null, function(error){
+		fs.writeFile(this.rootPath + 'users.json', JSON.stringify(this.users), null, function(error){
 			if (error) throw error;
 		});
 
@@ -93,7 +93,23 @@ FilePL.prototype.persistUser = function(username, password, callback){
  * @return {void}
  */
 FilePL.prototype.persistCommand = function(gameID, data, callback){
-	//persist data, assign a UID, returns the ID
+	if (!this.nextCommandID[gameID])
+		this.nextCommandID[gameID] = 0;
+
+	var id = this.nextCommandID[gameID]++;
+	
+	try {
+		fs.writeFile(this.rootPath + 'command' + id + '.json', JSON.stringify(data), null, function(error){
+			if (error) throw error;
+		});
+
+		return callback(null, id);
+	}
+
+	catch (error) {
+		this.nextCommandID[gameID]--;
+		return callback(error, -1);
+	}
 };
 
 /**
@@ -103,6 +119,7 @@ FilePL.prototype.persistCommand = function(gameID, data, callback){
  * </pre>
  * @method updateGame
  * @param {int} gameid the game id
+ * @param {int} lastCommand the id of the last executed command
  * @param {object} data the game data
  * @param {Function} callback callback(error)
  * @return {void}
@@ -110,7 +127,7 @@ FilePL.prototype.persistCommand = function(gameID, data, callback){
 FilePL.prototype.updateGame = function(gameid, lastCommand, data, callback){
 	try {
 		var gameInfo;
-		fs.readFile(this.rootPath + '/game' + gameid + '.json', function(error, data){
+		fs.readFile(this.rootPath + 'game' + gameid + '.json', function(error, data){
 			if (error) throw error;
 			gameInfo = JSON.parse(data);
 		});
@@ -142,8 +159,8 @@ FilePL.prototype.updateGame = function(gameid, lastCommand, data, callback){
  */
 FilePL.prototype.readAllUsers = function(callback){
 	try {
-		var users;
-		fs.readFile(this.rootPath + '/users.json', function(error, data){
+		var users = null;
+		fs.readFile(this.rootPath + 'users.json', function(error, data){
   			if (error) throw error;
   			users = JSON.parse(data);
 		});
@@ -169,8 +186,8 @@ FilePL.prototype.readAllUsers = function(callback){
  */
 FilePL.prototype.getRecentGameCommands = function(gameid, id, callback){
 	try {
-		var commands;
-		fs.readFile(this.rootPath + '/commands' + gameid + '.json', function(error, data){
+		var commands = null;
+		fs.readFile(this.rootPath + 'commands' + gameid + '.json', function(error, data){
   			if (error) throw error;
   			commands = JSON.parse(data);
 		});
@@ -196,10 +213,29 @@ FilePL.prototype.getRecentGameCommands = function(gameid, id, callback){
  * Post-Condition: NONE
  * </pre>
  * @method getAllGameInfo
- * @param {int} gameid the game id
  * @param {Function} callback callback(error,games) where users is a list of game objects
  * @return {void}
  */
-FilePL.prototype.getAllGameInfo = function(id, callback){
-	//Read each games file and create a list of games, return that list
+FilePL.prototype.getAllGameInfo = function(callback){
+	try {
+		var games = null;
+		fs.readdir(this.rootPath, function(error, files){
+  			if (error) throw error;
+  			
+  			files.forEach(function(file){
+  				if ("game".indexOf(file) !== -1)
+  					fs.readFile(this.rootPath + file, function(error, data){
+  						if (error) throw error;
+  						gameData = JSON.parse(data);
+  						games.push(gameData.currentGame);
+  					})
+  			})
+		});
+
+		return callback(null, games);
+	}
+
+	catch (error) {
+		return callback(error, null);
+	}
 };

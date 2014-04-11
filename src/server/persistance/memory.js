@@ -1,4 +1,4 @@
-
+var _ = require('lodash');
 /**
  * @module catan.persistance
  * @namespace persistance
@@ -11,6 +11,12 @@ module.exports = MemoryPL;
  * @constructor
  */
 function MemoryPL() {
+	this.gameId = 0;
+	this.games = {};
+	this.userId = 0;
+	this.users = {};
+	this.commandId = 0;
+	this.commands = {};
 }
 
 /**
@@ -20,9 +26,19 @@ function MemoryPL() {
  * </pre>
  * @method persistGame
  * @param {object} data the game data
+ * @param {Function} callback
  * @return {int} gameId
  */
-MemoryPL.prototype.persistGame = function(data){};
+MemoryPL.prototype.persistGame = function(data, callback) {
+	++this.gameId;
+	this.games[this.gameId] = {
+		id: this.gameId,
+		current: _.cloneDeep(data),
+		original: _.cloneDeep(data),
+		last_command_id: -1
+	};
+	callback(null, this.gameId);
+};
 
 /**
  * <pre>
@@ -31,9 +47,18 @@ MemoryPL.prototype.persistGame = function(data){};
  * </pre>
  * @method persistUser
  * @param {object} data the user data
+ * @param {Function} callback
  * @return {int} userId
  */
-MemoryPL.prototype.persistUser = function(data){};
+MemoryPL.prototype.persistUser = function(data, callback) {
+	++this.userId;
+	this.users[this.userId] = {
+		id: this.userId,
+		username: data.username,
+		password: data.password
+	};
+	callback(null, this.userId);
+};
 
 /**
  * <pre>
@@ -44,7 +69,15 @@ MemoryPL.prototype.persistUser = function(data){};
  * @param {object} data the command data
  * @return {int} commandId
  */
-MemoryPL.prototype.persistCommand = function(data){};
+MemoryPL.prototype.persistCommand = function(gameId, data, callback) {
+	++this.commandId;
+	this.commands[this.commandId] = {
+		id: this.commandId,
+		game_id: gameId,
+		data: this.commandId
+	};
+	callback(null, this.commandId);
+};
 
 /**
  * <pre>
@@ -56,7 +89,11 @@ MemoryPL.prototype.persistCommand = function(data){};
  * @param {object} data the game data
  * @return {void}
  */
-MemoryPL.prototype.updateGame = function(id, data){};
+MemoryPL.prototype.updateGame = function(id, lastCommandId, data, callback) {
+	this.games[id].current = _.cloneDeep(data);
+	this.games[id].last_command_id = lastCommandId;
+	callback(null);
+};
 
 /**
  * <pre>
@@ -66,7 +103,9 @@ MemoryPL.prototype.updateGame = function(id, data){};
  * @method readAllUsers
  * @return {object[]} list of json user objects
  */
-MemoryPL.prototype.readAllUsers = function(){};
+MemoryPL.prototype.readAllUsers = function(callback) {
+	callback(null, _(this.users).toArray() );
+};
 
 /**
  * <pre>
@@ -78,7 +117,12 @@ MemoryPL.prototype.readAllUsers = function(){};
  * @param {int} id the id of the last command executed
  * @return {object[]} list of json command objects
  */
-MemoryPL.prototype.getRecentGameCommands = function(gameid, id){};
+MemoryPL.prototype.getRecentGameCommands = function(gameid, id, callback) {
+	var d = _(this.commands).filter(function(c) {
+		return c.game_id == gameid && c.id > id;
+	});
+	callback(null, d);
+};
 
 /**
  * <pre>
@@ -86,7 +130,8 @@ MemoryPL.prototype.getRecentGameCommands = function(gameid, id){};
  * Post-Condition: NONE
  * </pre>
  * @method getAllGameInfo
- * @param {int} gameid the game id
  * @return {object[]} list of json game objects
  */
-MemoryPL.prototype.getAllGameInfo = function(id){};
+MemoryPL.prototype.getAllGameInfo = function(callback) {
+	callback(null, _(this.games).toArray() );
+};
