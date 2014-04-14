@@ -1,4 +1,4 @@
-var BasePL = require('./BasePL');
+var BasePL = require('./base.js');
 var util = require('util');
 var fs = require('fs');
 
@@ -161,7 +161,8 @@ FilePL.prototype.updateGame = function(gameid, lastCommand, data, callback){
 FilePL.prototype.readAllUsers = function(callback){
 	try {
 		var users = null;
-		fs.readFile(this.rootPath + 'users.json', function(error, data){
+		console.log(this.rootPath + '/users.json');
+		fs.readFile(this.rootPath + '/users.json', function(error, data){
   			if (error) throw error;
   			users = JSON.parse(data);
 		});
@@ -170,6 +171,7 @@ FilePL.prototype.readAllUsers = function(callback){
 	}
 
 	catch (error) {
+		console.log("error");
 		return callback(error, null);
 	}
 };
