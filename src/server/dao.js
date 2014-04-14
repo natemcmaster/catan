@@ -13,8 +13,9 @@ module.exports = DAO;
  * @class DAO
  * @constructor
  */
-function DAO(maxDelta, dataPath, $PersistanceLayer, $GameModel) {
+function DAO(maxDelta, dataPath, $PersistanceLayer, $GameModel, $AbstractMoveCommand) {
 	this.pl = $PersistanceLayer(dataPath);
+	this.abstactCommand = $AbstractMoveCommand;
 	this.constructGame = $GameModel;
 	var data = JSON.parse(fs.readFileSync(path.join(__dirname, 'initial_data', '_initialdata.json')));
 	this.blank = data.blank;
@@ -44,9 +45,8 @@ DAO.prototype.getGames = function(callback){
 			var commands = this.pl.getRecentGameCommands.sync(null,game.id,data.last_command_id);
 			for(var j = 0; j < commands.length; j++){
 				var data = command[j].data;
-				var command;
-				//TODO: @jaredly how do we resurrect game from data?
-				command.executeOnGame(game);
+				var command= this.abstactCommand.fromJSON(data);
+				this.constructCommands.replayOnGame(game);
 			}
 			games.push(game);
 		}
@@ -65,8 +65,8 @@ DAO.prototype.getGames = function(callback){
  * @return {void}
  */
 DAO.prototype.saveCommand = function(command, game, doneSaving) {
-
-	this.pl.persistCommand(game.id, command, function(error, commandId) {
+	var data=command.toJSON();
+	this.pl.persistCommand(game.id, data, function(error, commandId) {
 		if (error) {
 			doneSaving(error);
 			return;
