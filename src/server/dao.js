@@ -47,7 +47,7 @@ DAO.prototype.constructGame = function (data, next) {
 				this.constructCommands.replayOnGame(game);
 			}
 			next(null, game)
-	});
+	}.bind(this));
 
 }
 
@@ -63,7 +63,7 @@ DAO.prototype.getGames = function(callback){
 			async.parallel(tasks, function (err, games) {
 				callback(null,games);
 			})
-	})
+	}.bind(this))
 }
 
 /**
