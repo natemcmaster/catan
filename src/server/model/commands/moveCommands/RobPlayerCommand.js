@@ -22,7 +22,10 @@ RobPlayerCommand.params = ['playerIndex','victimIndex','location'];
 RobPlayerCommand.optional = ['type'];
 
 RobPlayerCommand.prototype.executeOnGame = function(game){
-
-	game.robPlayer(this.playerIndex, this.victimIndex, this.location);
-
+	this.randomType = game.robPlayer(this.playerIndex, this.victimIndex, this.location);
 }
+
+RobPlayerCommand.prototype.replayOnGame = function (game) {
+	game.robPlayer(this.playerIndex, this.victimIndex, this.location, this.randomType);
+}
+

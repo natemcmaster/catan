@@ -18,3 +18,4 @@ AcceptTradeCommand.optional = ['type'];
 AcceptTradeCommand.prototype.executeOnGame = function(game){
 	game.acceptTrade(this.playerIndex, this.willAccept);
 }
+

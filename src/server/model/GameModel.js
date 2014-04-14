@@ -125,7 +125,7 @@ GameModel.prototype.rollDice = function(playerIndex, number) {
 
 };
 
-GameModel.prototype.robPlayer = function(playerIndex, victimIndex, location) {
+GameModel.prototype.robPlayer = function(playerIndex, victimIndex, location, randomType) {
 	this.map.moveRobber(location.x,location.y);
 	this.turnTracker.setStatus('Playing');//changed so I could use this code for play soldier as well
 	if(victimIndex > 3 || victimIndex <0)
@@ -133,18 +133,23 @@ GameModel.prototype.robPlayer = function(playerIndex, victimIndex, location) {
 
 	var thief = this.players[playerIndex];
 	var victim = this.players[victimIndex];
-	var randomType = _.chain(victim.resources).reduce(function(r, val, key) {
-		if (val > 0)
-			r.push(key)
-		return r;
-	}, [])
-		.shuffle()
-		.first()
-		.value();
-	if (!randomType)
-		return;
+  if (undefined === randomType) {
+    randomType = _.chain(victim.resources).reduce(function(r, val, key) {
+      if (val > 0)
+        r.push(key)
+      return r;
+    }, [])
+      .shuffle()
+      .first()
+      .value();
+    if (!randomType)
+      return false;
+  } else if (randomType === false) {
+    return false
+  }
 	victim.resources[randomType]--;
 	thief.resources[randomType]++;
+  return randomType
 };
 
 GameModel.prototype.finishTurn = function(playerIndex) {
@@ -153,10 +158,13 @@ GameModel.prototype.finishTurn = function(playerIndex) {
 	//Resources at the end of setup?
 };
 
-GameModel.prototype.buyDevCard = function(playerIndex) {
-	var card = this.deck.drawRandomCard();
+GameModel.prototype.buyDevCard = function(playerIndex, card) {
+  if (arguments.length === 1) {
+    card = this.deck.drawRandomCard();
+  }
 	this.players[playerIndex].buyDevCard(card);
 	this.bank.receivePaymentForDevCard();
+  return card
 };
 
 GameModel.prototype.playYearOfPlenty = function(playerIndex, resource1, resource2) {

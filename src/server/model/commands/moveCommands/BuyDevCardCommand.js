@@ -17,7 +17,10 @@ BuyDevCardCommand.optional = ['type'];
 BuyDevCardCommand.logMessage = '{{name}} bought a dev card';
 
 BuyDevCardCommand.prototype.executeOnGame = function(game){
-
-	game.buyDevCard(this.playerIndex);
-
+	this.card = game.buyDevCard(this.playerIndex);
 }
+
+BuyDevCardCommand.prototype.replayOnGame = function(game){
+	game.buyDevCard(this.playerIndex, this.card);
+}
+
