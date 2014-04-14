@@ -14,6 +14,10 @@ function PlayMonopolyCommand(gameID, playerIndex, resource){
 
 }
 
+PlayMonopolyCommand.params = ['playerIndex', 'resource'];
+PlayMonopolyCommand.optional = ['type'];
+PlayMonopolyCommand.logMessage = '{{name}} played a monopoly card';
+
 PlayMonopolyCommand.prototype.executeOnGame = function(game){
 
 	game.playMonopoly(this.playerIndex, this.resource);

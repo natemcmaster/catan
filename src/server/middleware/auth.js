@@ -1,4 +1,4 @@
-var HttpError = require('../../common').Errors.HttpError;
+var HttpError = require('../../common/Errors').HttpError;
 var debug = require('debug')('catan:middleware:auth');
 
 module.exports = function(req, res, next){

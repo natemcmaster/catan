@@ -1,5 +1,4 @@
 'use strict';
-var HttpError = require('../../common/').Errors.HttpError;
 
 module.exports = MoveCtrl;
 
@@ -35,7 +34,7 @@ var cmdMap = {
 
   offerTrade: 'OfferTradeCommand',
   acceptTrade: 'AcceptTradeCommand',
-  maritimeTrade: 'MaritimeTradeCommand',
+  maritimeTrade: 'MartimeTradeCommand',
   discardCards: 'DiscardCardsCommand',
 }
 

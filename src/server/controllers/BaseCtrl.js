@@ -1,6 +1,7 @@
 'use strict';
 
-var HttpError = require('../../common/').Errors.HttpError
+var HttpError = require('../../common/Errors').HttpError
+  , debug = require('debug')('catan:ctrl:base')
   , AbstractGameCommand = require('../model/commands/AbstractGameCommand');
 
 module.exports = BaseCtrl;
@@ -8,6 +9,11 @@ module.exports.HttpError = HttpError;
 
 function BaseCtrl(app, inj) {
   this.injector = inj;
+  try {
+    this.logger = inj.create('Logger');
+  } catch (e){
+    this.logger = console;
+  }
   this.assignRoutes(app, this.dynamicCall.bind(this));
 }
 
@@ -17,9 +23,13 @@ BaseCtrl.prototype.dynamicCall = function(func){
   var op = this.injector.inject(func);
   // Wrap the operation in error catching
   return function handler(request, response) {
+    debug('handling', request.url, request.cookies)
     try {
       op(request, response);
     } catch (e) {
+      console.error('SERVER ERROR:', e.message);
+      console.error('STACK TRACE:', e.stack);
+      // throw e;
       var code = (e instanceof HttpError) ? e.code : 500;
       var message = e.message;
       if (request.xhr) {
@@ -84,10 +94,15 @@ function getArgs(cmd, data) {
 function applyToConstructor(constructor, argArray) {
   var args = [null].concat(argArray);
   var FactoryFunction = constructor.bind.apply(constructor, args);
-  return new FactoryFunction();
+  var cmd = new FactoryFunction();
+  if(constructor.logMessage){
+    cmd.logMessage = constructor.logMessage;
+  }
+  return cmd;
 }
 
 BaseCtrl.prototype.commandRoute = function (cmdName, req, res) {
+  debug('Command route', cmdName);
   // req.params
   var Cmd = this.injector.resolve(cmdName);
   if (!Cmd) {
@@ -97,14 +112,12 @@ BaseCtrl.prototype.commandRoute = function (cmdName, req, res) {
   if (command instanceof Error) {
     return res.send(500, 'Error: ' + command.message);
   }
-  var err = command.execute(req.gameRoom);
-  if (err) {
-    return res.send(500, 'Error: ' + err.message);
-  }
-  var response = command.response(req.gameRoom);
-  if (response instanceof Error) {
-    return res.send(400, 'Error: ' + response.message);
-  }
-  res.json(response);
+  debug('executing')
+  req.gameRoom.executeCommand(command, function (err, response) {
+    if (err) {
+      return res.send(500, 'Error: ' + err.message + '\n' + err.stack)
+    }
+    res.json(response);
+  })
 }
 

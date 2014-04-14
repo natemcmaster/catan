@@ -16,8 +16,7 @@ UtilCtrl.prototype.assignRoutes = function(app,h){
 
 UtilCtrl.prototype.changeLogLevel = function(q,r,$Logger){
 	$Logger().setLogLevel(q.param('logLevel'),function(err,data){
-		if(err)
-			throw new BaseCtrl.HttpError(400,data);
+		if(err) return r.send(400, data);
 		r.send(200,'Log set to '+data);
 	});
 }

@@ -114,29 +114,22 @@ Hexgrid.prototype = {
     return hex.vertexes[ix];
   },
   setEdge: function (x, y, dir, owner) {
-    if (arguments.length === 1) {
-      owner = y;
-      dir = x.dir;
-      y = x.y;
-      x = x.x;
-    }
     equivalentEdgeLocs(x, y, dir).forEach(function (loc) {
       this.getEdge(loc).value.ownerID = owner;
     }.bind(this));
   },
   setVertex: function (x, y, dir, owner, worth) {
-    if (arguments.length === 1) {
-      worth = dir;
-      owner = y;
-      dir = x.dir;
-      y = x.y;
-      x = x.x;
-    }
     equivalentVertexLocs(x, y, dir).forEach(function (loc) {
       var value = this.getVertex(loc).value
       value.ownerID = owner;
       value.worth = worth;
     }.bind(this));
+  },
+  hexesForVertex: function (x, y, dir) {
+    var getHex = this.getHex.bind(this);
+    return equivalentVertexLocs(x, y, dir).map(function (loc) {
+      return getHex(loc.x, loc.y);
+    });
   },
   edgeIsOccupied: function (x, y, dir) {
     return this.getEdge(x, y, dir).value.ownerID !== -1

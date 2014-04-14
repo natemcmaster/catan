@@ -18,14 +18,23 @@ function Deck(data) {
 	Card drawn so player object can be updated
 **/
 Deck.prototype.drawRandomCard = function() {
-	var type = getRandomInt(0, 4);
-
-	while (this.data[type] == 0)
+	var randomInt;
+	var type;
+	var amount = 0;
+	while (amount == 0)
 	{
-		type = getRandomInt(0, 4);
+		randomInt = Math.floor(Math.random()*5);
+		type = this.getType(randomInt);
+		amount = this.data[type];
 	}
 
 	this.data[type]--;
-	
-	return this.data[type].name;
+
+	return type;
 };
+
+Deck.prototype.getType = function(index){
+	var types = ['yearOfPlenty','soldier','monument', 'monopoly', 'roadBuilding'];
+	return types[index];
+}
+

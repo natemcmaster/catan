@@ -27,8 +27,12 @@ function Map(data){
 
 Map.prototype.getCardsRolled = function (number) {
   var that = this
+    , robber = this.data.robber
     , cards = {};
   this.data.numbers[number].forEach(function (location) {
+    if (location.x === robber.x && location.y === robber.y) {
+      return // robbed
+    }
     var hex = that.hex.getHex(location.x, location.y)
     if (!hex.isLand) return;
     var land = hex.landtype.toLowerCase();
@@ -47,8 +51,28 @@ Map.prototype.getCardsRolled = function (number) {
   return cards;
 }
 
+Map.prototype.getResourcesForVertexLocation = function (loc) {
+  var cards = {
+    brick: 0,
+    wheat: 0,
+    sheep: 0,
+    wood: 0,
+    ore: 0
+  }
+  this.hex.hexesForVertex(loc.x, loc.y, loc.direction).forEach(function (hex) {
+    if (!hex) return;
+    if (!hex.isLand) return;
+    cards[hex.landtype.toLowerCase()] += 1
+  })
+  return cards;
+}
+
 Map.prototype.getRoadOwner = function (x, y, dir) {
   return this.hex.getEdge(x, y, dir).value.ownerID;
+}
+
+Map.prototype.getSettlementOwner = function (x, y, dir) {
+  return this.hex.getVertex(x, y, dir).value.ownerID;
 }
 
 /**
@@ -115,7 +139,7 @@ Map.prototype.placeSettlement = function(playerIndex, loc) {
  * @param {VertexLocation} Location of vertex on hex to place city on
  * @return {void}
  */
-Map.prototype.placeCity = function(playerIndex, vertexLocation) {
+Map.prototype.placeCity = function(playerIndex, loc) {
   if (!this.hex.vertexHasMySettlement(loc.x, loc.y, loc.direction, playerIndex)) {
     throw new Error('A city can only be placed to replace your own settlement');
   }
@@ -124,8 +148,5 @@ Map.prototype.placeCity = function(playerIndex, vertexLocation) {
 
 Map.prototype.getNumberLocation = function(number){
 
-    return this.data.numbers[String(number)];  
+    return this.data.numbers[String(number)];
 };
-
-
-

@@ -10,6 +10,9 @@ function BuildCityCommand(gameId, playerIndex, cityLocation, isFree) {
   this.cityLocation = cityLocation;
   this.isFree = isFree;
 }
+BuildCityCommand.params = ['playerIndex', 'vertexLocation', 'free'];
+BuildCityCommand.optional = ['type'];
+BuildCityCommand.logMessage = '{{name}} built a city';
 
 BuildCityCommand.prototype.executeOnGame = function (game) {
 

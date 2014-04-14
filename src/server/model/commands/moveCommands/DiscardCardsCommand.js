@@ -2,26 +2,20 @@ var AbstractMoveCommand = require('./AbstractMoveCommand')
   , util = require('util')
 
 module.exports = DiscardCardsCommand
-
-
 util.inherits(DiscardCardsCommand, AbstractMoveCommand);
 
-
-
-function DiscardCardsCommand(gameID, playerIndex, brick, ore, sheep, wheat, wood){
+function DiscardCardsCommand(gameID, playerIndex, discardedCards){
 	AbstractMoveCommand.call(this,gameID);
+	
 	this.playerIndex = playerIndex;
-	this.brick = brick;
-	this.ore = ore;
-	this.sheep = sheep;
-	this.wheat = wheat;
-	this.wood = wood;
-
-
+	this.discardedCards = discardedCards;
 }
 
-DiscardCardsCommand.prototype.executeOnGame = function(game){
+DiscardCardsCommand.params = ['playerIndex', 'discardedCards'];
+DiscardCardsCommand.optional = ['type'];
+DiscardCardsCommand.logMessage = '{{name}} discarded cards';
 
-	game.discardCards(this.playerIndex, this.brick, this.ore, this.sheep, this.wheat, this.wood);
+DiscardCardsCommand.prototype.executeOnGame = function(game){
+	game.discardCards(this.playerIndex, this.discardedCards);
 }
 
