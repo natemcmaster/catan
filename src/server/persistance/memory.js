@@ -14,7 +14,58 @@ function MemoryPL() {
 	this.gameId = 0;
 	this.games = {};
 	this.userId = 0;
-	this.users = {};
+	this.users = {
+		'0': {
+			username: 'Sam',
+			password: 'sam',
+			id: 0
+		},
+		'1': {
+			username: 'Brooke',
+			password: 'brooke',
+			id: 1
+		},
+		'3': {
+			username: 'Quinn',
+			password: 'quinn',
+			id: 3
+		},
+		'5': {
+			username: 'Mark',
+			password: 'mark',
+			id: 5
+		},
+		'39': {
+			username: 'Nate',
+			password: 'nate',
+			id: 39
+		},
+		'40': {
+			username: 'Jared',
+			password: 'jared',
+			id: 40
+		},
+		'41': {
+			username: 'Spence',
+			password: 'spence',
+			id: 41
+		},
+		'42': {
+			username: 'Alan',
+			password: 'alan',
+			id: 42
+		},
+		'43': {
+			username: 'Chris',
+			password: 'chris',
+			id: 43
+		},
+		'9999999999': {
+			username: 'chuck',
+			password: 'norris',
+			id: 9999999999
+		},
+	};
 	this.commandId = 0;
 	this.commands = {};
 }
@@ -105,7 +156,7 @@ MemoryPL.prototype.updateGame = function(id, lastCommandId, data, callback) {
  * @return {object[]} list of json user objects
  */
 MemoryPL.prototype.readAllUsers = function(callback) {
-	callback(null, _(this.users).toArray().value() );
+	callback(null, _(this.users).toArray().value());
 };
 
 /**
@@ -134,5 +185,5 @@ MemoryPL.prototype.getRecentGameCommands = function(gameid, id, callback) {
  * @return {object[]} list of json game objects
  */
 MemoryPL.prototype.getAllGameInfo = function(callback) {
-	callback(null, _(this.games).toArray().value() );
+	callback(null, _(this.games).toArray().value());
 };
