@@ -39,7 +39,7 @@ module.exports = function(grunt) {
 						console.log('Using defaults for server config. To override set: -plugin={pluginName} and/or -delta={int}')
 					}
 
-					return 'node src/server/app.js src/server/persitance/' + option + '.js ' + delta;
+					return 'node src/server/app.js src/server/persistance/' + option + '.js ' + delta;
 				},
 				options: {
 					stdout: true,
