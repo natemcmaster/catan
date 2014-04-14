@@ -1,8 +1,9 @@
 {
   "id":1, 
   "title":"Populated Game",
-  "lastCommand":0, 
-  "currentGame": {
+  "last_command_id":-1,
+
+  "current": {
     "deck": {
       "yearOfPlenty": 2,
       "monopoly": 2,
@@ -3562,7 +3563,7 @@
     "revision": 10
   },
 
-  "originalGame": {
+  "original": {
     "deck": {
       "yearOfPlenty": 2,
       "monopoly": 2,
