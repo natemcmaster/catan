@@ -1,7 +1,8 @@
 var _ = require('lodash');
 var fs = require('fs'),
 	path = require('path'),
-	Sync = require('node-sync');
+  async = require('async')
+
 /**
  * @module catan
  * @namespace catan
@@ -35,23 +36,33 @@ DAO.prototype.getUsers = function(callback){
 	this.pl.readAllUsers(callback);
 }
 
+DAO.prototype.constructGame = function (data, next) {
+	var game = this.constructGame(data.current);
 
-DAO.prototype.getGames = function(callback){
-	Sync(function(){
-		var data = this.pl.getAllGameInfo.sync();
-		var games = [];
-		for (var i = data.length - 1; i >= 0; i--) {
-			var game = this.constructGame(data[i].current);
-			var commands = this.pl.getRecentGameCommands.sync(null,game.id,data.last_command_id);
+	this.pl.getRecentGameCommands(null, game.id, data.last_command_id, function (err, commands) {
+		if (err) return next(err)
 			for(var j = 0; j < commands.length; j++){
-				var data = command[j].data;
-				var command= this.abstactCommand.fromJSON(data);
+				var data = commands[j].data;
+				var command = this.abstactCommand.fromJSON(data);
 				this.constructCommands.replayOnGame(game);
 			}
-			games.push(game);
-		}
+			next(null, game)
+	});
 
-		callback(null,games);
+}
+
+
+DAO.prototype.getGames = function(callback){
+	this.pl.getAllGameInfo(function (err, data) {
+		if (err) return callback(err)
+
+			var tasks = data.map(function (game) {
+				return this.constructGame.bind(this, game)
+			}.bind(this))
+
+			async.parallel(tasks, function (err, games) {
+				callback(null,games);
+			})
 	})
 }
 
