@@ -26,7 +26,7 @@ describe('FilePL tests', function() {
 		}
 	})
 
-	it.only('#readAllUsers() when starting server', function(done) {
+	it('#readAllUsers() when starting server', function(done) {
 		console.log("Where are we?");
 		//console.log(originalUsers);
 		//console.log(filePL.rootPath);
