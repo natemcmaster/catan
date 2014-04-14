@@ -18,52 +18,52 @@ function MemoryPL() {
 		'0': {
 			username: 'Sam',
 			password: 'sam',
-			id: 0
+			playerID: 0
 		},
 		'1': {
 			username: 'Brooke',
 			password: 'brooke',
-			id: 1
+			playerID: 1
 		},
 		'3': {
 			username: 'Quinn',
 			password: 'quinn',
-			id: 3
+			playerID: 3
 		},
 		'5': {
 			username: 'Mark',
 			password: 'mark',
-			id: 5
+			playerID: 5
 		},
 		'39': {
 			username: 'Nate',
 			password: 'nate',
-			id: 39
+			playerID: 39
 		},
 		'40': {
 			username: 'Jared',
 			password: 'jared',
-			id: 40
+			playerID: 40
 		},
 		'41': {
 			username: 'Spence',
 			password: 'spence',
-			id: 41
+			playerID: 41
 		},
 		'42': {
 			username: 'Alan',
 			password: 'alan',
-			id: 42
+			playerID: 42
 		},
 		'43': {
 			username: 'Chris',
 			password: 'chris',
-			id: 43
+			playerID: 43
 		},
 		'9999999999': {
 			username: 'chuck',
 			password: 'norris',
-			id: 9999999999
+			playerID: 9999999999
 		},
 	};
 	this.commandId = 0;
@@ -105,7 +105,7 @@ MemoryPL.prototype.persistGame = function(title, data, callback) {
 MemoryPL.prototype.persistUser = function(data, callback) {
 	++this.userId;
 	this.users[this.userId] = {
-		id: this.userId,
+		playerID: this.userId,
 		username: data.username,
 		password: data.password
 	};

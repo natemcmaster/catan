@@ -1,7 +1,8 @@
 module.exports = GameRoom;
 var _ = require('underscore');
 var CatanError = require('../../common/Errors').CatanError;
-var debug = require('debug')('catan:models:gameroom');
+var debug = require('debug')('catan:models:gameroom')
+  , async = require('async')
 
 /**
   This module contains the game room
@@ -18,29 +19,19 @@ var debug = require('debug')('catan:models:gameroom');
  */
 function GameRoom(dataRoot, commandsToPersist, ready, $DAO) {
 	this.dao = $DAO(dataRoot, commandsToPersist);
-	var done = 2;
   var that = this
 
-	function stepDone() {
-		if (--done <= 0) {
-			ready(null,that);
-		}
-	}
+  async.parallel({
+    users: this.dao.getUsers.bind(this.dao),
+    games: this.dao.getGames.bind(this.dao),
+  }, function (err, data) {
+    if (err) return ready(err)
+    debug('setup', data)
+    that.users = data.users
+    that.games = data.games
+    ready(null, that)
+  })
 
-	this.dao.getUsers(function(err, data) {
-		if (err) {
-			ready(err);
-		}
-		this.users = data;
-		stepDone();
-	})
-	this.dao.getGames(function(err, data) {
-		if (err) {
-			ready(err);
-		}
-		this.games=data;
-		stepDone()
-	});
 };
 
 GameRoom.prototype.getGameByID = function(gameID) {
@@ -90,7 +81,7 @@ GameRoom.prototype.login = function(username, password, done) {
 	var user = _(this.users).find(function(u) {
 		return u.username == username;
 	});
-	debug('logging in', username, password, !! user);
+	debug('logging in', username, password, !!user, this.users);
 	if (!user || user.password !== password)
 		return done(null, false)
 	done(null, user)
