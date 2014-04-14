@@ -22,7 +22,8 @@
         "body-parser": "~1.0.1",
         "export-dir": "natemcmaster/export-dir",
         "tmp": "0.0.23",
-        "sqlite3": "~2.2.0"
+        "sqlite3": "~2.2.0",
+        "node-sync": "~0.0.8"
     },
     "devDependencies": {
         "grunt": "~0.4.2",
