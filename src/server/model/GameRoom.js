@@ -26,14 +26,14 @@ function GameRoom(dataRoot, commandsToPersist, callback, $DAO) {
 		}
 	}
 
-	this.dao.readAllUsers(function(err, data) {
+	this.dao.getUsers(function(err, data) {
 		if (err) {
 			ready(err);
 		}
 		this.users = data;
 		stepDone();
 	})
-	this.dao.readAllGameInfo(function(err, data) {
+	this.dao.getGames(function(err, data) {
 		if (err) {
 			ready(err);
 		}
@@ -73,9 +73,12 @@ GameRoom.prototype.executeCommand = function (command, callback) {
   if (response instanceof Error) {
     return callback(response)
   }
-
-  // TODO persist
-  callback(null, response);
+  var game = _(this.games).find(function(d){
+  	return d.id == command._gameid;
+  })
+  this.dao.saveCommand(command,game,function(error,commandId){
+  	callback(error, commandId);
+  })
 }
 
 //--------------------------------------------------------------

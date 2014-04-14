@@ -184,12 +184,15 @@ GameModel.prototype.playRoadBuilding = function(playerIndex, spot1, spot2) {
 
 	//Check if the player who built has won
 	this.seeIfWon(playerIndex);
+
+	//STILL NEED TO CHANGE THE MAP
+	this.map.placeRoad(playerIndex, spot1);
+	this.map.placeRoad(playerIndex, spot2);
 };
 
 GameModel.prototype.playSoldier = function(playerIndex, victimIndex, location) {
 	this.robPlayer(playerIndex, victimIndex, location);
 	this.players[playerIndex].playSoldier();
-
 	this.recalculateLargestArmy(playerIndex);
 	this.seeIfWon(playerIndex);
 };
