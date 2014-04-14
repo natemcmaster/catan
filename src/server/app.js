@@ -11,6 +11,7 @@ try {
   var PlClass = require(plPath);
   var deltaNumber = parseInt(process.argv[3], 10);
 } catch (e) {
+  console.error('Could not find the plugin!')
   console.error('Usage: node app.js path/to/pl-plugin.js deltaNumber')
   process.exit(2)
 }
