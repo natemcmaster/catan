@@ -51,7 +51,6 @@ DAO.prototype.constructGame = function (data, next) {
 
 }
 
-
 DAO.prototype.getGames = function(callback){
 	this.pl.getAllGameInfo(function (err, data) {
 		if (err) return callback(err)

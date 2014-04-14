@@ -16,7 +16,7 @@ var debug = require('debug')('catan:models:gameroom');
  * @class GameRoom
  * @constructor
  */
-function GameRoom(dataRoot, commandsToPersist, callback, $DAO) {
+function GameRoom(dataRoot, commandsToPersist, ready, $DAO) {
 	this.dao = $DAO(dataRoot, commandsToPersist);
 	var done = 2;
 
