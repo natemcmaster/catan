@@ -1,9 +1,9 @@
 
-var AbstractGameCommand = require('../AbstractGameCommand')
-  , commands = require('./')
+module.exports = AbstractMoveCommand
+
+var AbstractGameCommand = require('./AbstractGameCommand')
   , util = require('util')
 
-module.exports = AbstractMoveCommand;
 util.inherits(AbstractMoveCommand, AbstractGameCommand)
 
 function AbstractMoveCommand(gameid) {
@@ -14,7 +14,7 @@ AbstractMoveCommand.prototype.replayOnGame = function (game) {
   this.executeOnGame(game);
 }
 
-AbstractGameCommand.prototype.toJSON = function () {
+AbstractMoveCommand.prototype.toJSON = function () {
   var json = {
     type: this.constructor.name,
     data: {}
@@ -27,14 +27,16 @@ AbstractGameCommand.prototype.toJSON = function () {
   return json
 }
 
-AbstractGameCommand.prototype.fromJSON = function (data) {
+AbstractMoveCommand.prototype.fromJSON = function (data) {
   for (var name in data) {
     this[name] = data[name]
   }
 }
 
-AbstractGameCommand.fromJSON = function (json) {
+AbstractMoveCommand.fromJSON = function (json) {
+  var commands = require('./moveCommands')
   var inst = Object.create(commands[json.type].prototype)
   inst.fromJSON(json.data)
+  return inst
 }
 

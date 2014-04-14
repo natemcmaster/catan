@@ -1,7 +1,8 @@
-var AbstractMoveCommand = require('./AbstractMoveCommand')
+var AbstractMoveCommand = require('../AbstractMoveCommand')
   , util = require('util');
 
 module.exports = AcceptTradeCommand;
+console.log(AbstractMoveCommand, AcceptTradeCommand)
 util.inherits(AcceptTradeCommand, AbstractMoveCommand);
 
 function AcceptTradeCommand(gameID, playerIndex, willAccept){

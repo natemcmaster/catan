@@ -1,7 +1,8 @@
-var AbstractMoveCommand = require('./AbstractMoveCommand')
+var AbstractMoveCommand = require('../AbstractMoveCommand')
   , util = require('util')
 
 module.exports = BuildCityCommand;
+console.log(AbstractMoveCommand, BuildCityCommand)
 util.inherits(BuildCityCommand, AbstractMoveCommand)
 
 function BuildCityCommand(gameId, playerIndex, cityLocation, isFree) {

@@ -1,4 +1,4 @@
-var AbstractMoveCommand = require('./AbstractMoveCommand')
+var AbstractMoveCommand = require('../AbstractMoveCommand')
   , util = require('util')
 
 module.exports = MartimeTradeCommand
