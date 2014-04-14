@@ -36,7 +36,7 @@ function FilePL(rootPath) {
  */
 FilePL.prototype.persistGame = function(title, data, callback){
 	var id = this.nextGameID++;
-	var gameInfo = {'id':id, 'title':title, 'currentGame':data, 'originalGame':data, 'lastCommand':0};
+	var gameInfo = {'id':id, 'title':title, 'current':data, 'original':data, 'lastCommand':0};
 	
 	try {
 		fs.writeFile(this.rootPath + 'game' + id + '.json', JSON.stringify(gameInfo), null, function(error){
@@ -133,7 +133,7 @@ FilePL.prototype.updateGame = function(gameid, lastCommand, data, callback){
 			gameInfo = JSON.parse(data);
 		});
 
-		gameInfo.currentGame = data;
+		gameInfo.current = data;
 		gameInfo.lastCommand = lastCommand;
 
 		return callback(null);
@@ -219,18 +219,19 @@ FilePL.prototype.getRecentGameCommands = function(gameid, id, callback){
  */
 FilePL.prototype.getAllGameInfo = function(callback){
 	try {
-		var games = null;
+		var games = [];
 		fs.readdir(this.rootPath, function(error, files){
   			if (error) throw error;
   			
   			files.forEach(function(file){
-  				if ("game".indexOf(file) !== -1)
+  				if ("game".indexOf(file) !== -1){
   					fs.readFile(this.rootPath + file, function(error, data){
   						if (error) throw error;
   						gameData = JSON.parse(data);
-  						games.push(gameData.currentGame);
+  						games.push(gameData.current);
   					})
-  			})
+  				}
+  			}.bind(this))
 		});
 
 		return callback(null, games);
