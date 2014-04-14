@@ -104,7 +104,7 @@ DAO.prototype.saveCommand = function(command, game, doneSaving) {
  * @return {void}
  */
 DAO.prototype.createUser = function(user, password, done) {
-	this.pl.persistUser(user, password, function(error, userID) {
+	this.pl.persistUser({user: user, password: password}, function(error, userID) {
 		if (error) {
 			return done(error);
 		}

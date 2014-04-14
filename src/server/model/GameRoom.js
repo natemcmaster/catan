@@ -19,10 +19,11 @@ var debug = require('debug')('catan:models:gameroom');
 function GameRoom(dataRoot, commandsToPersist, ready, $DAO) {
 	this.dao = $DAO(dataRoot, commandsToPersist);
 	var done = 2;
+  var that = this
 
 	function stepDone() {
 		if (--done <= 0) {
-			ready(null,this);
+			ready(null,that);
 		}
 	}
 
@@ -85,14 +86,14 @@ GameRoom.prototype.executeCommand = function (command, callback) {
 // Commands
 //--------------------------------------------------------------
 
-GameRoom.prototype.login = function(username, password) {
+GameRoom.prototype.login = function(username, password, done) {
 	var user = _(this.users).find(function(u) {
 		return u.username == username;
 	});
 	debug('logging in', username, password, !! user);
 	if (!user || user.password !== password)
-		return false;
-	return user;
+		return done(null, false)
+	done(null, user)
 };
 
 GameRoom.prototype.registerUser = function(username, password,callback) {
@@ -106,7 +107,7 @@ GameRoom.prototype.registerUser = function(username, password,callback) {
 			return callback(err);
 		}
 		this.users.push(user);
-		callback(done)
+		callback(null, user)
 	});
 };
 
@@ -143,13 +144,13 @@ GameRoom.prototype.createGame = function(title, randomTiles, randomNumbers, rand
 
 
 // TODO make async
-GameRoom.prototype.joinGame = function(playerID, color, gameID) {
+GameRoom.prototype.joinGame = function(playerID, color, gameID, done) {
 	var game = this.getGameByID(gameID);
 	debug('Joining game', gameID);
 	if (!game) return new CatanError('Could not find game');
 	if (!game.model.updateColor(playerID, color)) {
 		if (game.model.players.length >= 4) {
-			return new Error('Game is full');
+			return done(new Error('Game is full'));
 		}
 		var user = this.getUserByID(playerID);
 		game.model.addPlayer(user.playerID, user.username, color)
@@ -157,7 +158,7 @@ GameRoom.prototype.joinGame = function(playerID, color, gameID) {
 	process.nextTick(function() {
 		this.gameRepo.update(gameID, game, 'players');
 	}.bind(this));
-	return true;
+	done(null, true);
 };
 
 GameRoom.prototype.getGameModel = function(gameID) {
