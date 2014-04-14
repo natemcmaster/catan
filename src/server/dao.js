@@ -1,7 +1,7 @@
 var _ = require('lodash');
 var fs = require('fs'),
 	path = require('path'),
-	Sync = require('sync');
+	Sync = require('node-sync');
 /**
  * @module catan
  * @namespace catan

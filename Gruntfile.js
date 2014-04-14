@@ -31,15 +31,24 @@ module.exports = function(grunt) {
 		pkg: grunt.file.readJSON('package.json'),
 		shell: {
 			serve: {
-				command: 'node src/server/app.js',
-				options:{
+				command: function() {
+					var option = grunt.option('plugin') || 'memory',
+						delta = grunt.option('delta') || 20;
+
+					if (!grunt.option('plugin') || !grunt.option('delta')) {
+						console.log('Using defaults for server config. To override set: -plugin={pluginName} and/or -delta={int}')
+					}
+
+					return 'node src/server/app.js src/server/persitance/' + option + '.js ' + delta;
+				},
+				options: {
 					stdout: true,
 					stderr: true
 				}
 			},
 			resetPersistence: {
 				command: 'ant reset-persistence',
-				options:{
+				options: {
 					stdout: true,
 					stderr: true
 				}
@@ -112,7 +121,7 @@ module.exports = function(grunt) {
 				reporter: 'html-cov',
 				output: 'coverage.html'
 			},
-			all: ['test/server/**/*.js','test/common/**/*.js']
+			all: ['test/server/**/*.js', 'test/common/**/*.js']
 		},
 		browserify: {
 			src: {
@@ -211,7 +220,8 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('default', ['copy', 'browserify', 'concat', 'jshint', 'test']);
 	grunt.registerTask('all', ['copy', 'browserify', 'concat', 'yuidoc:compile', 'jshint', 'test']);
-	grunt.registerTask('build', ['copy', 'browserify', 'concat', 'shell:resetPersistence','yuidoc:compile']);
+	grunt.registerTask('reset', 'shell:resetPersistence');
+	grunt.registerTask('build', ['copy', 'browserify', 'concat', 'shell:resetPersistence', 'yuidoc:compile']);
 
 	grunt.registerTask('clean', 'Delete build folder', function() {
 		grunt.file.delete(buildDir + '/');
@@ -224,13 +234,13 @@ module.exports = function(grunt) {
 		grunt.log.writeln('Copying files to build output: ' + buildDir + '/');
 		grunt.task.run(['browserify:test', 'copy:test']);
 		var toFile = grunt.option('output') || '';
-		if (toFile){
+		if (toFile) {
 			grunt.config('mochaTest.test.options.captureFile', toFile);
 			grunt.config('mochaTest.testServer.options.captureFile', toFile);
 		}
 
 		var grep = grunt.option('grep') || '';
-		if (grep){
+		if (grep) {
 			grunt.config('mochaTest.test.options.grep', grep);
 			grunt.config('mochaTest.testServer.options.grep', grep);
 		}
@@ -243,7 +253,7 @@ module.exports = function(grunt) {
 
 		grunt.task.run(['mochaTest']);
 	});
-	grunt.registerTask('testServer', function(){
+	grunt.registerTask('testServer', function() {
 		var toFile = grunt.option('output') || '';
 		if (toFile)
 			grunt.config('mochaTest.testServer.options.captureFile', toFile);

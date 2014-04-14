@@ -29,7 +29,7 @@ module.exports = function(callback, PlClass, deltaNumber, setup) {
   var app = express();
   var documentRoot = path.join(__dirname, '..', '..', 'build');
   var dataRoot = path.join(documentRoot,'data');
-  var commandsToPersist = 30;
+  var commandsToPersist = deltaNumber || 30;
 
   // all environments
   app.set('port', process.env.PORT || 8081);
