@@ -10,8 +10,8 @@ function AbstractMoveCommand(gameid) {
   AbstractGameCommand.call(this, gameid);
 }
 
-AbstractMoveCommand.prototype.replayOnGame = function (game) {
-  this.executeOnGame(game);
+AbstractMoveCommand.prototype.replayOnGame = function (game, users) {
+  this.executeOnGame(game, users);
 }
 
 AbstractMoveCommand.prototype.toJSON = function () {

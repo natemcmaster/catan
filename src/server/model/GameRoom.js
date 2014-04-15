@@ -21,17 +21,13 @@ function GameRoom(dataRoot, commandsToPersist, ready, $DAO) {
 	this.dao = $DAO(dataRoot, commandsToPersist);
   var that = this
 
-  async.parallel({
-    users: this.dao.getUsers.bind(this.dao),
-    games: this.dao.getGames.bind(this.dao),
-  }, function (err, data) {
+  this.dao.getAllData(function (err, data) {
     if (err) return ready(err)
     debug('setup', data)
     that.users = data.users
     that.games = data.games
     ready(null, that)
   })
-
 };
 
 GameRoom.prototype.getGameByID = function(gameID) {
@@ -61,7 +57,8 @@ GameRoom.prototype.executeCommand = function (command, callback) {
   if (err) {
     return callback(err)
   }
-  var response = command.response(req.gameRoom);
+  console.log(command)
+  var response = command.response(this);
   if (response instanceof Error) {
     return callback(response)
   }
@@ -99,7 +96,7 @@ GameRoom.prototype.registerUser = function(username, password,callback) {
 		}
 		this.users.push(user);
 		callback(null, user)
-	});
+	}.bind(this));
 };
 
 var gameSummary = function(s) {
@@ -137,6 +134,8 @@ GameRoom.prototype.createGame = function(title, randomTiles, randomNumbers, rand
 // TODO make async
 GameRoom.prototype.joinGame = function(playerID, color, gameID, done) {
 	var game = this.getGameByID(gameID);
+  game.join(playerID, color, this.users)
+  /*
 	debug('Joining game', gameID);
 	if (!game) return new CatanError('Could not find game');
 	if (!game.model.updateColor(playerID, color)) {
@@ -150,6 +149,7 @@ GameRoom.prototype.joinGame = function(playerID, color, gameID, done) {
 		this.gameRepo.update(gameID, game, 'players');
 	}.bind(this));
 	done(null, true);
+  */
 };
 
 GameRoom.prototype.getGameModel = function(gameID) {

@@ -1,21 +1,32 @@
-var AbstractCommand = require('../AbstractCommand')
+var AbstractMoveCommand = require('../AbstractMoveCommand')
   , util = require('util')
 
 module.exports = JoinGameCommand
 
-util.inherits(JoinGameCommand, AbstractCommand);
+util.inherits(JoinGameCommand, AbstractMoveCommand);
 
 
-function JoinGameCommand(playerID, color, gameID, $Logger){
-	AbstractCommand.call(this,$Logger);
+function JoinGameCommand(gameID, playerID, color){
+	AbstractMoveCommand.call(this, gameID);
+
 	this.playerID = playerID;
 	this.color = color;
-	this.gameID = gameID;
 }
 
-JoinGameCommand.params = ['playerID', 'color', 'gameID'];
+JoinGameCommand.params = ['playerID', 'color'];
 
-JoinGameCommand.prototype.execute = function(gameRoom,callback){
+JoinGameCommand.prototype.response = function () {
+}
+
+JoinGameCommand.prototype.executeOnGame = function (game, users) {
+  var result = game.join(this.playerID, this.color, users)
+  if (!result) {
+    this.logger.warn('PlayerID '+this.playerID+' failed to join game '+this.gameID);
+  } else {
+    this.logger.log('PlayerID '+this.playerID+' joined game '+this.gameID);
+  }
+  return result
+  /*
 	gameRoom.joinGame(this.playerID, this.color, this.gameID, function (err, success) {
     if (err) return callback(err)
     if (success instanceof Error) {
@@ -30,4 +41,5 @@ JoinGameCommand.prototype.execute = function(gameRoom,callback){
       this.logger.log('PlayerID '+this.playerID+' joined game '+this.gameID);
     }
   });
+  */
 }

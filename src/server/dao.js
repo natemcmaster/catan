@@ -17,7 +17,7 @@ module.exports = DAO;
 function DAO(maxDelta, dataPath, $PersistanceLayer, $GameModel, $AbstractMoveCommand) {
 	this.pl = $PersistanceLayer(dataPath);
 	this.abstactCommand = $AbstractMoveCommand;
-	this.constructGame = $GameModel;
+	this.GameModel = $GameModel;
 	var data = JSON.parse(fs.readFileSync(path.join(__dirname, 'initial_data', '_initialdata.json')));
 	this.blank = data.blank;
 
@@ -36,33 +36,35 @@ DAO.prototype.getUsers = function(callback){
 	this.pl.readAllUsers(callback);
 }
 
-DAO.prototype.constructGame = function (data, next) {
-	var game = this.constructGame(data.current);
+DAO.prototype.constructGame = function (data, users, next) {
+	var game = new this.GameModel(data.current);
 
 	this.pl.getRecentGameCommands(null, game.id, data.last_command_id, function (err, commands) {
 		if (err) return next(err)
 			for(var j = 0; j < commands.length; j++){
 				var data = commands[j].data;
 				var command = this.abstactCommand.fromJSON(data);
-				this.constructCommands.replayOnGame(game);
+				this.constructCommands.replayOnGame(game, users);
 			}
 			next(null, game)
 	}.bind(this));
 
 }
 
-DAO.prototype.getGames = function(callback){
-	this.pl.getAllGameInfo(function (err, data) {
-		if (err) return callback(err)
+DAO.prototype.getAllData = function(callback){
+  this.getUsers(function (err, users) {
+    this.pl.getAllGameInfo(function (err, data) {
+      if (err) return callback(err)
 
-			var tasks = data.map(function (game) {
-				return this.constructGame.bind(this, game)
-			}.bind(this))
+        var tasks = data.map(function (game) {
+          return this.constructGame.bind(this, game, users)
+        }.bind(this))
 
-			async.parallel(tasks, function (err, games) {
-				callback(null,games);
-			})
-	}.bind(this))
+        async.parallel(tasks, function (err, games) {
+          callback(null,games);
+        })
+    }.bind(this))
+  }.bind(this))
 }
 
 /**
@@ -189,7 +191,7 @@ DAO.prototype.createGame = function(title, randomTiles, randomNumbers, randomPor
 		});
 	}
 
-	var model = this.constructGame(blank);
+	var model = new this.GameModel(blank);
 	var game = {
 		id: -1,
 		title: title,

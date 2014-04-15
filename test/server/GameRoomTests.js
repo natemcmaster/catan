@@ -4,7 +4,7 @@ var expect = require('chai').expect
   , MakeApp = require('../../src/server/catan')
   , testConfig = require('../test-config')
   , h = require('./commands/helpers')
-  , SqlitePL = require('../../src/server/persistance/sqlite.js')
+  , MemoryPL = require('../../src/server/persistance/memory.js')
   ;
 
 describe('GameRoom endpoints', function () {
@@ -14,7 +14,7 @@ describe('GameRoom endpoints', function () {
       app = app
       agent = request.agent(app)
       done()
-    }, SqlitePL, 10, testConfig);
+    }, MemoryPL, 10, testConfig);
   });
 
   describe('login', function () {

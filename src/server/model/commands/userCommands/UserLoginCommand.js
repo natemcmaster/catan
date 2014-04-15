@@ -24,5 +24,5 @@ LoginCommand.prototype.execute = function(gameRoom, callback) {
       password: data.password,
     });
     this.logger.log('User logged in: ' + this.username);
-  });
+  }.bind(this));
 }

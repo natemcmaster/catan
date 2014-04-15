@@ -29,10 +29,8 @@ var setCookie = function(res, username, password, id) {
 }
 
 UserCtrl.prototype.login = function(q, r, $UserLoginCommand) {
-  console.log('LOGINZ')
 	$UserLoginCommand(q.param('username'), q.param('password'))
 		.execute(q.gameRoom, function(err, data) {
-      console.log("LOGGEDINZ", err, data)
 			if (err) {
 				return r.send(401, 'Bad username or password');
 			}

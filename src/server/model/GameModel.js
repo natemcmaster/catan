@@ -359,4 +359,26 @@ GameModel.prototype.seeIfWon = function(playerIndex){
 	}
 }
 
+GameModel.prototype.join = function (playerID, color, users) {
+	debug('Joining game', playerID, color)
+	if (!this.updateColor(playerID, color)) {
+		if (this.players.length >= 4) {
+      return false
+		}
+    var user
+    for (var i=0; i<users.length; i++) {
+      if (users[i].playerID === playerID) {
+        user = users[i]
+        break;
+      }
+    }
+    if (!user) {
+      console.error('FAILED to find using when joining', playerID, users)
+      return false
+    }
+		this.addPlayer(playerID, user.username, color)
+	}
+  return true
+}
+
 
