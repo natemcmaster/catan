@@ -23,7 +23,7 @@ function MemoryPL() {
     1: {
       current: initial_data.populated_sample,
       last_command_id: -1,
-      id: 0
+      id: 1
     }
   };
 	this.userId = 0;

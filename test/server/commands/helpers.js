@@ -20,7 +20,8 @@ function loggedInAs(name, password, sub) {
       var PlClass = MemPL
         , deltaNumber = 10
       MakeApp(function (app) {
-        this.agent = request.agent(this.app);
+        this.app = app
+        this.agent = request.agent(app);
         this.agent.post('/user/login')
           .send({username: name, password: password})
           .expect(200, function (err) {
