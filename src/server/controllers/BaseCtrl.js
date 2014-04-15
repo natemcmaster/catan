@@ -20,7 +20,7 @@ function BaseCtrl(app, inj) {
 BaseCtrl.prototype.assignRoutes = function(app, handler) {}
 
 BaseCtrl.prototype.dynamicCall = function(func){
-  var op = this.injector.inject.call(this,func);
+  var op = this.injector.inject(func);
   // Wrap the operation in error catching
   return function handler(request, response) {
     debug('handling', request.url, request.cookies)

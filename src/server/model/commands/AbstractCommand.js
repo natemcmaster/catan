@@ -1,7 +1,11 @@
 module.exports = AbstractCommand;
 
 function AbstractCommand($Logger){
-	this.logger=$Logger();
+	if(!$Logger){
+		this.logger = console;
+	} else{
+		this.logger=$Logger();
+	}
 }
 
 AbstractCommand.fromJSON = function(){

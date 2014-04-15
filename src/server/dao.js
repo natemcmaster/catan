@@ -161,7 +161,7 @@ function randomTilify(game) {
  * @param {fn(err, game)} callback
  * @return {void}
  */
-DAO.prototype.createGame = function(title, randomTiles, randomNumbers, randomPorts, done) {
+DAO.prototype.createGame = function(title, randomTiles, randomNumber, randomPorts, done) {
 	var blank = _.cloneDeep(this.blank);
 	if (randomTiles) {
 		randomTilify(blank)
