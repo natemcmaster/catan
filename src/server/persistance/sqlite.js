@@ -149,7 +149,7 @@ SQLitePL.prototype.updateGame = function(id, lastCommandId, data, callback) {
  * @return {void}
  */
 SQLitePL.prototype.readAllUsers = function(callback) {
-	this.db.all('select id,username,password from users',callback);
+	this.db.all('select id as playerID,username,password from users',callback);
 };
 
 /**
@@ -189,7 +189,7 @@ SQLitePL.prototype.getRecentGameCommands = function(gameid, id, callback) {
  */
 SQLitePL.prototype.getAllGameInfo = function(callback) {
 	this.db.all('select * from games',function(err,rows){
-    if(err || !rows || !rows.length) {
+    if(err) {
       return callback(err || 'No game found');
     }
     callback(null, rows.map(function (row) {
