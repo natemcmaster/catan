@@ -36,7 +36,7 @@ function FilePL(rootPath) {
  */
 FilePL.prototype.persistGame = function(title, data, callback){
 	var id = this.nextGameID++;
-	var gameInfo = {'id':id, 'title':title, 'current':data, 'original':data, 'lastCommand':0};
+	var gameInfo = {'id':id, 'title':title, 'last_command_id':-1, 'current':_.cloneDeep(data), 'original':_.cloneDeep(data)};
 	
 	try {
 		fs.writeFile(this.rootPath + 'game' + id + '.json', JSON.stringify(gameInfo), null, function(error){
@@ -160,19 +160,15 @@ FilePL.prototype.updateGame = function(gameid, lastCommand, data, callback){
  */
 FilePL.prototype.readAllUsers = function(callback){
 	try {
-		var users = null;
-		console.log(this.rootPath + '/users.json');
-		fs.readFile(this.rootPath + '/users.json', function(error, data){
-  			if (error) throw error;
-  			users = JSON.parse(data);
+		fs.readFile(this.rootPath + '/users.json', function(err, data){
+  			if (err) throw err;
+  			var usersFromFile = JSON.parse(data);
+  			return callback(null, usersFromFile);
 		});
-
-		return callback(null, users);
 	}
 
-	catch (error) {
-		console.log("error");
-		return callback(error, null);
+	catch (err) {
+		return callback(err, null);
 	}
 };
 
@@ -221,25 +217,27 @@ FilePL.prototype.getRecentGameCommands = function(gameid, id, callback){
  */
 FilePL.prototype.getAllGameInfo = function(callback){
 	try {
-		var games = [];
-		fs.readdir(this.rootPath, function(error, files){
-  			if (error) throw error;
-  			
-  			files.forEach(function(file){
-  				if ("game".indexOf(file) !== -1){
-  					fs.readFile(this.rootPath + file, function(error, data){
-  						if (error) throw error;
+		fs.readdir(this.rootPath, function(err, files){
+  			if (err) throw err;
+  			var games = [];
+
+  			files.forEach(function(fileName){
+  				if (fileName.indexOf("game") !== -1){
+  					fs.readFile(this.rootPath + '/' + fileName, function(err2, data){
+  						if (err2) throw err2;
   						gameData = JSON.parse(data);
-  						games.push(gameData.current);
+  						games.push(gameData);
   					})
   				}
   			}.bind(this))
-		});
 
-		return callback(null, games);
+  			console.log(games);
+  			return callback(null, games);
+
+		}.bind(this));
 	}
 
-	catch (error) {
-		return callback(error, null);
+	catch (err) {
+		return callback(err, null);
 	}
 };

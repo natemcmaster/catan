@@ -1,5 +1,5 @@
 var FilePL = require('../../../src/server/persistance/file.js');
-var fs = require('fs');
+var path = require('path');
 var expect = require('chai').expect;
 var originalUsers = require('../initial_data/users.json');
 var game0 = require('../initial_data/game0.json');
@@ -10,42 +10,24 @@ describe('FilePL tests', function() {
 	var filePL;
 
 	before(function(done) {
-		try {
-			fs.realpath('../initial_data', null, function (err, resolvedPath) {
-				console.log(err);
-				console.log(resolvedPath);
-	  			if (err) throw err;
-	  			filePL = new FilePL(resolvedPath);
-	  			done();
-			});
-		}
-
-		catch (err) {
-			filePL = new FilePL();
-			done(err);
-		}
+		var rootPath = path.resolve(__dirname, '../initial_data');
+		filePL = new FilePL(rootPath);
+		done();
 	})
 
 	it('#readAllUsers() when starting server', function(done) {
-		console.log("Where are we?");
-		//console.log(originalUsers);
-		//console.log(filePL.rootPath);
 		filePL.readAllUsers(function(error, users){
-			//console.log(error);
-			//console.log(users);
-
-
 			expect(error).to.be.null;
 			expect(users).to.deep.equal(originalUsers);
 			done();
 		})
 	})
 
-	it('#getAllGameInfo() when starting server', function(done) {
-		//console.log(game0);
-
-		filePL.getAllGameInfo(function(error, games){
-			expect(error).to.be.null;
+	it.only('#getAllGameInfo() when starting server', function(done) {
+		filePL.getAllGameInfo(function(err, games){
+			//console.log(err);
+			//console.log(games);
+			expect(err).to.be.null;
 			expect(games[0]).to.equal(game0);
 			expect(games[1]).to.equal(game1);
 			expect(games[2]).to.equal(game2);

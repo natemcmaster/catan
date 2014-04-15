@@ -85,9 +85,10 @@ MemoryPL.prototype.persistGame = function(title, data, callback) {
 	++this.gameId;
 	this.games[this.gameId] = {
 		id: this.gameId,
+		title: title,
+		last_command_id: -1,
 		current: _.cloneDeep(data),
 		original: _.cloneDeep(data),
-		last_command_id: -1
 	};
 	callback(null, this.gameId);
 };

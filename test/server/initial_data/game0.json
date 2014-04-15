@@ -1,7 +1,8 @@
 {
 	"id":0, 
 	"title":"New game (Sorry Spencer)",
-	"lastCommand":0, 
+	"last_command_id":-1,
+	
 	"currentGame": {
 	    "deck": {
 	      "yearOfPlenty": 2,
