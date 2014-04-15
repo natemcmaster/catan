@@ -44,7 +44,7 @@ DAO.prototype.constructGame = function (data, users, next) {
 			for(var j = 0; j < commands.length; j++){
 				var cdata = commands[j].data;
 				var command = this.abstactCommand.fromJSON(cdata);
-				this.constructCommands.replayOnGame(game, users);
+				command.replayOnGame(game, users);
 			}
 			next(null, {id: data.id, model: game})
 	}.bind(this));

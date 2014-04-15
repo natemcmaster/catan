@@ -35,7 +35,7 @@ AbstractMoveCommand.prototype.fromJSON = function (data) {
 
 AbstractMoveCommand.fromJSON = function (json) {
   var commands = require('./moveCommands')
-  var inst = Object.create(commands[json.type].prototype)
+  var inst = Object.create(commands[json.data.name].prototype)
   inst.fromJSON(json.data)
   return inst
 }
