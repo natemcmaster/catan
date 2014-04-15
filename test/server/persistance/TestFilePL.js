@@ -10,10 +10,14 @@ var game2 = require('../data/game2.json');
 
 describe('FilePL tests', function() {
 	var filePL;
+	var users = [];
+	var games = [];
+	var allCommands = {};
 
 	before(function(done) {
 		var rootPath = path.resolve(__dirname, '../data');
 		filePL = new FilePL(rootPath);
+
 		done();
 	})
 
@@ -39,7 +43,7 @@ describe('FilePL tests', function() {
 		})
 	})
 
-	it('#getRecentGameCommands()', function(done) {
+	it('#getRecentGameCommands() when starting server', function(done) {
 		filePL.getRecentGameCommands(game0.id, game0.last_command_id, function(err, commands){
 			expect(err).to.be.null;
 			expect(commands).to.deep.equal([]);
@@ -150,57 +154,87 @@ describe('FilePL tests', function() {
 	// Command persistence tests
 	//-------------------------------------------------------------------
 
-	/*it.skip('#persistCommand()', function(done) {
-		var gameID = 1;
-		var playerIndex = 3;
-		var numberRolled = 7;
-		var rollDiceCommand = new RollDiceCommand(gameID, playerIndex, numberRolled);
-		var command = {id: 0, game_id: gameID, data: rollDiceCommand.toJSON().data};
-		var commands = [];
-		commands.push(command);
+	it('#persistCommand()', function(done) {
+		var id = 0;
+		var gameid = 1;
+		var data = {'blah':1, 'blahblah':2};
+		var expectedCommand = {id: id, game_id: gameid, data: data};
 
-		filePL.persistCommand(gameID, rollDiceCommand, function(err, commandID){
+		if (!allCommands[gameid])
+			allCommands[gameid] = [];
+
+		allCommands[gameid].push(expectedCommand);
+
+		filePL.persistCommand(expectedCommand.game_id, expectedCommand.data, function(err, commandID){
 			expect(err).to.be.null;
-			expect(commandID).to.equal(0);
-			console.log(commands);
-			console.log(require('../data/commands' + gameID + '.json'));
-			expect(commands).to.deep.equal(require('../data/commands' + gameID + '.json'));
-
-			filePL.getRecentGameCommands(gameID, 0, function(err, commands){
-				console.log("How far?");
-				expect(err).to.be.null;
-				expect(commands).to.deep.equal([]);
-				done();
-			})
+			expect(commandID).to.equal(expectedCommand.id);
+			done();
 		})
 	})
 
-	it.skip('#persistCommand() again', function(done) {
-		var gameID = 1;
-		var playerIndex = 2;
-		var numberRolled = 9;
-		var rollDiceCommand = new RollDiceCommand(gameID, playerIndex, numberRolled);
+	it('#getRecentGameCommands() should return no commands', function(done) {
+		var gameid = 1;
+		var lastCommand = 5;
 
-		var expectedResult = {id:1, game_id: gameID, data: rollDiceCommand.toJSON()};
-		var expectedCommands = [];
-		expectedCommands.push(expectedResult);
-		
-		filePL.persistCommand(gameID, rollDiceCommand.toJSON(), function(err, commandID){
+		filePL.getRecentGameCommands(gameid, lastCommand, function(err, commands){
 			expect(err).to.be.null;
-			expect(commandID).to.equal(1);
-
-			filePL.getRecentGameCommands(gameID, 0, function(err, commands){
-				console.log(err);
-				console.log(commands);
-
-				expect(err).to.be.null;
-				expect(commands).to.deep.equal(expectedCommands);
-				done();
-			})
+			expect(commands).to.deep.equal([]);
+			done();
 		})
-	})*/
+	})
 
-	it('#getRecentGameCommands()', function(done) {
-		done();
+	it('#getRecentGameCommands() should return one command', function(done) {
+		var gameid = 1;
+		var lastCommand = -1;
+
+		filePL.getRecentGameCommands(gameid, lastCommand, function(err, commands){
+			expect(err).to.be.null;
+			expect(commands).to.deep.equal(allCommands[gameid]);
+			done();
+		})
+	})
+
+	it('#persistCommand() again', function(done) {
+		var id = 1;
+		var gameid = 1;
+		var data = {'blah':3, 'blahblah':4};
+		var expectedCommand = {id: id, game_id: gameid, data: data};
+
+		if (!allCommands[gameid])
+			allCommands[gameid] = [];
+
+		allCommands[gameid].push(expectedCommand);
+
+		filePL.persistCommand(expectedCommand.game_id, expectedCommand.data, function(err, commandID){
+			expect(err).to.be.null;
+			expect(commandID).to.equal(expectedCommand.id);
+			done();
+		})
+	})
+
+	it('#getRecentGameCommands() should return one command', function(done) {
+		var lastCommand = 0;
+		var id = 1;
+		var gameid = 1;
+		var data = {'blah':3, 'blahblah':4};
+		var expectedCommand = {id: id, game_id: gameid, data: data};
+
+		filePL.getRecentGameCommands(gameid, lastCommand, function(err, commands){
+			expect(err).to.be.null;
+			expect(commands.length).to.equal(1);
+			expect(commands[0]).to.deep.equal(expectedCommand);
+			done();
+		})
+	})
+
+	it('#getRecentGameCommands() should return two commands', function(done) {
+		var gameid = 1;
+		var lastCommand = -1;
+
+		filePL.getRecentGameCommands(gameid, lastCommand, function(err, commands){
+			expect(err).to.be.null;
+			expect(commands).to.deep.equal(allCommands[gameid]);
+			done();
+		})
 	})
 })

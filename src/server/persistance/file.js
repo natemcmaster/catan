@@ -24,7 +24,7 @@ function FilePL(rootPath) {
 	this.nextCommandID = [];
 	this.users = [];
 	this.games = [];
-	this.commands = [];
+	this.commands = {};
 };
 
 /**
@@ -103,14 +103,18 @@ FilePL.prototype.persistCommand = function(gameID, data, callback){
 	if (!this.nextCommandID[gameID])
 		this.nextCommandID[gameID] = 0;
 
+	if (!this.commands[gameID])
+		this.commands[gameID] = [];
+
 	var id = this.nextCommandID[gameID]++;
 	var command = {id: id, game_id: gameID, data: _.cloneDeep(data)};
-	var commands = [];
+	this.commands[gameID].push(command);
+	//var commands = [];
 
-	commands.push(command);
+	//commands.push(command);
 	
 	try {
-		fs.writeFile(this.rootPath + '/commands' + gameID + '.json', JSON.stringify(commands), null, function(error){
+		fs.writeFile(this.rootPath + '/commands' + gameID + '.json', JSON.stringify(this.commands[gameID]/*commands*/), null, function(error){
 			if (error) throw error;
 			return callback(null, id);
 		});
@@ -201,54 +205,21 @@ FilePL.prototype.getRecentGameCommands = function(gameid, id, callback){
 	var filepath = this.rootPath + '/commands' + gameid + '.json';
 
 	try {
-		fs.exists(filepath, function (exists) {
-	  		if (!exists) {
-	  			return callback(null, []);
-	  		}
-	  		else {
-	  			var allCommands = [];
+		getAllGameCommands(filepath, function(allCommands){
+			var recentCommands = [];
 
-				fs.readFile(filepath, function(error, data){
-		  			if (error) throw error;
-		  			allCommands = JSON.parse(data);
-				});
+			allCommands.forEach(function(command){
+				if (command.id > id)
+					recentCommands.push(command);
+			});
 
-				var recentCommands = [];
-
-				commands.forEach(function(command){
-					if (command.id > id)
-						recentCommands.push(command);
-				});
-
-				return callback(null, recentCommands);
-			  }
+			return callback(null, recentCommands);
 		});
 	}
 
 	catch (err) {
-		return callback(err, []);
+		return (null, []);
 	}
-
-	/*try {
-		var commands = [];
-		fs.readFile(this.rootPath + '/commands' + gameid + '.json', function(error, data){
-  			if (error) throw error;
-  			commands = JSON.parse(data);
-		});
-
-		var recentCommands = [];
-
-		commands.forEach(function(command){
-			if (command.id > id)
-				recentCommands.push(command);
-		});
-
-		return callback(null, recentCommands);
-	}
-
-	catch (error) {
-		return callback(error, []);
-	}*/
 };
 
 /**
@@ -286,4 +257,13 @@ FilePL.prototype.getAllGameInfo = function(callback){
 	catch (err) {
 		return callback(err, null);
 	}
+};
+
+function getAllGameCommands(filepath, callback){
+	fs.readFile(filepath, function(err, data){
+		if (err) 
+			return callback([]);
+		else
+			return callback(JSON.parse(data));
+	});
 };
