@@ -16,7 +16,7 @@ AbstractMoveCommand.prototype.replayOnGame = function (game, users) {
 
 AbstractMoveCommand.prototype.toJSON = function () {
   var json = {
-    type: this.name,
+    type: this.name || this.constructor.name,
     data: {}
   }
   for (var name in this) {
