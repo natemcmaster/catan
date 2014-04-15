@@ -179,7 +179,7 @@ DAO.prototype.createGame = function(title, randomTiles, randomNumber, randomPort
 			}
 		});
 	}
-	if (randomNumbers) {
+	if (randomNumber) {
 		var places = _.chain(blank.map.numbers).reduce(function(a, b) {
 			return a.concat(b);
 		}, [])

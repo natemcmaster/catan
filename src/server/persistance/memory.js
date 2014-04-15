@@ -24,6 +24,11 @@ function MemoryPL() {
       current: initial_data.populated_sample,
       last_command_id: -1,
       id: 1
+    },
+    2: {
+      current: initial_data.booyah,
+      last_command_id: -1,
+      id: 2
     }
   };
 	this.userId = 0;
@@ -160,7 +165,6 @@ MemoryPL.prototype.persistCommand = function(gameId, data, callback) {
 MemoryPL.prototype.updateGame = function(id, lastCommandId, data, callback) {
 	this.games[id].current = _.cloneDeep(data);
 	this.games[id].last_command_id = lastCommandId;
-  console.log('year', callback)
 	callback(null);
 };
 

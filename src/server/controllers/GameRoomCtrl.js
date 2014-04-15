@@ -69,9 +69,7 @@ GameRoomCtrl.prototype.join = function(q, r, $JoinGameCommand) {
     r.cookie('catan.game', gameID, {
       path: '/'
     });
-    r.send(200, '');
-    r.end()
-    console.log('SSON')
+    r.send(200);
   })
 }
 
