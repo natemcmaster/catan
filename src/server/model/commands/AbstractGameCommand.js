@@ -5,7 +5,8 @@ var AbstractCommand = require('./AbstractCommand')
 module.exports = AbstractGameCommand;
 util.inherits(AbstractGameCommand, AbstractCommand)
 
-function AbstractGameCommand(gameid) {
+function AbstractGameCommand(gameid,$Logger) {
+	AbstractCommand.call(this,$Logger);
   this._gameid = gameid;
 }
 

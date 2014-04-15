@@ -231,7 +231,6 @@ FilePL.prototype.getAllGameInfo = function(callback){
   				}
   			}.bind(this))
 
-  			console.log(games);
   			return callback(null, games);
 
 		}.bind(this));
