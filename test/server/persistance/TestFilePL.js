@@ -1,6 +1,8 @@
 var FilePL = require('../../../src/server/persistance/file.js');
+var RollDiceCommand = require('../../../src/server/model/commands/moveCommands/RollDiceCommand.js');
 var path = require('path');
 var expect = require('chai').expect;
+var _ = require('lodash');
 var originalUsers = require('../data/users.json');
 var game0 = require('../data/game0.json');
 var game1 = require('../data/game1.json');
@@ -74,11 +76,67 @@ describe('FilePL tests', function() {
 	})
 
 	it('#persistGame()', function(done) {
-		done();
+		var title = 'TestGame';
+		var data = game0.current;
+
+		var expectedGameInfo = {id: 3, title: title, last_command_id: -1, current: _.cloneDeep(data), original: _.cloneDeep(data)};
+
+		filePL.persistGame(title, data, function(err, id){
+			expect(err).to.be.null;
+			expect(id).to.equal(3);
+			expect(require('../data/game3.json')).to.deep.equal(expectedGameInfo);
+			done();
+		})
 	})
 
 	it('#persistCommand()', function(done) {
-		done();
+		var gameID = 1;
+		var playerIndex = 3;
+		var numberRolled = 7;
+		var rollDiceCommand = new RollDiceCommand(gameID, playerIndex, numberRolled);
+		var command = {id: 0, game_id: gameID, data: rollDiceCommand.toJSON().data};
+		var commands = [];
+		commands.push(command);
+
+		filePL.persistCommand(gameID, rollDiceCommand, function(err, commandID){
+			expect(err).to.be.null;
+			expect(commandID).to.equal(0);
+			console.log(commands);
+			console.log(require('../data/commands' + gameID + '.json'));
+			expect(commands).to.deep.equal(require('../data/commands' + gameID + '.json'));
+
+			filePL.getRecentGameCommands(gameID, 0, function(err, commands){
+				console.log("How far?");
+				expect(err).to.be.null;
+				expect(commands).to.deep.equal([]);
+				done();
+			})
+		})
+	})
+
+	it('#persistCommand() again', function(done) {
+		var gameID = 1;
+		var playerIndex = 2;
+		var numberRolled = 9;
+		var rollDiceCommand = new RollDiceCommand(gameID, playerIndex, numberRolled);
+
+		var expectedResult = {id:1, game_id: gameID, data: rollDiceCommand.toJSON()};
+		var expectedCommands = [];
+		expectedCommands.push(expectedResult);
+		
+		filePL.persistCommand(gameID, rollDiceCommand.toJSON(), function(err, commandID){
+			expect(err).to.be.null;
+			expect(commandID).to.equal(1);
+
+			filePL.getRecentGameCommands(gameID, 0, function(err, commands){
+				console.log(err);
+				console.log(commands);
+
+				expect(err).to.be.null;
+				expect(commands).to.deep.equal(expectedCommands);
+				done();
+			})
+		})
 	})
 
 	it('#updateGame()', function(done) {

@@ -82,7 +82,7 @@ function MemoryPL() {
 			username: 'chuck',
 			password: 'norris',
 			playerID: 9999999999
-		},
+		}
 	};
 	this.commandId = 0;
 	this.commands = {};
@@ -106,7 +106,7 @@ MemoryPL.prototype.persistGame = function(title, data, callback) {
 		title: title,
 		last_command_id: -1,
 		current: _.cloneDeep(data),
-		original: _.cloneDeep(data),
+		original: _.cloneDeep(data)
 	};
 	if(_.isFunction(callback)){
 		callback(null, this.gameId);
@@ -147,7 +147,7 @@ MemoryPL.prototype.persistCommand = function(gameId, data, callback) {
 	this.commands[this.commandId] = {
 		id: this.commandId,
 		game_id: gameId,
-		data: this.commandId
+		data: _.cloneDeep(data)
 	};
 	callback(null, this.commandId);
 };

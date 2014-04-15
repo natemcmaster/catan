@@ -3,7 +3,7 @@
 	"title":"New game (Sorry Spencer)",
 	"last_command_id":-1,
 	
-	"currentGame": {
+	"current": {
 	    "deck": {
 	      "yearOfPlenty": 2,
 	      "monopoly": 2,
@@ -2742,7 +2742,7 @@
 	    "revision": 0
 	},
 	
-	"originalGame": {
+	"original": {
 	    "deck": {
 	      "yearOfPlenty": 2,
 	      "monopoly": 2,

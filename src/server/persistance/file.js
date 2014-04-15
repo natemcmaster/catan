@@ -23,6 +23,8 @@ function FilePL(rootPath) {
 	this.nextUserID = 101;
 	this.nextCommandID = [];
 	this.users = [];
+	this.games = [];
+	this.commands = [];
 };
 
 /**
@@ -41,11 +43,10 @@ FilePL.prototype.persistGame = function(title, data, callback){
 	var gameInfo = {'id':id, 'title':title, 'last_command_id':-1, 'current':_.cloneDeep(data), 'original':_.cloneDeep(data)};
 	
 	try {
-		fs.writeFile(this.rootPath + 'game' + id + '.json', JSON.stringify(gameInfo), null, function(error){
+		fs.writeFile(this.rootPath + '/game' + id + '.json', JSON.stringify(gameInfo), null, function(error){
 			if (error) throw error;
-		});
-
-		return callback(null, id);
+			return callback(null, id);
+		}.bind(this));
 	}
 
 	catch (error) {
@@ -103,13 +104,16 @@ FilePL.prototype.persistCommand = function(gameID, data, callback){
 		this.nextCommandID[gameID] = 0;
 
 	var id = this.nextCommandID[gameID]++;
+	var command = {id: id, game_id: gameID, data: _.cloneDeep(data)};
+	var commands = [];
+
+	commands.push(command);
 	
 	try {
-		fs.writeFile(this.rootPath + 'command' + id + '.json', JSON.stringify(data), null, function(error){
+		fs.writeFile(this.rootPath + '/commands' + gameID + '.json', JSON.stringify(commands), null, function(error){
 			if (error) throw error;
+			return callback(null, id);
 		});
-
-		return callback(null, id);
 	}
 
 	catch (error) {
