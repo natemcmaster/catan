@@ -22,7 +22,7 @@ describe('GameRoom endpoints', function () {
     it('should login', function (done) {
       agent.post('/user/login')
         .send({username: 'Jared', password: 'jared'})
-        .expect(200, function (err) {
+        .expect(200, function (err, res) {
           if (err) {
             console.error('HTTP Error', res.text);
           }

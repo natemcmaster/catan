@@ -21,7 +21,7 @@ function DAO(maxDelta, dataPath, $PersistanceLayer, $GameModel, $AbstractMoveCom
 	var data = JSON.parse(fs.readFileSync(path.join(__dirname, 'initial_data', '_initialdata.json')));
 	this.blank = data.blank;
 
-	var gamesDeltas = {};
+	var gameDeltas = {};
 	this.updateDelta = function(gameId) {
 		if (!gameDeltas[gameId]) { //intentionally tricky: this is true for new games and games that have reached zero deltas
 			gameDeltas[gameId] = maxDelta;
@@ -61,7 +61,7 @@ DAO.prototype.getAllData = function(callback){
         }.bind(this))
 
         async.parallel(tasks, function (err, games) {
-          callback(null,games);
+          callback(null,{games: games, users: users});
         })
     }.bind(this))
   }.bind(this))
@@ -176,7 +176,7 @@ DAO.prototype.createGame = function(title, randomTiles, randomNumbers, randomPor
 			}
 		});
 	}
-	if (randomNumber) {
+	if (randomNumbers) {
 		var places = _.chain(blank.map.numbers).reduce(function(a, b) {
 			return a.concat(b);
 		}, [])
@@ -198,7 +198,7 @@ DAO.prototype.createGame = function(title, randomTiles, randomNumbers, randomPor
 		model: model
 	};
 
-	this.pl.persistGame(game, function(error, gameID) {
+	this.pl.persistGame(title, game, function(error, gameID) {
 		if (error) {
 			return done(error);
 		}

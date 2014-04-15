@@ -22,5 +22,5 @@ CreateGameCommand.prototype.execute = function(gameRoom, callback) {
       callback(null,data);
       this.logger.log('Created game: id = ' + data.id);
     }
-  });
+  }.bind(this));
 }

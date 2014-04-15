@@ -88,8 +88,7 @@ GameRoom.prototype.registerUser = function(username, password,callback) {
 	var user = _(this.users).find(function(u) {
 		return u.username == username;
 	});
-	if (user)
-		return false;
+	if (user) return callback(null, false)
 	this.dao.createUser(username,password,function(err,user){
 		if(err){
 			return callback(err);
