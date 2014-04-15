@@ -190,7 +190,7 @@ MemoryPL.prototype.readAllUsers = function(callback) {
  * @param {int} id the id of the last command executed
  * @return {object[]} list of json command objects
  */
-MemoryPL.prototype.getRecentGameCommands = function(nl, gameid, id, callback) {
+MemoryPL.prototype.getRecentGameCommands = function(gameid, id, callback) {
 	var d = _(this.commands).filter(function(c) {
 		return c.game_id == gameid && c.id > id;
 	});

@@ -34,7 +34,7 @@ function SQLitePL(rootPath) {
  */
 SQLitePL.prototype.persistGame = function(title, data, callback) {
 	var blob = JSON.stringify(data);
-	this.db.run('INSERT INTO games (original_state,current_state) VALUEs (?,?)', [blob, blob], function(err) {
+	this.db.run('INSERT INTO games (original_state,current_state) VALUES (?,?)', [blob, blob], function(err) {
 		if (!callback) {
 			return;
 		}

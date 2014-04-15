@@ -39,7 +39,7 @@ DAO.prototype.getUsers = function(callback){
 DAO.prototype.constructGame = function (data, users, next) {
 	var game = new this.GameModel(data.current);
 
-	this.pl.getRecentGameCommands(null, data.id, data.last_command_id, function (err, commands) {
+	this.pl.getRecentGameCommands(data.id, data.last_command_id, function (err, commands) {
 		if (err) return next(err)
 			for(var j = 0; j < commands.length; j++){
 				var cdata = commands[j].data;
@@ -201,7 +201,7 @@ DAO.prototype.createGame = function(title, randomTiles, randomNumber, randomPort
 		model: model
 	};
 
-	this.pl.persistGame(title, game, function(error, gameID) {
+	this.pl.persistGame(title, game.model, function(error, gameID) {
 		if (error) {
 			return done(error);
 		}
