@@ -14,14 +14,14 @@ module.exports = DAO;
  * @class DAO
  * @constructor
  */
-function DAO(maxDelta, dataPath, $PersistanceLayer, $GameModel, $AbstractMoveCommand) {
+function DAO(dataPath, maxDelta, $PersistanceLayer, $GameModel, $AbstractMoveCommand) {
 	this.pl = $PersistanceLayer(dataPath);
 	this.abstactCommand = $AbstractMoveCommand;
 	this.GameModel = $GameModel;
 	var data = JSON.parse(fs.readFileSync(path.join(__dirname, 'initial_data', '_initialdata.json')));
 	this.blank = data.blank;
 
-	var gamesDeltas = {};
+	var gameDeltas = {};
 	this.updateDelta = function(gameId) {
 		if (!gameDeltas[gameId]) { //intentionally tricky: this is true for new games and games that have reached zero deltas
 			gameDeltas[gameId] = maxDelta;
@@ -61,7 +61,10 @@ DAO.prototype.getAllData = function(callback){
         }.bind(this))
 
         async.parallel(tasks, function (err, games) {
-          callback(null,games);
+				callback(null, {
+					games: games,
+					users: users
+				});
         })
     }.bind(this))
   }.bind(this))
@@ -158,7 +161,7 @@ function randomTilify(game) {
  * @param {fn(err, game)} callback
  * @return {void}
  */
-DAO.prototype.createGame = function(title, randomTiles, randomNumbers, randomPorts, done) {
+DAO.prototype.createGame = function(title, randomTiles, randomNumber, randomPorts, done) {
 	var blank = _.cloneDeep(this.blank);
 	if (randomTiles) {
 		randomTilify(blank)
@@ -198,7 +201,7 @@ DAO.prototype.createGame = function(title, randomTiles, randomNumbers, randomPor
 		model: model
 	};
 
-	this.pl.persistGame(game, function(error, gameID) {
+	this.pl.persistGame(title,game, function(error, gameID) {
 		if (error) {
 			return done(error);
 		}
