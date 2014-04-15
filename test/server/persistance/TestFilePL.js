@@ -89,7 +89,7 @@ describe('FilePL tests', function() {
 		})
 	})
 
-	it('#persistCommand()', function(done) {
+	/*it.skip('#persistCommand()', function(done) {
 		var gameID = 1;
 		var playerIndex = 3;
 		var numberRolled = 7;
@@ -114,7 +114,7 @@ describe('FilePL tests', function() {
 		})
 	})
 
-	it('#persistCommand() again', function(done) {
+	it.skip('#persistCommand() again', function(done) {
 		var gameID = 1;
 		var playerIndex = 2;
 		var numberRolled = 9;
@@ -137,7 +137,7 @@ describe('FilePL tests', function() {
 				done();
 			})
 		})
-	})
+	})*/
 
 	it('#updateGame()', function(done) {
 		done();
