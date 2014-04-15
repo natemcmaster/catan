@@ -152,7 +152,8 @@ GameRoom.prototype.joinGame = function(playerID, color, gameID, done) {
 };
 
 GameRoom.prototype.getGameModel = function(gameID) {
-	return this.getGameByID(gameID).model;
+  var res = this.getGameByID(gameID);
+  return res ? res.model : false
 };
 
 GameRoom.prototype.resetGame = function(gameID) {

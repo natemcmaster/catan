@@ -140,7 +140,12 @@ describe('GameRoom endpoints', function () {
     it('should work', function (done) {
       agent.post('/games/join')
         .send({id: 0, color: 'red'})
-        .expect(200, done);
+        .expect(200, function (err, res) {
+          if (err) {
+            console.error('HTTP Error', res.text);
+          }
+          done(err);
+        });
     });
 
     it('should prevent joining a full game', function (done) {
@@ -160,6 +165,9 @@ describe('GameRoom endpoints', function () {
             .send({id: 0, color: 'red'})
             .expect(200, function (err, res) {
               agent.saveCookies(res)
+              if (err) {
+                console.error('HTTP Error', res.text);
+              }
               done(err)
             });
         });
