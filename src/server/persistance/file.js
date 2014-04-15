@@ -66,19 +66,22 @@ FilePL.prototype.persistGame = function(title, data, callback){
 FilePL.prototype.persistUser = function(username, password, callback){
 	var id = this.nextUserID++;
 	var user = {'id':id, 'username':username, 'password':password};
-	this.users.push(user);
 	
 	try {
-		fs.writeFile(this.rootPath + 'users.json', JSON.stringify(this.users), null, function(error){
-			if (error) throw error;
-		});
+		this.readAllUsers(function(err, users){
+			if (err) throw err;
+			users.push(user);
 
-		return callback(null, id);
+			fs.writeFile(this.rootPath + '/users.json', JSON.stringify(users), null, function(err2){
+				if (err2) throw err2;
+				return callback(null, id);
+			}.bind(this));
+
+		}.bind(this));
 	}
 
-	catch (error) {
+	catch (err) {
 		this.nextUserID--;
-		this.users.pop();
 		return callback(error, -1);
 	}
 };
@@ -162,9 +165,9 @@ FilePL.prototype.readAllUsers = function(callback){
 	try {
 		fs.readFile(this.rootPath + '/users.json', function(err, data){
   			if (err) throw err;
-  			var usersFromFile = JSON.parse(data);
-  			return callback(null, usersFromFile);
-		});
+  			this.users = JSON.parse(data);
+  			return callback(null, this.users);
+		}.bind(this));
 	}
 
 	catch (err) {
