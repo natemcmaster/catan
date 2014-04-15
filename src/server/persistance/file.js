@@ -1,6 +1,8 @@
 var BasePL = require('./base.js');
 var util = require('util');
-var fs = require('fs');
+var fs = require('fs'),
+	path = require('path'),
+	_ = require('lodash');
 
 /**
  * @module catan.persistance
@@ -254,19 +256,20 @@ FilePL.prototype.getAllGameInfo = function(callback){
 		fs.readdir(this.rootPath, function(err, files){
   			if (err) throw err;
   			
-  			var games = [];
+  			var games = {};
 
+			var filePattern = /game(\d+)\.json/;
   			files.forEach(function(fileName){
-  				if (fileName.indexOf("game") !== -1){
-  					fs.readFile(this.rootPath + '/' + fileName, function(err2, data){
-  						if (err2) throw err2;
-  						gameData = JSON.parse(data);
-  						games.push(gameData);
-  					}.bind(this))
+  				var matches=fileName.match(filePattern);
+  				if (matches){
+  					var id=matches[1];
+  					var data = fs.readFileSync(path.join(this.rootPath ,fileName));
+					var gameData = JSON.parse(data);
+  					games[id]=gameData;
   				}
   			}.bind(this))
 
-  			return callback(null, games);
+  			return callback(null, _(games).toArray().value());
 
 		}.bind(this));
 	}

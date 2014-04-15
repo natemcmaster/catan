@@ -25,12 +25,10 @@ describe('FilePL tests', function() {
 
 	it('#getAllGameInfo() when starting server', function(done) {
 		filePL.getAllGameInfo(function(err, games){
-			console.log(err);
-			console.log(games);
 			expect(err).to.be.null;
-			expect(games[0]).to.equal(game0);
-			expect(games[1]).to.equal(game1);
-			expect(games[2]).to.equal(game2);
+			expect(games[0]).to.deep.equal(game0);
+			expect(games[1]).to.deep.equal(game1);
+			expect(games[2]).to.deep.equal(game2);
 			done();
 		})
 	})

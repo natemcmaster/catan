@@ -16,6 +16,7 @@ foreign key(game_id) references games(id) on delete cascade
 
 CREATE TABLE "games" (
 "id" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL , 
+"title" VARCHAR DEFAULT('game') , 
 "current_state" BLOB, 
 "original_state" BLOB, 
 "last_command_id" INTEGER DEFAULT -1
