@@ -8,7 +8,7 @@
 		</copy>
 	</target>
   <target name="reset-persistence">
-    <copy todir="${out.dir}/data">
+    <copy todir="${out.dir}/data" overwrite="true">
       <fileset dir="src/server/initial_data"/>
     </copy>
   </target>
