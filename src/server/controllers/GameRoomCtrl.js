@@ -51,21 +51,18 @@ GameRoomCtrl.prototype.join = function(q, r, $JoinGameCommand) {
 	q.authorize();
 	var gameID = q.param('id');
 	if (!gameID && gameID !== 0) {
-    	this.logger.error('gameID: '+ gameID)
+    	console.error('gameID: '+ gameID)
 		throw new BaseCtrl.HttpError(400, 'Missing game ID');
 	}
 
   var cmd = $JoinGameCommand(gameID, q.playerID, q.param('color'))
-  var ctrl = this;
   q.gameRoom.executeCommand(cmd, function (err, response) {
     if (err instanceof Error) {
-      if (err.message === "Cannot join a full game") return r.send(400, "Cannot join a full game")
-      ctrl.logger.error('ERROR:'+ err.message)
-      ctrl.logger.error(err.stack)
+      console.error('ERROR:'+ err.message)
       return r.send(400, err.message);
     }
-    if (err) {
-      ctrl.logger.error('?ERROR: '+ err)
+    else if (err) {
+      console.error('?ERROR: '+ err)
       throw new BaseCtrl.HttpError(500, data);
     }
     r.cookie('catan.game', gameID, {

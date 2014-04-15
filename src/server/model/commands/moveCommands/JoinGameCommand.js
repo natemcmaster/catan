@@ -22,7 +22,7 @@ JoinGameCommand.prototype.executeOnGame = function (game, users) {
   var result = game.join(this.playerID, this.color, users)
   if (!result) {
     console.warn('PlayerID '+this.playerID+' failed to join game '+this._gameid);
-    return new Error("Cannot join a full game")
+    throw new Error('Cannot join full game');
   } else {
     console.log('PlayerID '+this.playerID+' joined game '+this._gameid);
   }

@@ -49,6 +49,7 @@ GameRoom.prototype.getUserByID = function(playerID) {
  * @return {void}            
  */
 GameRoom.prototype.executeCommand = function (command, callback) {
+	var err;
   try {
     err = command.execute(this);
   } catch (e) {
