@@ -18,8 +18,7 @@ CREATE TABLE "games" (
 "id" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL , 
 "current_state" BLOB, 
 "original_state" BLOB, 
-"last_command_id" INTEGER DEFAULT -1, 
-foreign key(last_command_id) references commands(id) on delete set null
+"last_command_id" INTEGER DEFAULT -1
 );
 
 CREATE TABLE "users" (
