@@ -1,4 +1,6 @@
-var _ = require('lodash');
+var _ = require('lodash')
+  , initial_data = require('../initial_data/_initialdata.json')
+
 /**
  * @module catan.persistance
  * @namespace persistance
@@ -12,7 +14,18 @@ module.exports = MemoryPL;
  */
 function MemoryPL() {
 	this.gameId = 0;
-	this.games = {};
+	this.games = {
+    0: {
+      current: initial_data.sample,
+      last_command_id: -1,
+      id: 0
+    },
+    1: {
+      current: initial_data.populated_sample,
+      last_command_id: -1,
+      id: 0
+    }
+  };
 	this.userId = 0;
 	this.users = {
 		'0': {
@@ -145,6 +158,7 @@ MemoryPL.prototype.persistCommand = function(gameId, data, callback) {
 MemoryPL.prototype.updateGame = function(id, lastCommandId, data, callback) {
 	this.games[id].current = _.cloneDeep(data);
 	this.games[id].last_command_id = lastCommandId;
+  console.log('year', callback)
 	callback(null);
 };
 
@@ -170,7 +184,7 @@ MemoryPL.prototype.readAllUsers = function(callback) {
  * @param {int} id the id of the last command executed
  * @return {object[]} list of json command objects
  */
-MemoryPL.prototype.getRecentGameCommands = function(gameid, id, callback) {
+MemoryPL.prototype.getRecentGameCommands = function(nl, gameid, id, callback) {
 	var d = _(this.commands).filter(function(c) {
 		return c.game_id == gameid && c.id > id;
 	});

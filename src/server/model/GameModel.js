@@ -16,8 +16,7 @@ util.inherits(GameModel, BaseModel);
  */
 function GameModel(data, $Log, $Chat, $Bank, $Deck, $Map, $Player, $TurnTracker) {
 
-	if(!data)
-		throw new CatanError('Cannot instantiate without data');
+	if(!data) throw new CatanError('Cannot instantiate without data');
 
   this.data = _.cloneDeep(data);
 	this.data.revision = 1;

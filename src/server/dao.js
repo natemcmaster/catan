@@ -39,14 +39,14 @@ DAO.prototype.getUsers = function(callback){
 DAO.prototype.constructGame = function (data, users, next) {
 	var game = new this.GameModel(data.current);
 
-	this.pl.getRecentGameCommands(null, game.id, data.last_command_id, function (err, commands) {
+	this.pl.getRecentGameCommands(null, data.id, data.last_command_id, function (err, commands) {
 		if (err) return next(err)
 			for(var j = 0; j < commands.length; j++){
-				var data = commands[j].data;
-				var command = this.abstactCommand.fromJSON(data);
+				var cdata = commands[j].data;
+				var command = this.abstactCommand.fromJSON(cdata);
 				this.constructCommands.replayOnGame(game, users);
 			}
-			next(null, game)
+			next(null, {id: data.id, model: game})
 	}.bind(this));
 
 }
@@ -73,6 +73,7 @@ DAO.prototype.getAllData = function(callback){
  * </pre>
  * @method saveCommand
  * @param {object} command
+ * @param {game} game object {id:, model:}
  * @param {fn(err, commandID)} callback
  * @return {void}
  */
@@ -84,13 +85,12 @@ DAO.prototype.saveCommand = function(command, game, doneSaving) {
 			return;
 		}
 
-		if (this.updateDelta(gameId)) {
-			this.pl.updateGame(game.id, commandId, game, function(err) {
+		if (this.updateDelta(game.id)) {
+			return this.pl.updateGame(game.id, commandId, game.model.toJSON(), function(err) {
 				doneSaving(err);
 			});
-		} else {
-			doneSaving(null);
 		}
+    doneSaving(null);
 	}.bind(this));
 }
 

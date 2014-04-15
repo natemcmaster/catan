@@ -55,7 +55,7 @@ GameRoomCtrl.prototype.join = function(q, r, $JoinGameCommand) {
 		throw new BaseCtrl.HttpError(400, 'Missing game ID');
 	}
 
-  var cmd = $JoinGameCommand(q.playerID, q.param('color'), gameID)
+  var cmd = $JoinGameCommand(gameID, q.playerID, q.param('color'))
   q.gameRoom.executeCommand(cmd, function (err, response) {
     if (err instanceof Error) {
       console.error('ERROR', err.message)
@@ -69,7 +69,9 @@ GameRoomCtrl.prototype.join = function(q, r, $JoinGameCommand) {
     r.cookie('catan.game', gameID, {
       path: '/'
     });
-    r.send(200);
+    r.send(200, '');
+    r.end()
+    console.log('SSON')
   })
 }
 

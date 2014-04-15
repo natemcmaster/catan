@@ -31,6 +31,7 @@ function GameRoom(dataRoot, commandsToPersist, ready, $DAO) {
 };
 
 GameRoom.prototype.getGameByID = function(gameID) {
+  console.log(this.games)
 	return _(this.games).find(function(s) {
 		return s.id == gameID;
 	});
@@ -57,7 +58,6 @@ GameRoom.prototype.executeCommand = function (command, callback) {
   if (err) {
     return callback(err)
   }
-  console.log(command)
   var response = command.response(this);
   if (response instanceof Error) {
     return callback(response)
@@ -65,7 +65,8 @@ GameRoom.prototype.executeCommand = function (command, callback) {
   var game = _(this.games).find(function(d){
   	return d.id == command._gameid;
   })
-  this.dao.saveCommand(command,game,function(error,commandId){
+  this.dao.saveCommand(command, game, function(error,commandId){
+    console.log('am')
   	callback(error, commandId);
   })
 }

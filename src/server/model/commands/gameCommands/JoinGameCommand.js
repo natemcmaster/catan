@@ -7,13 +7,14 @@ util.inherits(JoinGameCommand, AbstractMoveCommand);
 
 
 function JoinGameCommand(gameID, playerID, color){
+  console.log(gameID, playerID, color)
 	AbstractMoveCommand.call(this, gameID);
 
 	this.playerID = playerID;
 	this.color = color;
 }
 
-JoinGameCommand.params = ['playerID', 'color'];
+JoinGameCommand.params = ['gameID', 'playerID', 'color'];
 
 JoinGameCommand.prototype.response = function () {
 }
@@ -21,9 +22,9 @@ JoinGameCommand.prototype.response = function () {
 JoinGameCommand.prototype.executeOnGame = function (game, users) {
   var result = game.join(this.playerID, this.color, users)
   if (!result) {
-    console.warn('PlayerID '+this.playerID+' failed to join game '+this.gameID);
+    console.warn('PlayerID '+this.playerID+' failed to join game '+this._gameid);
   } else {
-    console.log('PlayerID '+this.playerID+' joined game '+this.gameID);
+    console.log('PlayerID '+this.playerID+' joined game '+this._gameid);
   }
   return result
   /*
