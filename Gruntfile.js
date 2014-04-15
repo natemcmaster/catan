@@ -178,6 +178,11 @@ module.exports = function(grunt) {
 					cwd: srcDir + '/server/public/',
 					src: ['test.html'],
 					dest: buildDir + '/gameplay/'
+				},	{
+					expand: true,
+					cwd: testDir + '/server/initial_data',
+					src: ['**'],
+					dest: testDir + '/server/data'
 				}]
 			}
 		},
@@ -265,6 +270,7 @@ module.exports = function(grunt) {
 		var reporter = grunt.option('reporter') || 'spec';
 		grunt.config('mochaTest.testServer.options.reporter', reporter);
 
+		grunt.task.run(['copy:test']);
 		grunt.task.run(['mochaTest:testServer']);
 	});
 	grunt.registerTask('coverage', ['mochacov']);
