@@ -1,7 +1,8 @@
 var _ = require('lodash');
 var fs = require('fs'),
 	path = require('path'),
-	Sync = require('node-sync');
+  async = require('async')
+
 /**
  * @module catan
  * @namespace catan
@@ -13,14 +14,14 @@ module.exports = DAO;
  * @class DAO
  * @constructor
  */
-function DAO(maxDelta, dataPath, $PersistanceLayer, $GameModel, $AbstractMoveCommand) {
+function DAO(dataPath, maxDelta, $PersistanceLayer, $GameModel, $AbstractMoveCommand) {
 	this.pl = $PersistanceLayer(dataPath);
 	this.abstactCommand = $AbstractMoveCommand;
-	this.constructGame = $GameModel;
+	this.GameModel = $GameModel;
 	var data = JSON.parse(fs.readFileSync(path.join(__dirname, 'initial_data', '_initialdata.json')));
 	this.blank = data.blank;
 
-	var gamesDeltas = {};
+	var gameDeltas = {};
 	this.updateDelta = function(gameId) {
 		if (!gameDeltas[gameId]) { //intentionally tricky: this is true for new games and games that have reached zero deltas
 			gameDeltas[gameId] = maxDelta;
@@ -35,24 +36,38 @@ DAO.prototype.getUsers = function(callback){
 	this.pl.readAllUsers(callback);
 }
 
+DAO.prototype.constructGame = function (data, users, next) {
+	var game = new this.GameModel(data.current);
 
-DAO.prototype.getGames = function(callback){
-	Sync(function(){
-		var data = this.pl.getAllGameInfo.sync();
-		var games = [];
-		for (var i = data.length - 1; i >= 0; i--) {
-			var game = this.constructGame(data[i].current);
-			var commands = this.pl.getRecentGameCommands.sync(null,game.id,data.last_command_id);
+	this.pl.getRecentGameCommands(null, data.id, data.last_command_id, function (err, commands) {
+		if (err) return next(err)
 			for(var j = 0; j < commands.length; j++){
-				var data = command[j].data;
-				var command= this.abstactCommand.fromJSON(data);
-				this.constructCommands.replayOnGame(game);
+				var cdata = commands[j].data;
+				var command = this.abstactCommand.fromJSON(cdata);
+				this.constructCommands.replayOnGame(game, users);
 			}
-			games.push(game);
-		}
+			next(null, {id: data.id, model: game})
+	}.bind(this));
 
-		callback(null,games);
-	})
+}
+
+DAO.prototype.getAllData = function(callback){
+  this.getUsers(function (err, users) {
+    this.pl.getAllGameInfo(function (err, data) {
+      if (err) return callback(err)
+
+				var tasks = data.map(function (game) {
+					return this.constructGame.bind(this, game, users)
+				}.bind(this))
+
+				async.parallel(tasks, function (err, games) {
+					callback(null, {
+						games: games,
+						users: users
+					});
+        })
+    }.bind(this))
+  }.bind(this))
 }
 
 /**
@@ -61,6 +76,7 @@ DAO.prototype.getGames = function(callback){
  * </pre>
  * @method saveCommand
  * @param {object} command
+ * @param {game} game object {id:, model:}
  * @param {fn(err, commandID)} callback
  * @return {void}
  */
@@ -72,13 +88,12 @@ DAO.prototype.saveCommand = function(command, game, doneSaving) {
 			return;
 		}
 
-		if (this.updateDelta(gameId)) {
-			this.pl.updateGame(game.id, commandId, game, function(err) {
+		if (this.updateDelta(game.id)) {
+			return this.pl.updateGame(game.id, commandId, game.model.toJSON(), function(err) {
 				doneSaving(err);
 			});
-		} else {
-			doneSaving(null);
 		}
+    doneSaving(null);
 	}.bind(this));
 }
 
@@ -94,7 +109,7 @@ DAO.prototype.saveCommand = function(command, game, doneSaving) {
  * @return {void}
  */
 DAO.prototype.createUser = function(user, password, done) {
-	this.pl.persistUser(user, password, function(error, userID) {
+	this.pl.persistUser({user: user, password: password}, function(error, userID) {
 		if (error) {
 			return done(error);
 		}
@@ -146,7 +161,7 @@ function randomTilify(game) {
  * @param {fn(err, game)} callback
  * @return {void}
  */
-DAO.prototype.createGame = function(title, randomTiles, randomNumbers, randomPorts, done) {
+DAO.prototype.createGame = function(title, randomTiles, randomNumber, randomPorts, done) {
 	var blank = _.cloneDeep(this.blank);
 	if (randomTiles) {
 		randomTilify(blank)
@@ -179,14 +194,14 @@ DAO.prototype.createGame = function(title, randomTiles, randomNumbers, randomPor
 		});
 	}
 
-	var model = this.constructGame(blank);
+	var model = new this.GameModel(blank);
 	var game = {
 		id: -1,
 		title: title,
 		model: model
 	};
 
-	this.pl.persistGame(game, function(error, gameID) {
+	this.pl.persistGame(title, game, function(error, gameID) {
 		if (error) {
 			return done(error);
 		}

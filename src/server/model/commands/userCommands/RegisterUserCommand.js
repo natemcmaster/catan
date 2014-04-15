@@ -16,15 +16,14 @@ RegisterCommand.prototype.execute = function(gameRoom, callback) {
 	gameRoom.registerUser(this.username, this.password, function (err, data) {
     if (err) return callback(err)
     if (!data) {
-      callback('Username already in use', null);
-    } else {
-      callback(null, {
-        playerID: data.playerID,
-        username: data.username,
-        password: data.password,
-      });
-      this.logger.log('Create new user: ' + this.username);
+      return callback('Username already in use', null);
     }
-  });
+    callback(null, {
+      playerID: data.playerID,
+      username: data.username,
+      password: data.password,
+    });
+    this.logger.log('Create new user: ' + this.username);
+  }.bind(this));
 }
 

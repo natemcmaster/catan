@@ -16,8 +16,7 @@ util.inherits(GameModel, BaseModel);
  */
 function GameModel(data, $Log, $Chat, $Bank, $Deck, $Map, $Player, $TurnTracker) {
 
-	if(!data)
-		throw new CatanError('Cannot instantiate without data');
+	if(!data) throw new CatanError('Cannot instantiate without data');
 
   this.data = _.cloneDeep(data);
 	this.data.revision = 1;
@@ -186,8 +185,8 @@ GameModel.prototype.playRoadBuilding = function(playerIndex, spot1, spot2) {
 	this.seeIfWon(playerIndex);
 
 	//STILL NEED TO CHANGE THE MAP
-	this.map.placeRoad(playerIndex, spot1);
-	this.map.placeRoad(playerIndex, spot2);
+	// this.map.placeRoad(playerIndex, spot1);
+	// this.map.placeRoad(playerIndex, spot2);
 };
 
 GameModel.prototype.playSoldier = function(playerIndex, victimIndex, location) {
@@ -357,6 +356,28 @@ GameModel.prototype.seeIfWon = function(playerIndex){
 	if(this.players[playerIndex].hasWon()){
 		this.data.winner = playerIndex;
 	}
+}
+
+GameModel.prototype.join = function (playerID, color, users) {
+	debug('Joining game', playerID, color)
+	if (!this.updateColor(playerID, color)) {
+		if (this.players.length >= 4) {
+      return false
+		}
+    var user
+    for (var i=0; i<users.length; i++) {
+      if (users[i].playerID === playerID) {
+        user = users[i]
+        break;
+      }
+    }
+    if (!user) {
+      console.error('FAILED to find using when joining', playerID, users)
+      return false
+    }
+		this.addPlayer(playerID, user.username, color)
+	}
+  return true
 }
 
 

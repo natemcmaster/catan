@@ -27,11 +27,10 @@ GameCtrl.prototype.assignRoutes = function(app, h) {
 
 GameCtrl.prototype.getModel = function(q, r) {
 	debug('Getting model for game', q.gameID);
-	q.gameRoom.getGameModel(q.gameID, function (err, game) {
-    if (err) return r.send(500, err.message + '\n' + err.stack)
-    var data = game.toJSON()
-    r.json(data);
-  });
+	var game = q.gameRoom.getGameModel(q.gameID)
+  if (!game) return r.send(400, 'No game found')
+  var data = game.toJSON()
+  r.json(data);
 }
 
 GameCtrl.prototype.listCommands = function(q, r) {

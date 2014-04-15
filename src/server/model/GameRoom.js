@@ -1,7 +1,8 @@
 module.exports = GameRoom;
 var _ = require('underscore');
 var CatanError = require('../../common/Errors').CatanError;
-var debug = require('debug')('catan:models:gameroom');
+var debug = require('debug')('catan:models:gameroom')
+  , async = require('async')
 
 /**
   This module contains the game room
@@ -16,30 +17,17 @@ var debug = require('debug')('catan:models:gameroom');
  * @class GameRoom
  * @constructor
  */
-function GameRoom(dataRoot, commandsToPersist, callback, $DAO) {
+function GameRoom(dataRoot, commandsToPersist, ready, $DAO) {
 	this.dao = $DAO(dataRoot, commandsToPersist);
-	var done = 2;
+  var that = this
 
-	function stepDone() {
-		if (--done <= 0) {
-			ready(null,this);
-		}
-	}
-
-	this.dao.getUsers(function(err, data) {
-		if (err) {
-			ready(err);
-		}
-		this.users = data;
-		stepDone();
-	})
-	this.dao.getGames(function(err, data) {
-		if (err) {
-			ready(err);
-		}
-		this.games=data;
-		stepDone()
-	});
+  this.dao.getAllData(function (err, data) {
+    if (err) return ready(err)
+    debug('setup', data)
+    that.users = data.users || [];
+    that.games = data.games || [];
+    ready(null, that)
+  })
 };
 
 GameRoom.prototype.getGameByID = function(gameID) {
@@ -61,6 +49,7 @@ GameRoom.prototype.getUserByID = function(playerID) {
  * @return {void}            
  */
 GameRoom.prototype.executeCommand = function (command, callback) {
+	var err;
   try {
     err = command.execute(this);
   } catch (e) {
@@ -69,15 +58,15 @@ GameRoom.prototype.executeCommand = function (command, callback) {
   if (err) {
     return callback(err)
   }
-  var response = command.response(req.gameRoom);
+  var response = command.response(this);
   if (response instanceof Error) {
     return callback(response)
   }
   var game = _(this.games).find(function(d){
   	return d.id == command._gameid;
   })
-  this.dao.saveCommand(command,game,function(error,commandId){
-  	callback(error, commandId);
+  this.dao.saveCommand(command, game, function(error,commandId){
+  	callback(error, response);
   })
 }
 
@@ -85,29 +74,28 @@ GameRoom.prototype.executeCommand = function (command, callback) {
 // Commands
 //--------------------------------------------------------------
 
-GameRoom.prototype.login = function(username, password) {
+GameRoom.prototype.login = function(username, password, done) {
 	var user = _(this.users).find(function(u) {
 		return u.username == username;
 	});
-	debug('logging in', username, password, !! user);
+	debug('logging in', username, password, !!user, this.users);
 	if (!user || user.password !== password)
-		return false;
-	return user;
+		return done(null, false)
+	done(null, user)
 };
 
 GameRoom.prototype.registerUser = function(username, password,callback) {
 	var user = _(this.users).find(function(u) {
 		return u.username == username;
 	});
-	if (user)
-		return false;
+	if (user) return callback(null, false)
 	this.dao.createUser(username,password,function(err,user){
 		if(err){
 			return callback(err);
 		}
 		this.users.push(user);
-		callback(done)
-	});
+		callback(null, user)
+	}.bind(this));
 };
 
 var gameSummary = function(s) {
@@ -137,19 +125,22 @@ GameRoom.prototype.createGame = function(title, randomTiles, randomNumbers, rand
 		if(err){
 			return callback(err);
 		}
+		this.games.push(game);
 		callback(null,gameSummary(game))	
-	});
+	}.bind(this));
 };
 
 
 // TODO make async
-GameRoom.prototype.joinGame = function(playerID, color, gameID) {
+GameRoom.prototype.joinGame = function(playerID, color, gameID, done) {
 	var game = this.getGameByID(gameID);
+  game.join(playerID, color, this.users)
+  /*
 	debug('Joining game', gameID);
 	if (!game) return new CatanError('Could not find game');
 	if (!game.model.updateColor(playerID, color)) {
 		if (game.model.players.length >= 4) {
-			return new Error('Game is full');
+			return done(new Error('Game is full'));
 		}
 		var user = this.getUserByID(playerID);
 		game.model.addPlayer(user.playerID, user.username, color)
@@ -157,11 +148,13 @@ GameRoom.prototype.joinGame = function(playerID, color, gameID) {
 	process.nextTick(function() {
 		this.gameRepo.update(gameID, game, 'players');
 	}.bind(this));
-	return true;
+	done(null, true);
+  */
 };
 
 GameRoom.prototype.getGameModel = function(gameID) {
-	return this.getGameByID(gameID).model;
+  var res = this.getGameByID(gameID);
+  return res ? res.model : false
 };
 
 GameRoom.prototype.resetGame = function(gameID) {

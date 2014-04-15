@@ -1,6 +1,7 @@
 var model = require('../src/server/model');
 var logger = require('../src/server/resources').FileLogger;
 var repo = require('../src/server/repo');
+var DAO = require('../src/server/dao.js')
 
 function flatten(obj, d) {
 	d = d || {};
@@ -21,4 +22,5 @@ module.exports = function _setup_injection(inj){
   inj.map(runtime);
   inj.mapSingleton(memory); // store everything in memory
   inj.singleton('Logger',logger);
+  inj.register('DAO', DAO);
 }

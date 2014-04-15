@@ -1,4 +1,6 @@
-var _ = require('lodash');
+var _ = require('lodash')
+  , initial_data = require('../initial_data/_initialdata.json')
+
 /**
  * @module catan.persistance
  * @namespace persistance
@@ -12,58 +14,74 @@ module.exports = MemoryPL;
  */
 function MemoryPL() {
 	this.gameId = 0;
-	this.games = {};
+	this.games = {
+    0: {
+      current: _.cloneDeep(initial_data.sample),
+      last_command_id: -1,
+      id: 0
+    },
+    1: {
+      current: _.cloneDeep(initial_data.populated_sample),
+      last_command_id: -1,
+      id: 1
+    },
+    2: {
+      current: _.cloneDeep(initial_data.booyah),
+      last_command_id: -1,
+      id: 2
+    }
+  };
 	this.userId = 0;
 	this.users = {
 		'0': {
 			username: 'Sam',
 			password: 'sam',
-			id: 0
+			playerID: 0
 		},
 		'1': {
 			username: 'Brooke',
 			password: 'brooke',
-			id: 1
+			playerID: 1
 		},
 		'3': {
 			username: 'Quinn',
 			password: 'quinn',
-			id: 3
+			playerID: 3
 		},
 		'5': {
 			username: 'Mark',
 			password: 'mark',
-			id: 5
+			playerID: 5
 		},
 		'39': {
 			username: 'Nate',
 			password: 'nate',
-			id: 39
+			playerID: 39
 		},
 		'40': {
 			username: 'Jared',
 			password: 'jared',
-			id: 40
+			playerID: 40
 		},
 		'41': {
 			username: 'Spence',
 			password: 'spence',
-			id: 41
+			playerID: 41
 		},
 		'42': {
 			username: 'Alan',
 			password: 'alan',
-			id: 42
+			playerID: 42
 		},
 		'43': {
 			username: 'Chris',
 			password: 'chris',
-			id: 43
+			playerID: 43
 		},
 		'9999999999': {
 			username: 'chuck',
 			password: 'norris',
-			id: 9999999999
+			playerID: 9999999999
 		},
 	};
 	this.commandId = 0;
@@ -85,11 +103,14 @@ MemoryPL.prototype.persistGame = function(title, data, callback) {
 	++this.gameId;
 	this.games[this.gameId] = {
 		id: this.gameId,
+		title: title,
+		last_command_id: -1,
 		current: _.cloneDeep(data),
 		original: _.cloneDeep(data),
-		last_command_id: -1
 	};
-	callback(null, this.gameId);
+	if(_.isFunction(callback)){
+		callback(null, this.gameId);
+	}
 };
 
 /**
@@ -105,7 +126,7 @@ MemoryPL.prototype.persistGame = function(title, data, callback) {
 MemoryPL.prototype.persistUser = function(data, callback) {
 	++this.userId;
 	this.users[this.userId] = {
-		id: this.userId,
+		playerID: this.userId,
 		username: data.username,
 		password: data.password
 	};
@@ -169,7 +190,7 @@ MemoryPL.prototype.readAllUsers = function(callback) {
  * @param {int} id the id of the last command executed
  * @return {object[]} list of json command objects
  */
-MemoryPL.prototype.getRecentGameCommands = function(gameid, id, callback) {
+MemoryPL.prototype.getRecentGameCommands = function(nl, gameid, id, callback) {
 	var d = _(this.commands).filter(function(c) {
 		return c.game_id == gameid && c.id > id;
 	});

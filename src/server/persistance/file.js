@@ -1,4 +1,4 @@
-var BasePL = require('./BasePL');
+var BasePL = require('./base.js');
 var util = require('util');
 var fs = require('fs');
 
@@ -36,7 +36,7 @@ function FilePL(rootPath) {
  */
 FilePL.prototype.persistGame = function(title, data, callback){
 	var id = this.nextGameID++;
-	var gameInfo = {'id':id, 'title':title, 'current':data, 'original':data, 'lastCommand':0};
+	var gameInfo = {'id':id, 'title':title, 'last_command_id':-1, 'current':_.cloneDeep(data), 'original':_.cloneDeep(data)};
 	
 	try {
 		fs.writeFile(this.rootPath + 'game' + id + '.json', JSON.stringify(gameInfo), null, function(error){
@@ -66,19 +66,22 @@ FilePL.prototype.persistGame = function(title, data, callback){
 FilePL.prototype.persistUser = function(username, password, callback){
 	var id = this.nextUserID++;
 	var user = {'id':id, 'username':username, 'password':password};
-	this.users.push(user);
 	
 	try {
-		fs.writeFile(this.rootPath + 'users.json', JSON.stringify(this.users), null, function(error){
-			if (error) throw error;
-		});
+		this.readAllUsers(function(err, users){
+			if (err) throw err;
+			users.push(user);
 
-		return callback(null, id);
+			fs.writeFile(this.rootPath + '/users.json', JSON.stringify(users), null, function(err2){
+				if (err2) throw err2;
+				return callback(null, id);
+			}.bind(this));
+
+		}.bind(this));
 	}
 
-	catch (error) {
+	catch (err) {
 		this.nextUserID--;
-		this.users.pop();
 		return callback(error, -1);
 	}
 };
@@ -160,17 +163,15 @@ FilePL.prototype.updateGame = function(gameid, lastCommand, data, callback){
  */
 FilePL.prototype.readAllUsers = function(callback){
 	try {
-		var users = null;
-		fs.readFile(this.rootPath + 'users.json', function(error, data){
-  			if (error) throw error;
-  			users = JSON.parse(data);
-		});
-
-		return callback(null, users);
+		fs.readFile(this.rootPath + '/users.json', function(err, data){
+  			if (err) throw err;
+  			this.users = JSON.parse(data);
+  			return callback(null, this.users);
+		}.bind(this));
 	}
 
-	catch (error) {
-		return callback(error, null);
+	catch (err) {
+		return callback(err, null);
 	}
 };
 
@@ -219,25 +220,26 @@ FilePL.prototype.getRecentGameCommands = function(gameid, id, callback){
  */
 FilePL.prototype.getAllGameInfo = function(callback){
 	try {
-		var games = [];
-		fs.readdir(this.rootPath, function(error, files){
-  			if (error) throw error;
-  			
-  			files.forEach(function(file){
-  				if ("game".indexOf(file) !== -1){
-  					fs.readFile(this.rootPath + file, function(error, data){
-  						if (error) throw error;
+		fs.readdir(this.rootPath, function(err, files){
+  			if (err) throw err;
+  			var games = [];
+
+  			files.forEach(function(fileName){
+  				if (fileName.indexOf("game") !== -1){
+  					fs.readFile(this.rootPath + '/' + fileName, function(err2, data){
+  						if (err2) throw err2;
   						gameData = JSON.parse(data);
-  						games.push(gameData.current);
+  						games.push(gameData);
   					})
   				}
   			}.bind(this))
-		});
 
-		return callback(null, games);
+  			return callback(null, games);
+
+		}.bind(this));
 	}
 
-	catch (error) {
-		return callback(error, null);
+	catch (err) {
+		return callback(err, null);
 	}
 };

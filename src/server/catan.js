@@ -45,6 +45,11 @@ module.exports = function(callback, PlClass, deltaNumber, setup) {
   inj.singleton('PersistanceLayer', PlClass)
 
   inj.create('GameRoom', dataRoot, commandsToPersist, function(error, gameRoom) {
+    if(error){
+      console.log(error);
+      callback(null);
+      return;
+    }
     app.gameRoom = gameRoom;
     app.injector = inj;
 

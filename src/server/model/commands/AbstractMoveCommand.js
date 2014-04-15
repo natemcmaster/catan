@@ -6,12 +6,12 @@ var AbstractGameCommand = require('./AbstractGameCommand')
 
 util.inherits(AbstractMoveCommand, AbstractGameCommand)
 
-function AbstractMoveCommand(gameid) {
-  AbstractGameCommand.call(this, gameid);
+function AbstractMoveCommand(gameid,$Logger) {
+  AbstractGameCommand.call(this, gameid,$Logger);
 }
 
-AbstractMoveCommand.prototype.replayOnGame = function (game) {
-  this.executeOnGame(game);
+AbstractMoveCommand.prototype.replayOnGame = function (game, users) {
+  this.executeOnGame(game, users);
 }
 
 AbstractMoveCommand.prototype.toJSON = function () {
