@@ -135,21 +135,26 @@ FilePL.prototype.persistCommand = function(gameID, data, callback){
  * @return {void}
  */
 FilePL.prototype.updateGame = function(gameid, lastCommand, data, callback){
+	var path = this.rootPath + '/game' + gameid + '.json';
+
 	try {
-		var gameInfo;
-		fs.readFile(this.rootPath + 'game' + gameid + '.json', function(error, data){
-			if (error) throw error;
-			gameInfo = JSON.parse(data);
-		});
+		fs.readFile(path, function(err, dataFromFile){
+			if (err) throw err;
+			
+			var gameInfo = JSON.parse(dataFromFile);
+			gameInfo.current = data;
+			gameInfo.last_command_id = lastCommand;
 
-		gameInfo.current = data;
-		gameInfo.lastCommand = lastCommand;
-
-		return callback(null);
+			fs.writeFile(path, JSON.stringify(gameInfo), null, function(err2){
+				if (err2) throw err2;
+				return callback(null);
+			}.bind(this));
+		
+		}.bind(this));
 	}
 
-	catch (error) {
-		return callback(error);
+	catch (err) {
+		return callback(err);
 	}
 };
 

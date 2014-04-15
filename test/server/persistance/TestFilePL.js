@@ -140,7 +140,14 @@ describe('FilePL tests', function() {
 	})*/
 
 	it('#updateGame()', function(done) {
-		done();
+		var gameID = 0;
+		var lastCommand = 2;
+		var newData = {'blah':1, 'blahblah':2};
+
+		filePL.updateGame(gameID, lastCommand, newData, function(err){
+			expect(err).to.be.null;
+			done();
+		})
 	})
 
 	it('#getRecentGameCommands()', function(done) {
