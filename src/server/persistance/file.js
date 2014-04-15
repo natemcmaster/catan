@@ -187,9 +187,40 @@ FilePL.prototype.readAllUsers = function(callback){
  * @return {void}
  */
 FilePL.prototype.getRecentGameCommands = function(gameid, id, callback){
+	var filepath = this.rootPath + '/commands' + gameid + '.json';
+
 	try {
-		var commands = null;
-		fs.readFile(this.rootPath + 'commands' + gameid + '.json', function(error, data){
+		fs.exists(filepath, function (exists) {
+	  		if (!exists) {
+	  			return callback(null, []);
+	  		}
+	  		else {
+	  			var allCommands = [];
+
+				fs.readFile(filepath, function(error, data){
+		  			if (error) throw error;
+		  			allCommands = JSON.parse(data);
+				});
+
+				var recentCommands = [];
+
+				commands.forEach(function(command){
+					if (command.id > id)
+						recentCommands.push(command);
+				});
+
+				return callback(null, recentCommands);
+			  }
+		});
+	}
+
+	catch (err) {
+		return callback(err, []);
+	}
+
+	/*try {
+		var commands = [];
+		fs.readFile(this.rootPath + '/commands' + gameid + '.json', function(error, data){
   			if (error) throw error;
   			commands = JSON.parse(data);
 		});
@@ -205,8 +236,8 @@ FilePL.prototype.getRecentGameCommands = function(gameid, id, callback){
 	}
 
 	catch (error) {
-		return callback(error, null);
-	}
+		return callback(error, []);
+	}*/
 };
 
 /**
@@ -222,6 +253,7 @@ FilePL.prototype.getAllGameInfo = function(callback){
 	try {
 		fs.readdir(this.rootPath, function(err, files){
   			if (err) throw err;
+  			
   			var games = [];
 
   			files.forEach(function(fileName){
@@ -230,7 +262,7 @@ FilePL.prototype.getAllGameInfo = function(callback){
   						if (err2) throw err2;
   						gameData = JSON.parse(data);
   						games.push(gameData);
-  					})
+  					}.bind(this))
   				}
   			}.bind(this))
 

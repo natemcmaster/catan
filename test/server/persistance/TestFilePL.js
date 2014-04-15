@@ -25,8 +25,8 @@ describe('FilePL tests', function() {
 
 	it('#getAllGameInfo() when starting server', function(done) {
 		filePL.getAllGameInfo(function(err, games){
-			//console.log(err);
-			//console.log(games);
+			console.log(err);
+			console.log(games);
 			expect(err).to.be.null;
 			expect(games[0]).to.equal(game0);
 			expect(games[1]).to.equal(game1);
@@ -38,7 +38,7 @@ describe('FilePL tests', function() {
 	it('#getRecentGameCommands()', function(done) {
 		filePL.getRecentGameCommands(game0.id, game0.last_command_id, function(err, commands){
 			expect(err).to.be.null;
-			expect(commands).to.be.null;
+			expect(commands).to.deep.equal([]);
 			done();
 		})
 	})
