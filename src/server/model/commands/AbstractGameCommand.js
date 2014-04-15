@@ -12,9 +12,10 @@ function AbstractGameCommand(gameid) {
 AbstractGameCommand.prototype.execute = function (gameRoom) {
   var game = gameRoom.getGameModel(this._gameid);
   if (!game) return new Error('Game not found: ' + this._gameid);
-  this.executeOnGame(game, gameRoom.users);
+  var result = this.executeOnGame(game, gameRoom.users);
   game.data.revision += 1;
   this.logAction(game);
+  if (result instanceof Error) return result
 }
 
 AbstractGameCommand.prototype.logAction = function(game){

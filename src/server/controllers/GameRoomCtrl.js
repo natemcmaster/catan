@@ -58,6 +58,7 @@ GameRoomCtrl.prototype.join = function(q, r, $JoinGameCommand) {
   var cmd = $JoinGameCommand(gameID, q.playerID, q.param('color'))
   q.gameRoom.executeCommand(cmd, function (err, response) {
     if (err instanceof Error) {
+      if (err.message === "Cannot join a full game") return r.send(400, "Cannot join a full game")
       console.error('ERROR', err.message)
       console.error(err.stack)
       return r.send(400, err.message);

@@ -185,8 +185,8 @@ GameModel.prototype.playRoadBuilding = function(playerIndex, spot1, spot2) {
 	this.seeIfWon(playerIndex);
 
 	//STILL NEED TO CHANGE THE MAP
-	this.map.placeRoad(playerIndex, spot1);
-	this.map.placeRoad(playerIndex, spot2);
+	// this.map.placeRoad(playerIndex, spot1);
+	// this.map.placeRoad(playerIndex, spot2);
 };
 
 GameModel.prototype.playSoldier = function(playerIndex, victimIndex, location) {
