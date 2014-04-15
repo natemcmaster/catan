@@ -16,7 +16,7 @@ AbstractMoveCommand.prototype.replayOnGame = function (game, users) {
 
 AbstractMoveCommand.prototype.toJSON = function () {
   var json = {
-    type: this.constructor.name,
+    type: this.name,
     data: {}
   }
   for (var name in this) {
@@ -35,7 +35,7 @@ AbstractMoveCommand.prototype.fromJSON = function (data) {
 
 AbstractMoveCommand.fromJSON = function (json) {
   var commands = require('./moveCommands')
-  var inst = Object.create(commands[json.data.name].prototype)
+  var inst = Object.create(commands[json.type].prototype)
   inst.fromJSON(json.data)
   return inst
 }
