@@ -16,17 +16,17 @@ function MemoryPL() {
 	this.gameId = 0;
 	this.games = {
     0: {
-      current: initial_data.sample,
+      current: _.cloneDeep(initial_data.sample),
       last_command_id: -1,
       id: 0
     },
     1: {
-      current: initial_data.populated_sample,
+      current: _.cloneDeep(initial_data.populated_sample),
       last_command_id: -1,
       id: 1
     },
     2: {
-      current: initial_data.booyah,
+      current: _.cloneDeep(initial_data.booyah),
       last_command_id: -1,
       id: 2
     }
