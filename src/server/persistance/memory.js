@@ -119,16 +119,17 @@ MemoryPL.prototype.persistGame = function(title, data, callback) {
  * Post-Condition: A new user is persisted, and the ID is returned
  * </pre>
  * @method persistUser
- * @param {object} data the user data
+ * @param {string} username the username
+ * @param {string} password the password
  * @param {Function} callback
  * @return {int} userId
  */
-MemoryPL.prototype.persistUser = function(data, callback) {
+MemoryPL.prototype.persistUser = function(username, password, callback) {
 	++this.userId;
 	this.users[this.userId] = {
 		playerID: this.userId,
-		username: data.username,
-		password: data.password
+		username: username,
+		password: password
 	};
 	callback(null, this.userId);
 };
