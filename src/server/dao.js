@@ -24,7 +24,7 @@ function DAO(dataPath, maxDelta, $PersistanceLayer, $GameModel, $AbstractMoveCom
 	var gameDeltas = {};
 	this.updateDelta = function(gameId) {
 		if (!gameDeltas[gameId]) { //intentionally tricky: this is true for new games and games that have reached zero deltas
-			gameDeltas[gameId] = maxDelta;
+			gameDeltas[gameId] = maxDelta-1;
 			return true;
 		}
 		gameDeltas[gameId] -= 1;
@@ -89,7 +89,7 @@ DAO.prototype.saveCommand = function(command, game, doneSaving) {
 		}
 
 		if (this.updateDelta(game.id)) {
-			return this.pl.updateGame(game.id, commandId, game.model.toJSON(), function(err) {
+			return this.pl.updateGame(game.id, commandId, game.model, function(err) {
 				doneSaving(err);
 			});
 		}

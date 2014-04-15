@@ -121,7 +121,11 @@ SQLitePL.prototype.persistCommand = function(gameId, data, callback) {
  */
 SQLitePL.prototype.updateGame = function(id, lastCommandId, data, callback) {
 	var blob = JSON.stringify(data);
-	this.db.run('UPDATE games set current_state = ?, last_command_id = ? where id = ?', [data, lastCommandId, id], function(err) {
+	this.db.run('UPDATE games SET current_state = $current, last_command_id = $commandId WHERE id = $gameId', {
+		$current: blob,
+		$commandId: lastCommandId,
+		$gameId: id
+	}, function(err) {
 		if (!callback) {
 			return;
 		}
