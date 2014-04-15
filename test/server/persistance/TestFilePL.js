@@ -23,7 +23,7 @@ describe('FilePL tests', function() {
 		})
 	})
 
-	it.only('#getAllGameInfo() when starting server', function(done) {
+	it('#getAllGameInfo() when starting server', function(done) {
 		filePL.getAllGameInfo(function(err, games){
 			//console.log(err);
 			//console.log(games);
