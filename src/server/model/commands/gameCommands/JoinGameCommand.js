@@ -21,9 +21,9 @@ JoinGameCommand.prototype.response = function () {
 JoinGameCommand.prototype.executeOnGame = function (game, users) {
   var result = game.join(this.playerID, this.color, users)
   if (!result) {
-    this.logger.warn('PlayerID '+this.playerID+' failed to join game '+this.gameID);
+    console.warn('PlayerID '+this.playerID+' failed to join game '+this.gameID);
   } else {
-    this.logger.log('PlayerID '+this.playerID+' joined game '+this.gameID);
+    console.log('PlayerID '+this.playerID+' joined game '+this.gameID);
   }
   return result
   /*
