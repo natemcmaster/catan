@@ -14,7 +14,7 @@ module.exports = DAO;
  * @class DAO
  * @constructor
  */
-function DAO(maxDelta, dataPath, $PersistanceLayer, $GameModel, $AbstractMoveCommand) {
+function DAO(dataPath, maxDelta, $PersistanceLayer, $GameModel, $AbstractMoveCommand) {
 	this.pl = $PersistanceLayer(dataPath);
 	this.abstactCommand = $AbstractMoveCommand;
 	this.GameModel = $GameModel;
@@ -56,12 +56,15 @@ DAO.prototype.getAllData = function(callback){
     this.pl.getAllGameInfo(function (err, data) {
       if (err) return callback(err)
 
-        var tasks = data.map(function (game) {
-          return this.constructGame.bind(this, game, users)
-        }.bind(this))
+				var tasks = data.map(function (game) {
+					return this.constructGame.bind(this, game, users)
+				}.bind(this))
 
-        async.parallel(tasks, function (err, games) {
-          callback(null,{games: games, users: users});
+				async.parallel(tasks, function (err, games) {
+					callback(null, {
+						games: games,
+						users: users
+					});
         })
     }.bind(this))
   }.bind(this))
@@ -158,7 +161,7 @@ function randomTilify(game) {
  * @param {fn(err, game)} callback
  * @return {void}
  */
-DAO.prototype.createGame = function(title, randomTiles, randomNumbers, randomPorts, done) {
+DAO.prototype.createGame = function(title, randomTiles, randomNumber, randomPorts, done) {
 	var blank = _.cloneDeep(this.blank);
 	if (randomTiles) {
 		randomTilify(blank)

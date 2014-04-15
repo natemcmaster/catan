@@ -43,3 +43,5 @@ build/
 *.swp
 *.swo
 /coverage.html
+test/server/data/
+*.sublime-project

@@ -24,8 +24,8 @@ function GameRoom(dataRoot, commandsToPersist, ready, $DAO) {
   this.dao.getAllData(function (err, data) {
     if (err) return ready(err)
     debug('setup', data)
-    that.users = data.users
-    that.games = data.games
+    that.users = data.users || [];
+    that.games = data.games || [];
     ready(null, that)
   })
 };
@@ -126,8 +126,9 @@ GameRoom.prototype.createGame = function(title, randomTiles, randomNumbers, rand
 		if(err){
 			return callback(err);
 		}
+		this.games.push(game);
 		callback(null,gameSummary(game))	
-	});
+	}.bind(this));
 };
 
 
