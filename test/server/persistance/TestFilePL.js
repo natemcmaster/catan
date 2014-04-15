@@ -17,6 +17,10 @@ describe('FilePL tests', function() {
 		done();
 	})
 
+	//---------------------------------------------------------------
+	// Load on startup persistence tests
+	//---------------------------------------------------------------
+
 	it('#readAllUsers() when starting server', function(done) {
 		filePL.readAllUsers(function(error, users){
 			expect(error).to.be.null;
@@ -43,6 +47,10 @@ describe('FilePL tests', function() {
 		})
 	})
 	
+	//-------------------------------------------------------------------
+	// User persistence tests
+	//-------------------------------------------------------------------
+
 	it('#persistUser()', function(done) {
 		var user = {id:101, username:'tester1', password:'testing123'};
 		originalUsers.push(user);
@@ -50,12 +58,15 @@ describe('FilePL tests', function() {
 		filePL.persistUser(user.username, user.password, function(err, id){
 			expect(err).to.be.null;
 			expect(id).to.equal(101);
-			
-			filePL.readAllUsers(function(error, users){
-				expect(error).to.be.null;
-				expect(originalUsers).to.deep.equal(users);
-				done();
-			})
+			done();
+		})
+	})
+
+	it('#readAllUsers() after persisting user', function(done) {
+		filePL.readAllUsers(function(error, users){
+			expect(error).to.be.null;
+			expect(users).to.deep.equal(originalUsers);
+			done();
 		})
 	})
 
@@ -66,14 +77,21 @@ describe('FilePL tests', function() {
 		filePL.persistUser(user.username, user.password, function(err, id){
 			expect(err).to.be.null;
 			expect(id).to.equal(102);
-			
-			filePL.readAllUsers(function(error, users){
-				expect(error).to.be.null;
-				expect(originalUsers).to.deep.equal(users);
-				done();
-			})
+			done();
 		})
 	})
+
+	it('#readAllUsers() after persisting another user', function(done) {
+		filePL.readAllUsers(function(error, users){
+			expect(error).to.be.null;
+			expect(users).to.deep.equal(originalUsers);
+			done();
+		})
+	})
+
+	//----------------------------------------------------------------------------
+	// Game persistence tests
+	//----------------------------------------------------------------------------
 
 	it('#persistGame()', function(done) {
 		var title = 'TestGame';
@@ -84,10 +102,53 @@ describe('FilePL tests', function() {
 		filePL.persistGame(title, data, function(err, id){
 			expect(err).to.be.null;
 			expect(id).to.equal(3);
-			expect(require('../data/game3.json')).to.deep.equal(expectedGameInfo);
 			done();
 		})
 	})
+
+	it('#getAllGameInfo() after persisting a game', function(done) {
+		var title = 'TestGame';
+		var data = game0.current;
+		var expectedGameInfo = {id: 3, title: title, last_command_id: -1, current: _.cloneDeep(data), original: _.cloneDeep(data)};
+
+		filePL.getAllGameInfo(function(err, games){
+			expect(err).to.be.null;
+			expect(games[0]).to.deep.equal(game0);
+			expect(games[1]).to.deep.equal(game1);
+			expect(games[2]).to.deep.equal(game2);
+			expect(games[3]).to.deep.equal(expectedGameInfo);
+			done();
+		})
+	})
+
+	it('#updateGame()', function(done) {
+		var gameID = 0;
+		var lastCommand = 2;
+		var newData = {'blah':1, 'blahblah':2};
+
+		filePL.updateGame(gameID, lastCommand, newData, function(err){
+			expect(err).to.be.null;
+			done();
+		})
+	})
+
+	it('#getAllGameInfo() after updating a game', function(done) {
+		var lastCommand = 2;
+		var newData = {'blah':1, 'blahblah':2};
+
+		filePL.getAllGameInfo(function(err, games){
+			expect(err).to.be.null;
+			expect(games[0].last_command_id).to.equal(lastCommand);
+			expect(games[0].current).to.deep.equal(newData);
+			expect(games[1]).to.deep.equal(game1);
+			expect(games[2]).to.deep.equal(game2);
+			done();
+		})
+	})
+
+	//-------------------------------------------------------------------
+	// Command persistence tests
+	//-------------------------------------------------------------------
 
 	/*it.skip('#persistCommand()', function(done) {
 		var gameID = 1;
@@ -138,17 +199,6 @@ describe('FilePL tests', function() {
 			})
 		})
 	})*/
-
-	it('#updateGame()', function(done) {
-		var gameID = 0;
-		var lastCommand = 2;
-		var newData = {'blah':1, 'blahblah':2};
-
-		filePL.updateGame(gameID, lastCommand, newData, function(err){
-			expect(err).to.be.null;
-			done();
-		})
-	})
 
 	it('#getRecentGameCommands()', function(done) {
 		done();
