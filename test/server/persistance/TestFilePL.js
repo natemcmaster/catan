@@ -56,7 +56,7 @@ describe('FilePL tests', function() {
 	//-------------------------------------------------------------------
 
 	it('#persistUser()', function(done) {
-		var user = {id:101, username:'tester1', password:'testing123'};
+		var user = {playerID:101, username:'tester1', password:'testing123'};
 		originalUsers.push(user);
 
 		filePL.persistUser(user.username, user.password, function(err, id){
@@ -75,7 +75,7 @@ describe('FilePL tests', function() {
 	})
 
 	it('#persistUser() again', function(done) {
-		var user = {id:102, username:'tester2', password:'testing123'};
+		var user = {playerID:102, username:'tester2', password:'testing123'};
 		originalUsers.push(user);
 
 		filePL.persistUser(user.username, user.password, function(err, id){

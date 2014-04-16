@@ -68,7 +68,7 @@ FilePL.prototype.persistGame = function(title, data, callback){
  */
 FilePL.prototype.persistUser = function(username, password, callback){
 	var id = this.nextUserID++;
-	var user = {'id':id, 'username':username, 'password':password};
+	var user = {'playerID':id, 'username':username, 'password':password};
 	
 	try {
 		this.readAllUsers(function(err, users){
