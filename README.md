@@ -1,11 +1,9 @@
-Settlers of Catan &reg;
+Settlers of Catan
 ===
-
-[![Build Status](http://jnkci.cloudapp.net/job/Catan/badge/icon)](http://jnkci.cloudapp.net/job/Catan/)
 
 Implementation of Settlers of Catan for BYU CS 340, Winter 2014 Semester by Team Lumberjack (Team 3).
 
-[View tasks on Trello](https://trello.com/b/OA8II2rR/catan).
+This project is creates a web-based version of Settlers of Catan. The code includes both the client-side application and the server to support it. The online game can be played by 4 players.
 
 There are example json files under the 'examples' folder
 
