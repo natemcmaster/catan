@@ -15,15 +15,15 @@
     }
   },
   "dependencies": {
-    "express": "~3.4.8",
-    "byu-catan": ">=1.1.4",
-    "underscore": "~1.6.0",
-    "lodash": "2.4.0",
+    "async": "~0.7.0",
     "body-parser": "~1.0.1",
-    "export-dir": "natemcmaster/export-dir",
-    "tmp": "0.0.23",
+    "byu-catan": ">=1.1.4",
+    "export-dir": "^0.1.2",
+    "express": "~3.4.8",
+    "lodash": "2.4.0",
     "sqlite3": "~2.2.0",
-    "async": "~0.7.0"
+    "tmp": "0.0.23",
+    "underscore": "~1.6.0"
   },
   "devDependencies": {
     "grunt": "~0.4.2",
